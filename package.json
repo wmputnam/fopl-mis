@@ -1,0 +1,14 @@
+{
+  "name": "mis",
+  "version": "1.0.0",
+  "description": "a full stack node app for managing Friends of the Petaluma Library membership data",
+  "keywords":[],
+  "license": "reserved",
+  "scripts": {
+    "start": "pnpm --stream -r start",
+    "start:dev": "pnpm --stream -r start:dev"
+  },
+  "dependencies": {
+    "pnmp": "^1.0.4"
+  }
+}

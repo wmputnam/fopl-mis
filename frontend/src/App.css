@@ -1,0 +1,217 @@
+html {
+  background: rgb(247, 239, 228);
+  color:#021335;
+}
+main {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+a {
+  text-decoration: none;
+  color:#021335;
+}
+.header, .row {
+  display: flex;
+}
+.col {
+  display: 1;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card {
+  line-height: 2.5rch;
+}
+
+.member-row {
+  display:flex;
+  justify-content: space-around;
+  margin: 3px 0;
+  border: 1px dotted purple;
+  line-height:2vh;
+  font-size: medium;
+}
+.member-row:hover {
+  background-color: #bff1f4;
+}
+.member-row > * {
+  padding: 9px 0 0 0;
+
+}
+.member-row--name {
+  display:inline;
+  border: 1px dashed blue;
+  text-align:left;
+  min-width:300px;
+  font-size: large;
+}
+.member-row--address {
+  display:inline;
+  border: 1px dashed blue;
+  text-align:left;
+  min-width:500px;
+}
+.member-row--phone {
+  display:inline;
+  border: 1px dashed blue;
+  text-align:left;
+  min-width:225px;
+}
+.member-row--email {
+  display:inline;
+  text-align:left;
+  width:300px;
+  border: 1px dashed blue;
+}
+.member-row--paid-through {
+  display:inline;
+  border: 1px dashed blue;
+  text-align:left;
+  min-width:10rem;
+}
+.member-row--mmb {
+  display:inline;
+  border: 1px dashed blue;
+  text-align:left;
+  min-width:3rem;
+}
+.member-row--tools {
+  display:inline;
+  text-align:left;
+  width:20px;
+  border: 1px dashed blue;
+}
+.member-row--menu {
+  background: #edeeec;
+  text-align: left;
+  border: 1px dotted pink;
+}
+
+.member-row--header {
+  display:flex;
+  justify-content: space-around;
+  margin: 3px 0;
+  border: 1px dotted purple;
+ font-weight: 700;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display:none;
+  position: absolute;
+  top:15px;
+  left:-120px;
+  background-color: #bff1f4;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 12px;
+  z-index: 1;
+}
+.dropdown-content div:hover {
+  background-color: rgb(247, 239, 228);;
+}
+.dropdown:hover .dropdown-content {
+  display:block;
+}
+.dropbtn {
+  background-color: cornsilk;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border:none;
+}
+.member-form {
+  display:flex;
+  flex-direction: column;
+  max-width: 90vw;
+  margin: 0 0 0 40px;
+}
+.member-form input {
+  margin: 10px;
+  padding: 0 10px;
+  line-height: 1.5em;
+  font-size: larger;
+  border-color: #e0e3e5;;
+}
+.member-form--contact-group {
+  /* margin: 0 0 0 30%; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 1px dashed blue; */
+}
+.member-form--contact-group > label {
+  padding: 14px 0 0 0;
+}
+.member-form--mmb-group {
+  /* margin: 0 0 0 30%; */
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  /* border: 1px dashed blue; */
+}
+.member-form--mmb-group > label {
+  padding: 8px 0 0 0;
+}
+.existing-member--mmb > .data-box {
+  margin: 0 0 0 8px;
+  min-width: 20em;
+  min-height: 28px;
+  font-weight: bold;;
+  background-color: #ffffff;
+  text-align: start;
+  padding: 0px 0 0 8px;
+  font-size:large;
+  border: 1px solid #e0e3e5;
+  border-style: inset;
+}
+.existing-member--paid-through  > .data-box {
+  margin: 0 0 0 8px;
+  min-width: 12em;
+  min-height: 28px;
+  font-weight: bold;;
+  background-color: #ffffff;
+  text-align:start;
+  padding: 4px 0 0 8px;
+  font-size:large;
+  border: 1px solid #e0e3e5;
+  border-style: inset;
+}
