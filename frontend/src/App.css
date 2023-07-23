@@ -164,13 +164,32 @@ a {
   max-width: 90vw;
   margin: 0 0 0 40px;
 }
+.member-form--controls {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .member-form input {
   margin: 10px;
   padding: 0 10px;
   line-height: 1.5em;
   font-size: larger;
-  border-color: #e0e3e5;;
+  border-color: #e0e3e5;
 }
+.width-narrow {
+  width: 50px;
+}
+
+.width-medium {
+  width: 300px;
+}
+.width-wide {
+  width: 500px;
+}
+.width-date {
+  width: 125px;
+}
+
 .member-form--contact-group {
   /* margin: 0 0 0 30%; */
   display: flex;
@@ -182,36 +201,72 @@ a {
   padding: 14px 0 0 0;
 }
 .member-form--mmb-group {
-  /* margin: 0 0 0 30%; */
+  margin: 20px 0 0 0;
   display: flex;
   flex-direction: row;
   justify-content:space-around;
+  align-items: center;
   /* border: 1px dashed blue; */
 }
-.member-form--mmb-group > label {
-  padding: 8px 0 0 0;
+.existing-member--mmb label {
+  width: 100%;
+  margin: 0 0 0px 0;
+  padding: 0px 0 0px 0;
+  top:0%;
+  /* border: 1px dashed pink; */
 }
-.existing-member--mmb > .data-box {
-  margin: 0 0 0 8px;
-  min-width: 20em;
-  min-height: 28px;
-  font-weight: bold;;
-  background-color: #ffffff;
-  text-align: start;
-  padding: 0px 0 0 8px;
-  font-size:large;
-  border: 1px solid #e0e3e5;
-  border-style: inset;
+.existing-member--paid-through label {
+  width: 100%;
+  height: 20px;
+  margin: 0 0 0px 0;
+  padding: 0px 0 0px 0;
+  top:0%;
+  /* border: 1px dashed pink; */
 }
-.existing-member--paid-through  > .data-box {
+.existing-member--joined label {
+  width: 100%;
+  height: 20px;
+  margin: 0 0 0px 0;
+  padding: 0px 0 0px 0;
+  top:0%;
+  /* border: 1px dashed pink; */
+}
+.existing-member--last-updated label {
+  width: 100%;
+  height: 20px;
+  margin: 0 0 0px 0;
+  font-weight:normal;
+  padding: 0px 0 0px 0;
+  top:0%;
+  /* border: 1px dashed pink; */
+}
+
+
+.data-box {
+  display:inline-block;
   margin: 0 0 0 8px;
   min-width: 12em;
   min-height: 28px;
-  font-weight: bold;;
-  background-color: #ffffff;
+  font-weight: normal;;
+  background-color: #e6e1e1;
   text-align:start;
   padding: 4px 0 0 8px;
   font-size:large;
   border: 1px solid #e0e3e5;
   border-style: inset;
+}
+
+.member-form--nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: center;
+  list-style-type: none;
+}
+
+.member-form--money-group {
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: center;
+  border: 1px sold pink;
 }

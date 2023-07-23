@@ -2,11 +2,11 @@ import React from "react";
 // import members from "../assets/data/member-data.json"
 import MemberListRow from "./MemberListRow";
 import MemberListHeader from "./MemberListHeader"
-import { nanoid } from "nanoid"
 import { AllMemberProps } from "../@interfaces/MemberProps";
 // import membersActions from "../actions/members.actions";
 import membersReducers from "../reducers/members.reducers";
 import useAxios from "axios-hooks";
+import { MemberViewStates } from "../@interfaces/enums";
 
 
 const MemberList = ({ updateViewState, updateCurrentMember }: AllMemberProps) => {
@@ -41,7 +41,7 @@ const MemberList = ({ updateViewState, updateCurrentMember }: AllMemberProps) =>
 
   const handleNewClick = () => {
     updateCurrentMember("");
-    updateViewState("new");
+    updateViewState(MemberViewStates.new);
   }
 
   if (loading) return <p>Loading...</p>

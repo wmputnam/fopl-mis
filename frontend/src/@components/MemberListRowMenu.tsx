@@ -1,7 +1,8 @@
 import React from "react";
 import { AllMemberProps } from "../@interfaces/MemberProps";
+import { MemberViewStates } from "../@interfaces/enums";
 
-// export interface MemberToolProps {
+// export interface MemberViewStates {
 //     memberId:string;
 //     mmb:string;
 //     setViewState:(values:any) => undefined;
@@ -9,33 +10,33 @@ import { AllMemberProps } from "../@interfaces/MemberProps";
 //   }
   
 const MemberListRowMenu = ( {recordId,updateViewState,mmb, updateCurrentMember} : AllMemberProps):any  => {
-  console.log(recordId);
+  // console.log(recordId);
 
   const handleEditClick = ():any => {
     console.log(`edit member ${recordId}`);
     updateCurrentMember(recordId||"")
-    updateViewState( "edit" )
+    updateViewState( MemberViewStates.edit )
   }
   
   const handleRenewClick = ():any => {
     console.log(`renew member ${recordId}`);
     updateCurrentMember(recordId||"")
-    updateViewState( "renew" )
+    updateViewState( MemberViewStates.renew )
   }
 
   const handleNewClick = ():any => {
     console.log(`new member`);
-    updateViewState( "new" )
+    updateViewState( MemberViewStates.new )
   }
-  const handleChangeAddressClick = ():any => {
-    console.log(`edit member address ${recordId}`);
+  const handleMoneyClick = ():any => {
+    console.log(`edit member money ${recordId}`);
     updateCurrentMember(recordId||"")
-    updateViewState( "edit-address" )
+    updateViewState( MemberViewStates.money )
   }
   const handleDropClick = ():any => {
     console.log(`drop member ${recordId}`);
     updateCurrentMember(recordId||"")
-    updateViewState( "drop" )
+    updateViewState( MemberViewStates.drop )
   }
 
   return (
@@ -44,9 +45,9 @@ const MemberListRowMenu = ( {recordId,updateViewState,mmb, updateCurrentMember} 
             <div className="dropdown-content">
                 <div className="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit</div>
                 <div className="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>{mmb==="LM"||mmb==="HLM"?"Donation":"Renewal"}</div>
-                {mmb==="VOL"&&<div className="member-row--signup" onClick={() => handleNewClick()}>VOL to MEMBER</div>}
-                <div className="member-row--change-address" onClick={() => handleChangeAddressClick()}>Change address</div>
-                <div className="member-row--drop" onClick={() => handleDropClick()}>Drop</div>
+                {mmb==="VOL"&&<div className="member-row--menu-signup" onClick={() => handleNewClick()}>VOL to MEMBER</div>}
+                <div className="member-row--menu-money" onClick={() => handleMoneyClick()}>$$$</div>
+                <div className="member-row--menu-drop" onClick={() => handleDropClick()}>Drop</div>
             </div>
         </div>
     );

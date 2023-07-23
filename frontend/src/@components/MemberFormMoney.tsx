@@ -4,19 +4,14 @@ import { EditMemberProps,AllMemberProps } from "../@interfaces/MemberProps";
 import {CurrentMemberContext} from "../App"
 import Home from "./Home";
 import useAxios from "axios-hooks";
+import membersReducers from "../reducers/members.reducers";
 
 
-const MemberForm = ({updateViewState , updateCurrentMember, mode  }: EditMemberProps) => {
+const MemberFormBase = ({updateViewState , updateCurrentMember, mode  }: EditMemberProps) => {
   let memberId = React.useContext(CurrentMemberContext)
-  console.log(memberId+"\n")
-
-  const fetchData = (id:string) => {
-    return ({recordId:id,firstName:"William",lastName:"Putnam",address:"649 Albert Way", city:"Petaluma",postalCode:"94954-3741"})
-  }
   const [{ data, error, loading }] = useAxios<AllMemberProps>(
     { baseURL: "http://localhost:3030", url: `/members/${memberId}` }, { manual: false, useCache: false }
   );
-  // const members = data;
   if( mode ==="new") {
       return( 
       <>
@@ -50,7 +45,7 @@ const MemberForm = ({updateViewState , updateCurrentMember, mode  }: EditMemberP
         </form>
       <Home updateViewState={updateViewState}/>
       </>);
-  } else {
+  } else if (mode === "edit" ) {
     // let data = fetchData(memberId) as AllMemberProps
     return( 
       <>
@@ -83,17 +78,23 @@ const MemberForm = ({updateViewState , updateCurrentMember, mode  }: EditMemberP
           </div>
           <div className="member-form--mmb-group">
             <div className="existing-member--mmb">
-            <label htmlFor="mmb">mmb </label>
-            <span id="mmb" className="data-box">{data?.hasOwnProperty("mmb")?data.mmb:""}</span>
+              <label htmlFor="mmb">Mmb </label>
+              <div id="mmb" className="data-box">{data?.hasOwnProperty("mmb")?data.mmb:""}</div>
             </div>
             <div className="existing-member--paid-through">
               <label htmlFor="paidThrough" >Paid through </label>
-              <span id="paidThrough"  className="data-box">{data?.hasOwnProperty("paidThrough")?data.paidThrough:""}</span>
+              <div id="paidThrough"  className="data-box">{membersReducers.reducePaidThroughForMemberList(data as AllMemberProps)}</div>
             </div>
           </div>
         </form>
       </>);
+  } else if (mode === "money") {
+    return( <Home updateViewState={updateViewState} />);
+  } else if (mode === "notes") {
+    return( <Home updateViewState={updateViewState} />);
+  } else {
+    return( <Home updateViewState={updateViewState} />);
   }
 }
 
-export default MemberForm;
+export default MemberFormBase;

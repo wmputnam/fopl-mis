@@ -2,7 +2,7 @@ import { AllMemberProps } from "../@interfaces/MemberProps";
 
 class MembersReducers {
   reduceMemberFullName( m:AllMemberProps):string {
-    console.log?.(JSON.stringify(m))
+    // console.log?.(JSON.stringify(m))
     let fullname = "";
     // precedence rule for this poorly designed interface
     // if there is a names:Array<{lastName:string,firstName:string}>
@@ -69,12 +69,30 @@ reducePaidThroughForMemberList(m:AllMemberProps):string {
   const allNopayCodes = lifeMembershipCodes.concat(volunteerCodes);
 
   if ( m?.mmb !== undefined && allNopayCodes.includes(m.mmb)) {
-    return m.mmb as string;
-  } else if ( m.paidThrough !== undefined) {
+    return "---" as string;
+  } else if ( m?.paidThrough !== undefined) {
     return m.paidThrough.substring(0,10);
   } else {
     return "unknown";
   }
 }
+reduceJoinedForMemberList(m:AllMemberProps):string {
+  if ( m?.joined !== undefined ) {
+    return m.joined.substring(0,10);
+  } else {
+    return "---";
+  }
+}
+reduceLastUpdatedForMemberList(m:AllMemberProps):string {
+  if ( m?.lastUpdated !== undefined ) {
+    return m.lastUpdated.substring(0,10);
+  } else {
+    return "---";
+  }
+}
+
+// reducePaidThroughForMemberForm(d:AllMemberProps):string {
+//   data?.hasOwnProperty("paidThrough")?data.paidThrough:""
+// }
 }
 export default new MembersReducers();

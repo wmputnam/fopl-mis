@@ -1,6 +1,7 @@
 export interface RecordIdProps {
     recordId?:string;  
-    _id?:string;      // the database record identifier
+    _id?:string;   
+    lastUpdated?:string;   // the database record identifier
   }
 export interface PersonBaseProps {
     lastName?: string;
@@ -22,6 +23,7 @@ export interface ContactProps {
 export interface OtherProps {
   paidThrough?:string;
   mmb?:string;
+  joined?:string;
 } 
 export type ViewStateProps = {
   updateViewState:(a:string) => undefined;

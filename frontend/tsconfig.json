@@ -24,7 +24,7 @@
     "listEmittedFiles": true
   },
   "include": [
-    "src"
+    "src","src/react-number-input.d.ts"
   ],
   "baseUrl":"./src",
   "paths":{
