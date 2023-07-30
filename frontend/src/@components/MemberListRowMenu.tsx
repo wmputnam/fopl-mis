@@ -2,15 +2,7 @@ import React from "react";
 import { AllMemberProps } from "../@interfaces/MemberProps";
 import { MemberViewStates } from "../@interfaces/enums";
 
-// export interface MemberViewStates {
-//     memberId:string;
-//     mmb:string;
-//     setViewState:(values:any) => undefined;
-//     updateCurrent:(values:any) => undefined;
-//   }
-  
 const MemberListRowMenu = ({ recordId, updateViewState = (a: string | undefined):any => { }, mmb, updateCurrentMember = (a: string | undefined):any => { } } : Partial<AllMemberProps>):any  => {
-  // console.log(recordId);
 
   const handleEditClick = ():any => {
     console.log(`edit member ${recordId}`);

@@ -1,22 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react"
-// import axios from "axios";
 import CurrencyFormat from "react-currency-format";
 
 import { AllMemberProps, EditMemberProps, ViewStateProps } from "../@interfaces/MemberProps";
 import CancelBtn from "./CancelBtn";
 import SaveBtn from "./SaveBtn";
 
-// import { CurrentMemberContext, ServerContext } from "../App"
 import loadData from "./DataLoader"
 import { MemberViewStates } from "../@interfaces/enums";
-// import { SaveResponse } from "../@interfaces/SaveResponse";
 import MembersReducers from "../reducers/members.reducers"
 import Save from "./DataUpdater";
 import { CurrentMemberContext, ServerContext } from "../App";
 import { flatten, unflatten } from "flat";
 import { Volunteer } from "packages/Volunteer";
-import { stripVTControlCharacters } from "util";
+// import { stripVTControlCharacters } from "util";
 import { Remittance } from "packages/Remittance";
 import { nanoid } from "nanoid";
 
@@ -51,7 +48,6 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
         .then((loadRes: any) => {
           if ([200, 201].includes(loadRes.status)) {
             console.log("successful load")
-            // setHasErrors(false);
             dataInitial.current = flatten(loadRes.body);
             setMemberData(dataInitial.current)
           }
@@ -64,33 +60,13 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     , []);
 
-
-  // })
-  // const { status } = savRes ? savRes : { status: undefined };
-  // const errors = savRes?.body?.errors;
-  //     const statusText = savRes?.statusText;
-  //     const errMsg = statusText + " -- " + errors
-  //     console.log(`member-form--dataIntiial load data status -- ${status}, errors: ${errMsg}`)
-  //     const resultObj = { status: status, error: errMsg };
-  //       flatInitial = isEmptyObject(dataInitial.current);
-  //         ? flatten(dataInitial.current) as AllMemberProps
-  //         : {} as AllMemberProps;
-  //     } else {
-  //       formErrors.current[0] = { target: "any", errors: [resultObj.error] };
-  //       setHasErrors(true);
-  //     }
-  //     return savRes.body;
-
-
   let flatInitial: AllMemberProps;
-  // console.log(`fe-member-form: flatInitial ${JSON.stringify(flatInitial)}`)
   interface UpdateMember {
     target: string,
     value: string
   }
 
   function mapUxToData(inTarget: string, inValue: string): UpdateMember[] {
-    // map any targets
     let outTarget: string[] = [];
     let outValue: string[] = [];
     outValue[0] = inValue;
@@ -102,9 +78,9 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
       case "postal-code":
         outTarget[0] = "postalCode"; break;
 
-      // these money elements will require validation and restructuring before save
+      // these money elements require validation and restructuring before save
       case "money-date":
-        outTarget[0] = "remittances.0.date"; // TODO clean out any extra later
+        outTarget[0] = "remittances.0.date"; // TODO merge with any existing
         outTarget[1] = "remittances.1.date";
         outValue[1] = inValue;
         break;
@@ -119,7 +95,7 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
         outValue[1] = "donation";
         break;
 
-      // these volunteer preference elements will require restructuring before save
+      // these volunteer preference elements will restructuring before save
       case "volunteer-preference--book-sale":
         outTarget[0] = "volunteerPreferences.0.role";
         outValue[0] = "Book sale";
@@ -200,21 +176,6 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
   }
 
   const [memberData, setMemberData] = React.useState(dataInitial.current as AllMemberProps);
-
-  // React.useEffect(() => {
-  //   if (flatInitial && hasProp(flatInitial, 'firstName') && !memberData) {
-  //     setMemberData(flatInitial);
-  //     console.log(`fe-member-form 0 : memberData ${JSON.stringify(memberData)}`)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-  // // React.useEffect(() => {
-  //   if (flatInitial && flatInitial?.firstName !== undefined && !memberData) {
-  //     setMemberData(flatInitial);
-  //     console.log(`fe-member-form 0 : memberData ${JSON.stringify(memberData)}`)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [flatInitial]);
 
   React.useEffect(() => {
     memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
@@ -531,7 +492,7 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
   }
   function handleSave(a: string): any {
     console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
-    // the new member memberData object is not ready for commit -- remittance and volunteer preferences need restructuring 
+    // the new member memberData object is not ready for commit -- newMemberDataReducer performs restructuring
     const memberDataToSave = memberId === "" ? newMemberDataReducer(memberData) : memberData;
     Save(serverUrl, memberDataToSave, memberID)
       .then((savRes) => {
@@ -547,24 +508,6 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
       }).catch((fault) => {
         return { status: 900, error: `fault occured: ${JSON.stringify(fault)}` };
       });
-
-    // savRes && savRes
-    //   .then((result: any) => {
-    //   })
-    //   .catch((err: any) => {
-    //     let formErrs = [];
-    //     if (err) {
-    //       let errorsArr = err.split(",");
-    //       for (let i = 0; i < errorsArr.length; i++) {
-    //         console.log(errorsArr[i]);
-    //         let theError = errorsArr[i].split(" -- ");
-    //         formErrs.push({ target: theError[1], errors: theError[0] })
-    //       }
-    //       formErrors.current = formErrors as unknown as FormError[];
-    //       console.log(`formErrors:\n    ${formErrors}`)
-    //     }
-    //   }
-    //   );
   }
 
   function newMemberDataReducer(data: AllMemberProps): AllMemberProps {
@@ -591,38 +534,6 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
     console.log(`fe-member-form.unflatten result\n   ${JSON.stringify(unflatten(restructedData))}`)
     return restructedData;
   }
-
-  function restructureRemittance(data: AllMemberProps): Partial<AllMemberProps> {
-    // new member form creates these results that are not in database form:
-    //    remittance.date
-    //    remittance.duesAmount
-    //    remittance.donationAmount
-    // the result is to strip those and return data item with
-    //    payment history: [
-    //        { date:remittance.date, amount: remittance.duesAmount, memo:"dues"},
-    //        { date:remittance.date, amount: remittance.donationAmount, memo:"donation"},
-    //    ]
-    // where there is an appropriate dues and or donation recorded
-    return data;
-  }
-  function restructureVolunteerPrefs(data: AllMemberProps): Partial<AllMemberProps> {
-    // new member form creates these results that are not in database form:
-    //    volunteer-preference.bookSales
-    //    volunteer-preference. ...
-    // the result is to strip those and return data item with
-    //    volunteer: [ "BOOK SALES", "...." ]
-    // representing the items checked
-    return data;
-  }
-
-
-  function resolve(path: string, obj: any) {
-    return path.split('.').reduce(function (prev, curr: string) {
-      return prev ? prev[curr] : null;
-      // eslint-disable-next-line no-restricted-globals
-    }, obj || self)
-  }
-
   return (
     <>
       <form className="member-form">

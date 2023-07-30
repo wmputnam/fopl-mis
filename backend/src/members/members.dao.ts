@@ -83,32 +83,6 @@ class MembersDao {
     return this.Member.findOne({ _id: memberId }).exec();
   }
 
-  // async putMemberById(memberId:string, member:PutMemberDto) {
-  //   const objIndex = this.members.findIndex(
-  //     (obj: {id:string}) => obj.id == memberId
-  //   );
-  //   this.members.splice(objIndex,1,member);
-  //   return `${memberId} updated via PUT`
-  // }
-  // async patchMemberById(memberId:string, member:PatchMemberDto) {
-  //   const objIndex = this.members.findIndex(
-  //     (obj: {id:string}) => obj.id == memberId
-  //   );
-  //   let currentMember = this.members[objIndex];
-  //   const allowedPatchFields = [
-  //     'firstName',
-  //     'lastName',
-  //     'email'
-  //   ];
-  //   for( let field of allowedPatchFields) {
-  //     if (field in member) {
-  //       // @ts-ignore
-  //       currentMember[field] = member[field];
-  //     }
-  //   }
-  //   this.members.splice(objIndex,1,currentMember);
-  //   return `${memberId} updated via PATCH`
-  // }
   async updateUserById(
     memberId: string,
     memberFields: PatchMemberDto | PutMemberDto

@@ -1,5 +1,6 @@
 import React from "react";
 import { ViewStateProps } from "../@interfaces/MemberProps";
+import { MemberViewStates } from "../@interfaces/enums";
 
 // export interface MemberToolProps {
 //     setViewState:(a:string) => void;
@@ -7,7 +8,7 @@ import { ViewStateProps } from "../@interfaces/MemberProps";
 
 function MemberFormNav2Money ( {updateViewState }: ViewStateProps):any  {
     
-    function updViewState() { updateViewState("money") }
+    function updViewState() { updateViewState(MemberViewStates.money) }
 
     return (
         <button onClick={updViewState}>member $$$</button>

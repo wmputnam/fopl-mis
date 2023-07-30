@@ -9,6 +9,7 @@ import MemberList from './@components/MemberList';
 import NewMember from './@components/NewMember';
 import RenewMember from './@components/RenewMember';
 import { IServerContext } from './@interfaces/IServerContext';
+import { MemberViewStates } from './@interfaces/enums';
 
 export var CurrentMemberContext: React.Context<string>
 export var ServerContext: React.Context<IServerContext>
@@ -23,11 +24,11 @@ export default function App() {
       serverURL: serverUrl
     } as unknown as IServerContext
   );
-  const [appState, setAppState] = React.useState({ view: "list" })
+  const [appState, setAppState] = React.useState({ view: MemberViewStates.list })
   const [currentMember, setCurrentMember] = React.useState("")
   CurrentMemberContext = React.createContext(currentMember)
 
-  function setViewState(a: string | undefined): any {
+  function setViewState(a: MemberViewStates): any {
     setAppState((oldAppState) => (
       {
         ...oldAppState,
@@ -40,25 +41,21 @@ export default function App() {
     CurrentMemberContext = React.createContext(a || "")
   }
 
-  // console.log(appState);
-
-  // React.useEffect( () => { console.log(appState);} ,[appState])
-  // return(<>William</>);
   let component
   switch (appState.view) {
-    case "list":
+    case MemberViewStates.list:
       component = <MemberList updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
       break;
-    case "edit":
+    case MemberViewStates.edit:
       component = <EditMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
       break;
-    case "new":
+    case MemberViewStates.new:
       component = <NewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
       break;
-    case "drop":
+    case MemberViewStates.drop:
       component = <DropMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
       break;
-    case "renew":
+    case MemberViewStates.renew:
       component = <RenewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
       break;
     default:

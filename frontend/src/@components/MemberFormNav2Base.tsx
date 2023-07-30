@@ -1,5 +1,6 @@
 import React from "react";
 import { ViewStateProps } from "../@interfaces/MemberProps";
+import { MemberViewStates } from "../@interfaces/enums";
 
 // export interface MemberToolProps {
 //     setViewState:(a:string) => void;
@@ -7,7 +8,7 @@ import { ViewStateProps } from "../@interfaces/MemberProps";
 
 function MemberFormNav2Base ( {updateViewState }: ViewStateProps):any  {
     
-    function updViewState() { updateViewState("edit") }
+    function updViewState() { updateViewState(MemberViewStates.edit) }
 
     return (
         <button onClick={updViewState}>member base</button>

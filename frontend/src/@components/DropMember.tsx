@@ -2,11 +2,12 @@ import React from "react";
 import { ExistingMemberProps } from "../@interfaces/MemberProps";
 import { CurrentMemberContext } from "../App"
 import Home from "./CancelBtn";
+import { MemberViewStates } from "../@interfaces/enums";
 
 const DropMember = ({ updateViewState, updateCurrentMember }: ExistingMemberProps): any => {
     const memberId = React.useContext(CurrentMemberContext)
     const handleClick = () => {
-        updateViewState("list")
+        updateViewState(MemberViewStates.list)
         if (updateCurrentMember) updateCurrentMember("")
     }
     return (

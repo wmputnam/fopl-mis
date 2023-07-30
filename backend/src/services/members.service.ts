@@ -12,7 +12,6 @@ class MemberService implements CRUD {
     return membersDao.addMember(resource);
   }
   async putById(id: string, resource: PutMemberDto): Promise<any> {
-    // return membersDao.putMemberById(id,resource);
     return membersDao.updateUserById(id, resource)
   };
   async readById(id: string) {
@@ -22,7 +21,6 @@ class MemberService implements CRUD {
     return membersDao.removeMemberById(id);
   }
   async patchById(id: string, resource: PatchMemberDto): Promise<any> {
-    // return membersDao.patchMemberById(id,resource);
     return membersDao.updateUserById(id, resource);
   }
   async getMemberByEmail(email: string) {

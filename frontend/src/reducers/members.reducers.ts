@@ -2,7 +2,6 @@ import { AllMemberProps } from "../@interfaces/MemberProps";
 
 class MembersReducers {
   static reduceMemberFullName(m: Partial<AllMemberProps>): string {
-    // console.log?.(JSON.stringify(m))
     let fullname = "";
     // precedence rule for this poorly designed interface
     // if there is a names:Array<{lastName:string,firstName:string}>
@@ -25,7 +24,6 @@ class MembersReducers {
   }
 
   static reduceAddressForMemberList(m: AllMemberProps): string {
-    //
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
@@ -50,20 +48,9 @@ class MembersReducers {
     } else {
       reducer_zip = " " + m.postalCode.substring(0, 5);
     }
-    // let address = m?.address + " " + m?.unit !== undefined ? m.unit + " " : "" + m?.postalCode;
     return reducer_address + reducer_unit + reducer_city + reducer_zip;
   }
-  // reduceAddressForMemberList2(m:AllMemberProps):string {
-  //   let reduced_result = { address: "", unit: "", postal_code: "" };
-  //   for ( let key in Object.keys(reduced_result)){
-  //     const propName = key;
-  //     let value:string = (m as any)[propName];
-  //     if ( value ) {
-  //       (reduced_result as any)[propName] = propName !== "address" ? value : " " + value;
-  //     } 
-  //   }
-  //   return reduced_result.address + reduced_result.unit + reduced_result.postal_code;
-  // }
+
   static reducePaidThroughForMemberList(m: AllMemberProps): string {
     const lifeMembershipCodes = ["LM", "HLM", "BEN"];
     const volunteerCodes = ["VOL"];
@@ -116,8 +103,6 @@ class MembersReducers {
       return "undefined"
     }
   }
-
-
 
 }
 export default MembersReducers;

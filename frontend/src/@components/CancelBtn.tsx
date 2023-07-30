@@ -1,13 +1,11 @@
 import React from "react";
 import { ViewStateProps } from "../@interfaces/MemberProps";
+import { MemberViewStates } from "../@interfaces/enums";
 
-// export interface MemberToolProps {
-//     setViewState:(a:string) => void;
-//   }
 
 function CancelBtn ( {updateViewState }: ViewStateProps):any  {
     
-    function updViewState() { updateViewState("list") }
+    function updViewState() { updateViewState(MemberViewStates.list) }
 
     return (
         <button type="button" onClick={updViewState}>Return to member list</button>

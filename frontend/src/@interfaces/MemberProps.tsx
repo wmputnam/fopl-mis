@@ -1,4 +1,5 @@
 import { IMember } from "packages/member-shared";
+import { MemberViewStates } from "./enums";
 
 export interface RecordIdProps {
   recordId?: string;
@@ -28,7 +29,7 @@ export interface OtherProps {
   joined?: string;
 }
 export type ViewStateProps = {
-  updateViewState: (a: string) => any;
+  updateViewState: (a: MemberViewStates) => any;
   mode?: string;
 }
 export type CurrentMemberProps = {

@@ -5,9 +5,9 @@ import express from "express";
 import membersController from "../controllers/members.controller";
 import membersMiddleware from "./middleware/members.middleware";
 import { ExpressValidator } from "express-validator";
-// import debug from "debug";
+import debug from "debug";
 
-// const debugLog: debug.IDebugger = debug("members");
+const debugLog: debug.IDebugger = debug("members");
 
 
 export class MembersRoutes extends CommonRoutesConfig {
@@ -19,7 +19,6 @@ export class MembersRoutes extends CommonRoutesConfig {
     this.app.route(`/members`)
       .get(membersController.listMembers)
       .post(
-        // membersMiddleware.validateRequiredMemberBodyFields,
         body('email').normalizeEmail({ gmail_remove_subaddress: true }).isEmail(),
         bodyValidationMiddleware.verifyBodyFieldsErrors,
         membersMiddleware.validateSameEmailDoesntExist,
@@ -34,7 +33,6 @@ export class MembersRoutes extends CommonRoutesConfig {
       .delete(membersController.removeMember);
 
     this.app.put(`/members/:memberId`, [
-      // membersMiddleware.validateRequiredMemberBodyFields,
       body('email').isEmail(),
       body('firstName').isString(),
       body('lastName').isString(),
@@ -45,12 +43,10 @@ export class MembersRoutes extends CommonRoutesConfig {
     ]);
 
     this.app.patch(`/members/:memberId`, [
-      // membersMiddleware.validateRequiredMemberBodyFields,
       body('email').isEmail(),
       body('firstName').isString(),
       body('lastName').isString(),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
-      // membersMiddleware.validatePatchEmail,
       membersController.patch
     ]);
 

@@ -4,7 +4,6 @@ export class AppConfig {
     private configData:IAppConfig;
 
     private constructor() {
-        // console.log(JSON.stringify(data()))
         this.configData = data() as unknown as IAppConfig;
     }
 

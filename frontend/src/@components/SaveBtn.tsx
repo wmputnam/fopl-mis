@@ -7,7 +7,6 @@ import { EditMemberProps } from "../@interfaces/MemberProps";
 
 function SaveBtn({ updateViewState, updateCurrentMember }:  EditMemberProps):any  {
     
-    // function updViewState() { updateViewState("list") }
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         if (updateCurrentMember) {

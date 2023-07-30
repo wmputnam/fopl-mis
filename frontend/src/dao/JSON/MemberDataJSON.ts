@@ -4,7 +4,6 @@ import memberData from "../../assets/data/member-data.json"
 export class MemberDataJSON {
   private static instance: MemberDataJSON;
   private memData:any;
-  // private static instance:AppConfig;
 
   private constructor() {
     this.memData = memberData;
