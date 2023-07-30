@@ -5,11 +5,15 @@ import MemberFormHeader from "./MemberFormHeader";
 import MemberFormBase from "./MemberFormBase";
 import { MemberViewStates } from "../@interfaces/enums";
 
-const EditMember = ({updateViewState , updateCurrentMember }: ExistingMemberProps) => {
+const EditMember = ({ updateViewState, updateCurrentMember, updateAppMessages }: ExistingMemberProps) => {
     return (
         <>
-        <MemberFormHeader updateViewState={updateViewState} mode={MemberViewStates.edit} />
-        <MemberFormBase updateViewState={updateViewState} mode={MemberViewStates.edit} />
+            <MemberFormHeader updateViewState={updateViewState} mode={MemberViewStates.edit} />
+            <MemberFormBase
+                updateViewState={updateViewState}
+                updateAppMessages={updateAppMessages}
+                mode={MemberViewStates.edit}
+            />
         </>
     )
 }

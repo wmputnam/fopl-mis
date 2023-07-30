@@ -10,26 +10,27 @@ import NewMember from './@components/NewMember';
 import RenewMember from './@components/RenewMember';
 import { IServerContext } from './@interfaces/IServerContext';
 import { MemberViewStates } from './@interfaces/enums';
+import AppHeader from './@components/AppHeader';
 
 export var CurrentMemberContext: React.Context<string>
 export var ServerContext: React.Context<IServerContext>
 
 export default function App() {
 
-  console.log(`server url in environment is ${process.env.REACT_APP_SERVER_URL}`);
   const serverUrl: string = process.env?.REACT_APP_SERVER_URL || "http://localhost:3030";
-  console.log(`server url in use is ${process.env.REACT_APP_SERVER_URL}`);
+
   ServerContext = React.createContext(
     {
       serverURL: serverUrl
     } as unknown as IServerContext
   );
-  const [appState, setAppState] = React.useState({ view: MemberViewStates.list })
+  const [appViewState, setAppViewState] = React.useState({ view: MemberViewStates.list })
   const [currentMember, setCurrentMember] = React.useState("")
+  const [appMessages, setAppMessages] = React.useState<string[]>(["Hello nurse!"]);
   CurrentMemberContext = React.createContext(currentMember)
 
   function setViewState(a: MemberViewStates): any {
-    setAppState((oldAppState) => (
+    setAppViewState((oldAppState) => (
       {
         ...oldAppState,
         view: a || ""
@@ -41,13 +42,25 @@ export default function App() {
     CurrentMemberContext = React.createContext(a || "")
   }
 
+  function setMessages(a: string[] = [""]): any {
+    setAppMessages(a);
+  }
+
   let component
-  switch (appState.view) {
+  switch (appViewState.view) {
     case MemberViewStates.list:
-      component = <MemberList updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      component = <MemberList
+        updateViewState={setViewState}
+        updateCurrentMember={setCurrentMemberContext}
+        updateAppMessages={setMessages}
+      />
       break;
     case MemberViewStates.edit:
-      component = <EditMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      component = <EditMember
+        updateViewState={setViewState}
+        updateCurrentMember={setCurrentMemberContext}
+        updateAppMessages={setMessages}
+      />
       break;
     case MemberViewStates.new:
       component = <NewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
@@ -66,8 +79,7 @@ export default function App() {
   return (
     <div className="App">
       <header>
-        <h1>Membership</h1>
-        <h3>Friends of the Petaluma Library</h3>
+        <AppHeader messages={appMessages} />
       </header>
       <main>
         {component}

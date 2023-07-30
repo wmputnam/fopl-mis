@@ -16,7 +16,7 @@ import { AllMemberProps } from "../@interfaces/MemberProps";
 // function handleHover(){
     
 // }
-const MemberListRow = ( {recordId,name, address, phone, email,paidThrough,updateViewState,mmb, updateCurrentMember} : AllMemberProps):any  => {
+const MemberListRow = ( {recordId,name, address, phone, email,paidThrough,updateViewState,mmb, updateCurrentMember,updateAppMessages} : AllMemberProps):any  => {
       
         return (
         <div className="member-row row" title={name + " "+ paidThrough} data-id={recordId}>

@@ -27,7 +27,7 @@ interface FormError {
 }
 
 const hasProp = ((obj: Object, prop: string) => obj.hasOwnProperty.call(obj, prop));
-const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
+const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMemberProps) => {
   const [hasErrors, setHasErrors] = React.useState(false);
   const formErrors = React.useRef([] as FormError[]);
   const { serverURL } = React.useContext(ServerContext);
@@ -181,9 +181,10 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
     memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
   }, [memberData]);
 
-  React.useEffect(() => {
-    formErrors.current && console.log(`fe-member-form: formErrors ${JSON.stringify(formErrors.current)}`)
-  }, [hasErrors]);
+  // React.useEffect(() => {
+  //   formErrors.current && console.log(`fe-member-form: formErrors ${JSON.stringify(formErrors.current)}`);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [hasErrors]);
 
   const inputValues: InputValuesI = createInputValues(memberData);
   console.log(`fe-member-form: inputValues ${JSON.stringify(inputValues)}`);
@@ -500,10 +501,13 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
         if ([200, 201, 204].includes(savRes.status)) {
           console.log("successful save")
           setHasErrors(false);
+          formErrors.current = [];
+          updateAppMessages && updateAppMessages([])
           updateViewState(MemberViewStates.list);
         } else {
           formErrors.current[0] = { target: "any", errors: [savRes?.body?.error] };
           setHasErrors(true);
+          updateAppMessages && updateAppMessages([savRes?.body?.error])
         }
       }).catch((fault) => {
         return { status: 900, error: `fault occured: ${JSON.stringify(fault)}` };
@@ -544,7 +548,7 @@ const MemberFormBase = ({ updateViewState, mode }: EditMemberProps) => {
         <div><br></br></div>
         <div className="member-form--controls">
           <SaveBtn updateViewState={updateViewState} updateCurrentMember={(async () => await handleSave("save"))} />
-          <CancelBtn updateViewState={updateViewState} />
+          <CancelBtn updateViewState={updateViewState} updateAppMessages={updateAppMessages} />
         </div>
       </form>
 

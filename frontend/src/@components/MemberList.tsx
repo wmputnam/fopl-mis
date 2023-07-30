@@ -69,9 +69,3 @@ const MemberList = ({ updateViewState = (a: string | undefined): any => { }, upd
 
 }
 export default MemberList;
-// //{membersReducers.reduceMemberFullName(m)}
-////         address={ m?.address+" "+m?.postalCode}
-//         phone = {m?.phone}
-//         email = {m?.email}
-//         paidThrough={m.paidThrough}
-//         mmb={m.mmb?m.mmb:"VOL"}

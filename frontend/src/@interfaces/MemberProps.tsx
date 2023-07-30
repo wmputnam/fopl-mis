@@ -36,13 +36,18 @@ export type CurrentMemberProps = {
   updateCurrentMember?: (a: string) => any;
 }
 
-export interface EditMemberProps extends ViewStateProps, CurrentMemberProps {
-};
-export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps {
 
+export interface EditMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps {
 };
+export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps, CurrentMessageProps {};
+export interface AppMessages {
+  messages: string[];
+}
+export type CurrentMessageProps = {
+  updateAppMessages?: (arr: string[]) => any;
+}
 
-export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, Partial<IMember> {
+export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, Partial<IMember> {
   recordId: string;
   name: string;
   paidThroughString: string;
