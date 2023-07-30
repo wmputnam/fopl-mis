@@ -1,0 +1,13 @@
+{
+  "name": "packages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "member-shared.ts",
+  "types": "member-shared.d.ts",
+  "scripts": {
+    "build": "tsc -d"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
