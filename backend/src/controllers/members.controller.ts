@@ -5,29 +5,35 @@ import debug from "debug";
 const log: debug.IDebugger = debug('app:members-controller');
 
 class MembersController {
-  async listMembers (req:express.Request, res:express.Response) {
-    const members = await membersService.list(100,0);
+  async listMembers(req: express.Request, res: express.Response) {
+    const members = await membersService.list(100, 0);
     res.status(200).send(members);
   }
-  async getMemberById(req:express.Request, res:express.Response) {
+  async getMemberById(req: express.Request, res: express.Response) {
     const member = await membersService.getMemberById(req.body.id);
     log(`getMemberByID(${req.body.id})`)
     res.status(200).send(member);
-  }  
-  async createMember (req:express.Request, res:express.Response) {
-    const memberId = await membersService.create(req.body);
-    res.status(200).send({ id:memberId});
   }
-  async patch (req:express.Request, res:express.Response) {
-    log( await membersService.patchById(req.body.id,req.body));
+  async createMember(req: express.Request, res: express.Response) {
+    let memberId;
+    try {
+      memberId = await membersService.create(req.body);
+    } catch (error) {
+      res.status(400).send(`{error: ${error}}`)
+      return;
+    }
+    res.status(200).send({ id: memberId });
+  }
+  async patch(req: express.Request, res: express.Response) {
+    log(await membersService.patchById(req.body.id, req.body));
     res.status(204).send();
   }
-  async put (req:express.Request, res:express.Response) {
-    log( await membersService.putById(req.body.id,req.body));
+  async put(req: express.Request, res: express.Response) {
+    log(await membersService.putById(req.body.id, req.body));
     res.status(204).send();
   };
-  async removeMember (req:express.Request, res:express.Response) {
-    log( await membersService.deleteById(req.body.id));
+  async removeMember(req: express.Request, res: express.Response) {
+    log(await membersService.deleteById(req.body.id));
     res.status(204).send();
   }
 }

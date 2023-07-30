@@ -9,7 +9,7 @@ import { MemberViewStates } from "../@interfaces/enums";
 //     updateCurrent:(values:any) => undefined;
 //   }
   
-const MemberListRowMenu = ( {recordId,updateViewState,mmb, updateCurrentMember} : AllMemberProps):any  => {
+const MemberListRowMenu = ({ recordId, updateViewState = (a: string | undefined):any => { }, mmb, updateCurrentMember = (a: string | undefined):any => { } } : Partial<AllMemberProps>):any  => {
   // console.log(recordId);
 
   const handleEditClick = ():any => {

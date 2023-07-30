@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
-import { EditMemberProps,AllMemberProps } from "../@interfaces/MemberProps";
-import {CurrentMemberContext} from "../App"
-import Home from "./Home";
+import { EditMemberProps, AllMemberProps } from "../@interfaces/MemberProps";
+import { CurrentMemberContext } from "../App"
+import Home from "./CancelBtn";
 import useAxios from "axios-hooks";
 import membersReducers from "../reducers/members.reducers";
 
 
-const MemberFormBase = ({updateViewState , updateCurrentMember, mode  }: EditMemberProps) => {
+const MemberFormBase = ({ updateViewState, updateCurrentMember, mode }: EditMemberProps) => {
   let memberId = React.useContext(CurrentMemberContext)
   const [{ data, error, loading }] = useAxios<AllMemberProps>(
     { baseURL: "http://localhost:3030", url: `/members/${memberId}` }, { manual: false, useCache: false }
   );
-  if( mode ==="new") {
-      return( 
+  if (mode === "new") {
+    return (
       <>
         <form className="member-form">
           <div className="member-form--name-group">
             <label htmlFor="first-name">First name</label>
-            <input type="text" id="first-name" className="new-member--first-name" placeholder="First name"   />
+            <input type="text" id="first-name" className="new-member--first-name" placeholder="First name" />
             <label htmlFor="last-name">Last name</label>
             <input type="text" id="last-name" className="new--member--last-name" placeholder="Last name" />
           </div>
@@ -26,69 +26,69 @@ const MemberFormBase = ({updateViewState , updateCurrentMember, mode  }: EditMem
             <label htmlFor="address">Address</label>
             <input type="text" id="address" className="new-member--address" placeholder="Address" />
             <label htmlFor="unit">Unit</label>
-            <input type="text" id="unit" className="new-member--unit" placeholder="Unit"  />
-            <br/>
+            <input type="text" id="unit" className="new-member--unit" placeholder="Unit" />
+            <br />
             <label htmlFor="city">City</label>
             <input type="text" id="city" className="new-member--city" placeholder="City" />
             <label htmlFor="state">State</label>
-            <input type="text" id="state" className="new-member--state" placeholder="State"  />
+            <input type="text" id="state" className="new-member--state" placeholder="State" />
             <label htmlFor="postal-code">ZIP code</label>
             <input type="text" id="postal-code" className="new-member--postal-code" placeholder="ZIP code" />
           </div>
           <div className="member-form--contact-group">
-          <label htmlFor="phone">Phone</label>
-            <input type="telephone" id="phone" className="new-member--phone" placeholder="Phone"  />
+            <label htmlFor="phone">Phone</label>
+            <input type="telephone" id="phone" className="new-member--phone" placeholder="Phone" />
             <br />
             <label htmlFor="email">Email</label>
             <input type="email" id="email" className="new-member--email" placeholder="Email" />
           </div>
         </form>
-      <Home updateViewState={updateViewState}/>
+        <Home updateViewState={updateViewState} />
       </>);
   } else {
     // let data = fetchData(memberId) as AllMemberProps
-    return( 
+    return (
       <>
         <form className="member-form">
           <div className="member-form--name-group">
             <label htmlFor="first-name">First name</label>
             <input type="text" id="first-name" className="existing-member--first-name" placeholder="First name" value={data?.firstName} />
             <label htmlFor="last-name">Last name</label>
-            <input type="text" id="last-name" className="existing-member--last-name" placeholder="Last name" value={data?.lastName}/>
+            <input type="text" id="last-name" className="existing-member--last-name" placeholder="Last name" value={data?.lastName} />
           </div>
           <div className="member-form--address-group" >
             <label htmlFor="address">Address</label>
-            <input type="text" id="address" className="existing-member--address" placeholder="Address" value={data?.address}/>
+            <input type="text" id="address" className="existing-member--address" placeholder="Address" value={data?.address} />
             <label htmlFor="unit">Unit</label>
-            <input type="text" id="unit" className="existing-member--unit" placeholder="Unit" value={data?.hasOwnProperty("unit")?data.unit:""}/>
-            <br/>
+            <input type="text" id="unit" className="existing-member--unit" placeholder="Unit" value={data?.hasOwnProperty("unit") ? data.unit : ""} />
+            <br />
             <label htmlFor="city">City</label>
-            <input type="text" id="city" className="existing-member--city" placeholder="City" value={data?.city}/>
+            <input type="text" id="city" className="existing-member--city" placeholder="City" value={data?.city} />
             <label htmlFor="state">State</label>
-            <input type="text" id="state" className="existing-member--state" placeholder="State" value={data?.hasOwnProperty("state")?data.state:"CA"}/>
+            <input type="text" id="state" className="existing-member--state" placeholder="State" value={data?.hasOwnProperty("state") ? data.state : "CA"} />
             <label htmlFor="postal-code">ZIP code</label>
-            <input type="text" id="postal-code" className="existing-member--postal-code" placeholder="ZIP code" value={data?.postalCode}/>
+            <input type="text" id="postal-code" className="existing-member--postal-code" placeholder="ZIP code" value={data?.postalCode} />
           </div>
           <div className="member-form--contact-group">
-          <label htmlFor="phone">Phone</label>
-            <input type="telephone" id="phone" className="existing-member--phone" placeholder="Phone" value={data?.hasOwnProperty("phone")?data.phone:""}/>
+            <label htmlFor="phone">Phone</label>
+            <input type="telephone" id="phone" className="existing-member--phone" placeholder="Phone" value={data?.hasOwnProperty("phone") ? data.phone : ""} />
             <br />
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" className="existing-member--email" placeholder="Email" value={data?.hasOwnProperty("email")?data.email:""}/>
+            <input type="email" id="email" className="existing-member--email" placeholder="Email" value={data?.hasOwnProperty("email") ? data.email : ""} />
           </div>
           <div className="member-form--mmb-group">
             <div className="existing-member--mmb">
               <label htmlFor="mmb">Mmb </label>
-              <div id="mmb" className="data-box">{data?.hasOwnProperty("mmb")?data.mmb:""}</div>
+              <div id="mmb" className="data-box">{data?.hasOwnProperty("mmb") ? data.mmb : ""}</div>
             </div>
             <div className="existing-member--paid-through">
               <label htmlFor="paidThrough" >Paid through </label>
-              <div id="paidThrough"  className="data-box">{membersReducers.reducePaidThroughForMemberList(data as AllMemberProps)}</div>
+              <div id="paidThrough" className="data-box">{membersReducers.reducePaidThroughForMemberList(data as AllMemberProps)}</div>
             </div>
           </div>
         </form>
       </>);
-  } 
+  }
 }
 
 export default MemberFormBase;

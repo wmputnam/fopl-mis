@@ -1,5 +1,3 @@
-export interface PutMemberDto {
-  firstName:string;
-  lastName: string;
-  email: string;
+import { IMember } from "packages/member-shared";
+export interface PutMemberDto extends IMember {
 }

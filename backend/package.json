@@ -21,6 +21,7 @@
     "express-validator": "^7.0.1",
     "express-winston": "^4.2.0",
     "mongoose": "^7.4.0",
+    "packages": "link:../packages/member-shared",
     "shortid": "^2.2.16",
     "winston": "^3.10.0"
   },

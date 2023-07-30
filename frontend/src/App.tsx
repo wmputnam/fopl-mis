@@ -4,55 +4,68 @@ import './App.css';
 
 import DropMember from './@components/DropMember';
 import EditMember from './@components/EditMember';
-// import EditMemberAddress from './components/EditMemberAddress';
-import Home from "./@components/Home"
+import Home from "./@components/CancelBtn"
 import MemberList from './@components/MemberList';
 import NewMember from './@components/NewMember';
-// import RenewMember from './components/RenewMember';
+import RenewMember from './@components/RenewMember';
+import { IServerContext } from './@interfaces/IServerContext';
 
-export var CurrentMemberContext:React.Context<string>
+export var CurrentMemberContext: React.Context<string>
+export var ServerContext: React.Context<IServerContext>
+
 export default function App() {
 
-  const [appState,setAppState] = React.useState({view:"list"})
-  const [currentMember,setCurrentMember] = React.useState("")
+  console.log(`server url in environment is ${process.env.REACT_APP_SERVER_URL}`);
+  const serverUrl: string = process.env?.REACT_APP_SERVER_URL || "http://localhost:3030";
+  console.log(`server url in use is ${process.env.REACT_APP_SERVER_URL}`);
+  ServerContext = React.createContext(
+    {
+      serverURL: serverUrl
+    } as unknown as IServerContext
+  );
+  const [appState, setAppState] = React.useState({ view: "list" })
+  const [currentMember, setCurrentMember] = React.useState("")
   CurrentMemberContext = React.createContext(currentMember)
 
-  function setViewState(a:string|undefined):any  {
-    setAppState ( (oldAppState) => (
+  function setViewState(a: string | undefined): any {
+    setAppState((oldAppState) => (
       {
-      ...oldAppState,
-      view:a||""
+        ...oldAppState,
+        view: a || ""
       })
     );
   }
-  function setCurrentMemberContext(a:string|undefined):any  {
-    setCurrentMember ( a||"" );
-    CurrentMemberContext = React.createContext(a||"")
+  function setCurrentMemberContext(a: string | undefined): any {
+    setCurrentMember(a || "");
+    CurrentMemberContext = React.createContext(a || "")
   }
-  
+
   // console.log(appState);
 
   // React.useEffect( () => { console.log(appState);} ,[appState])
   // return(<>William</>);
   let component
-  switch(appState.view) {
-      case "list":
-        component = <MemberList updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext}/>
-        break;
-      case "edit":
-        component = <EditMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext}/>
-        break;
-      case "new":
-            component = <NewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext}/>
-            break;
-      case "drop":
-                component = <DropMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
-                break;
-      default:
-        component = <><h1> opps we are now lost</h1><Home updateViewState={setViewState}/></>
-        break;
+  switch (appState.view) {
+    case "list":
+      component = <MemberList updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    case "edit":
+      component = <EditMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    case "new":
+      component = <NewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    case "drop":
+      component = <DropMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    case "renew":
+      component = <RenewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    default:
+      component = <><h1> opps we are now lost</h1><Home updateViewState={setViewState} /></>
+      break;
   }
-  
+
   return (
     <div className="App">
       <header>
@@ -68,9 +81,6 @@ export default function App() {
 }
 /*  PARKING LOT
 
-      case "renew":
-          component = <RenewMember updateViewState={setViewState} />
-          break;
       case "edit-address":
               component = <EditMemberAddress updateViewState={setViewState} />
               break;

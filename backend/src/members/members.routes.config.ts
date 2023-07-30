@@ -11,20 +11,20 @@ import { ExpressValidator } from "express-validator";
 
 
 export class MembersRoutes extends CommonRoutesConfig {
-  constructor( app:express.Application) {
-    super(app,'MembersRoutes');
+  constructor(app: express.Application) {
+    super(app, 'MembersRoutes');
   }
   configureRoutes(): express.Application {
 
     this.app.route(`/members`)
-    .get(membersController.listMembers)
-    .post(
-      // membersMiddleware.validateRequiredMemberBodyFields,
-      body('email').isEmail(),
-      bodyValidationMiddleware.verifyBodyFieldsErrors,
-      membersMiddleware.validateSameEmailDoesntExist,
-      membersController.createMember
-    );
+      .get(membersController.listMembers)
+      .post(
+        // membersMiddleware.validateRequiredMemberBodyFields,
+        body('email').normalizeEmail({ gmail_remove_subaddress: true }).isEmail(),
+        bodyValidationMiddleware.verifyBodyFieldsErrors,
+        membersMiddleware.validateSameEmailDoesntExist,
+        membersController.createMember
+      );
 
     this.app.param('memberId', membersMiddleware.extractMemberId);
 
@@ -39,20 +39,20 @@ export class MembersRoutes extends CommonRoutesConfig {
       body('firstName').isString(),
       body('lastName').isString(),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
-        membersMiddleware.validateMemberExists,
-        membersMiddleware.validateSameEmailBelongToSameMember,
-        membersController.put
-      ]);
+      membersMiddleware.validateMemberExists,
+      membersMiddleware.validateSameEmailBelongToSameMember,
+      membersController.put
+    ]);
 
-      this.app.patch(`/members/:memberId`, [
-        // membersMiddleware.validateRequiredMemberBodyFields,
-        body('email').isEmail(),
-        body('firstName').isString(),
-        body('lastName').isString(),
-        bodyValidationMiddleware.verifyBodyFieldsErrors,
-          // membersMiddleware.validatePatchEmail,
-        membersController.patch
-      ]);
+    this.app.patch(`/members/:memberId`, [
+      // membersMiddleware.validateRequiredMemberBodyFields,
+      body('email').isEmail(),
+      body('firstName').isString(),
+      body('lastName').isString(),
+      bodyValidationMiddleware.verifyBodyFieldsErrors,
+      // membersMiddleware.validatePatchEmail,
+      membersController.patch
+    ]);
 
     return this.app;
   }

@@ -1,5 +1,8 @@
+import debug from "debug";
 import express from "express";
-import { validationResult } from "express-validator";
+import { FieldValidationError, validationResult } from "express-validator";
+
+const log: debug.IDebugger = debug('app:body-validation-middleware');
 
 class BodyValidationMiddleware {
   verifyBodyFieldsErrors(
@@ -9,7 +12,12 @@ class BodyValidationMiddleware {
   ) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).send({errors: errors.array()});
+      let errsString = "";
+      errsString = errors.array()
+        .map((entry) => (`${entry.msg}${entry.type === 'field' ? " -- " + entry.path : ""}`))
+        .join(", ");
+      log(errsString);
+      return res.status(400).send({ errors: `${errsString}` });
     }
     next();
   }

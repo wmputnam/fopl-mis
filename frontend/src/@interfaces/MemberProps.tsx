@@ -1,51 +1,57 @@
+import { IMember } from "packages/member-shared";
+
 export interface RecordIdProps {
-    recordId?:string;  
-    _id?:string;   
-    lastUpdated?:string;   // the database record identifier
-  }
+  recordId?: string;
+  _id?: string;
+  lastUpdated?: string;   // the database record identifier
+}
 export interface PersonBaseProps {
-    lastName?: string;
-    firstName?: string;
-    name?: string;
-    names?: Array<{lastName:string,firstName:string}>
+  lastName?: string;
+  firstName?: string;
+  name?: string;
+  names?: Array<{ lastName: string, firstName: string }>
 }
 export interface BasicAddressProps {
-  address?:string;
-  unit?:string;
-  city?:string;
-  state?:string;
-  postalCode?:string;
-} 
+  address?: string;
+  unit?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+}
 export interface ContactProps {
-  phone?:string;
-  email?:string;
-} 
+  phone?: string;
+  email?: string;
+}
 export interface OtherProps {
-  paidThrough?:string;
-  mmb?:string;
-  joined?:string;
-} 
+  paidThrough?: string;
+  mmb?: string;
+  joined?: string;
+}
 export type ViewStateProps = {
-  updateViewState:(a:string) => undefined;
+  updateViewState: (a: string) => any;
+  mode?: string;
 }
 export type CurrentMemberProps = {
-  updateCurrentMember:(a:string) => undefined;
+  updateCurrentMember?: (a: string) => any;
 }
+
 export interface EditMemberProps extends ViewStateProps, CurrentMemberProps {
-  mode?:string;
 };
-export interface ExistingMemberProps extends ViewStateProps,CurrentMemberProps,RecordIdProps,PersonBaseProps,BasicAddressProps {
-  
+export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps {
+
 };
 
-export interface AllMemberProps extends ViewStateProps, CurrentMemberProps,RecordIdProps,PersonBaseProps,BasicAddressProps,ContactProps,OtherProps {
-  
+export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, Partial<IMember> {
+  recordId: string;
+  name: string;
+  paidThroughString: string;
+  mode: string;
 };
-    // address:string;
-    // phone:string;
-    // email:string;
-    // paidThrough:string;
-    // mmb:string;
-    // updateCurrent:(values:any) => undefined;
-  // }
-  export interface MemberProps {}
+// address:string;
+// phone:string;
+// email:string;
+// paidThrough:string;
+// mmb:string;
+// updateCurrent:(values:any) => undefined;
+// }
+export interface MemberProps { }

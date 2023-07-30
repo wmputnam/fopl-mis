@@ -4,20 +4,26 @@ import MemberListRow from "./MemberListRow";
 import MemberListHeader from "./MemberListHeader"
 import { AllMemberProps } from "../@interfaces/MemberProps";
 // import membersActions from "../actions/members.actions";
-import membersReducers from "../reducers/members.reducers";
+import MembersReducers from "../reducers/members.reducers";
 import useAxios from "axios-hooks";
 import { MemberViewStates } from "../@interfaces/enums";
+import { ServerContext } from "../App";
 
 
-const MemberList = ({ updateViewState, updateCurrentMember }: AllMemberProps) => {
+const MemberList = ({ updateViewState = (a: string | undefined): any => { }, updateCurrentMember = (a: string | undefined): any => { } }: Partial<AllMemberProps>) => {
+
+  let { serverURL } = React.useContext(ServerContext);
 
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  console.log(`getting data from ${serverURL}`);
   const [{ data, error, loading }] = useAxios<AllMemberProps[]>(
-    { baseURL: "http://localhost:3030", url: "/members" }, { manual: false, useCache: false }
+    { baseURL: serverURL, url: "/members" }, { manual: false, useCache: false }
 
   );
   const members = data;
+
+  console.log(`fe-member-list: data\n${JSON.stringify(members)}`)
 
   let memberElements;
   if (members) {
@@ -25,15 +31,16 @@ const MemberList = ({ updateViewState, updateCurrentMember }: AllMemberProps) =>
       return (
         <MemberListRow
           key={m._id}
-          recordId={m._id}
-          name={membersReducers.reduceMemberFullName(m)}
-          address={membersReducers.reduceAddressForMemberList(m)}
+          recordId={m?._id ? m._id : ""}
+          name={MembersReducers.reduceMemberFullName(m)}
+          address={MembersReducers.reduceAddressForMemberList(m)}
           phone={m?.phone}
           email={m?.email}
-          paidThrough={membersReducers.reducePaidThroughForMemberList(m)}
+          paidThroughString={MembersReducers.reducePaidThroughForMemberList(m)}
           updateViewState={updateViewState}
           mmb={m.mmb ? m.mmb : "VOL"}
           updateCurrentMember={updateCurrentMember}
+          mode=""
         />
       )
     });
