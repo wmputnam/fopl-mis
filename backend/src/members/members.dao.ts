@@ -4,6 +4,7 @@ import { PutMemberDto } from "./put.member.dto";
 import { IMember } from "packages/member-shared";
 import { Remittance } from "packages/Remittance";
 import { Volunteer } from "packages/Volunteer";
+import { Notes } from "packages/Notes";
 
 import mongooseService from "../common/services/mongoose.service";
 
@@ -20,11 +21,15 @@ class MembersDao {
     date: Date,
     amount: String,
     memo: String,
-  }, { id: false })
+  }, { _id: false })
   volunteeerSchema = new this.Schema<Volunteer>({
     role: String,
     lastWorkDate: Date,
-  }, { id: false })
+  }, { _id: false })
+  notesSchema = new this.Schema<Notes>({
+    date: Date,
+    note: String,
+  }, { _id: false })
   memberSchema = new this.Schema<IMember>({
     _id: String,
     firstName: { type: String, required: true, alias: "first name" },
@@ -42,7 +47,7 @@ class MembersDao {
     joined: Date,
     lastUpdated: { type: Date, alias: "updated" },
     remittances: { type: [this.remittanceSchema], alias: "payment history" },
-
+    notes: { type: [this.notesSchema] },
   }, { id: false })
 
   Member = mongooseService.getMongoose().model('Members', this.memberSchema);

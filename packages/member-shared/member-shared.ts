@@ -1,6 +1,7 @@
 import { Remittance } from "./Remittance"
 import { Names } from "./Names";
 import { Volunteer } from "./Volunteer";
+import { Notes } from "./Notes"
 export interface IMember {
   _id: string;
   firstName: string;
@@ -19,4 +20,5 @@ export interface IMember {
   joined: Date;
   lastUpdated: Date;
   remittances: Remittance[];
+  notes: Notes[];
 }

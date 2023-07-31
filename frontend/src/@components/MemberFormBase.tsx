@@ -15,6 +15,7 @@ import { flatten, unflatten } from "flat";
 import { Volunteer } from "packages/Volunteer";
 // import { stripVTControlCharacters } from "util";
 import { Remittance } from "packages/Remittance";
+import { Notes } from "packages/Notes";
 import { nanoid } from "nanoid";
 import { InvalidatedProjectKind } from "typescript";
 
@@ -553,6 +554,10 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
   function newMemberDataReducer(data: Partial<AllMemberProps>): Partial<AllMemberProps> {
     console.log(`fe-member-form.unflatten output\n   ${JSON.stringify(unflatten(data))}`)
     const structuredData: AllMemberProps = unflatten(data);
+    const notesArr: Notes[] = structuredData && structuredData.notes
+      ? structuredData.notes
+      : [] as Notes[];
+
     const newAddress = getValidatedAddress(structuredData);  // TODO finish this and hook it up
     const volArr: Volunteer[] = structuredData
       ? structuredData.volunteerPreferences as Volunteer[]
@@ -591,18 +596,19 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       return "VOL";
     }();
     let newDatesObj: Object = {};
-    if (newPaidThroughDate && newPaidThroughDate.valueOf() > Date.parse("1970-01-01").valueOf()) {
+    if (newMmb !== "LM" && newPaidThroughDate && newPaidThroughDate.valueOf() > Date.parse("1970-01-01").valueOf()) {
       Object.assign(newDatesObj, { paidThrough: newPaidThroughDate })
     }
     if (newJoined && newJoined.valueOf() > Date.parse("1970-01-01").valueOf()) {
-      Object.assign(newDatesObj, { joined: newJoined })
+      Object.assign(newDatesObj, { joined: newJoined });
+      notesArr.push({ date: new Date(), note: `joined as new ${newMmb} member on ${newJoined.toISOString().substring(0, 10)}` })
     }
-
     const restructedData: AllMemberProps = {
       _id: nanoid(),
       ...structuredData,
       mmb: newMmb,
       ...newDatesObj,
+      notes: [...notesArr],
       volunteerPreferences: [...newVolArr],
       remittances: [...newRemitArr]
     } as AllMemberProps
