@@ -592,7 +592,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
     }();
     let newDatesObj: Object = {};
     if (newPaidThroughDate && newPaidThroughDate.valueOf() > Date.parse("1970-01-01").valueOf()) {
-      Object.assign(newDatesObj, { paidThroughDate: newPaidThroughDate })
+      Object.assign(newDatesObj, { paidThrough: newPaidThroughDate })
     }
     if (newJoined && newJoined.valueOf() > Date.parse("1970-01-01").valueOf()) {
       Object.assign(newDatesObj, { joined: newJoined })
