@@ -11,10 +11,14 @@ class MembersMiddleware {
     res: express.Response,
     next: express.NextFunction
   ) {
-    const member = await membersService.getMemberByEmail(req.body.email);
-    if (member) {
-      const errBody: RestErrorBody = { error: ['member already exists with provided email -- email'] }
-      res.status(400).send(errBody);
+    if (req.body?.email !== undefined && req.body.email !== "" ) {
+      const member = await membersService.getMemberByEmail(req.body.email);
+      if (member) {
+        const errBody: RestErrorBody = { error: ['member already exists with provided email -- email'] }
+        res.status(400).send(errBody);
+      } else {
+        next();
+      }
     } else {
       next();
     }
@@ -24,12 +28,15 @@ class MembersMiddleware {
     res: express.Response,
     next: express.NextFunction
   ) {
+    if (req.body?.email !== undefined && req.body.email !== "") {
     const member = await membersService.getMemberByEmail(req.body.email);
     if (member && member._id === req.params.memberId) {
       next()
     } else {
       const errBody: RestErrorBody = { error: ['invalid email for the supplied member -- email'] }
       res.status(400).send(errBody);
+    } } else {
+      next()
     }
   }
   validatePatchEmail = async (

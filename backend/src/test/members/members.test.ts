@@ -4,9 +4,9 @@ import supertest from "supertest";
 import { expect } from "chai";
 import shortid from "shortid";
 import mongoose from "mongoose";
-import debug  from "debug";
+import debug from "debug";
 
-const log:debug.IDebugger = debug('app:test-members');
+const log: debug.IDebugger = debug('app:test-members');
 let firstMemberIdTest = ''; //later to hold value returned by API
 const randomizer = Date.now()
 const firstMemberBody = {
@@ -19,15 +19,15 @@ const newFirstName = "Billy";
 const newFirstName2 = "Bill";
 const newLastName = "Robertsson-Putnam";
 
-describe('members endpoints', function() {
+describe('members endpoints', function () {
   let request: supertest.SuperAgentTest;
-  before(function() {
+  before(function () {
     // server = app.listen(3033);
     request = supertest.agent(app);
   });
-  after(function(done) {
+  after(function (done) {
     // server.close( function() {
-      mongoose.connection.close();
+    mongoose.connection.close();
     // });
     done();
   })
@@ -37,9 +37,9 @@ describe('members endpoints', function() {
 
     firstMemberIdTest = res.body.id;
     expect(res.status).to.equal(200);
-    expect( res.body).not.to.be.empty;
-    expect( res.body ).to.be.an( 'object' );
-    expect( res.body.id ).to.be.a( 'string');
+    expect(res.body).not.to.be.empty;
+    expect(res.body).to.be.an('object');
+    expect(res.body.id).to.be.a('string');
   })
 
   it("should allow a GET to /members", async function () {
@@ -47,12 +47,12 @@ describe('members endpoints', function() {
 
     log(res.body);
     expect(res.status).to.equal(200);
-    expect( res.body).not.to.be.empty;
-    expect( res.body ).to.be.an( 'array' );
+    expect(res.body).not.to.be.empty;
+    expect(res.body).to.be.an('array');
     // expect( res.body.id ).to.be.a( 'string');
     // firstMemberIdTest = res.body.id;
   })
-  
+
   it(`should allow GET for a member by Id /members/:memberId`, async function () {
     log(`testing members/${firstMemberIdTest}`);
     const res = await request.get(`/members/${firstMemberIdTest}`).send();
@@ -60,8 +60,8 @@ describe('members endpoints', function() {
     log(res.body);
     log(typeof res.body)
     expect(res.status).to.equal(200);
-    expect( res.body).not.to.be.empty;
-    expect( res.body ).to.be.an( 'object' );
+    expect(res.body).not.to.be.empty;
+    expect(res.body).to.be.an('object');
 
   });
 
@@ -77,8 +77,8 @@ describe('members endpoints', function() {
     log(res.body);
     log(typeof res.body)
     expect(res.status).to.equal(204);
-    expect( res.body).to.be.empty;
-    expect( res.body ).to.be.an( 'object' );
+    expect(res.body).to.be.empty;
+    expect(res.body).to.be.an('object');
 
   });
 
@@ -95,8 +95,8 @@ describe('members endpoints', function() {
     log(res.body);
     log(typeof res.body)
     expect(res.status).to.equal(204);
-    expect( res.body).to.be.empty;
-    expect( res.body ).to.be.an( 'object' );
+    expect(res.body).to.be.empty;
+    expect(res.body).to.be.an('object');
 
   });
 

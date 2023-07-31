@@ -16,6 +16,7 @@ import { Volunteer } from "packages/Volunteer";
 // import { stripVTControlCharacters } from "util";
 import { Remittance } from "packages/Remittance";
 import { nanoid } from "nanoid";
+import { InvalidatedProjectKind } from "typescript";
 
 interface FormAction {
   type: string,
@@ -68,7 +69,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
 
   function mapUxToData(inTarget: string, inValue: string): UpdateMember[] {
     let outTarget: string[] = [];
-    let outValue: string[] = [];
+    let outValue: any[] = [];
     outValue[0] = inValue;
     switch (inTarget) {
       case "first-name":
@@ -82,15 +83,18 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       case "money-date":
         outTarget[0] = "remittances.0.date"; // TODO merge with any existing
         outTarget[1] = "remittances.1.date";
-        outValue[1] = inValue;
+        outValue[0] = new Date(inValue + "T00:00:00.000Z");
+        outValue[1] = new Date(inValue + "T00:00:00.000Z");
         break;
       case "money-dues-amount":
         outTarget[0] = "remittances.0.amount";
+        outValue[0] = inValue.substring(1);
         outTarget[1] = "remittances.0.memo";
         outValue[1] = "dues";
         break;
       case "money-donation-amount":
         outTarget[0] = "remittances.1.amount";
+        outValue[0] = inValue.substring(1);
         outTarget[1] = "remittances.1.memo";
         outValue[1] = "donation";
         break;
@@ -520,14 +524,36 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       });
   }
 
-  const getValidatedAddress = (data:Partial<AllMemberProps>):any  => {
+  const getDuesEntry = (remitArray: Remittance[]): Remittance => {
+    let result: Remittance;
+    for (let i = 0; i <= remitArray.length; i++) {
+      let _remit: Remittance = remitArray[i];
+      if (_remit.memo === "dues" && parseFloat(_remit.amount) >= 0.0) {
+        return _remit;
+      }
+    }
+    return {} as Remittance;
+  }
+  const getValidatedAddress = (data: Partial<AllMemberProps>): any => {
     return data; // TODO call USPS validation here and improve address if needed & possible 
   }
-  
+
+  const getDatePlus1Year = (date: Date): Date => {
+    const futureDate = new Date();
+    futureDate.setFullYear(date.getFullYear() + 1)
+    return futureDate;
+  }
+
+  const LIFE_MEMBER_DUES = 100.00;                                // TODO -- get these values from a configuration
+  const PATRON_DUES = 25.00;
+  const FAMILY_DUES = 10.00;
+  const INDIVIDUAL_DUES = 5.00;
+  const SENIOR_STUDENT_DUES = 2.00;
+
   function newMemberDataReducer(data: Partial<AllMemberProps>): Partial<AllMemberProps> {
     console.log(`fe-member-form.unflatten output\n   ${JSON.stringify(unflatten(data))}`)
     const structuredData: AllMemberProps = unflatten(data);
-    const newAddress = getValidatedAddress(structuredData);
+    const newAddress = getValidatedAddress(structuredData);  // TODO finish this and hook it up
     const volArr: Volunteer[] = structuredData
       ? structuredData.volunteerPreferences as Volunteer[]
       : [] as Volunteer[];
@@ -540,9 +566,33 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
     const newRemitArr: Remittance[] = remitArr
       ? remitArr.filter(item => hasProp(item, "amount")) as Remittance[]
       : [] as Remittance[];
+    const newMmb: string = function (): string {
+      if (remitArr && (remitArr as Remittance[]).length > 0) {
+        const duesEntry = getDuesEntry(remitArr);
+        const paidThroughDate: Date = getDatePlus1Year(duesEntry.date);
+        if (duesEntry && duesEntry?.amount !== undefined && duesEntry?.date !== undefined) {
+          const yy = paidThroughDate.getFullYear().toString().substring(2, 4);  // get the year from the century-year
+          const duesAmount = parseFloat(duesEntry.amount);
+          if (duesAmount >= LIFE_MEMBER_DUES) {
+            return "LM";
+          } else if (duesAmount < LIFE_MEMBER_DUES && duesAmount >= PATRON_DUES) {
+            return "P" + yy;
+          } else if (duesAmount >= FAMILY_DUES && duesAmount < PATRON_DUES) {
+            return "F" + yy;
+          } else if (duesAmount >= INDIVIDUAL_DUES && duesAmount < FAMILY_DUES) {
+            return "" + yy;
+          } else if (duesAmount >= SENIOR_STUDENT_DUES && duesAmount < INDIVIDUAL_DUES) {
+            return "S" + yy
+          }
+        }
+      }
+      return "VOL";
+    }();
+    
     const restructedData: AllMemberProps = {
       _id: nanoid(),
       ...structuredData,
+      mmb: newMmb,
       volunteerPreferences: [...newVolArr],
       remittances: [...newRemitArr]
     } as AllMemberProps

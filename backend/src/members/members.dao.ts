@@ -97,24 +97,9 @@ class MembersDao {
   }
   async removeMemberById(memberId: string) {
     return this.Member.deleteOne({ _id: memberId }).exec();
-    //   const objIndex = this.members.findIndex(
-    //     (obj: {id:string}) => obj.id == memberId
-    //   );
-    //   this.members.splice(objIndex,1);
-    //   return `${memberId} REMOVED`
-
   }
   getMemberByEmail(email: string) {
     return this.Member.findOne({ email: email }).exec();
-    //   const objIndex = this.members.findIndex(
-    //     (obj: {email:string}) => obj.email === email
-    //   );
-    //   let currentMember = this.members[objIndex];
-    //   if (currentMember) {
-    //     return currentMember;
-    //   } else {
-    //     return null;
-    //   }
   }
 }
 export default new MembersDao();
