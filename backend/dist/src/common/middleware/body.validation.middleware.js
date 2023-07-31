@@ -5,7 +5,7 @@ class BodyValidationMiddleware {
     verifyBodyFieldsErrors(req, res, next) {
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
-            return res.status(400).send({ errors: errors.array() });
+            return res.status(400).send({ error: errors.array() });
         }
         next();
     }

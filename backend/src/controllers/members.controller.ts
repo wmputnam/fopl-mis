@@ -1,6 +1,7 @@
 import express from "express";
 import membersService from "../services/members.service";
 import debug from "debug";
+import { RestErrorBody } from "../common/interface/RestErrorBody";
 
 const log: debug.IDebugger = debug('app:members-controller');
 
@@ -19,7 +20,9 @@ class MembersController {
     try {
       memberId = await membersService.create(req.body);
     } catch (error) {
-      res.status(400).send(`{error: ${error}}`)
+      const errBody:RestErrorBody = { error: [ `${error}` ]};
+
+      res.status(400).send(errBody)
       return;
     }
     res.status(200).send({ id: memberId });

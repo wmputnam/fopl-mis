@@ -23,7 +23,7 @@ interface FormAction {
 }
 interface FormError {
   target: string,
-  errors: string[]
+  error: string[]
 }
 
 const hasProp = ((obj: Object, prop: string) => obj.hasOwnProperty.call(obj, prop));
@@ -172,7 +172,9 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
 
     console.log(`fe-member-form--update-member-data\n   ${JSON.stringify({ ...memberData })}`);
     console.log(`fe-member-form--update-member-data\n   ${JSON.stringify({ ...newData })}`);
-    setMemberData((oldData) => ({ ...oldData, ...newData }));
+    setMemberData((oldData) =>
+      ({ ...oldData, ...newData })
+    );
   }
 
   const [memberData, setMemberData] = React.useState(dataInitial.current as AllMemberProps);
@@ -198,7 +200,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       <div className="member-form--name-group">
         <label htmlFor="first-name">First name</label>
         <input type="text" id="first-name" className="new-member--first-name width-wide" placeholder="First name"
-          required={false} {...inputValues.firstName}
+          required={true} {...inputValues.firstName}
           onChange={handleFieldChange}
           onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
           onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
@@ -230,7 +232,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
         <input type="telephone" id="phone" className="new-member--phone width-phone" placeholder="Phone"  {...inputValues.phone} onChange={handleFieldChange} />
         <label htmlFor="email">Email</label>
         <input type="email" id="email" className="new-member--email width-phone" placeholder="Email"
-          required={true}
+          required={false}
           {...inputValues.email}
           onChange={handleFieldChange}
           onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Email is required')}
@@ -493,11 +495,15 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
   }
   function handleSave(a: string): any {
     console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
+
+    const cleanerData = eliminateEmptyProperties(memberData);
+    console.log(`fe-member-form.cleanerdata output\n   ${JSON.stringify(cleanerData)}`)
+
     // the new member memberData object is not ready for commit -- newMemberDataReducer performs restructuring
     const memberDataToSave = memberId === "" ? newMemberDataReducer(memberData) : memberData;
     Save(serverUrl, memberDataToSave, memberID)
       .then((savRes) => {
-        console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
+        savRes && console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
         if ([200, 201, 204].includes(savRes.status)) {
           console.log("successful save")
           setHasErrors(false);
@@ -505,7 +511,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
           updateAppMessages && updateAppMessages([])
           updateViewState(MemberViewStates.list);
         } else {
-          formErrors.current[0] = { target: "any", errors: [savRes?.body?.error] };
+          formErrors.current[0] = { target: "any", error: [savRes?.body?.error] };
           setHasErrors(true);
           updateAppMessages && updateAppMessages([savRes?.body?.error])
         }
@@ -514,8 +520,8 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       });
   }
 
-  function newMemberDataReducer(data: AllMemberProps): AllMemberProps {
-    console.log(`fe-member-form.unflatten input\n   ${JSON.stringify(unflatten(data))}`)
+  function newMemberDataReducer(data: Partial<AllMemberProps>): Partial<AllMemberProps> {
+    console.log(`fe-member-form.unflatten output\n   ${JSON.stringify(unflatten(data))}`)
     const structuredData: AllMemberProps = unflatten(data);
     const volArr: Volunteer[] = structuredData
       ? structuredData.volunteerPreferences as Volunteer[]
@@ -557,3 +563,15 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
 
 }
 export default MemberFormBase;
+
+function eliminateEmptyProperties(memberData: Partial<AllMemberProps>): Partial<AllMemberProps> {
+  let oData = {} as any;
+  for (const e in memberData) {
+    if (memberData.hasOwnProperty(e) && typeof typeof memberData[e as keyof AllMemberProps] === 'string') {
+      if (memberData[e as keyof AllMemberProps] !== "")
+        oData[e as keyof AllMemberProps] = memberData[e as keyof AllMemberProps] as unknown as string;
+    }
+  }
+  return oData;
+}
+

@@ -20,6 +20,8 @@ export class MembersRoutes extends CommonRoutesConfig {
       .get(membersController.listMembers)
       .post(
         body('email').normalizeEmail({ gmail_remove_subaddress: true }).isEmail(),
+        body("firstName").exists().isLength({ min: 1 }),
+        body("lastName").exists().isLength({ min: 1 }),
         bodyValidationMiddleware.verifyBodyFieldsErrors,
         membersMiddleware.validateSameEmailDoesntExist,
         membersController.createMember
@@ -34,8 +36,8 @@ export class MembersRoutes extends CommonRoutesConfig {
 
     this.app.put(`/members/:memberId`, [
       body('email').isEmail(),
-      body('firstName').isString(),
-      body('lastName').isString(),
+      body('firstName').isString().isLength({ min: 1 }),
+      body('lastName').isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersMiddleware.validateMemberExists,
       membersMiddleware.validateSameEmailBelongToSameMember,
@@ -44,8 +46,8 @@ export class MembersRoutes extends CommonRoutesConfig {
 
     this.app.patch(`/members/:memberId`, [
       body('email').isEmail(),
-      body('firstName').isString(),
-      body('lastName').isString(),
+      body('firstName').isString().isLength({ min: 1 }),
+      body('lastName').isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersController.patch
     ]);

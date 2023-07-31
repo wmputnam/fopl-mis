@@ -1,34 +1,21 @@
 import express from "express";
 import membersService from "../../services/members.service";
 import debug from "debug";
+import { RestErrorBody } from "../../common/interface/RestErrorBody";
 
 const log: debug.IDebugger = debug('app:members-middleware');
 
 class MembersMiddleware {
-  // async validateRequiredMemberBodyFields(
-  //   req: express.Request,
-  //   res: express.Response,
-  //   next: express.NextFunction
-  // ) {
-  //   if( req.body && req.body.firstName && req.body.lastName && req.body.email) {
-  //     next();
-  //   } else {
-  //     res.status(400).send({
-  //       error: `Missing required field(s) in [firstName, lastName,email]`
-  //     });
-  //   }
-  // }
   async validateSameEmailDoesntExist(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) {
     const member = await membersService.getMemberByEmail(req.body.email);
-    if( member ) {
-      res.status(400).send({
-        error: `member already exists with proved email`
-      });
-     } else {
+    if (member) {
+      const errBody: RestErrorBody = { error: ['member already exists with provided email -- email'] }
+      res.status(400).send(errBody);
+    } else {
       next();
     }
   }
@@ -38,12 +25,11 @@ class MembersMiddleware {
     next: express.NextFunction
   ) {
     const member = await membersService.getMemberByEmail(req.body.email);
-    if( member && member._id === req.params.memberId ) {
+    if (member && member._id === req.params.memberId) {
       next()
     } else {
-       res.status(400).send({
-         error: `invalid email`
-       });
+      const errBody: RestErrorBody = { error: ['invalid email for the supplied member -- email'] }
+      res.status(400).send(errBody);
     }
   }
   validatePatchEmail = async (
@@ -53,7 +39,7 @@ class MembersMiddleware {
   ) => {
     if (req.body.email) {
       log('validating email')
-      this.validateSameEmailDoesntExist(req,res,next);
+      this.validateSameEmailDoesntExist(req, res, next);
     } else {
       next();
     }
@@ -63,13 +49,13 @@ class MembersMiddleware {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ):Promise<any> {
+  ): Promise<any> {
     const member = await membersService.readById(req.params.memberId);
     if (member) {
       next();
     } else {
       res.status(404).send({
-        error:`Member ${req.params.memberId} not found`
+        error: `Member ${req.params.memberId} not found`
       })
     }
   }
@@ -78,7 +64,7 @@ class MembersMiddleware {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ):void {
+  ): void {
     req.body.id = req.params.memberId;
     next();
   }
