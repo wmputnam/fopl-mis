@@ -520,9 +520,14 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       });
   }
 
+  const getValidatedAddress = (data:Partial<AllMemberProps>):any  => {
+    return data; // TODO call USPS validation here and improve address if needed & possible 
+  }
+  
   function newMemberDataReducer(data: Partial<AllMemberProps>): Partial<AllMemberProps> {
     console.log(`fe-member-form.unflatten output\n   ${JSON.stringify(unflatten(data))}`)
     const structuredData: AllMemberProps = unflatten(data);
+    const newAddress = getValidatedAddress(structuredData);
     const volArr: Volunteer[] = structuredData
       ? structuredData.volunteerPreferences as Volunteer[]
       : [] as Volunteer[];

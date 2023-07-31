@@ -1,9 +1,7 @@
 import React from "react";
-  import { AppMessages } from "../@interfaces/MemberProps";
-// export var AppMessagesContext: React.Context<string[]>
+import { AppMessages } from "../@interfaces/MemberProps";
 
 const AppHeader = ({ messages }: AppMessages) => {
-  // AppMessagesContext = React.createContext<string[]>( ["hello"] );
   return (
     <>
       <div className="app-header" role="menubar">
@@ -16,7 +14,8 @@ const AppHeader = ({ messages }: AppMessages) => {
           </div>
         </div>
         <div className="app-header--middle">
-          <div className="app-header--messages">{messages}</div>
+          <div className={
+            "app-header--messages" + (messages.length === 0 ? " HIDE" : "")} >{messages}</div>
         </div>
         <div className="app-header--right">
           <div className="app-header--right-container" />

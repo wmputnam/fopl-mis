@@ -26,7 +26,7 @@ export default function App() {
   );
   const [appViewState, setAppViewState] = React.useState({ view: MemberViewStates.list })
   const [currentMember, setCurrentMember] = React.useState("")
-  const [appMessages, setAppMessages] = React.useState<string[]>(["Hello nurse!"]);
+  const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
   CurrentMemberContext = React.createContext(currentMember)
 
   function setViewState(a: MemberViewStates): any {
