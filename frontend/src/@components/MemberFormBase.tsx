@@ -566,13 +566,15 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
     const newRemitArr: Remittance[] = remitArr
       ? remitArr.filter(item => hasProp(item, "amount")) as Remittance[]
       : [] as Remittance[];
+    const duesEntry = getDuesEntry(remitArr);
+    const newPaidThroughDate: Date = duesEntry ? getDatePlus1Year(duesEntry.date) : new Date("1970-01-01");
+    const newJoined: Date = duesEntry ? duesEntry.date : new Date("1970-01-01");
     const newMmb: string = function (): string {
-      if (remitArr && (remitArr as Remittance[]).length > 0) {
-        const duesEntry = getDuesEntry(remitArr);
-        const paidThroughDate: Date = getDatePlus1Year(duesEntry.date);
-        if (duesEntry && duesEntry?.amount !== undefined && duesEntry?.date !== undefined) {
-          const yy = paidThroughDate.getFullYear().toString().substring(2, 4);  // get the year from the century-year
-          const duesAmount = parseFloat(duesEntry.amount);
+
+      if (duesEntry && duesEntry?.amount !== undefined && duesEntry?.date !== undefined) {
+        const yy = newPaidThroughDate.getFullYear().toString().substring(2, 4);  // get the year from the century-year
+        const duesAmount = parseFloat(duesEntry.amount);
+        if (yy !== undefined && !Number.isNaN(duesAmount)) {
           if (duesAmount >= LIFE_MEMBER_DUES) {
             return "LM";
           } else if (duesAmount < LIFE_MEMBER_DUES && duesAmount >= PATRON_DUES) {
@@ -588,11 +590,19 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
       }
       return "VOL";
     }();
-    
+    let newDatesObj: Object = {};
+    if (newPaidThroughDate && newPaidThroughDate.valueOf() > Date.parse("1970-01-01").valueOf()) {
+      Object.assign(newDatesObj, { paidThroughDate: newPaidThroughDate })
+    }
+    if (newJoined && newJoined.valueOf() > Date.parse("1970-01-01").valueOf()) {
+      Object.assign(newDatesObj, { joined: newJoined })
+    }
+
     const restructedData: AllMemberProps = {
       _id: nanoid(),
       ...structuredData,
       mmb: newMmb,
+      ...newDatesObj,
       volunteerPreferences: [...newVolArr],
       remittances: [...newRemitArr]
     } as AllMemberProps
