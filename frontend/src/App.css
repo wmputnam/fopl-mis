@@ -421,6 +421,7 @@ a {
   margin: 16px 0 0 0;
   border: 1px dashed #021335;
 }
+
 .notes-row--header {
   display: flex;
   justify-content: space-around;
@@ -428,6 +429,7 @@ a {
   /* border: 1px dotted purple; */
   font-weight: 700;
 }
+
 .notes-row {
   display: flex;
   justify-content: space-around;
@@ -444,10 +446,52 @@ a {
   min-width: 200px;
   font-size: large;
 }
+
 .notes-row--note {
   display: inline;
   /* border: 1px dashed blue; */
   text-align: left;
   min-width: 1200px;
+  font-size: large;
+}
+
+.remits-row--header {
+  display: flex;
+  justify-content: space-around;
+  margin: 3px 0;
+  /* border: 1px dotted purple; */
+  font-weight: 700;
+}
+
+.remits-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 3px 0;
+  /* border: 1px dotted purple; */
+  line-height: 2vh;
+  font-size: medium;
+}
+
+.remits-row--date {
+  display: inline;
+  /* border: 1px dashed blue; */
+  text-align: left;
+  min-width: 200px;
+  font-size: large;
+}
+
+.remits-row--amount {
+  display: inline;
+  /* border: 1px dashed blue; */
+  text-align: left;
+  min-width: 200px;
+  font-size: large;
+}
+
+.remits-row--memo {
+  display: inline;
+  /* border: 1px dashed blue; */
+  text-align: left;
+  min-width: 300px;
   font-size: large;
 }
