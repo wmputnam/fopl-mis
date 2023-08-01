@@ -45,7 +45,7 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
   const dataInitial: any = React.useRef({});
   React.useEffect(() => {
     memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
-    if (isEmptyObject(dataInitial.cuurent)) {
+    if (isEmptyObject(dataInitial.current)) {
       loadData(serverUrl, memberId, mode ? mode : "")
         .then((loadRes: any) => {
           if ([200, 201].includes(loadRes.status)) {
@@ -59,8 +59,8 @@ const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMember
         });
     }
   }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    , []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  , []);
 
   let flatInitial: AllMemberProps;
   interface UpdateMember {

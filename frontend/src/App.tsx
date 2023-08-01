@@ -11,6 +11,7 @@ import RenewMember from './@components/RenewMember';
 import { IServerContext } from './@interfaces/IServerContext';
 import { MemberViewStates } from './@interfaces/enums';
 import AppHeader from './@components/AppHeader';
+import MemberFormNotes from './@components/MemberFormNotes';
 
 export var CurrentMemberContext: React.Context<string>
 export var ServerContext: React.Context<IServerContext>
@@ -70,6 +71,9 @@ export default function App() {
       break;
     case MemberViewStates.renew:
       component = <RenewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      break;
+    case MemberViewStates.notes:
+      component = <MemberFormNotes updateViewState={setViewState}  />
       break;
     default:
       component = <><h1> opps we are now lost</h1><Home updateViewState={setViewState} /></>
