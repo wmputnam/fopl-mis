@@ -1,12 +1,15 @@
 import React from "react";
 import Home from "./CancelBtn";
-import { ExistingMemberProps } from "../@interfaces/MemberProps";
+import { FrontendProps } from "../@interfaces/MemberProps";
 
 
-const EditMemberAddress = ({ updateViewState, updateCurrentMember }: ExistingMemberProps) => {
+const EditMemberAddress = ({ getAppState, setAppState }: FrontendProps) => {
     return (<>
         <h1>On the EditMemberAddress view now</h1>
-        <Home updateViewState={updateViewState} />
+        <Home 
+        getAppState={getAppState}
+        setAppState={setAppState} 
+        />
     </>
     )
 }

@@ -1,12 +1,11 @@
 // import axios from "axios";
 import request from "superagent";
-import { SaveResponse } from "../@interfaces/SaveResponse";
 
 export default async function Save(serverUrl: string, payload: any, memberId: string = ""): Promise<any> {
   let bresult: any;
   if (memberId === "") {
     console.log(`fe-data-updater--save URL:${serverUrl}/members [NEW] `);
-    console.log(`fe-data-updater--save payload:\n    ${JSON.stringify(payload)}`);
+    console.log(`fe-data-updater--save payload:\n    ${payload}`);
     try {
       bresult = await doPost(serverUrl, payload);
       return bresult;

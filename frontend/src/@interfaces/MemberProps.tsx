@@ -1,5 +1,6 @@
 import { IMember } from "packages/member-shared";
 import { MemberViewStates } from "./enums";
+import { AppState } from "../App";
 
 export interface RecordIdProps {
   recordId?: string;
@@ -30,16 +31,17 @@ export interface OtherProps {
 }
 export type ViewStateProps = {
   updateViewState: (a: MemberViewStates) => any;
+  getAppState: () => any;
   mode?: string;
 }
 export type CurrentMemberProps = {
-  updateCurrentMember?: (a: string) => any;
+  updateCurrentMember: (a: string) => any;
 }
 
 
-export interface EditMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps {
+export interface EditMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps {
 };
-export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps, CurrentMessageProps {};
+export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps, CurrentMessageProps, AppStateProps { };
 export interface AppMessages {
   messages: string[];
 }
@@ -47,7 +49,11 @@ export type CurrentMessageProps = {
   updateAppMessages?: (arr: string[]) => any;
 }
 
-export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, Partial<IMember> {
+export type AppStateProps = {
+  getAppState: () => any;
+}
+
+export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps, Partial<IMember> {
   recordId: string;
   name: string;
   paidThroughString: string;
@@ -60,4 +66,9 @@ export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, Curr
 // mmb:string;
 // updateCurrent:(values:any) => undefined;
 // }
+export interface FrontendProps {
+  setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+  getAppState: () => any;
+
+}
 export interface MemberProps { }

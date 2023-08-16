@@ -2,6 +2,7 @@ import express from "express";
 import membersService from "../services/members.service";
 import debug from "debug";
 import { RestErrorBody } from "../common/interface/RestErrorBody";
+import util from "util";
 
 const log: debug.IDebugger = debug('app:members-controller');
 
@@ -20,7 +21,7 @@ class MembersController {
     try {
       memberId = await membersService.create(req.body);
     } catch (error) {
-      const errBody:RestErrorBody = { error: [ `${error}` ]};
+      const errBody: RestErrorBody = { error: [`${error}`] };
 
       res.status(400).send(errBody)
       return;
@@ -32,6 +33,8 @@ class MembersController {
     res.status(204).send();
   }
   async put(req: express.Request, res: express.Response) {
+    log(`put body ${JSON.stringify(req.body)}`)
+    log(`put request\n     ${util.inspect(req)}`);
     log(await membersService.putById(req.body.id, req.body));
     res.status(204).send();
   };

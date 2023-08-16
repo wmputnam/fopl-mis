@@ -1,80 +1,80 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react"
-import { AllMemberProps, ViewStateProps } from "../@interfaces/MemberProps";
+import React, { Profiler } from "react"
 import Home from "./CancelBtn";
-import loadData from "./DataLoader";
-import { CurrentMemberContext, ServerContext } from "../App";
-import { flatten, unflatten } from "flat";
 import NotesListRow from "./NotesListRow";
 import { Notes } from "packages/Notes";
 import NotesListHeader from "./NotesListHeader";
 import CancelBtn from "./CancelBtn";
 import BackToMemberBtn from "./BackToMemberBtn";
+import { getServerUrl } from "../services/AppConfig";
+import { AppState, onRenderCallback } from "../App";
+import { IMember } from "packages/member-shared";
+import useAxios from "axios-hooks";
 
+export interface MemberFormNotesProps {
+  memberId?: string;
+  setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+  getAppState: () => any;
+}
 
-const MemberFormNotes = ({ updateViewState }: ViewStateProps): JSX.Element => {
-  const { serverURL } = React.useContext(ServerContext);
-  const serverUrl = serverURL === undefined ? "http://localhost:3030" : serverURL;
-  const memberId = React.useContext(CurrentMemberContext);
-  // const memberID = memberId === undefined ? "" : memberId;
+const MemberFormNotes = ({ memberId, getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
 
-  function isEmptyObject(obj: Object) {
-    for (let i in obj) return false;
-    return true;
+  const LoadFromDb = (memberId: string): Array<any> => {
+    return useAxios<IMember>(
+      { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
+    );
   }
-  const dataInitial: any = React.useRef({});
-
-  React.useEffect(() => {
-    // memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
-    if (isEmptyObject(dataInitial.current)) {
-      loadData(serverUrl, memberId, "")
-        .then((loadRes: any) => {
-          if ([200, 201].includes(loadRes.status)) {
-            console.log("successful load")
-            dataInitial.current = loadRes.body;
-            setMemberData(dataInitial.current)
-          }
-        })
-        .catch((fault) => {
-          return { status: 500, error: `fault occured: ${JSON.stringify(fault)}` };
-        });
-    }
+  let someData: Array<any> | undefined;
+  if (memberId) {
+    someData = LoadFromDb(memberId);
+  } else {
+    someData = undefined;
   }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    , []);
-  const [memberData, setMemberData] = React.useState(dataInitial.current as AllMemberProps);
 
-  const notesArr: Notes[] = memberData.notes ? memberData.notes as Notes[] : [];
+  const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
+
+  const notesArr: Notes[] | undefined = memberData && memberData.notes ? memberData.notes as Notes[] : undefined;
 
   let notesElements;
 
-  notesElements = notesArr.map((m) => {
-    return (
-      <>
-        <NotesListRow
-          key={m?.date.toString()}
-          date={m?.date !== undefined ? new Date(m.date) : new Date()}
-          note={m.note}
-        />
-      </>
-    )
-  });
-
   if (notesArr) {
+    notesElements = notesArr.map((m) => {
+      return (
+        <>
+          <NotesListRow
+            key={m?.date.toString()}
+            date={m?.date !== undefined ? new Date(m.date) : new Date()}
+            note={m.note}
+          />
+        </>
+      )
+    });
+
     return (
       <>
-        <BackToMemberBtn updateViewState={updateViewState} />
-        <Home updateViewState={updateViewState} />
-        <CancelBtn updateViewState={updateViewState} updateAppMessages={() => { }} />
+        <BackToMemberBtn
+          getAppState={getAppState}
+          setAppState={setAppState}
+        />
+        <Home
+          getAppState={getAppState}
+          setAppState={setAppState}
+        />
+        <CancelBtn
+          getAppState={getAppState}
+          setAppState={setAppState}
+        />
         {/* {!!data && <MemberListHeader />} */}
         <h3>Notes for {memberData.firstName + " " + memberData.lastName}</h3>
-        {!!notesArr && <NotesListHeader />}
-        {!!notesArr && notesElements}
+        <Profiler id="memberNotes" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+          {!!notesArr && <NotesListHeader />}
+          {!!notesArr && notesElements}
+        </Profiler>
       </>
     );
   } else {
     return (
-      <p>No members to display</p>
+      <p>No member data to display</p>
     );
   }
 }

@@ -5,6 +5,7 @@ import { IMember } from "packages/member-shared";
 import { Remittance } from "packages/Remittance";
 import { Volunteer } from "packages/Volunteer";
 import { Notes } from "packages/Notes";
+import { Names } from "packages/Names";
 
 import mongooseService from "../common/services/mongoose.service";
 
@@ -30,10 +31,15 @@ class MembersDao {
     date: Date,
     note: String,
   }, { _id: false })
+  namesSchema = new this.Schema<Names>({
+    firstName: String,
+    lastName: String,
+  }, { _id: false })
   memberSchema = new this.Schema<IMember>({
     _id: String,
     firstName: { type: String, required: true, alias: "first name" },
     lastName: { type: String, required: true, alias: "last name" },
+    names: { type: [this.namesSchema] },
     email: String,
     phone: String,
     address: String,
@@ -92,12 +98,15 @@ class MembersDao {
     memberId: string,
     memberFields: PatchMemberDto | PutMemberDto
   ) {
+    log(`updateUserById \n    ${JSON.stringify(memberFields)}`)
     const existingMember = await this.Member.findOneAndUpdate(
       { _id: memberId },
-      { $set: memberFields },
+      memberFields,
+      // { $set: memberFields },
       { new: true }
     )
-      .exec();
+      .exec().then((reslt) => log(`updatebyuserid result: ${JSON.stringify(reslt)}`))
+      .catch((err) => log(`updatebyuserid err: ${JSON.stringify(err)}`));
     return existingMember;
   }
   async removeMemberById(memberId: string) {

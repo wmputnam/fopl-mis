@@ -1,9 +1,10 @@
+import { IMember } from "packages";
 import { AllMemberProps } from "../@interfaces/MemberProps";
 
 class MembersReducers {
   static reduceMemberFullName(m: Partial<AllMemberProps>): string {
     let fullname = "";
-    // precedence rule for this poorly designed interface
+    // precedence rule for this (poorly designed) interface
     // if there is a names:Array<{lastName:string,firstName:string}>
     // then return the fullnames:Array<string> = names.map( item => item.firstName + " "+ item.lastName)
     //                 fullname = fullnames.join(" & ")
@@ -12,7 +13,7 @@ class MembersReducers {
     // else if there is a name property
     // then fullname = name
     // else fullname = ""
-    if (m.hasOwnProperty("names")) {
+    if (m.hasOwnProperty("names") && m?.names && m.names?.length > 0) {
       const fullnames: Array<string> = m?.names?.map(item => item?.firstName + " " + item?.lastName) as Array<string>;
       fullname = fullnames.join(" & ");
     } else if (m.hasOwnProperty("lastName") || m.hasOwnProperty("firstName")) {
@@ -23,7 +24,7 @@ class MembersReducers {
     return fullname;
   }
 
-  static reduceAddressForMemberList(m: AllMemberProps): string {
+  static reduceAddressForMemberList(m: IMember): string {
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
@@ -51,7 +52,7 @@ class MembersReducers {
     return reducer_address + reducer_unit + reducer_city + reducer_zip;
   }
 
-  static reducePaidThroughForMemberList(m: AllMemberProps): string {
+  static reducePaidThroughForMemberList(m: IMember): string {
     const lifeMembershipCodes = ["LM", "HLM", "BEN"];
     const volunteerCodes = ["VOL"];
     const allNopayCodes = lifeMembershipCodes.concat(volunteerCodes);
@@ -72,7 +73,7 @@ class MembersReducers {
     }
   }
 
-  static reduceJoinedForMemberList(m: AllMemberProps): string {
+  static reduceJoinedForMemberList(m: IMember): string {
     if (m?.joined !== undefined) {
       let computedType: string = ({}).toString.call(m.joined).toLowerCase();
       console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
@@ -88,7 +89,7 @@ class MembersReducers {
     }
   }
 
-  static reduceLastUpdatedForMemberList(m: AllMemberProps): string {
+  static reduceLastUpdatedForMemberList(m: IMember): string {
     if (m?.lastUpdated !== undefined) {
       let computedType: string = ({}).toString.call(m.lastUpdated).toLowerCase();
       console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);

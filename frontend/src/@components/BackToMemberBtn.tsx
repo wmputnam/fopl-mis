@@ -1,12 +1,12 @@
 import React from "react";
-import { EditMemberProps, ViewStateProps } from "../@interfaces/MemberProps";
 import { MemberViewStates } from "../@interfaces/enums";
+import { FrontendProps } from "../@interfaces/MemberProps";
 
 
-function BackToMemberBtn({ updateViewState }: EditMemberProps): any {
+function BackToMemberBtn({ setAppState }: FrontendProps): any {
 
     function updViewState() {
-        updateViewState(MemberViewStates.edit);
+        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.edit }));
     }
     return (
         <button type="button" onClick={updViewState}>Back to member</button>

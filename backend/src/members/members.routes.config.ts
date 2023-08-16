@@ -35,9 +35,6 @@ export class MembersRoutes extends CommonRoutesConfig {
       .delete(membersController.removeMember);
 
     this.app.put(`/members/:memberId`, [
-      // body('email').isEmail(),
-      body('firstName').isString().isLength({ min: 1 }),
-      body('lastName').isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersMiddleware.validateMemberExists,
       membersMiddleware.validateSameEmailBelongToSameMember,

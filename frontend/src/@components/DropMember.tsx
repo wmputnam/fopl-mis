@@ -1,19 +1,28 @@
 import React from "react";
-import { ExistingMemberProps } from "../@interfaces/MemberProps";
-import { CurrentMemberContext } from "../App"
 import Home from "./CancelBtn";
 import { MemberViewStates } from "../@interfaces/enums";
+import CancelBtn from "./CancelBtn";
+import { AppState } from "../App";
 
-const DropMember = ({ updateViewState, updateCurrentMember }: ExistingMemberProps): any => {
-    const memberId = React.useContext(CurrentMemberContext)
+export interface DropMemberProps {
+    setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+    getAppState: () => any;
+    memberId?: string;
+}
+const DropMember = ({ getAppState, setAppState }: DropMemberProps): any => {
+    const memberId = getAppState && getAppState().memberId;
+    function updViewState() {
+        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.list, memberId: "" }));
+    }
     const handleClick = () => {
-        updateViewState(MemberViewStates.list)
-        if (updateCurrentMember) updateCurrentMember("")
+        updViewState()
+        // if (updateCurrentMember) updateCurrentMember("")
     }
     return (
         <>
             <h1 onClick={handleClick}>On the DropMember view now for ${memberId}</h1>
-            < Home updateViewState={updateViewState} />
+            < Home setAppState={setAppState} getAppState={getAppState} />
+            {false && <div><button>Drop</button><CancelBtn getAppState={getAppState} setAppState={setAppState} /></div>}
         </>
     )
 }

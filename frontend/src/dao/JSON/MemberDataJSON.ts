@@ -1,4 +1,4 @@
-import { AppConfig } from "../../classes/AppConfig"
+import { AppConfig } from "../../services/AppConfig"
 import memberData from "../../assets/data/member-data.json"
 
 export class MemberDataJSON {

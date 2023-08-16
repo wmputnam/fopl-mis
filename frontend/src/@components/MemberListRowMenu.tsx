@@ -1,48 +1,65 @@
 import React from "react";
-import { AllMemberProps } from "../@interfaces/MemberProps";
+import { AppState } from "../App";
 import { MemberViewStates } from "../@interfaces/enums";
+import { MemberService } from "../services/MemberService";
+export type MemberListRowMenuProps = {
+  recordId: string;
+  mmb: string;
+  getAppState: () => any;
+  setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+}
+const MemberListRowMenu = ({ recordId, mmb, setAppState }: MemberListRowMenuProps) => {
 
-const MemberListRowMenu = ({ recordId, updateViewState = (a: string | undefined):any => { }, mmb, updateCurrentMember = (a: string | undefined):any => { } } : Partial<AllMemberProps>):any  => {
-
-  const handleEditClick = ():any => {
+  const handleEditClick = (): any => {
     console.log(`edit member ${recordId}`);
-    updateCurrentMember(recordId||"")
-    updateViewState( MemberViewStates.edit )
-  }
-  
-  const handleRenewClick = ():any => {
-    console.log(`renew member ${recordId}`);
-    updateCurrentMember(recordId||"")
-    updateViewState( MemberViewStates.renew )
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.edit }));
   }
 
-  const handleNewClick = ():any => {
+  const handleRenewClick = (): any => {
+    console.log(`renew member ${recordId}`);
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.renew }));
+  }
+
+  const handleNewClick = (): any => {
     console.log(`new member`);
-    updateViewState( MemberViewStates.new )
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.new }));
   }
-  const handleMoneyClick = ():any => {
+
+  const handleMoneyClick = (): any => {
     console.log(`edit member money ${recordId}`);
-    updateCurrentMember(recordId||"")
-    updateViewState( MemberViewStates.money )
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.money }));
   }
-  const handleDropClick = ():any => {
+  const handleNotesClick = (): any => {
+    console.log(`edit member money ${recordId}`);
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.notes }));
+  }
+  const handleDropClick = (): any => {
     console.log(`drop member ${recordId}`);
-    updateCurrentMember(recordId||"")
-    updateViewState( MemberViewStates.drop )
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.drop }));
   }
+
 
   return (
-        <div className="member-row--menu">
-            <button className="dropbtn">⋮</button>
-            <div className="dropdown-content">
-                <div className="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit</div>
-                <div className="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>{mmb==="LM"||mmb==="HLM"?"Donation":"Renewal"}</div>
-                {mmb==="VOL"&&<div className="member-row--menu-signup" onClick={() => handleNewClick()}>VOL to MEMBER</div>}
-                <div className="member-row--menu-money" onClick={() => handleMoneyClick()}>$$$</div>
-                <div className="member-row--menu-drop" onClick={() => handleDropClick()}>Drop</div>
-            </div>
-        </div>
-    );
+    <div className="member-row--menu">
+      <button className="dropbtn">⋮</button>
+      <div className="dropdown-content">
+        <div className="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit member</div>
+        <div className="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>
+          {MemberService.isLifeMember(mmb) ? "Process donation" : "Renew member"}</div>
+        {MemberService.isVolunteer(mmb) && <div className="member-row--menu-signup" onClick={() => handleNewClick()}>
+          VOL to MEMBER</div>}
+        {<div className="member-row--menu-money" onClick={() => handleMoneyClick()}>View remittances</div>}
+        {<div className="member-row--menu-notes" onClick={() => handleNotesClick()}>View notes</div>}
+        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-drop" onClick={() => handleDropClick()}>
+          Drop member</div>}
+      </div>
+    </div>
+  );
 }
 
 export default MemberListRowMenu;

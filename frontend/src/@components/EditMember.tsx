@@ -1,18 +1,30 @@
 import React from "react";
-import { ExistingMemberProps } from "../@interfaces/MemberProps";
+// import { FrontendProps } from "../@interfaces/MemberProps";
 // import MemberForm from "./MemberForm";
 import MemberFormHeader from "./MemberFormHeader";
 import MemberFormBase from "./MemberFormBase";
+import { AppState  } from "../App";
 import { MemberViewStates } from "../@interfaces/enums";
 
-const EditMember = ({ updateViewState, updateCurrentMember, updateAppMessages }: ExistingMemberProps) => {
+export interface EditProps { 
+    memberId?: string, 
+    mode: MemberViewStates,
+    setAppState: React.Dispatch<React.SetStateAction<AppState>>; //React.Dispatch<React.SetStateAction<AppState>>
+    getAppState: () => AppState;
+ }
+
+const EditMember = ({ memberId, mode, setAppState, getAppState }: EditProps) => {
     return (
         <>
-            <MemberFormHeader updateViewState={updateViewState} mode={MemberViewStates.edit} />
+            <MemberFormHeader 
+            setAppState={setAppState} 
+            getAppState={getAppState} 
+             />
             <MemberFormBase
-                updateViewState={updateViewState}
-                updateAppMessages={updateAppMessages}
+                memberId={memberId}
                 mode={MemberViewStates.edit}
+                setAppState={setAppState}
+                getAppState={getAppState} 
             />
         </>
     )

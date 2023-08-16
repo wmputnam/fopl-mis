@@ -1,648 +1,430 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react"
-import CurrencyFormat from "react-currency-format";
+import React from "react"
 
-import { AllMemberProps, EditMemberProps, ViewStateProps } from "../@interfaces/MemberProps";
 import CancelBtn from "./CancelBtn";
 import SaveBtn from "./SaveBtn";
 
-import loadData from "./DataLoader"
 import { MemberViewStates } from "../@interfaces/enums";
-import MembersReducers from "../reducers/members.reducers"
 import Save from "./DataUpdater";
-import { CurrentMemberContext, ServerContext } from "../App";
-import { flatten, unflatten } from "flat";
-import { Volunteer } from "packages/Volunteer";
-// import { stripVTControlCharacters } from "util";
 import { Remittance } from "packages/Remittance";
-import { Notes } from "packages/Notes";
 import { nanoid } from "nanoid";
-import { InvalidatedProjectKind } from "typescript";
+import { IMember } from "packages";
+import { MemberService } from "../services/MemberService";
+import { Member } from "../services/Member";
+import { IAddress } from "packages/IAddress";
+import { getServerUrl } from "../services/AppConfig";
+import { AppState, isEmptyObject, onRenderCallback } from "../App";
+import { EditProps } from "./EditMember";
+import useAxios from "axios-hooks";
+import { MemberFormBaseGroup } from "./MemberFormBaseGroup";
+import { MemberFormRemitGroup } from "./MemberFormRemitGroup";
+import { MemberFormMmbGroup } from "./MemberFormMmbGroup";
+import { MemberFormVolGroup } from "./MemberFormVolGroup";
 
-interface FormAction {
-  type: string,
-  rawValue?: string | Date | number,
-}
-interface FormError {
+export interface FormError {
   target: string,
-  error: string[]
+  message: string,
+  level: "error" | "warn" | "info"
 }
 
-const hasProp = ((obj: Object, prop: string) => obj.hasOwnProperty.call(obj, prop));
-const MemberFormBase = ({ updateViewState, mode, updateAppMessages }: EditMemberProps) => {
-  const [hasErrors, setHasErrors] = React.useState(false);
-  const formErrors = React.useRef([] as FormError[]);
-  const { serverURL } = React.useContext(ServerContext);
-  const serverUrl = serverURL === undefined ? "http://localhost:3030" : serverURL;
-  const memberId = React.useContext(CurrentMemberContext);
-  const memberID = memberId === undefined ? "" : memberId;
-  console.log(`member-form mode: ${mode}`)
+let fetchedData: any;
+const isLoading = () => fetchedData && fetchedData[0] && fetchedData[0].loading && fetchedData[0].loading === "true";
+const isLoadingErr = () => fetchedData && fetchedData[0] && fetchedData[0].loading && fetchedData[0].error === "true";
 
-  function isEmptyObject(obj: Object) {
-    for (let i in obj) return false;
-    return true;
-  }
-  const dataInitial: any = React.useRef({});
-  React.useEffect(() => {
-    memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
-    if (isEmptyObject(dataInitial.current)) {
-      loadData(serverUrl, memberId, mode ? mode : "")
-        .then((loadRes: any) => {
-          if ([200, 201].includes(loadRes.status)) {
-            console.log("successful load")
-            dataInitial.current = flatten(loadRes.body);
-            setMemberData(dataInitial.current)
-          }
-        })
-        .catch((fault) => {
-          return { status: 500, error: `fault occured: ${JSON.stringify(fault)}` };
-        });
-    }
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  , []);
 
-  let flatInitial: AllMemberProps;
-  interface UpdateMember {
-    target: string,
-    value: string
-  }
 
-  function mapUxToData(inTarget: string, inValue: string): UpdateMember[] {
-    let outTarget: string[] = [];
-    let outValue: any[] = [];
-    outValue[0] = inValue;
-    switch (inTarget) {
-      case "first-name":
-        outTarget[0] = "firstName"; break;
-      case "last-name":
-        outTarget[0] = "lastName"; break;
-      case "postal-code":
-        outTarget[0] = "postalCode"; break;
+const MemberFormBase = ({ memberId, mode, getAppState, setAppState }: EditProps): JSX.Element => {
 
-      // these money elements require validation and restructuring before save
-      case "money-date":
-        outTarget[0] = "remittances.0.date"; // TODO merge with any existing
-        outTarget[1] = "remittances.1.date";
-        outValue[0] = new Date(inValue + "T00:00:00.000Z");
-        outValue[1] = new Date(inValue + "T00:00:00.000Z");
-        break;
-      case "money-dues-amount":
-        outTarget[0] = "remittances.0.amount";
-        outValue[0] = inValue.substring(1);
-        outTarget[1] = "remittances.0.memo";
-        outValue[1] = "dues";
-        break;
-      case "money-donation-amount":
-        outTarget[0] = "remittances.1.amount";
-        outValue[0] = inValue.substring(1);
-        outTarget[1] = "remittances.1.memo";
-        outValue[1] = "donation";
-        break;
+  // const LoadFromDb = (memberId: string): Array<any> => {
+  //   return useAxios<IMember>(
+  //     { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
+  //   );
+  // }
 
-      // these volunteer preference elements will restructuring before save
-      case "volunteer-preference--book-sale":
-        outTarget[0] = "volunteerPreferences.0.role";
-        outValue[0] = "Book sale";
-        break;
-      case "volunteer-preference--book-store":
-        outTarget[0] = "volunteerPreferences.1.role";
-        outValue[0] = "Book store";
-        break;
-      case "volunteer-preference--hospitality":
-        outTarget[0] = "volunteerPreferences.2.role";
-        outValue[0] = "Hospitality";
-        break;
-      case "volunteer-preference--newsletter":
-        outTarget[0] = "volunteerPreferences.3.role";
-        outValue[0] = "Newsletter";
-        break;
-      case "volunteer-preference--publicity":
-        outTarget[0] = "volunteerPreferences.4.role";
-        outValue[0] = "Publicity";
-        break;
-      case "volunteer-preference--schedule-volunteers":
-        outTarget[0] = "volunteerPreferences.5.role";
-        outValue[0] = "Schedule volunteers";
-        break;
-      case "volunteer-preference--sort-books":
-        outTarget[0] = "volunteerPreferences.6.role";
-        outValue[0] = "Sort books";
-        break;
-      case "volunteer-preference--fund-raising":
-        outTarget[0] = "volunteerPreferences.7.role";
-        outValue[0] = "Fund raising";
-        break;
-      case "volunteer-preference--lumacon":
-        outTarget[0] = "volunteerPreferences.8.role";
-        outValue[0] = "LUMACON";
-        break;
-      case "volunteer-preference--mend-books":
-        outTarget[0] = "volunteerPreferences.9.role";
-        outValue[0] = "Mend books";
-        break;
-      case "volunteer-preference--pick-up-donations":
-        outTarget[0] = "volunteerPreferences.10.role";
-        outValue[0] = "Pick up donations";
-        break;
-      case "volunteer-preference--price-books":
-        outTarget[0] = "volunteerPreferences.11.role";
-        outValue[0] = "Price books";
-        break;
-      case "volunteer-preference--set-up-for-sales":
-        outTarget[0] = "volunteerPreferences.12.role";
-        outValue[0] = "Set up for sales";
-        break;
-      case "volunteer-preference--sales-signage":
-        outTarget[0] = "volunteerPreferences.13.role";
-        outValue[0] = "Sales signage";
-        break;
-      case "volunteer-preference--stock-book-store":
-        outTarget[0] = "volunteerPreferences.14.role";
-        outValue[0] = "Stock store";
-        break;
-      case "volunteer-preference--other":
-        outTarget[0] = "volunteerPreferences.99.role";
-        break;
-      default:
-        outTarget[0] = inTarget; break;
-    }
-    outTarget.map((t, indx) => console.log(`fe-member-form.reducer:  target${indx}: ${inTarget} => ${outTarget[indx]}, value: ${outValue[indx]}`));
-    return outTarget.map((t, indx) => ({ target: t, value: outValue[indx] }));
-  }
-  const updateMemberData = (update: UpdateMember[]) => {
-    let newData: Partial<AllMemberProps> = {};
-    update.map((item) => Object.assign(newData, { [item.target]: item.value }));
-    Object.assign(newData, { lastUpdated: new Date(Date.now()) });
+  // fetchedData = LoadFromDb(memberId ? memberId : "");
 
-    console.log(`fe-member-form--update-member-data\n   ${JSON.stringify({ ...memberData })}`);
-    console.log(`fe-member-form--update-member-data\n   ${JSON.stringify({ ...newData })}`);
-    setMemberData((oldData) =>
-      ({ ...oldData, ...newData })
-    );
-  }
+  console.log(`url: /members/${memberId}`)
+  const [{ data, error, loading }] = useAxios<IMember[]>(
+    { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
 
-  const [memberData, setMemberData] = React.useState(dataInitial.current as AllMemberProps);
+  );
+  const haveData = isEmptyObject(data as Object);
+
+  const [memberObj, setMemberObj] = React.useState<Member>({} as Member);
 
   React.useEffect(() => {
-    memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
-  }, [memberData]);
+    setMemberObj(MemberService.createMemberFromLoad(data as unknown as IMember, mode));
+  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [haveData]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error! {error.message}</p>;
+  if (data) { }
+
+  // const mounted = React.useRef(false);
+
+  // React.useEffect(
+  //   () => {
+  //     mounted.current = !mounted.current;
+  //     console.log(`1. this is either mount or update ${mounted.current ? "mounted" : "unmounted"}`);
+  //     return () => {
+  //       console.log(`1. this an unmount ${mounted.current ? "mounted" : "unmounted"}`);
+  //       mounted.current = !mounted.current;
+  //     };
+  //   }
+  // );
+  // React.useEffect(() => {
+  //   console.log(`2. runs after initial mount? ${mounted.current ? "mounted" : "unmounted"}\n data fetch status ${fetchedData && fetchedData[0] && fetchedData[0]['data']}`)
+  //   if (fetchedData && fetchedData[0] && fetchedData[0]['data']) {
+  //     MemberService.persistMemberDataToLocalStorage(fetchedData[0]['data']);
+  //   }
+  //   return () => { console.log(`2. runs on unmount ${mounted.current ? "mounted" : "unmounted"}\n data fetch status ${fetchedData && fetchedData[0] && fetchedData[0]['data']}`) };
+  //   // eslint-disable-next-line
+  // }, []);
+
+  // const inputsChanged: React.MutableRefObject<Set<string>> = React.useRef<Set<string>>(new Set<string>());
+  // // const isDataLoaded = React.useRef(false);
+  // const _loading = React.useRef<any>(isLoading());
+  // if (isLoading() && loading.current !== isLoading()) {
+  //   loading.current = isLoading();
+  // }
+  // const loadingErr = React.useRef<any>(isLoadingErr());
+  // if (isLoadingErr() && loadingErr.current !== isLoadingErr()) {
+  //   loadingErr.current = isLoadingErr();
+  // }
+
+
+  // const remitDate = React.useRef<Date | undefined>(undefined);
+  // const updateRemitDate = (value: Date) => remitDate.current = value;
+  // const getRemitDate = () => remitDate.current;
+  // const remitDues = React.useRef<string | undefined>("");
+  // const updateRemitDues = (value: string) => remitDues.current = value;
+  // const getRemitDues = () => remitDues.current;
+  // const remitDonation = React.useRef<string | undefined>("");
+  // const updateRemitDonation = (value: string) => remitDonation.current = value;
+  // const getRemitDonation = () => remitDonation.current;
+  // const formErrors = React.useRef<Array<FormError>>(
+  //   Array<FormError>({ target: "any", message: "i am a little teacup", level: "info" } as FormError)
+  // );
+  // const setFormErrors = (value: Array<FormError>) => formErrors.current = value;
+  // const getFormErrors = () => formErrors.current;
+
+  // const dataIsReady: boolean = (localStorage.getItem("loaded") ? localStorage.getItem("loaded") === "true" : false);
+  //  () => {
+
+  // }
+  // );
+  // const intialMemberGetter = (): Member => {
+  //   if (mode === MemberViewStates.new) {
+
+  //     || dataIsReady ? MemberService.createMemberFromLocalStorage() :};
+  // const intialMember = intialMemberGetter();
+  // console.log(`setting MemberObj to initialMember ${dataIsReady}`)
 
   // React.useEffect(() => {
-  //   formErrors.current && console.log(`fe-member-form: formErrors ${JSON.stringify(formErrors.current)}`);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [hasErrors]);
+  //   // let ignore = false;
+  //   // if (!ignore && dataIsReady) {
+  //   console.log(`3. mount or reacting to fetchedData change ${mounted.current ? "mounted" : "unmounted"} ${dataIsReady}`);
+  //   // let _initialMember = MemberService.createMemberFromLocalStorage();
+  //   // setMemberObj(_initialMember);
+  //   return () => {
+  //     // ignore = true; 
+  //     console.log(`3. unmount ${mounted.current ? "mounted" : "unmounted"} ${dataIsReady}`);
+  //   };
+  //   // eslint-disable-next-line
+  // }, [fetchedData]);
+  // const getCurrentMemberObj = () => MemberService.createMemberFromLocalStorage();
 
-  const inputValues: InputValuesI = createInputValues(memberData);
-  console.log(`fe-member-form: inputValues ${JSON.stringify(inputValues)}`);
+  // React.useEffect(function () {
+  //   console.log(`reacting to memberObj change`);
+  //   // console.log(JSON.stringify(memberObj));
+  //   return () => {
+  //     console.log(`before reacting to memberObj change`);
 
-  function handleInvalid() {
+  //   };
+  // },
+  //   [memberObj]);
 
+  // const appState = getAppState();
+
+  const firstNameError = () => ""; //getFormErrors().find((i) => i.target === "first-name")?.message;
+  const lastNameError = () => ""; //getFormErrors().find((i) => i.target === "last-name")?.message;
+  // const remitError = () => getFormErrors().find((i) => i.target === "money-date")?.message;
+  // const remitWarn = () => getFormErrors().find((i) => i.target === "money-donation")?.message;
+
+  // // eslint-disable-next-line
+  // const markAnyErrantFields = (fe: FormError[]) => {
+  //   if (fe && fe.length && fe.length > 0) {
+  //     for (let i = 0; i < fe.length; i++) {
+  //       addRedBorder(fe[i].target);
+  //     }
+  //   }
+  // }
+
+  // const addRedBorder = (elementId: string) => {
+  //   let el = document.getElementById(elementId);
+  //   el?.classList.add("red-border");
+  // }
+
+  // // eslint-disable-next-line
+  // const removeRedBorder = (elementId: string) => {
+  //   let el = document.getElementById(elementId);
+  //   el?.classList.remove("red-border");
+  // }
+
+  // const updateMemberObjFromFormInput = (_memberObj: Member | undefined, inTarget: string, inValue: string): void => {
+  //   if (_memberObj) {
+  //     const updatedMemObj = MemberService.newMemberObjWithFormInput(_memberObj, inTarget, inValue);
+  //     switch (inTarget) {
+  //       // data from these money elements elements will restructured before save
+  //       case "money-date":
+  //         updateRemitDate(new Date(inValue));
+  //         break;
+  //       case "money-dues-amount":
+  //         updateRemitDues(inValue.substring(1));
+  //         break;
+  //       case "money-donation-amount":
+  //         updateRemitDonation(inValue.substring(1));
+  //         break;
+  //     }
+  //     if (updatedMemObj) {
+  //       console.log(`setting memberObj to updatedMemObj after changes on form input`)
+  //       localStorage.clear()
+  //       MemberService.persistMemberObjToLocalStorage(memberObj);
+  //       setMemberObj(updatedMemObj);
+  //     }
+  //   }
+  // }
+  // // console.log(`life member? ${MemberService.isLifeMember(getCurrentMemberObj())}`)
+
+
+
+  // const formVolunteerGroupComponent = MemberFormVolGroup(handleFieldChange, handleCheckboxClick, onRenderCallback);
+
+  // const trackFieldChangesBetweenSaves = (field: string) => inputsChanged.current.add(field);
+  // const clearFieldChangesWithSaves = () => inputsChanged.current.clear();
+  // const getFieldChanges = () => inputsChanged.current;
+
+  function handleFieldChange(e: any) { }
+  //   console.log(
+  //     `member-form--handleFieldChange: target: ${e.target.id}, value: ${e.target.value}`);
+  //   updateMemberObjFromFormInput(getCurrentMemberObj(), e.target.id, e.target.value);
+  //   if (!["money-date", "money-donation", "money-amount"].includes(e.target.id)) {
+  //     trackFieldChangesBetweenSaves(e.target.id);
+  //   }
+  // }
+  // function handleCheckboxClick(e: any) {
+  //   console.log(`member-form--handleCheckboxClick: target: ${e.target.id}, value: ${e.target.checked}`);
+  //   updateMemberObjFromFormInput(getCurrentMemberObj(), e.target.id, e.target.checked);
+  // }
+
+  // const areThereFormProblems = (_memberObj: Member | undefined): boolean => {
+  //   if (_memberObj) {
+  //     let foundErr = false;
+  //     let errArr = new Array<FormError>();
+  //     if (!firstNameError() && _memberObj?.firstName === "") {
+  //       const firstNameErrorMsg = `First name cannot be empty`;
+  //       errArr.push({ target: "first-name", message: `${firstNameErrorMsg}`, level: "error" });
+  //       foundErr = true;
+  //     }
+  //     if (!lastNameError() && _memberObj?.lastName === "") {
+  //       const lastNameErrorMsg = `Last name cannot be empty`;
+  //       errArr.push({ target: "last-name", message: `${lastNameErrorMsg}`, level: "error" });
+  //       foundErr = true;
+  //     }
+  //     if (!remitError() &&
+  //       (getRemitDues() !== "" || getRemitDonation() !== "")
+  //       && getRemitDate() === undefined) {
+  //       const remitErrorMsg = `Remittance date must contain a value`;
+
+  //       errArr.push({ target: "money-date", message: `${remitErrorMsg}`, level: "error" });
+  //       foundErr = true;
+  //     }
+  //     if (!remitWarn() &&
+  //       getRemitDate() !== undefined
+  //       && getRemitDues() === "" && getRemitDonation() === "") {
+  //       const remitWarnMsg = `Please provide remittance value(s)`
+  //       errArr.push({ target: "money-donation", message: `${remitWarnMsg}`, level: "warn" });
+  //       foundErr = true;
+  //     }
+  //     if (foundErr) {
+  //       setFormErrors([...getFormErrors(), ...errArr]);
+  //     }
+  //     return foundErr;
+  //   }
+  //   return false;
+  // }
+
+  function handleFormSave(a: string): any { }
+  //   console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
+
+  //   if (areThereFormProblems(getCurrentMemberObj())) {
+  //     console.log(getFormErrorsForDisplay());
+  //     // console.log(hasErrors);
+  //     return { status: 500, error: `form problems` };
+  //   }
+
+  //   // const currentMemberData = getCurrentMemberObj()?.toIMember();
+  //   // the new member memberData object is not ready for commit -- prepareMemberObjBeforeSave adapts inputs
+  //   const memberObjToSave = prepareMemberObjBeforeSave(getCurrentMemberObj(), getFieldChanges());
+
+  //   if (memberObjToSave) {
+  //     const iMemberToSave: IMember | any = memberObjToSave?.toIMember();
+  //     Save(getServerUrl(), iMemberToSave, memberId)
+  //       .then((savRes) => {
+  //         savRes && console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
+  //         if ([200, 201, 204].includes(savRes.status)) {
+  //           clearFieldChangesWithSaves();
+  //           console.log("successful save")
+  //           setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.list }));
+  //         } else {
+  //           let errArr = new Array<FormError>();
+  //           errArr.push({ target: "any", message: savRes?.body?.error, level: "error" }); // TODO -- process this array
+  //           setFormErrors([...getFormErrors(), ...errArr]);
+  //         }
+  //       }).catch((fault) => {
+  //         throw new Error(`fault occured in Save: ${JSON.stringify(fault)}`);
+  //       });
+  //   } else {
+  //     throw new Error(`cannot save an undefined IMember to DB`);
+  //   }
+  // }
+
+  // const getFormErrorsForDisplay = () => {
+  //   if (getFormErrors() && getFormErrors().length && getFormErrors().length > 0) {
+  //     return getFormErrors().map((fe: FormError) => `${fe.message}`).join("<br>");
+  //   } else {
+  //     return Array<string>();
+  //   }
+
+  // }
+
+  // function prepareMemberObjBeforeSave(_memberObj: Member | undefined, _updatedFields: Set<string>): Member | undefined {
+  //   if (_memberObj) {
+  //     let resMemObj = _memberObj.deepClone();
+
+  //     if (resMemObj) {
+  //       const validatedAddress: IAddress | undefined = MemberService.getUspsValidAddress(resMemObj);
+  //       if (validatedAddress && resMemObj && !MemberService.areAddressesSame(resMemObj, validatedAddress)) {  // TODO FUTURE finish areAddressesSame
+  //         resMemObj.address = validatedAddress.address;
+  //         resMemObj.unit = validatedAddress.unit;
+  //         resMemObj.city = validatedAddress.city;
+  //         resMemObj.state = validatedAddress.state;
+  //         resMemObj.postalCode = validatedAddress.postalCode;
+  //         MemberService.addNote(resMemObj, `updated mailing address per USPS validation check`);
+  //       }
+  //       const remitArr = MemberService.getNewRemittances(getRemitDate(), getRemitDues(), getRemitDonation());
+  //       if (remitArr.length > 0) {
+  //         if (resMemObj.remittances === undefined || resMemObj.remittances.length === 0) {
+  //           resMemObj.remittances = Array<Remittance>();
+  //         }
+  //         for (let i = 0; i < remitArr.length; i++) {
+  //           resMemObj.remittances.push(remitArr[i]);
+  //           MemberService.addNote(resMemObj, `added ${remitArr[i].memo} remittance`)
+  //         }
+  //       }
+  //       const newPaidThroughDate: Date | undefined = MemberService.getNewPaidThroughDate(resMemObj);
+  //       const joinedOrRenewdDate: Date | undefined = MemberService.getNewJoinedRenewDate(resMemObj);
+
+  //       const newJoined: Date | undefined = appState.viewState === MemberViewStates.new ? joinedOrRenewdDate : undefined;
+  //       if (newJoined !== undefined && appState.viewState === MemberViewStates.new) {
+  //         resMemObj.joined = newJoined;
+  //       }
+
+  //       const renewalDt: Date | undefined = appState.viewState === MemberViewStates.renew ? joinedOrRenewdDate : undefined;
+
+  //       const anMmb: string | undefined = MemberService.getNewMmb(resMemObj);
+  //       const newMmb: string | undefined = anMmb !== undefined ? anMmb : (appState.viewState !== undefined && appState.viewState === MemberViewStates.new ? "VOL" : undefined);
+
+  //       if (newMmb !== undefined) {
+  //         resMemObj.mmb = newMmb;
+
+  //         if (!["LM", "HLM"].includes(newMmb) && newPaidThroughDate !== undefined) {
+  //           resMemObj.paidThrough = newPaidThroughDate;
+  //           MemberService.addNote(resMemObj, `set paidThrough  ${newPaidThroughDate.toISOString().substring(0, 11)}`)
+  //         }
+  //       }
+
+  //       if (newJoined !== undefined) {
+  //         if (resMemObj.id === undefined) {
+  //           resMemObj.id = nanoid();
+  //         }
+  //         MemberService.addNote(resMemObj, `joined as new ${newMmb} member on ${newJoined.toISOString().substring(0, 10)}`);
+  //       }
+
+  //       if (renewalDt !== undefined) {
+  //         MemberService.addNote(resMemObj, `renewed as ${newMmb} member on ${renewalDt.toISOString().substring(0, 10)}`);
+  //       }
+  //       if (_updatedFields.size > 0) {
+  //         let fldArr = Array<string>();
+  //         _updatedFields.forEach((k, v, s) => fldArr.push(v));
+  //         MemberService.addNote(resMemObj, `changed the following field(s): ${fldArr.join()}`);
+  //       }
+  //       return resMemObj;
+  //     }
+  //     return undefined;
+  //   } else { return undefined; }
+  // }
+
+  console.log(`building JSX \n data fetch status ${JSON.stringify(data)}`)
+
+  if ((data) || mode === MemberViewStates.new) {
+    const formBaseGroupComponent = MemberFormBaseGroup({
+      onRenderCallback,
+      memberObj,
+      setMemberObj,
+      handleFieldChange,
+      firstNameError: firstNameError(),
+      lastNameError: lastNameError(),
+    });
+    const formMoneyGroupComponent = MemberFormRemitGroup({
+      onRenderCallback,
+      memberObj,
+      setMemberObj
+    });
+    const formMmbGroupComponent = MemberFormMmbGroup(memberObj, onRenderCallback);
+    const formVolGroupComponent = MemberFormVolGroup(memberObj, setMemberObj, onRenderCallback);
+    const pageComponents = (
+      <>
+        <form className="member-form">
+          {formBaseGroupComponent}
+          {([MemberViewStates.new, MemberViewStates.renew].includes(mode)) && formMoneyGroupComponent}
+          {mode === MemberViewStates.new && formVolGroupComponent}
+          {mode !== MemberViewStates.new && formMmbGroupComponent}
+          <div><br></br></div>
+          <div className="member-form--controls">
+            <SaveBtn
+              updateCurrentMember={handleFormSave}
+            />
+            <CancelBtn
+              getAppState={getAppState}
+              setAppState={setAppState}
+            />
+          </div>
+        </form>
+
+      </>);
+    // console.log(JSON.stringify(foo, replacerFunc()));
+    return pageComponents;
+  } else {
+    return <p>Error! Should never reach here</p>
   }
 
-  const commonFormsComponents =
-    <>
-      <div className="member-form--name-group">
-        <label htmlFor="first-name">First name</label>
-        <input type="text" id="first-name" className="new-member--first-name width-wide" placeholder="First name"
-          required={true} {...inputValues.firstName}
-          onChange={handleFieldChange}
-          onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
-          onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-        />
-        <label htmlFor="last-name">Last name</label>
-        <input type="text" id="last-name" className="new-member--last-name width-wide" placeholder="Last name"
-          required={true}
-          {...inputValues.lastName}
-          onChange={handleFieldChange}
-          onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
-          onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-        />
-      </div>
-      <div className="member-form--address-group" >
-        <label htmlFor="address">Address</label>
-        <input type="text" id="address" className="new-member--address width-wide" placeholder="Address"  {...inputValues.address} onChange={handleFieldChange} />
-        <label htmlFor="unit">Unit</label>
-        <input type="text" id="unit" className="new-member--unit width-wide" placeholder="Unit"  {...inputValues.unit} onChange={handleFieldChange} />
-        <br />
-        <label htmlFor="city">City</label>
-        <input type="text" id="city" className="new-member--city width-wide" placeholder="City"  {...inputValues.city} onChange={handleFieldChange} />
-        <label htmlFor="state">State</label>
-        <input type="text" id="state" className="new-member--state width-narrow" placeholder="State"  {...inputValues.state} onChange={handleFieldChange} />
-        <label htmlFor="postal-code">ZIP code</label>
-        <input type="text" id="postal-code" className="new-member--postal-code  width-medium" placeholder="ZIP code"  {...inputValues.postalCode} onChange={handleFieldChange} />
-      </div>
-      <div className="member-form--contact-group">
-        <label htmlFor="phone">Phone</label>
-        <input type="telephone" id="phone" className="new-member--phone width-phone" placeholder="Phone"  {...inputValues.phone} onChange={handleFieldChange} />
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" className="new-member--email width-phone" placeholder="Email"
-          required={false}
-          {...inputValues.email}
-          onChange={handleFieldChange}
-          onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Email is required')}
-          onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-        />
-      </div>
-    </>;
+}
 
-
-  const moneyFormGroupComponent =
-    <>
-      <div className="member-form--money-group">
-        <label htmlFor="money-date">Date</label>
-        <input type="date" id="money-date" className="new-member--money-date width-date"
-          onChange={handleFieldChange}
-        />
-        <label htmlFor="money-dues-amount">Dues</label>
-        <CurrencyFormat id="money-dues-amount"
-          prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
-          className="new-member--dues-amount width-money" placeholder="Dues amount"
-          onChange={handleFieldChange}
-        />
-        <label htmlFor="money-donation-amount">Donation</label>
-        <CurrencyFormat id="money-donation-amount"
-          prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
-          className="new-member--donation-amount width-money" placeholder="Donation amount"
-          onChange={handleFieldChange}
-        />
-      </div>
-    </>;
-
-  const mmbFormGroupComponent =
-    <>
-      <div className="member-form--mmb-group">
-        <div className="existing-member--mmb">
-          <label htmlFor="mmb">Mmb </label>
-          <input
-            type="text"
-            maxLength={10}
-            readOnly={true}
-            id="mmb"
-            className="width-mmb readonly-input"
-            {...inputValues.mmb} />
-        </div>
-        <div className="existing-member--paid-through">
-          <label htmlFor="paidThrough" >Paid through </label>
-          <input
-            id="paidThrough"
-            type="text"
-            readOnly={true}
-            className="form-paid-through width-date readonly-input"
-            {...inputValues.paidThrough} />
-        </div>
-        <div className="existing-member--joined">
-          <label htmlFor="joined">Joined </label>
-          <input
-            type="text"
-            readOnly={true}
-            id="joined"
-            className="form--joined width-date readonly-input"
-            {...inputValues.joined} />
-        </div>
-        <div className="existing-member--last-updated">
-          <label htmlFor="last-updated">Last updated </label>
-          <input
-            type="text"
-            readOnly={true}
-            id="last-updated"
-            className="form--last-updated width-date readonly-input"
-            {...inputValues.lastUpdated} />
-        </div>
-
-      </div>
-    </>;
-
-  const volunteerPrefencesComponent =
-    <>
-      <div className="member-form--volunteer-preferences">
-        <fieldset className="group" >
-          <legend>&nbsp;&nbsp;Volunteer preferences&nbsp;&nbsp;</legend>
-          <ul className="member-form--volunteer-preferences-list">
-            <li><div className="new-member--book-sale">
-              <label htmlFor="volunteer-preference--book-sale">Staff book sale</label>
-              <input type="checkbox" id="volunteer-preference--book-sale" className="form--book-sale"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--book-store">
-              <label htmlFor="volunteer-preference--book-store">Staff book store</label>
-              <input type="checkbox" id="volunteer-preference--book-store" className="form--bookstore"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--hospitality">
-              <label htmlFor="volunteer-preference--hospitality">Hospitality</label>
-              <input type="checkbox" id="volunteer-preference--hospitality" className="form--hospitality"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--newsletter">
-              <label htmlFor="volunteer-preference--newsletter">Newsletter</label>
-              <input type="checkbox" id="volunteer-preference--newsletter" className="form--newsletter"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--publicity">
-              <label htmlFor="volunteer-preference--publicity">Publicity</label>
-              <input type="checkbox" id="volunteer-preference--publicity" className="form--publicity"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--schedule-volunteers">
-              <label htmlFor="volunteer-preference--schedule-volunteers">Schedule volunteers</label>
-              <input type="checkbox" id="volunteer-preference--schedule-volunteers" className="form--schedule-volunteers"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--sort-books">
-              <label htmlFor="volunteer-preference--sort-books">Sort books</label>
-              <input type="checkbox" id="volunteer-preference--sort-books" className="form--sort-books"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--fund-raising">
-              <label htmlFor="volunteer-preference--fund-raising">Fund raising</label>
-              <input type="checkbox" id="volunteer-preference--fund-raising" className="form--fund-raising"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--lumacon">
-              <label htmlFor="volunteer-preference--lumacon">Staff LUMACON</label>
-              <input type="checkbox" id="volunteer-preference--lumacon" className="form--lumacon"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--mend-books">
-              <label htmlFor="volunteer-preference--mend-books">Mend books</label>
-              <input type="checkbox" id="volunteer-preference--mend-books" className="form--mend-books"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--pick-up-donations">
-              <label htmlFor="volunteer-preference--pick-up-donations">Pick up donations</label>
-              <input type="checkbox" id="volunteer-preference--pick-up-donations" className="form--pick-up-donations"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--price-books">
-              <label htmlFor="volunteer-preference--price-books">Price books</label>
-              <input type="checkbox" id="volunteer-preference--price-books" className="form--price-books"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--set-up-for-sales">
-              <label htmlFor="volunteer-preference--set-up-for-sales">Set up for sales</label>
-              <input type="checkbox" id="volunteer-preference--set-up-for-sales" className="form--set-up-for-sales"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--sales-signage">
-              <label htmlFor="volunteer-preference--sales-signage">Sales signage</label>
-              <input type="checkbox" id="volunteer-preference--sales-signage" className="form--sales-signage"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--stock-book-store">
-              <label htmlFor="volunteer-preference--stock-book-store">Stock book store</label>
-              <input type="checkbox" id="volunteer-preference--stock-book-store" className="form--stock-book-store"
-                onClick={handleCheckboxClick}
-              />
-            </div></li>
-            <li><div className="new-member--other">
-              <label htmlFor="volunteer-preference--other" className="form--other-label">Other</label>
-              <input type="text" id="volunteer-preference--other" className="form--other"
-                onChange={handleFieldChange}
-              />
-            </div></li>
-          </ul>
-        </fieldset>
-      </div>
-    </>;
-
-  function handleFieldChange(e: any) {
-    console.log(
-      `member-form--handleFieldChange: target: ${e.target.id}, value: ${e.target.value}`);
-    updateMemberData(mapUxToData(e.target.id, e.target.value));
-  }
-  function handleCheckboxClick(e: any) {
-    console.log(`member-form--handleCheckboxClick: target: ${e.target.id}, value: ${e.target.checked}`);
-    updateMemberData(mapUxToData(e.target.id, e.target.checked));
-  }
-  interface PropsValue {
-    value: string;
-  }
-  type ValuePropNamesType = "firstName" | "lastName" | "address" | "unit" | "city" | "state" | "postalCode" | "phone" | "email" | "mmb" | "paidThrough" | "joined" | "lastUpdated"
-
-  interface InputValuesI extends Partial<Record<ValuePropNamesType, PropsValue>> {
-    "firstName": PropsValue;
-    "lastName": PropsValue;
-    "address": PropsValue;
-    "unit": PropsValue;
-    "city": PropsValue;
-    "state": PropsValue;
-    "postalCode": PropsValue;
-    "phone": PropsValue;
-    "email": PropsValue;
-    "mmb": PropsValue;
-    "paidThrough": PropsValue;
-    "joined": PropsValue;
-    "lastUpdated": PropsValue
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const replacerFunc = () => {
+  const visited = new WeakSet();
+  return (key: any, value: any) => {
+    if (typeof value === 'object' && value !== null) {
+      if (visited.has(value)) {
+        return;
+      }
+      visited.add(value);
+    }
+    return value;
   };
-
-  function getPropFromAllMemberProps(d: AllMemberProps, k: string): string | undefined {
-    switch (k) {
-      case "firstName": return d?.firstName ? d.firstName as string : "";
-      case "lastName": return d?.lastName ? d.lastName : "";
-      case "address": return d?.address ? d.address : "";
-      case "unit": return d?.unit ? d.unit : "";
-      case "city": return d?.city ? d.city : "";
-      case "state": return d?.state ? d.state : "";
-      case "postalCode": return d?.postalCode ? d.postalCode : "";
-      case "phone": return d?.phone ? d.phone : "";
-      case "email": return d?.email ? d.email : "";
-      case "mmb": return d?.mmb ? d.mmb : "";
-      case "paidThrough": return MembersReducers.reducePaidThroughForMemberList(d);
-      case "joined": return MembersReducers.reduceJoinedForMemberList(d);
-      case "lastUpdated": return MembersReducers.reduceLastUpdatedForMemberList(d);
-      default: return "";
-    }
-  }
-  function createInputValues(d: AllMemberProps): InputValuesI {
-    const ValuePropNames = [
-      "firstName",
-      "lastName",
-      "address",
-      "unit",
-      "city",
-      "state",
-      "postalCode",
-      "phone",
-      "email",
-      "mmb",
-      "paidThrough",
-      "joined",
-      "lastUpdated"
-    ] as const;
-    let result: Record<string, PropsValue> = {};
-    console.log(`d ready? ${hasProp(d, 'firstName')}`)
-    if (d && hasProp(d, 'firstName')) {
-      const x = ValuePropNames
-        .map((s: keyof typeof result) => result[s] = { value: getPropFromAllMemberProps(d, s) as string } as PropsValue);
-      console.log(`fe- member-form--createInputValues: result\n    ${JSON.stringify(result)}`)
-    } else {
-      const x = ValuePropNames
-        .map((s: keyof typeof result) => result[s] = { value: '' as string } as PropsValue);
-      console.log("fe- member-form--createInputValues: no initial data -- using space")
-    }
-    // @ts-ignore
-    return result;
-  }
-  function handleSave(a: string): any {
-    console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
-
-    const cleanerData = eliminateEmptyProperties(memberData);
-    console.log(`fe-member-form.cleanerdata output\n   ${JSON.stringify(cleanerData)}`)
-
-    // the new member memberData object is not ready for commit -- newMemberDataReducer performs restructuring
-    const memberDataToSave = memberId === "" ? newMemberDataReducer(memberData) : memberData;
-    Save(serverUrl, memberDataToSave, memberID)
-      .then((savRes) => {
-        savRes && console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
-        if ([200, 201, 204].includes(savRes.status)) {
-          console.log("successful save")
-          setHasErrors(false);
-          formErrors.current = [];
-          updateAppMessages && updateAppMessages([])
-          updateViewState(MemberViewStates.list);
-        } else {
-          formErrors.current[0] = { target: "any", error: [savRes?.body?.error] };
-          setHasErrors(true);
-          updateAppMessages && updateAppMessages([savRes?.body?.error])
-        }
-      }).catch((fault) => {
-        return { status: 900, error: `fault occured: ${JSON.stringify(fault)}` };
-      });
-  }
-
-  const getDuesEntry = (remitArray: Remittance[]): Remittance => {
-    let result: Remittance;
-    for (let i = 0; i <= remitArray.length; i++) {
-      let _remit: Remittance = remitArray[i];
-      if (_remit.memo === "dues" && parseFloat(_remit.amount) >= 0.0) {
-        return _remit;
-      }
-    }
-    return {} as Remittance;
-  }
-  const getValidatedAddress = (data: Partial<AllMemberProps>): any => {
-    return data; // TODO call USPS validation here and improve address if needed & possible 
-  }
-
-  const getDatePlus1Year = (date: Date): Date => {
-    const futureDate = new Date();
-    futureDate.setFullYear(date.getFullYear() + 1)
-    return futureDate;
-  }
-
-  const LIFE_MEMBER_DUES = 100.00;                                // TODO -- get these values from a configuration
-  const PATRON_DUES = 25.00;
-  const FAMILY_DUES = 10.00;
-  const INDIVIDUAL_DUES = 5.00;
-  const SENIOR_STUDENT_DUES = 2.00;
-
-  function newMemberDataReducer(data: Partial<AllMemberProps>): Partial<AllMemberProps> {
-    console.log(`fe-member-form.unflatten output\n   ${JSON.stringify(unflatten(data))}`)
-    const structuredData: AllMemberProps = unflatten(data);
-    const notesArr: Notes[] = structuredData && structuredData.notes
-      ? structuredData.notes
-      : [] as Notes[];
-
-    const newAddress = getValidatedAddress(structuredData);  // TODO finish this and hook it up
-    const volArr: Volunteer[] = structuredData
-      ? structuredData.volunteerPreferences as Volunteer[]
-      : [] as Volunteer[];
-    const newVolArr: Volunteer[] = volArr
-      ? volArr.filter(item => item !== null) as Volunteer[]
-      : [] as Volunteer[];
-    const remitArr: Remittance[] = structuredData
-      ? structuredData.remittances as Remittance[]
-      : [] as Remittance[];
-    const newRemitArr: Remittance[] = remitArr
-      ? remitArr.filter(item => hasProp(item, "amount")) as Remittance[]
-      : [] as Remittance[];
-    const duesEntry = getDuesEntry(remitArr);
-    const newPaidThroughDate: Date = duesEntry ? getDatePlus1Year(duesEntry.date) : new Date("1970-01-01");
-    const newJoined: Date = duesEntry ? duesEntry.date : new Date("1970-01-01");
-    const newMmb: string = function (): string {
-
-      if (duesEntry && duesEntry?.amount !== undefined && duesEntry?.date !== undefined) {
-        const yy = newPaidThroughDate.getFullYear().toString().substring(2, 4);  // get the year from the century-year
-        const duesAmount = parseFloat(duesEntry.amount);
-        if (yy !== undefined && !Number.isNaN(duesAmount)) {
-          if (duesAmount >= LIFE_MEMBER_DUES) {
-            return "LM";
-          } else if (duesAmount < LIFE_MEMBER_DUES && duesAmount >= PATRON_DUES) {
-            return "P" + yy;
-          } else if (duesAmount >= FAMILY_DUES && duesAmount < PATRON_DUES) {
-            return "F" + yy;
-          } else if (duesAmount >= INDIVIDUAL_DUES && duesAmount < FAMILY_DUES) {
-            return "" + yy;
-          } else if (duesAmount >= SENIOR_STUDENT_DUES && duesAmount < INDIVIDUAL_DUES) {
-            return "S" + yy
-          }
-        }
-      }
-      return "VOL";
-    }();
-    let newDatesObj: Object = {};
-    if (newMmb !== "LM" && newPaidThroughDate && newPaidThroughDate.valueOf() > Date.parse("1970-01-01").valueOf()) {
-      Object.assign(newDatesObj, { paidThrough: newPaidThroughDate })
-    }
-    if (newJoined && newJoined.valueOf() > Date.parse("1970-01-01").valueOf()) {
-      Object.assign(newDatesObj, { joined: newJoined });
-      notesArr.push({ date: new Date(), note: `joined as new ${newMmb} member on ${newJoined.toISOString().substring(0, 10)}` })
-    }
-    const restructedData: AllMemberProps = {
-      _id: nanoid(),
-      ...structuredData,
-      mmb: newMmb,
-      ...newDatesObj,
-      notes: [...notesArr],
-      volunteerPreferences: [...newVolArr],
-      remittances: [...newRemitArr]
-    } as AllMemberProps
-    console.log(`fe-member-form.unflatten result\n   ${JSON.stringify(unflatten(restructedData))}`)
-    return restructedData;
-  }
-  return (
-    <>
-      <form className="member-form">
-        {commonFormsComponents}
-        {(mode === MemberViewStates.new || mode === MemberViewStates.renew) && moneyFormGroupComponent}
-        {mode !== MemberViewStates.new && mmbFormGroupComponent}
-        {mode === MemberViewStates.new && volunteerPrefencesComponent}
-        <div><br></br></div>
-        <div className="member-form--controls">
-          <SaveBtn updateViewState={updateViewState} updateCurrentMember={(async () => await handleSave("save"))} />
-          <CancelBtn updateViewState={updateViewState} updateAppMessages={updateAppMessages} />
-        </div>
-      </form>
-
-    </>);
+};
 
 
-}
 export default MemberFormBase;
-
-function eliminateEmptyProperties(memberData: Partial<AllMemberProps>): Partial<AllMemberProps> {
-  let oData = {} as any;
-  for (const e in memberData) {
-    if (memberData.hasOwnProperty(e) && typeof typeof memberData[e as keyof AllMemberProps] === 'string') {
-      if (memberData[e as keyof AllMemberProps] !== "")
-        oData[e as keyof AllMemberProps] = memberData[e as keyof AllMemberProps] as unknown as string;
-    }
-  }
-  return oData;
-}
-

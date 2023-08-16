@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { Profiler } from 'react';
 
 import './App.css';
 
@@ -8,79 +9,117 @@ import Home from "./@components/CancelBtn"
 import MemberList from './@components/MemberList';
 import NewMember from './@components/NewMember';
 import RenewMember from './@components/RenewMember';
-import { IServerContext } from './@interfaces/IServerContext';
 import { MemberViewStates } from './@interfaces/enums';
 import AppHeader from './@components/AppHeader';
 import MemberFormNotes from './@components/MemberFormNotes';
 import MemberFormMoney from './@components/MemberFormMoney';
+import { IMember } from 'packages/member-shared';
+import { FormError } from "./@components/MemberFormBase"
+import { MemberService } from './services/MemberService';
 
-export var CurrentMemberContext: React.Context<string>
-export var ServerContext: React.Context<IServerContext>
+export interface AppState {
+  viewState: MemberViewStates;
+}
+const getInitialViewState = (): AppState => (
+  { viewState: MemberViewStates.list });
+
+export interface RenderCallBackI {
+  id?: string;
+  phase?: "mount" | "update" | "nested-update";
+  actualDuration?: number;
+  baseDuration?: number;
+  startTime?: number;
+  endTime?: number;
+}
+export const onRenderCallback = (
+  { id, phase }: Partial<RenderCallBackI>
+): void => {
+  id && phase && console.log(`${id} ${phase}`)
+}
+
+export const isEmptyObject = (obj: Object) => {
+  for (let i in obj) return false;
+  return true;
+}
+
+
+
+// ***
 
 export default function App() {
 
-  const serverUrl: string = process.env?.REACT_APP_SERVER_URL || "http://localhost:3030";
+  const [appState, setAppState] = React.useState<AppState>(getInitialViewState);
+  const getAppState = () => appState;
 
-  ServerContext = React.createContext(
-    {
-      serverURL: serverUrl
-    } as unknown as IServerContext
-  );
-  const [appViewState, setAppViewState] = React.useState({ view: MemberViewStates.list })
-  const [currentMember, setCurrentMember] = React.useState("")
+  React.useEffect(() => {
+    console.log(`feapp: is mounted\n    ${JSON.stringify(appState)}`);
+    return (() => console.log(`feapp2: will unmount\n    ${JSON.stringify(appState)}`))
+  },
+    [appState])
+
   const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
-  CurrentMemberContext = React.createContext(currentMember)
-
-  function setViewState(a: MemberViewStates): any {
-    setAppViewState((oldAppState) => (
-      {
-        ...oldAppState,
-        view: a || ""
-      })
-    );
-  }
-  function setCurrentMemberContext(a: string | undefined): any {
-    setCurrentMember(a || "");
-    CurrentMemberContext = React.createContext(a || "")
-  }
-
-  function setMessages(a: string[] = [""]): any {
-    setAppMessages(a);
-  }
 
   let component
-  switch (appViewState.view) {
+  switch (appState.viewState) {
     case MemberViewStates.list:
-      component = <MemberList
-        updateViewState={setViewState}
-        updateCurrentMember={setCurrentMemberContext}
-        updateAppMessages={setMessages}
-      />
+      MemberService.clearMemberId();
+      component = <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+        <MemberList
+          setAppState={setAppState}
+          getAppState={getAppState}
+        /></Profiler>
       break;
     case MemberViewStates.edit:
       component = <EditMember
-        updateViewState={setViewState}
-        updateCurrentMember={setCurrentMemberContext}
-        updateAppMessages={setMessages}
+        memberId={MemberService.retrieveMemberId(true)}
+        mode={MemberViewStates.edit}
+        setAppState={setAppState}
+        getAppState={getAppState}
       />
       break;
     case MemberViewStates.new:
-      component = <NewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      component = <NewMember
+        setAppState={setAppState}
+        getAppState={getAppState}
+      />
       break;
     case MemberViewStates.drop:
-      component = <DropMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      component = <DropMember
+        memberId={MemberService.retrieveMemberId(true)}
+        setAppState={setAppState}
+        getAppState={getAppState}
+      />
       break;
     case MemberViewStates.renew:
-      component = <RenewMember updateViewState={setViewState} updateCurrentMember={setCurrentMemberContext} />
+      component = <RenewMember
+        memberId={MemberService.retrieveMemberId(true)}
+        mode={MemberViewStates.renew}
+        setAppState={setAppState}
+        getAppState={getAppState}
+      />
       break;
     case MemberViewStates.notes:
-      component = <MemberFormNotes updateViewState={setViewState}  />
+      component = <MemberFormNotes
+        memberId={MemberService.retrieveMemberId(true)}
+        setAppState={setAppState}
+        getAppState={getAppState}
+      />
       break;
     case MemberViewStates.money:
-      component = <MemberFormMoney updateViewState={setViewState} />
+      component = <MemberFormMoney
+        memberId={MemberService.retrieveMemberId(true)}
+        setAppState={setAppState}
+        getAppState={getAppState}
+      />
       break;
     default:
-      component = <><h1> opps we are now lost</h1><Home updateViewState={setViewState} /></>
+      component = <>
+        <h1> opps we are now lost</h1>
+        <Home
+          setAppState={setAppState}
+          getAppState={getAppState}
+        />
+      </>
       break;
   }
 
@@ -96,28 +135,6 @@ export default function App() {
     </div>
   );
 }
-/*  PARKING LOT
-
-      case "edit-address":
-              component = <EditMemberAddress updateViewState={setViewState} />
-              break;
-
-          */
-// export default App;
-/*
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> }
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> }
-      </header>
-
-      */
+/*  PARKING LOT */
+// eslint-disable-net-line @typescript-eslint/no-unused-vars
+/* */

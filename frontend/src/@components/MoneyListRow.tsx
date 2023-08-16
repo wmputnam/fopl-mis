@@ -20,8 +20,8 @@ const RemittancesListRow = ({ date, amount, memo }: Remittance): any => {
     return (
         <div className="remits-row row" >
             <div className="remits-row--date col">{formatDate(date)} </div>
-            <div className="remits-row--amount col">{amount}</div>
             <div className="remits-row--memo col">{memo}</div>
+            <div className="remits-row--amount col">{amount}</div>
         </div>
     );
 }

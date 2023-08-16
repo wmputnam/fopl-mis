@@ -1,19 +1,25 @@
-import React from "react";
-import Home from "./CancelBtn";
-import { ExistingMemberProps } from "../@interfaces/MemberProps";
+import React, { Profiler } from 'react';
 import MemberFormBase from "./MemberFormBase";
 import { MemberViewStates } from "../@interfaces/enums";
-import Save from "./SaveBtn";
+import { AppState, onRenderCallback } from "../App";
 
-const RenewMember = ({ updateViewState, updateCurrentMember }: ExistingMemberProps) => {
+export interface RenewMemberProps {
+    setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+    getAppState: () => any;
+    mode: MemberViewStates;
+    memberId?: string;
+}
+const RenewMember = ({ memberId, getAppState, setAppState }: RenewMemberProps) => {
     return (<>
         <h1>On the renew member view now</h1>
-        <MemberFormBase mode={MemberViewStates.renew} updateViewState={updateViewState} updateCurrentMember={updateCurrentMember} />
-        <div><br></br></div>
-        <div className="member-form--controls">
-            <Save updateViewState={updateViewState} />
-            <Home updateViewState={updateViewState} />
-        </div>
+        <Profiler id="memberRenew" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+            <MemberFormBase
+                getAppState={getAppState}
+                setAppState={setAppState}
+                mode={MemberViewStates.renew}
+                memberId={memberId}
+            />
+        </Profiler>
     </>
     )
 }

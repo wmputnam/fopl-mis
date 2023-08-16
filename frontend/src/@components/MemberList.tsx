@@ -1,32 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 // import members from "../assets/data/member-data.json"
 import MemberListRow from "./MemberListRow";
 import MemberListHeader from "./MemberListHeader"
-import { AllMemberProps } from "../@interfaces/MemberProps";
+import { FrontendProps } from "../@interfaces/MemberProps";
 // import membersActions from "../actions/members.actions";
 import MembersReducers from "../reducers/members.reducers";
 import useAxios from "axios-hooks";
-import { MemberViewStates } from "../@interfaces/enums";
-import { ServerContext } from "../App";
+// import { MemberViewStates } from "../@interfaces/enums";
+import { getServerUrl } from "../services/AppConfig";
+import { IMember } from "packages";
 
 
-const MemberList = ({ updateViewState = (a: string | undefined): any => { }, updateCurrentMember = (a: string | undefined): any => { } }: Partial<AllMemberProps>) => {
+const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
 
-  let { serverURL } = React.useContext(ServerContext);
+  const [{ data, error, loading }] = useAxios<IMember[]>(
+    { baseURL: getServerUrl(), url: "/members" }, { manual: false, useCache: false }
 
+  );  
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error! {error.message}</p>
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  console.log(`getting data from ${serverURL}`);
-  const [{ data, error, loading }] = useAxios<AllMemberProps[]>(
-    { baseURL: serverURL, url: "/members" }, { manual: false, useCache: false }
-
-  );
   const members = data;
-
-  console.log(`fe-member-list: data\n${JSON.stringify(members)}`)
-
-  let memberElements;
   if (members) {
+    let memberElements;
     memberElements = members.map((m) => {
       return (
         <MemberListRow
@@ -36,28 +33,21 @@ const MemberList = ({ updateViewState = (a: string | undefined): any => { }, upd
           address={MembersReducers.reduceAddressForMemberList(m)}
           phone={m?.phone}
           email={m?.email}
-          paidThroughString={MembersReducers.reducePaidThroughForMemberList(m)}
-          updateViewState={updateViewState}
+          paidThrough={MembersReducers.reducePaidThroughForMemberList(m)}
           mmb={m.mmb ? m.mmb : "VOL"}
-          updateCurrentMember={updateCurrentMember}
-          mode=""
+          getAppState={getAppState}
+          setAppState={setAppState}
         />
       )
     });
-  }
 
-  const handleNewClick = () => {
-    updateCurrentMember("");
-    updateViewState(MemberViewStates.new);
-  }
-
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error! {error.message}</p>
-  if (members) {
     return (
       <>
-        <button onClick={handleNewClick}>New</button>
-        {!!data && <MemberListHeader />}
+
+        {!!data && <MemberListHeader
+          getAppState={getAppState}
+          setAppState={setAppState}
+        />}
         {!!data && memberElements}
       </>
     );

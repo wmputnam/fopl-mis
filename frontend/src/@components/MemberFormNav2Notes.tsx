@@ -1,14 +1,16 @@
 import React from "react";
-import { ViewStateProps } from "../@interfaces/MemberProps";
+import { FrontendProps } from "../@interfaces/MemberProps";
 import { MemberViewStates } from "../@interfaces/enums";
 
 // export interface MemberToolProps {
 //     setViewState:(a:string) => void;
 //   }
 
-function MemberFormNav2Notes({ updateViewState }: ViewStateProps): any {
+function MemberFormNav2Notes({ getAppState, setAppState }: FrontendProps): any {
 
-    function updViewState() { updateViewState(MemberViewStates.notes) }
+    function updViewState() {
+        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.notes }));
+    }
 
     return (
         <button onClick={updViewState}>member notes</button>

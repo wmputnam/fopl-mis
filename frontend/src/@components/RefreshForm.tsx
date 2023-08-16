@@ -1,11 +1,11 @@
 import React from "react";
-import { ViewStateProps } from "../@interfaces/MemberProps";
+import { FrontendProps } from "../@interfaces/MemberProps";
 
 // export interface MemberToolProps {
 //     setViewState:(a:string) => void;
 //   }
 
-function RefreshForm ( {updateViewState }: ViewStateProps):any  {
+function RefreshForm ( { getAppState,setAppState}: FrontendProps):any  {
     
     // function updViewState() { updateViewState("list") }
     function handleClick() {}
