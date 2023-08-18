@@ -22,10 +22,10 @@ const MemberListRowMenu = ({ recordId, mmb, setAppState }: MemberListRowMenuProp
     setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.renew }));
   }
 
-  const handleNewClick = (): any => {
-    console.log(`new member`);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.new }));
-  }
+  // const handleNewClick = (): any => {
+  //   console.log(`new member`);
+  //   setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.new }));
+  // }
 
   const handleMoneyClick = (): any => {
     console.log(`edit member money ${recordId}`);
@@ -51,7 +51,7 @@ const MemberListRowMenu = ({ recordId, mmb, setAppState }: MemberListRowMenuProp
         <div className="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit member</div>
         <div className="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>
           {MemberService.isLifeMember(mmb) ? "Process donation" : "Renew member"}</div>
-        {MemberService.isVolunteer(mmb) && <div className="member-row--menu-signup" onClick={() => handleNewClick()}>
+        {MemberService.isVolunteer(mmb) && <div className="member-row--menu-signup" onClick={() => handleRenewClick()}>
           VOL to MEMBER</div>}
         {<div className="member-row--menu-money" onClick={() => handleMoneyClick()}>View remittances</div>}
         {<div className="member-row--menu-notes" onClick={() => handleNotesClick()}>View notes</div>}

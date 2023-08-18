@@ -3,6 +3,7 @@ import { Notes } from "packages/Notes";
 import { Remittance } from "packages/Remittance";
 import { Volunteer } from "packages/Volunteer";
 import { IMember } from "packages/member-shared";
+import { FormError } from "../@components/MemberFormBase";
 
 interface MemberParams {
   memberId?: string;
@@ -102,6 +103,73 @@ export class Member {
   }
   _volunteerPreferences: Volunteer[] | undefined = [];
   public get volunteerPreferences(): Volunteer[] | undefined {
+    // consolidate flattened prefs into the desired array
+    const newVolArr = Array<Volunteer>();
+    // volunteer-preference--book-sale
+    if (this._volunteerPreferenceBookSale) {
+      newVolArr.push({ role: "Book sale" } as Volunteer);
+    }
+    // volunteer-preference--book-store
+    if (this._volunteerPreferenceBookStore) {
+      newVolArr.push({ role: "Book store" } as Volunteer);
+    }
+    // volunteer-preference--hospitality
+    if (this._volunteerPreferenceHospitality) {
+      newVolArr.push({ role: "Hospitality" } as Volunteer);
+    }
+    // volunteer-preference--newsletter
+    if (this._volunteerPreferenceNewsletter) {
+      newVolArr.push({ role: "Newsletter" } as Volunteer);
+    }
+    // volunteer-preference--publicity
+    if (this._volunteerPreferencePublicity) {
+      newVolArr.push({ role: "Publicity" } as Volunteer);
+    }
+    // volunteer-preference--schedule-volunteers
+    if (this._volunteerPreferenceScheduleVolunteers) {
+      newVolArr.push({ role: "Schedule volunteers" } as Volunteer);
+    }
+    // volunteer-preference--sort-books
+    if (this._volunteerPreferenceSortBooks) {
+      newVolArr.push({ role: "Sort books" } as Volunteer);
+    }
+    // volunteer-preference--fund-raising
+    if (this._volunteerPreferenceFundRaising) {
+      newVolArr.push({ role: "Fund raising" } as Volunteer);
+    }
+    // volunteer-preference--lumacon
+    if (this._volunteerPreferenceLumacon) {
+      newVolArr.push({ role: "LUMACON" } as Volunteer);
+    }
+    // volunteer-preference--mend-books
+    if (this._volunteerPreferenceMendBooks) {
+      newVolArr.push({ role: "Mend books" } as Volunteer);
+    }
+    // volunteer-preference--pick-up-donations
+    if (this._volunteerPreferencePickUpDonations) {
+      newVolArr.push({ role: "Pick up donations" } as Volunteer);
+    }
+    // volunteer-preference--price-books
+    if (this._volunteerPreferencePriceBooks) {
+      newVolArr.push({ role: "Pricing" } as Volunteer);
+    }
+    // volunteer-preference--set-up-for-sales
+    if (this._volunteerPreferenceSetUpForSales) {
+      newVolArr.push({ role: "Set up" } as Volunteer);
+    }
+    // volunteer-preference--sales-signage
+    if (this._volunteerPreferenceSalesSignage) {
+      newVolArr.push({ role: "Signage" } as Volunteer);
+    }
+    // volunteer-preference--stock-book-store
+    if (this._volunteerPreferenceStockBookStore) {
+      newVolArr.push({ role: "Stock bookstore" } as Volunteer);
+    }
+    // volunteer-preference--other
+    if (this._volunteerPreferenceOther) {
+      newVolArr.push({ role: this._volunteerPreferenceOther } as Volunteer);
+    }
+    this._volunteerPreferences = newVolArr;
     return this._volunteerPreferences;
   }
   public set volunteerPreferences(value: Volunteer[] | undefined) {
@@ -123,7 +191,7 @@ export class Member {
   }
   _paidThrough: Date | undefined = undefined;
   public get paidThrough(): Date | undefined {
-    return this._paidThrough ? this._paidThrough : {} as Date;
+    return this._paidThrough ? this._paidThrough : undefined;
   }
   public set paidThrough(value: Date | undefined) {
     this._paidThrough = value;
@@ -133,7 +201,7 @@ export class Member {
   }
   _joined: Date | undefined = undefined;
   public get joined(): Date | undefined {
-    return this._joined ? this._joined : {} as Date;
+    return this._joined ? this._joined : undefined;
   }
   public set joined(value: Date | undefined) {
     this._joined = value;
@@ -143,13 +211,25 @@ export class Member {
   }
   _lastUpdated: Date | undefined = undefined;
   public get lastUpdated(): Date | undefined {
-    return this._lastUpdated ? this._lastUpdated : {} as Date;
+    return this._lastUpdated ? this._lastUpdated : undefined;
   }
   public set lastUpdated(value: Date | undefined) {
     this._lastUpdated = value;
   }
   _remittances: Remittance[] | undefined = [];
   public get remittances(): Remittance[] | undefined {
+    // add any entered remit information
+    if (this.remitDate) {
+      if (this.remitDues) {
+        this._remittances?.push({ date: this.remitDate, amount: this.remitDues, memo: "dues" });
+      }
+      if (this.remitDonation) {
+        this._remittances?.push({ date: this.remitDate, amount: this.remitDonation, memo: "donation" });
+      }
+      this._remitDate = undefined;
+      this._remitDues = undefined;
+      this._remitDonation = undefined;
+    }
     return this._remittances;
   }
   public set remittances(value: Remittance[] | undefined) {
@@ -163,8 +243,8 @@ export class Member {
     }
   }
   _remitDate: Date | undefined = undefined;
-  public get remitDate(): Date {
-    return this._remitDate ? this._remitDate : {} as Date;
+  public get remitDate(): Date | undefined{
+    return this._remitDate ? this._remitDate : undefined;
   }
   public set remitDate(value: Date | undefined) {
     this._remitDate = value;
@@ -340,17 +420,102 @@ export class Member {
     this._volunteerPreferenceOther = value;
   }
 
+  /*
+  target: string,
+  message: string,
+  level: "error" | "warn" | "info"
+  */
+  _dataEntryErrors: Array<FormError> = [];
+  set dataEntryErrors(value: any) {
+    this.dataEntryErrors = value;
+  }
+  public findError(targetField: string) {
+    let existingErr = this._dataEntryErrors.find((e) => e.target === targetField);
+    if (existingErr) {
+      return existingErr;// { target: targetField, message: "no one here but us chickens", level: "info" };
+    }
+  }
+  public isThereAnyErrorOn(targetField: string): boolean {
+    let existingErrIndx = this._dataEntryErrors.findIndex((e) => e.target === targetField);
+    return existingErrIndx !== -1;
+  }
+  public existingFirstNameError() {
+    return this.isThereAnyErrorOn("first-name");
+  }
+  public getFirstNameError() {
+    return this.findError("first-name")?.message;
+  }
+  public existingLastNameError() {
+    return this.isThereAnyErrorOn("last-name");
+  }
+  public getLastNameError() {
+    return this.findError("last-name")?.message;
+  }
+  public existingRemitDateError() {
+    return this.isThereAnyErrorOn("money-date");
+  }
+  public getRemitDateError() {
+    return this.findError("money-date")?.message;
+  }
+  public existingRemitAmountWarn() {
+    return this.isThereAnyErrorOn("money-donation");
+  }
+  public getRemitAmountWarn() {
+    return this.findError("money-donation")?.message;
+  }
+  public getErrorsWithout(targetField: string) {
+    let existingErrIndx = this._dataEntryErrors.findIndex((e) => e.target === targetField);
+    if (existingErrIndx !== -1) {
+      const newArr = Array<FormError>();
+      for (let i = 0; i < existingErrIndx; i++) {
+        newArr[i] = structuredClone(this._dataEntryErrors[i]);
+      }
+      for (let i = existingErrIndx + 1; i < this._dataEntryErrors.length; i++) {
+        newArr[i - 1] = structuredClone(this._dataEntryErrors[i]);
+      }
+      return newArr;
+    }
+  }
+  public getErrorsAdding(targetField: string, message: string, level: ("error" | "warn" | "info") = "error") {
+    const newArr = Array<FormError>();
+    for (let i = 0; i < this._dataEntryErrors.length; i++) {
+      newArr[i] = structuredClone(this._dataEntryErrors[i]);
+    }
+    newArr.push({ target: targetField, message: message, level: level })
+    return newArr;
+  }
+  public get dataEntryErrors() {
+    const newArr = Array<FormError>();
+    for (let i = 0; i < this._dataEntryErrors.length; i++) {
+      newArr[i] = structuredClone(this._dataEntryErrors[i]);
+    }
+    return newArr;
+  }
+
+  public getFormErrorsForDisplay() {
+    if (this.dataEntryErrors && this.dataEntryErrors.length && this.dataEntryErrors.length > 0) {
+      return this._dataEntryErrors.map((fe: FormError) => `${fe.message}`).join("<br>");
+    } else {
+      return "";
+    }
+  }
+
 
   constructor(params: MemberParams = {} as MemberParams) {
     let { memberId = undefined } = params;
-    this._id = memberId; 
+    this._id = memberId;
   }
 
-  public static create( memberId: string | undefined =undefined): Member {
-    if( memberId) {
-      return new Member({memberId:memberId});
+  public static create(memberId: string | undefined = undefined): Member {
+    if (memberId) {
+      const m: Member = new Member({ memberId: memberId });
+      console.log(JSON.stringify(m));
+      return m;
     } else {
-      return new Member();
+      const m: Member = new Member();
+      console.log(JSON.stringify(m));
+      return m;
+      // return new Member();
     }
   }
 
@@ -358,7 +523,8 @@ export class Member {
 
   public static createFromIMember(imember: IMember | undefined): Member | undefined {
     if (imember) {
-      const member = Member.create();
+      let id = Member._isDefined(imember, "_id") ? imember._id : "";
+      const member = Member.create(id);
       Member._isDefined(imember, "_id") && (member.id = imember._id);
       Member._isDefined(imember, "firstName") && (member.firstName = imember.firstName);
       Member._isDefined(imember, "lastName") && (member.lastName = imember.lastName);

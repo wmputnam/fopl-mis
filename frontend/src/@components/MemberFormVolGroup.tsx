@@ -3,66 +3,81 @@ import React, { Profiler } from "react"
 import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 
+const oldToNew = (oldObj: Member, chgObj: Partial<Member>) => {
+  const newMemberObj = Member.create();
+  const lupdt = new Date().valueOf();
+
+  const someObj = { ...oldObj, ...chgObj, lastUpdated: new Date(lupdt) }
+  for (const k in someObj) {
+    if (Object.hasOwn(newMemberObj, k)) {
+      newMemberObj[k as keyof Member] = someObj[k as keyof Member];
+    }
+  }
+  return newMemberObj;
+}
+
 export const MemberFormVolGroup = (
   memberObj: Member,
   setMemberObj: React.Dispatch<React.SetStateAction<Member>>,
   onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void) => {
+
   const handleCheckboxClick = (e: any) => {
     console.log(` vol CheckboxClick: target: ${e.target.id}, value: ${e.target.checked}`);
     switch (e.target.id) {
       case "volunteer-preference--book-sale":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceBookSale: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceBookSale: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--book-store":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceBookStore: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceBookStore: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--hospitality":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceHospitality: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceHospitality: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--newsletter":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceNewsletter: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceNewsletter: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--publicity":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferencePublicity: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferencePublicity: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--schedule-volunteers":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceScheduleVolunteers: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceScheduleVolunteers: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--sort-books":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceSortBooks: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceSortBooks: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--fund-raising":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceFundRaising: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceFundRaising: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--lumacon":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceLumacon: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceLumacon: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--mend-books":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceMendBooks: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceMendBooks: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--pick-up-donations":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferencePickUpDonations: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferencePickUpDonations: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--price-books":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferencePriceBooks: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferencePriceBooks: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--set-up-for-sales":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceSetUpForSales: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceSetUpForSales: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--sales-signage":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceSalesSignage: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceSalesSignage: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--stock-book-store":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceStockBookStore: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceStockBookStore: e.target.value } as Partial<Member>)));
         break;
       case "volunteer-preference--other":
-        setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceOther: e.target.value, lastUpdated: new Date() } as Member));
+        setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceOther: e.target.value } as Partial<Member>)));
         break;
     }
   }
+
   const handleOtherVolFieldChange = (e: any) => {
     if (e.target.id === "volunteer-preference--other") {
-      setMemberObj((oldObj) => ({ ...oldObj, volunteerPreferenceOther: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _volunteerPreferenceOther: e.target.value } as Partial<Member>)));
     }
   }
 

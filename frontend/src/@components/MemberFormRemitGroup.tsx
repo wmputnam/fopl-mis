@@ -24,6 +24,18 @@ const stringForRemitDate = (dt: Date | string | undefined) => {
   };
 };
 
+const oldToNew = (oldObj: Member, chgObj: Partial<Member>) => {
+  const newMemberObj = Member.create();
+  const lupdt = new Date().valueOf();
+
+  const someObj = { ...oldObj, ...chgObj, lastUpdated: new Date(lupdt) }
+  for (const k in someObj) {
+    if (Object.hasOwn(newMemberObj, k)) {
+      newMemberObj[k as keyof Member] = someObj[k as keyof Member];
+    }
+  }
+  return newMemberObj;
+}
 
 export const MemberFormRemitGroup = ({
   onRenderCallback,
@@ -31,52 +43,53 @@ export const MemberFormRemitGroup = ({
   setMemberObj
 }: FormRemitComponentGroupI) => {
 
-  const handleRemitDateChange = (e:any) => {
-    if(e.target.id === "money-date") {
-      setMemberObj((oldObj) => ({ ...oldObj, remitDate: e.target.value, lastUpdated: new Date() } as Member));
+  const handleRemitDateChange = (e: any) => {
+    if (e.target.id === "money-date") {
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _remitDate: new Date(e.target.value) } as Partial<Member>)));
     }
   }
-  const handleRemitDuesChange = (e:any) => {
+  const handleRemitDuesChange = (e: any) => {
     if (e.target.id === "money-dues-amount") {
-      setMemberObj((oldObj) => ({ ...oldObj, remitDues: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _remitDues: e.target.value } as Partial<Member>)));
     }
   }
-  const handleRemitDonationChange = (e:any) => {
+  const handleRemitDonationChange = (e: any) => {
     if (e.target.id === "money-donation-amount") {
-      setMemberObj((oldObj) => ({ ...oldObj, remitDonation: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _remitDonation: e.target.value } as Partial<Member>)));
     }
   }
 
-  if( memberObj) {
-    const remitGroup =  (
-    <>
-    <Profiler id="memberFormRemit" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
-      <div className="member-form--money-group">
-        <label htmlFor="money-date">Date</label>
-        <input type="date" id="money-date" className="new-member--money-date width-date"
+  if (memberObj) {
+    const remitGroup = (
+      <>
+        <Profiler id="memberFormRemit" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+          <div className="member-form--money-group">
+            <label htmlFor="money-date">Date</label>
+            <input type="date" id="money-date" className="new-member--money-date width-date"
               onChange={handleRemitDateChange} value={stringForRemitDate(memberObj.remitDate)}
-        />
-        <div className="new-member--remit-error">{memberObj.remitError}</div>
+            />
+            <div className="new-member--remit-error red-text">{memberObj.getRemitDateError()}</div>
 
-        {!MemberService.isLifeMember(memberObj) && <label htmlFor="money-dues-amount">Dues</label>}
-        {!MemberService.isLifeMember(memberObj) && <CurrencyFormat id="money-dues-amount"
-          prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
-          className="new-member--dues-amount width-money" placeholder="Dues amount"
+            {!MemberService.isLifeMember(memberObj) && <label htmlFor="money-dues-amount">Dues</label>}
+            {!MemberService.isLifeMember(memberObj) && <CurrencyFormat id="money-dues-amount"
+              prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
+              className="new-member--dues-amount width-money" placeholder="Dues amount"
               onChange={handleRemitDuesChange} value={memberObj.remitDues}
-        />}
-        <label htmlFor="money-donation-amount">Donation</label>
-        <CurrencyFormat id="money-donation-amount"
-          prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
-          className="new-member--donation-amount width-money" placeholder="Donation amount"
+            />}
+            <label htmlFor="money-donation-amount">Donation</label>
+            <CurrencyFormat id="money-donation-amount"
+              prefix={"$"} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true}
+              className="new-member--donation-amount width-money" placeholder="Donation amount"
               onChange={handleRemitDonationChange} value={memberObj.remitDonation}
-        />
-        <div className="new-member--remit-warn">{memberObj.remitWarn}</div>
-      </div>
-      </Profiler>
-    </>);
+            />
+            <div className="new-member--remit-warn red-text">{memberObj.getRemitAmountWarn()}</div>
+          </div>
+        </Profiler>
+      </>);
     console.log("remit group");
-    return remitGroup;  
+    return remitGroup;
   } else {
-      return <><p>No member object provided</p></>
-    }};
+    return <><p>No member object provided</p></>
+  }
+};
 

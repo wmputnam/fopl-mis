@@ -7,9 +7,19 @@ export interface FormBaseComponentGroupI {
   onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void;
   memberObj: Member;
   setMemberObj: React.Dispatch<React.SetStateAction<Member>>;
-  handleFieldChange(e: any): void;
-  firstNameError: string | undefined;
-  lastNameError: string | undefined;
+}
+
+const oldToNew = (oldObj: Member, chgObj: Partial<Member>) => {
+  const newMemberObj = Member.create();
+  const lupdt = new Date().valueOf();
+
+  const someObj = { ...oldObj, ...chgObj, lastUpdated: new Date(lupdt) }
+  for (const k in someObj) {
+    if (Object.hasOwn(newMemberObj, k)) {
+      newMemberObj[k as keyof Member] = someObj[k as keyof Member];
+    }
+  }
+  return newMemberObj;
 }
 
 export const MemberFormBaseGroup = (
@@ -17,52 +27,50 @@ export const MemberFormBaseGroup = (
     onRenderCallback,
     memberObj,
     setMemberObj,
-    handleFieldChange,
-    firstNameError,
-    lastNameError }: FormBaseComponentGroupI) => {
+  }: FormBaseComponentGroupI) => {
   function handleFirstNameChange(e: any) {
     if (memberObj && e.target.id === "first-name") {
-      setMemberObj((oldObj) => ({ ...oldObj, firstName: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _firstName: e.target.value } as Partial<Member>)));
     }
   }
   function handleLastNameChange(e: any) {
     if (memberObj && e.target.id === "last-name") {
-      setMemberObj((oldObj) => ({ ...oldObj, lastName: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _lastName: e.target.value } as Partial<Member>)));
     }
   }
   function handleAddressChange(e: any) {
-    if (memberObj && e.target.id === "addess") {
-      setMemberObj((oldObj) => ({ ...oldObj, address: e.target.value, lastUpdated: new Date() } as Member));
+    if (memberObj && e.target.id === "address") {
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _address: e.target.value } as Partial<Member>)));
     }
   }
   function handleUnitChange(e: any) {
     if (memberObj && e.target.id === "unit") {
-      setMemberObj((oldObj) => ({ ...oldObj, unit: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _unit: e.target.value } as Partial<Member>)));
     }
   }
   function handleCityChange(e: any) {
     if (memberObj && e.target.id === "city") {
-      setMemberObj((oldObj) => ({ ...oldObj, city: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _city: e.target.value } as Partial<Member>)));
     }
   }
   function handleStateChange(e: any) {
     if (memberObj && e.target.id === "state") {
-      setMemberObj((oldObj) => ({ ...oldObj, state: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _state: e.target.value } as Partial<Member>)));
     }
   }
   function handlePostalCodeChange(e: any) {
     if (memberObj && e.target.id === "postal-code") {
-      setMemberObj((oldObj) => ({ ...oldObj, postalCode: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _postalCode: e.target.value } as Partial<Member>)));
     }
   }
   function handlePhoneChange(e: any) {
     if (memberObj && e.target.id === "phone") {
-      setMemberObj((oldObj) => ({ ...oldObj, phone: e.target.value, lastUpdated: new Date() } as Member));
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _phone: e.target.value } as Partial<Member>)));
     }
   }
   function handleEmailChange(e: any) {
-    if (memberObj && e.target.id === "unit") {
-      setMemberObj((oldObj) => ({ ...oldObj, email: e.target.value, lastUpdated: new Date() } as Member));
+    if (memberObj && e.target.id === "email") {
+      setMemberObj((oldObj) => (oldToNew(oldObj, { _email: e.target.value } as Partial<Member>)));
     }
   }
   if (memberObj) {
@@ -79,7 +87,7 @@ export const MemberFormBaseGroup = (
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
             />
-            <div className="new-member--first-name-error">{firstNameError}</div>
+            <div className="new-member--first-name-error red-text width-wide">{memberObj.getFirstNameError()}</div>
             <label htmlFor="last-name">Last name</label>
             <input type="text" id="last-name" className="new-member--last-name width-wide" placeholder="Last name"
               required={true}
@@ -88,7 +96,7 @@ export const MemberFormBaseGroup = (
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
             />
-            <div className="new-member--last-name-error">{lastNameError}</div>
+            <div className="new-member--last-name-error red-text width-wide">{memberObj.getLastNameError()}</div>
           </div>
           <div className="member-form--address-group" >
             <label htmlFor="address">Address</label>
