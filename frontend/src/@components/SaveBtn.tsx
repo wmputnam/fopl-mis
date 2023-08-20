@@ -17,7 +17,7 @@ function SaveBtn({ updateCurrentMember }: SaveBtnProps):any  {
     }
 
     return (
-        <button type="submit" onClick={handleClick}>Save</button>
+        <button type="submit" onClick={handleClick} data-testid="save-btn">Save</button>
         )
 }
 

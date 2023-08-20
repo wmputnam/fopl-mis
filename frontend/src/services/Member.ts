@@ -218,18 +218,6 @@ export class Member {
   }
   _remittances: Remittance[] | undefined = [];
   public get remittances(): Remittance[] | undefined {
-    // add any entered remit information
-    if (this.remitDate) {
-      if (this.remitDues) {
-        this._remittances?.push({ date: this.remitDate, amount: this.remitDues, memo: "dues" });
-      }
-      if (this.remitDonation) {
-        this._remittances?.push({ date: this.remitDate, amount: this.remitDonation, memo: "donation" });
-      }
-      this._remitDate = undefined;
-      this._remitDues = undefined;
-      this._remitDonation = undefined;
-    }
     return this._remittances;
   }
   public set remittances(value: Remittance[] | undefined) {
@@ -242,6 +230,7 @@ export class Member {
       }
     }
   }
+  
   _remitDate: Date | undefined = undefined;
   public get remitDate(): Date | undefined{
     return this._remitDate ? this._remitDate : undefined;

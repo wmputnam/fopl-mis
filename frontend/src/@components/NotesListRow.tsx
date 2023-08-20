@@ -18,9 +18,9 @@ function formatDate(d: Date): string {
 
 const NotesListRow = ({ date, note, }: Notes): any => {
     return (
-        <div className="notes-row row" >
-            <div className="notes-row--date col">{formatDate(date)} </div>
-            <div className="notes-row--note col">{note}</div>
+        <div className="notes-row row" data-testid="notes-row row" >
+            <div className="notes-row--date col" data-testid="notes-row--date col">{formatDate(date)} </div>
+            <div className="notes-row--note col" data-testid="notes-row--note col">{note}</div>
         </div>
     );
 }

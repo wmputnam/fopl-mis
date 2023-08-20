@@ -9,7 +9,7 @@ function CancelBtn({ setAppState }: FrontendProps): any {
         setAppState((oldState: any) => ({ ...oldState, memberId: undefined, iMember: undefined, viewState: MemberViewStates.list }));
     }
     return (
-        <button type="button" onClick={updViewState}>Return to member list</button>
+        <button type="button" onClick={updViewState} data-testid="cancel-btn">Cancel</button>
     )
 }
 

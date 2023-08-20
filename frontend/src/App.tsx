@@ -124,7 +124,7 @@ export default function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" data-testid="App">
       <header>
         <AppHeader messages={appMessages} />
       </header>

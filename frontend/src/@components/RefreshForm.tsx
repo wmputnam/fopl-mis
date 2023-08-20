@@ -10,7 +10,7 @@ function RefreshForm ( { getAppState,setAppState}: FrontendProps):any  {
     // function updViewState() { updateViewState("list") }
     function handleClick() {}
     return (
-        <button onClick={handleClick}>Refresh</button>
+        <button onClick={handleClick} data-testid="refresh-button">Refresh</button>
         )
 }
 

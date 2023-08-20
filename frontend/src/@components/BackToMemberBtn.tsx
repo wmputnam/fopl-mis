@@ -9,7 +9,7 @@ function BackToMemberBtn({ setAppState }: FrontendProps): any {
         setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.edit }));
     }
     return (
-        <button type="button" onClick={updViewState}>Back to member</button>
+        <button type="button" onClick={updViewState} data-testid="back-to-member-edit-btn">Back to member</button>
     )
 }
 

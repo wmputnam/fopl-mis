@@ -16,7 +16,7 @@ const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
   return (
     <>
       <h1>{toCapitalCase(getAppState().viewState.toString())} member: {memberId}</h1>
-      <nav className="member-form--nav">
+      <nav className="member-form--nav" data-testid="member-form--nav">
         <ul>
           <li><Home
             getAppState={getAppState}

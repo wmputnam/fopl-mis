@@ -18,10 +18,10 @@ function formatDate(d: Date): string {
 
 const RemittancesListRow = ({ date, amount, memo }: Remittance): any => {
     return (
-        <div className="remits-row row" >
-            <div className="remits-row--date col">{formatDate(date)} </div>
-            <div className="remits-row--memo col">{memo}</div>
-            <div className="remits-row--amount col">{amount}</div>
+        <div className="remits-row row" data-testid="remits-row row" >
+            <div className="remits-row--date col" data-testid="remits-row--date col">{formatDate(date)} </div>
+            <div className="remits-row--memo col" data-testid="remits-row--memo col">{memo}</div>
+            <div className="remits-row--amount col" data-testid="remits-row--amount col">{amount}</div>
         </div>
     );
 }

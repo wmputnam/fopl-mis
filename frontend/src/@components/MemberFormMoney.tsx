@@ -64,11 +64,11 @@ const MemberFormMoney = ({ memberId, getAppState, setAppState }: MemberFormRemit
 
   let remittancesElements;
   if (remitArr) {
-    remittancesElements = remitArr.map((m) => {
+    remittancesElements = remitArr.map((m, indx) => {
       return (
         <>
           <RemittancesListRow
-            key={m?.date.toString()}
+            key={indx}
             date={m?.date !== undefined ? new Date(m.date) : new Date()}
             amount={m?.amount}
             memo={m.memo}
