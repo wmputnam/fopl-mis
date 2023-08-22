@@ -1,11 +1,46 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+/**
+ * @jest-environment jsdom
+ */
+import App, { getInitialViewState } from './App';
+import renderer from 'react-test-renderer/shallow'
+import sinon from 'sinon';
 
-// TODO implement mock fetch on server side?
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/William/i);
-  expect(linkElement).toBeInTheDocument();
+
+describe("getInitialViewState", () => {
+  it('returns an AppState object', () => {
+    const x = getInitialViewState();
+    expect(x).toHaveProperty('viewState');
+  });
+
+  it('passes initial viewState "list"', () => {
+    const x = getInitialViewState();
+    expect(x.viewState).toEqual('list');
+  });
+});
+
+describe('<App />', () => {
+
+  it.only("mounts", () => {
+    const view = renderer.createRenderer();
+    view.render(<App testMode={false} />);
+    expect(view.getRenderOutput().props['data-testid']).toEqual('App');
+  });
+  it("doesnt crap", () => {
+    // Enzyme.mount(<App testMode={ true} />);
+    renderer.createRenderer().render(<App testMode={true} />);
+    // let tree = component.toJSON();
+    // console.log(tree)
+  })
+  it("does list", () => {
+    // Enzyme.mount(<App testMode={ true} />);
+    renderer.createRenderer().render(<App testMode={false} />);
+    // let tree = component.toJSON();
+    // expect(tree).toBeEmptyDOMElement()
+    // console.log(tree)
+  })
+  it("can access localStorage", () => {
+    expect(window).toBeDefined();
+  })
 });

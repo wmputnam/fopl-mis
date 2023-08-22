@@ -20,8 +20,6 @@ import { MemberService } from './services/MemberService';
 export interface AppState {
   viewState: MemberViewStates;
 }
-const getInitialViewState = (): AppState => (
-  { viewState: MemberViewStates.list });
 
 export interface RenderCallBackI {
   id?: string;
@@ -42,14 +40,30 @@ export const isEmptyObject = (obj: Object) => {
   return true;
 }
 
+export const getInitialViewState = (): AppState => (
+  { viewState: MemberViewStates.list });
 
+export const getTestViewState = (): AppState => (
+  { viewState: MemberViewStates.test });
 
 // ***
-
-export default function App() {
-
-  const [appState, setAppState] = React.useState<AppState>(getInitialViewState);
+interface AppProps {
+  testMode?: boolean;
+}
+export default function App({ testMode }: AppProps): JSX.Element {
+  let initialAppState: () => AppState;
+  if (testMode && testMode === true) {
+    console.log(` testMode : ${testMode}`);
+    initialAppState = getTestViewState
+  } else {
+    initialAppState = getInitialViewState;
+  }
+  const [appState, setAppState] = React.useState<AppState>(initialAppState);
   const getAppState = () => appState;
+
+  const componentDidMount = () => {
+    console.log("mounted")
+  }
 
   React.useEffect(() => {
     console.log(`feapp: is mounted\n    ${JSON.stringify(appState)}`);
@@ -60,8 +74,10 @@ export default function App() {
   const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
 
   let component
+  console.log(appState.viewState);
   switch (appState.viewState) {
     case MemberViewStates.list:
+      console.log("in the list entry -- expected in normal mode")
       MemberService.clearMemberId();
       component = <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
         <MemberList
@@ -113,8 +129,9 @@ export default function App() {
       />
       break;
     default:
+      console.log("in the lost entry -- expected in test mode")
       component = <>
-        <h1> opps we are now lost</h1>
+        <h1 id="lost"> opps we are now lost</h1>
         <Home
           setAppState={setAppState}
           getAppState={getAppState}
@@ -135,6 +152,7 @@ export default function App() {
     </div>
   );
 }
+
 /*  PARKING LOT */
 // eslint-disable-net-line @typescript-eslint/no-unused-vars
 /* */
