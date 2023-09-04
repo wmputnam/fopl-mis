@@ -11,8 +11,8 @@ function delay(time: number) {
   return new Promise(resolve => setTimeout(resolve, time));
 }
 
-async function runDelay() {
-  await delay(1000);
+async function runDelay(time = 1000) {
+  await delay(time);
 }
 
 describe(`${fn()}: members GET`, function () {
@@ -71,9 +71,11 @@ describe(`${fn()}: member POST`, function () {
 
   let request: supertest.SuperAgentTest;
 
-  runDelay();
+
 
   const randomizer = Date.now();
+
+  runDelay(5000);
 
   const testMemberBody = {
     email: `wmputnam+${randomizer}.post@gmail.com`,
@@ -81,6 +83,22 @@ describe(`${fn()}: member POST`, function () {
     lastName: "Putnam+post"
   };
 
+  runDelay(5000);
+
+  const testDuplicateMemberBody = {
+    email: `wmputnam+${randomizer}.dup@gmail.com`,
+    firstName: "William_dup",
+    lastName: "Putnam+dup"
+  };
+
+  let dupTestMemberId;
+
+  async function setUpDupTest() {
+    const res = await request.post("/members").send(testDuplicateMemberBody);
+    dupTestMemberId = res.body.id;
+    expect(dupTestMemberId).not.to.be.undefined;
+    expect(dupTestMemberId).not.to.be.empty;
+  }
 
   before(async function (done) {
     request = supertest.agent(app);
@@ -98,6 +116,18 @@ describe(`${fn()}: member POST`, function () {
     expect(res.body).not.to.be.empty;
     expect(res.body).to.be.an('object');
     expect(res.body.id).to.be.a('string');
+  });
+
+  it("should return  error from POST to /members when member already exists having the given email", async function () {
+
+    await setUpDupTest()
+
+    const res = await request.post("/members").send(testDuplicateMemberBody);
+
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.be.an('array');
+    expect(res.body.error.length).to.equal(1);
+    expect(res.body.error).to.contain('member already exists with provided email -- email');
   });
 
   it(`should return error from POST when firstName is not provided`, async function () {
@@ -136,7 +166,6 @@ describe(`${fn()}: member POST`, function () {
 
   it(`should return error from POST when neither firstname nor lastName provided`, async function () {
     const res = await request.post(`/members`).send({ email: 'test@test.it' });
-    // console.log(res.body.error); // TODO FIX controller
     expect(res.status).to.equal(400);
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(4);
@@ -230,6 +259,18 @@ describe(`${fn()}: member PUT`, function () {
     expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
 
+  it(`should return error PUT when sending a different email address`, async function () {
+    log(`testing PUT members/${testMemberId}`);
+    const patchBody = {
+      ...testMemberBody,
+      email: 'test@test.it'
+    }
+    const res = await request.put(`/members/${testMemberId}`).send(patchBody);
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.be.an('array');
+    expect(res.body.error.length).to.equal(1);
+    expect(res.body.error).to.contain('email supplied for the member different -- email');
+  });
 });
 
 describe(`${fn()}: member PATCH`, function () {

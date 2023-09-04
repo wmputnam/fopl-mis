@@ -12,7 +12,9 @@ class MembersMiddleware {
     next: express.NextFunction
   ) {
     if (req.body?.email !== undefined && req.body.email !== "") {
+      log(`validateSameEmailDoesntExist ${req.body.email}`);
       const member = await membersService.getMemberByEmail(req.body.email);
+      log(`validateSameEmailDoesntExist ${member}`);
       if (member) {
         const errBody: RestErrorBody = { error: ['member already exists with provided email -- email'] }
         res.status(400).send(errBody);
@@ -33,7 +35,7 @@ class MembersMiddleware {
       if (member && member._id === req.params.memberId) {
         next()
       } else {
-        const errBody: RestErrorBody = { error: ['email supplied for the member duplicates another -- email'] }
+        const errBody: RestErrorBody = { error: ['email supplied for the member different -- email'] }
         res.status(400).send(errBody);
       }
     } else {
@@ -76,6 +78,7 @@ class MembersMiddleware {
     req.body.id = req.params.memberId;
     next();
   }
+
 }
 
 export default new MembersMiddleware();

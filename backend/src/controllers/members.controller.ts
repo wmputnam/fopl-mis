@@ -17,7 +17,7 @@ class MembersController {
     if (member !== null) {
       res.status(200).send(member);
     } else {
-      res.status(404).send({ error: [`Member with id ${req.body.id} not founc`] });
+      res.status(404).send({ error: [`Member with id ${req.body.id} not found`] });
     }
   }
   async createMember(req: express.Request, res: express.Response) {
