@@ -12,9 +12,13 @@ class MembersController {
     res.status(200).send(members);
   }
   async getMemberById(req: express.Request, res: express.Response) {
-    const member = await membersService.getMemberById(req.body.id);
     log(`getMemberByID(${req.body.id})`)
-    res.status(200).send(member);
+    const member = await membersService.getMemberById(req.body.id);
+    if (member !== null) {
+      res.status(200).send(member);
+    } else {
+      res.status(404).send({ error: [`Member with id ${req.body.id} not founc`] });
+    }
   }
   async createMember(req: express.Request, res: express.Response) {
     let memberId;

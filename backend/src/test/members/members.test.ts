@@ -2,7 +2,6 @@ import app from "../../app";
 import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
-import { equal } from "assert";
 
 const log: debug.IDebugger = debug('app:test-members');
 
@@ -62,9 +61,9 @@ describe(`${fn()}: members GET`, function () {
     const res = await request.get(`/members/duncell`).send();
 
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.equal('Member duncell not found');
-    expect(res.body).to.be.an('object');
-
+    expect(res.body.error).to.be.an('array');
+    expect(res.body.error.length).to.equal(1);
+    expect(res.body.error).to.contain("Member duncell not found -- memberId");
   });
 });
 
@@ -103,60 +102,49 @@ describe(`${fn()}: member POST`, function () {
 
   it(`should return error from POST when firstName is not provided`, async function () {
     const res = await request.post(`/members`).send({ lastName: testMemberBody.lastName });
-    console.log(res.body.error);
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- firstName');
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(2);
-    expect(res.body).to.be.an('object');
-
+    expect(res.body.error).to.contain('firstname is a required field -- firstName');
+    expect(res.body.error).to.contain('firstname cannot be empty -- firstName');
   });
 
   it(`should return error from POST when firstName is empty`, async function () {
     const res = await request.post(`/members`).send({ ...testMemberBody, firstName: '' });
-    console.log(res.body.error);
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- firstName');
+    expect(res.body.error).to.contain('firstname cannot be empty -- firstName');
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(1);
-    expect(res.body).to.be.an('object');
-
   });
 
   it(`should return error from POST when lastName is not provided`, async function () {
     const res = await request.post(`/members`).send({ firstName: testMemberBody.firstName });
-    console.log(res.body.error); // TODO FIX controller
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- lastName');
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(2);
-
-    expect(res.body.error).to.equal('Invalid value -- lastName');
-    expect(res.body).to.be.an('object');
+    expect(res.body.error).to.contain('lastname is a required field -- lastName');
+    expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
 
   it(`should return error from POST when lastName is empty`, async function () {
     const res = await request.post(`/members`).send({ ...testMemberBody, lastName: '' });
-    console.log(res.body.error);
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- lastName');
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(1);
-    expect(res.body).to.be.an('object');
-
+    expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
 
   it(`should return error from POST when neither firstname nor lastName provided`, async function () {
     const res = await request.post(`/members`).send({ email: 'test@test.it' });
-    console.log(res.body.error); // TODO FIX controller
+    // console.log(res.body.error); // TODO FIX controller
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- firstName');
-    expect(res.body.error).to.contain('Invalid value -- lastName');
     expect(res.body.error).to.be.an('array');
-    expect(res.body.error.length).to.equal(2);
-    expect(res.body).to.be.an('object');
+    expect(res.body.error.length).to.equal(4);
+    expect(res.body.error).to.contain('firstname is a required field -- firstName');
+    expect(res.body.error).to.contain('firstname cannot be empty -- firstName');
+    expect(res.body.error).to.contain('lastname is a required field -- lastName');
+    expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
-
 });
 
 describe(`${fn()}: member PUT`, function () {
@@ -201,7 +189,7 @@ describe(`${fn()}: member PUT`, function () {
     expect(res.body).to.be.an('object');
   });
 
-  it(`should return error PUT for a member by Id /members/:memberId when not presenst`, async function () {
+  it(`should return error PUT for a member by Id /members/:memberId when not present`, async function () {
     log(`testing PUT members/${testMemberId}`);
     const patchBody = {
       ...testMemberBody,
@@ -210,7 +198,7 @@ describe(`${fn()}: member PUT`, function () {
     }
     const res = await request.put(`/members/putcell`).send(patchBody);
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.contain('Member putcell not found');
+    expect(res.body.error).to.contain('Member putcell not found -- memberId');
     expect(res.body).to.be.an('object');
   });
 
@@ -223,10 +211,9 @@ describe(`${fn()}: member PUT`, function () {
     }
     const res = await request.put(`/members/${testMemberId}`).send(patchBody);
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- firstName');// TODO FIX
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(1);
-    expect(res.body).to.be.an('object');
+    expect(res.body.error).to.contain('firstname cannot be empty -- firstName');
   });
 
   it(`should return error PUT when sending an empty lastName`, async function () {
@@ -238,10 +225,9 @@ describe(`${fn()}: member PUT`, function () {
     }
     const res = await request.put(`/members/${testMemberId}`).send(patchBody);
     expect(res.status).to.equal(400);
-    expect(res.body.error).to.contain('Invalid value -- lastName'); // TODO FIX
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(1);
-    expect(res.body).to.be.an('object');
+    expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
 
 });
@@ -283,15 +269,13 @@ describe(`${fn()}: member PATCH`, function () {
     }
     const res = await request.patch(`/members/${testMemberId}`).send(patchBody);
 
-    log(res.body);
-    log(typeof res.body)
     expect(res.status).to.equal(204);
     expect(res.body).to.be.empty;
     expect(res.body).to.be.an('object');
 
   });
 
-  it(`should reurn error from PATCH member not found`, async function () {
+  it(`should return error from PATCH member not found`, async function () {
     log(`testing PATCH members/${testMemberId}`);
     const patchBody = {
       ...testMemberBody,
@@ -300,9 +284,33 @@ describe(`${fn()}: member PATCH`, function () {
     const res = await request.patch(`/members/patchcell`).send(patchBody);
 
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.contain('Member patchcell not found');
+    expect(res.body.error).to.contain('Member patchcell not found -- memberId');
     expect(res.body).to.be.an('object');
 
+  });
+
+  it(`should return error when PATCH has empty firstName`, async function () {
+    log(`testing PATCH members/${testMemberId}`);
+    const patchBody = {
+      ...testMemberBody,
+      firstName: ''
+    }
+    const res = await request.patch(`/members/${testMemberId}`).send(patchBody);
+
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.contain('firstname cannot be empty -- firstName');
+  });
+
+  it(`should return error when PATCH has empty lastName`, async function () {
+    log(`testing PATCH members/${testMemberId}`);
+    const patchBody = {
+      ...testMemberBody,
+      lastName: ''
+    }
+    const res = await request.patch(`/members/${testMemberId}`).send(patchBody);
+
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.contain('lastname cannot be empty -- lastName');
   });
 });
 
@@ -341,10 +349,11 @@ describe(`${fn()}: member DELETE`, function () {
   });
 
   it("should return error for DELETE of non-existing member", async function () {
+    const expectedError = 'Member dorf not found -- memberId'
     const res = await request.delete(`/members/dorf`);
-    const expectedRes = { error: 'Member dorf not found' }
+
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.equal(expectedRes.error);
+    expect(res.body.error).to.contain(expectedError);
     expect(res.body).to.be.an('object');
   });
 
