@@ -21,7 +21,7 @@ export default async function loadData(serverUrl: string, mode: string, memberId
 
 async function doGet(serverUrl: string, memberId: string): Promise<any> {
 
-  console.log(`fe-data-loasder--get URL:${serverUrl}/members/${memberId} `);
+  console.log(`fe-data-loader--get URL:${serverUrl}/members/${memberId} `);
   try {
     const res = await request.get(serverUrl + `/members/${memberId}`)
       .accept('json')

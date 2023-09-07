@@ -1,4 +1,4 @@
-import data from "../assets/config/config.cjs"
+import data from "../assets/config/config.mjs"
 export class AppConfig {
     private static instance: AppConfig;
     private configData: IAppConfig;

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,25 +11,42 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "ES2020",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "outDir":"dist",
+    "outDir": "dist",
     "sourceMap": true,
-    "listEmittedFiles": true
+    "listEmittedFiles": true,
+    "types": [
+      "mocha",
+      "chai",
+      "node"
+    ]
+  },
+  "ts-node": {
+    "esm": true,
+    "project": "tsconfig.json"
   },
   "include": [
-    "src","src/react-number-input.d.ts"
+    "src",
+    "src/react-number-input.d.ts"
   ],
-  "baseUrl":"./src",
-  "paths":{
-    "@interfaces/*":["@interfaces/*"],
-    "classes/*":["classes/*"],
-    "components/*":["components/*"]
-  }
+  "baseUrl": "./src",
+  "paths": {
+    "@interfaces/*": [
+      "@interfaces/*"
+    ],
+    "classes/*": [
+      "classes/*"
+    ],
+    "components/*": [
+      "components/*"
+    ]
+  },
 }

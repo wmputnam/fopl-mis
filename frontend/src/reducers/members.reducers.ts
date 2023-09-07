@@ -1,8 +1,7 @@
 import { IMember } from "packages";
-import { AllMemberProps } from "../@interfaces/MemberProps";
 
 class MembersReducers {
-  static reduceMemberFullName(m: Partial<AllMemberProps>): string {
+  static reduceMemberFullName(m: Partial<IMember>): string {
     let fullname = "";
     // precedence rule for this (poorly designed) interface
     // if there is a names:Array<{lastName:string,firstName:string}>
@@ -24,7 +23,7 @@ class MembersReducers {
     return fullname;
   }
 
-  static reduceAddressForMemberList(m: IMember): string {
+  static reduceAddressForMemberList(m: Partial<IMember>): string {
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
@@ -52,7 +51,7 @@ class MembersReducers {
     return reducer_address + reducer_unit + reducer_city + reducer_zip;
   }
 
-  static reducePaidThroughForMemberList(m: IMember): string {
+  static reducePaidThroughForMemberList(m: Partial<IMember>): string {
     const lifeMembershipCodes = ["LM", "HLM", "BEN"];
     const volunteerCodes = ["VOL"];
     const allNopayCodes = lifeMembershipCodes.concat(volunteerCodes);
@@ -73,7 +72,7 @@ class MembersReducers {
     }
   }
 
-  static reduceJoinedForMemberList(m: IMember): string {
+  static reduceJoinedForMemberList(m: Partial<IMember>): string {
     if (m?.joined !== undefined) {
       let computedType: string = ({}).toString.call(m.joined).toLowerCase();
       console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
@@ -89,7 +88,7 @@ class MembersReducers {
     }
   }
 
-  static reduceLastUpdatedForMemberList(m: IMember): string {
+  static reduceLastUpdatedForMemberList(m: Partial<IMember>): string {
     if (m?.lastUpdated !== undefined) {
       let computedType: string = ({}).toString.call(m.lastUpdated).toLowerCase();
       console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);

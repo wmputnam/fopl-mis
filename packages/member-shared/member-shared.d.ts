@@ -7,6 +7,7 @@ export interface IMember {
     firstName: string;
     lastName: string;
     names?: Names[];
+    name?: string;
     email: string; phone: string;
     address: string;
     unit: string;

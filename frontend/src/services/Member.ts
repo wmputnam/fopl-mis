@@ -17,7 +17,7 @@ export class Member {
   }
   public set id(value: string | undefined) {
     if (value && value !== "") {
-      if (this._id && this._id !== "") {
+      if (this._id && this._id !== "" && this._id !== value) {
         console.log(`setting _id to ${value} when has _id ${this._id} is not allowed`);
         return;
       }
@@ -230,9 +230,9 @@ export class Member {
       }
     }
   }
-  
+
   _remitDate: Date | undefined = undefined;
-  public get remitDate(): Date | undefined{
+  public get remitDate(): Date | undefined {
     return this._remitDate ? this._remitDate : undefined;
   }
   public set remitDate(value: Date | undefined) {
@@ -416,7 +416,8 @@ export class Member {
   */
   _dataEntryErrors: Array<FormError> = [];
   set dataEntryErrors(value: any) {
-    this.dataEntryErrors = value;
+    console.log(value);
+    this._dataEntryErrors = value;
   }
   public findError(targetField: string) {
     let existingErr = this._dataEntryErrors.find((e) => e.target === targetField);
@@ -498,13 +499,10 @@ export class Member {
   public static create(memberId: string | undefined = undefined): Member {
     if (memberId) {
       const m: Member = new Member({ memberId: memberId });
-      console.log(JSON.stringify(m));
       return m;
     } else {
       const m: Member = new Member();
-      console.log(JSON.stringify(m));
       return m;
-      // return new Member();
     }
   }
 
@@ -563,7 +561,23 @@ export class Member {
 
   public deepClone(): Member | undefined {
     const currImember: IMember = this.toIMember();
-    const cloneMember: Member | undefined = currImember ? Member.createFromIMember(currImember) : undefined;
+    console.log(`this.id: ${this.id}, currImamber._id: ${currImember._id}`);
+    let cloneMember: Member | undefined = currImember ? Member.createFromIMember(currImember) : undefined;
+    if (cloneMember) {
+      console.log(`clone.id: ${cloneMember.id}`);
+    }
+    if (this.dataEntryErrors && cloneMember) {
+      cloneMember.dataEntryErrors = this.dataEntryErrors;
+    }
+    if (this.remitDate && cloneMember) {
+      cloneMember.remitDate = this.remitDate;
+    }
+    if (this.remitDues && cloneMember) {
+      cloneMember.remitDues = this.remitDues;
+    }
+    if (this.remitDonation && cloneMember) {
+      cloneMember.remitDonation = this.remitDonation;
+    }
     return cloneMember;
   }
 }

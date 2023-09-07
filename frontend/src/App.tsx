@@ -3,19 +3,19 @@ import React, { Profiler } from 'react';
 
 import './App.css';
 
-import DropMember from './@components/DropMember';
-import EditMember from './@components/EditMember';
-import Home from "./@components/CancelBtn"
-import MemberList from './@components/MemberList';
-import NewMember from './@components/NewMember';
-import RenewMember from './@components/RenewMember';
-import { MemberViewStates } from './@interfaces/enums';
-import AppHeader from './@components/AppHeader';
-import MemberFormNotes from './@components/MemberFormNotes';
-import MemberFormMoney from './@components/MemberFormMoney';
-import { IMember } from 'packages/member-shared';
-import { FormError } from "./@components/MemberFormBase"
-import { MemberService } from './services/MemberService';
+import DropMember from './@components/DropMember.js';
+import EditMember from './@components/EditMember.js';
+import Home from "./@components/CancelBtn.js"
+import MemberList from './@components/MemberList.js';
+import NewMember from './@components/NewMember.js';
+import RenewMember from './@components/RenewMember.js';
+import { MemberViewStates } from './@interfaces/enums.js';
+import AppHeader from './@components/AppHeader.js';
+import MemberFormNotes from './@components/MemberFormNotes.js';
+import MemberFormMoney from './@components/MemberFormMoney.js';
+import { IMember } from 'packages/member-shared.js';
+import { FormError } from "./@components/MemberFormBase.js"
+import { MemberService } from './services/MemberService.js';
 
 export interface AppState {
   viewState: MemberViewStates;

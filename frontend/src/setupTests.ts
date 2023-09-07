@@ -12,4 +12,5 @@
 //   key: jest.fn()
 // };
 // global.localStorage = localStorageMock as Storage;
+export { }
 
