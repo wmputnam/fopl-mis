@@ -7,7 +7,7 @@ const memberListPage: PageObjectModel = {
   commands: [memberListPageCommands],
   elements: {
     memberList: {
-      selector: '[ data-testid = "member-row--header header"]', // TODO fix component bug
+      selector: '[ data-testid = "member-row--header"]',
     },
     nameColumnHeading: {
       selector: '[ data-testid = "member-row--name"]'

@@ -4,16 +4,15 @@ import { MemberViewStates } from "../@interfaces/enums";
 
 
 
-const MemberListHeader = ({getAppState,setAppState}:FrontendProps ) => 
-{
+const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) => {
 
     const handleNewClick = (): any => {
         console.log(`new member`);
-        setAppState( (oldState:any) => ({...oldState, viewState:MemberViewStates.new}));
+        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.new }));
     }
 
     return (
-        <div className="member-row--header header" data-testid="member-row--header header">
+        <div className="member-row--header header" data-testid="member-row--header">
             <div className="member-row--name" data-testid="member-row--name">Name</div>
             <div className="member-row--address" data-testid="member-row--address">Address</div>
             <div className="member-row--phone" data-testid="member-row--phone">Phone</div>

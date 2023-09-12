@@ -62,36 +62,36 @@ export const MemberFormBaseGroup = (
     }
   }
   if (memberObj) {
-    console.log(`value of unit is "${(memberObj && memberObj.unit) ? memberObj.unit : ""}"`)
     return (
       <>
         <Profiler id="memberFormBase" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <div className="member-form--name-group" data-testid="member-form--name-group" >
             <label htmlFor="first-name">First name</label>
-            <input type="text" id="first-name" className="new-member--first-name width-wide" data-testid="new-member--first-name width-wide" placeholder="First name"
+            <input type="text" id="first-name" className="member--first-name width-wide" data-testid="member--first-name"
               required={true}
               value={memberObj.firstName}
               onChange={handleFirstNameChange}
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
             />
-            <div className="new-member--first-name-error red-text width-wide" data-testid="new-member--first-name-error red-text width-wide">{memberObj.getFirstNameError()}</div>
+            <div className="member--first-name-error red-text width-wide" data-testid="member--first-name-error">{memberObj.getFirstNameError()}</div>
             <label htmlFor="last-name">Last name</label>
-            <input type="text" id="last-name" className="new-member--last-name width-wide" data-testid="new-member--last-name width-wide" placeholder="Last name"
+            <input type="text" id="last-name" className="member--last-name width-wide" data-testid="member--last-name"
               required={true}
               value={memberObj.lastName}
               onChange={handleLastNameChange}
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
             />
-            <div className="new-member--last-name-error red-text width-wide" data-testid="new-member--last-name-error red-text width-wide">{memberObj.getLastNameError()}</div>
+            <div className="member--last-name-error red-text width-wide" data-testid="member--last-name-error">{memberObj.getLastNameError()}</div>
           </div>
           <div className="member-form--address-group" data-testid="member-form--address-group" >
             <label htmlFor="address">Address</label>
             <input
               type="text"
               id="address"
-              className="new-member--address width-wide" data-testid="new-member--address width-wide"
+              className="member--address width-wide"
+              data-testid="member--address"
               placeholder="Address"
               value={memberObj.address}
               onChange={handleAddressChange}
@@ -100,7 +100,8 @@ export const MemberFormBaseGroup = (
             <input
               type="text"
               id="unit"
-              className="new-member--unit width-wide" data-testid="new-member--unit width-wide"
+              className="member--unit width-wide"
+              data-testid="member--unit"
               placeholder="Unit"
               value={memberObj.unit}
               onChange={handleUnitChange}
@@ -110,7 +111,8 @@ export const MemberFormBaseGroup = (
             <input
               type="text"
               id="city"
-              className="new-member--city width-wide" data-testid="new-member--city width-wide"
+              className="member--city width-wide"
+              data-testid="member--city"
               placeholder="City"
               value={memberObj.city}
               onChange={handleCityChange}
@@ -119,7 +121,8 @@ export const MemberFormBaseGroup = (
             <input
               type="text"
               id="state"
-              className="new-member--appState width-narrow" data-testid="new-member--appState width-narrow"
+              className="member--state width-narrow"
+              data-testid="member--state"
               placeholder="State"
               value={memberObj.state}
               onChange={handleStateChange}
@@ -128,7 +131,7 @@ export const MemberFormBaseGroup = (
             <input
               type="text"
               id="postal-code"
-              className="new-member--postal-code  width-medium" data-testid="new-member--postal-code  width-medium"
+              className="member--postal-code  width-medium" data-testid="member--postal-code"
               placeholder="ZIP code"
               value={memberObj.postalCode}
               onChange={handlePostalCodeChange}
@@ -139,7 +142,8 @@ export const MemberFormBaseGroup = (
             <input
               type="telephone"
               id="phone"
-              className="new-member--phone width-phone" data-testid="new-member--phone width-phone"
+              className="member--phone width-phone"
+              data-testid="member--phone"
               placeholder="Phone"
               value={memberObj.phone}
               onChange={handlePhoneChange} />
@@ -147,7 +151,8 @@ export const MemberFormBaseGroup = (
             <input
               type="email"
               id="email"
-              className="new-member--email width-phone" data-testid="new-member--email width-phone"
+              className="member--email width-phone"
+              data-testid="member--email"
               placeholder="Email"
               required={false}
               value={memberObj.email}
