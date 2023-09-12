@@ -3,3 +3,7 @@ node_modules
 .watchman*
 build
 .vscode
+logs
+screenshots
+dist
+nightwatch/reports

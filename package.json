@@ -2,7 +2,7 @@
   "name": "mis",
   "version": "1.0.0",
   "description": "a full stack node app for managing Friends of the Petaluma Library membership data",
-  "keywords":[],
+  "keywords": [],
   "license": "reserved",
   "scripts": {
     "start": "pnpm --stream -r start",
@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "pnmp": "^1.0.4"
+  },
+  "devDependencies": {
+    "create-nightwatch": "3.0.2"
   }
 }

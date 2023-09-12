@@ -1,0 +1,79 @@
+import { NightwatchTests, NightwatchBrowser } from "nightwatch";
+import { MemberListPage } from "../../page-objects/member.list.page";
+
+describe('member list page row', function () {
+  // const memberListPage: MemberListPage = browser.page.memberListPage();
+
+  it('displays a full name value in the Name column', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('displays an identifing address value in the Address column', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('displays a formatted phone value in the Phone column', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('displays email value in the Email column', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('displays MMB value in the MMB column', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('has a row context menu', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an Edit item', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an View remittances item', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an View notes item', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an Process donation item when row is for a Life member', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an Renew member item when row is for a paying member or volunteer', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+  it('the row context menu includes an Drop member item ', function () {
+    memberListPage.navigate()
+      .findElements("@memberRow")
+      .expect("text").not.to.be.equal("");
+  });
+
+});
