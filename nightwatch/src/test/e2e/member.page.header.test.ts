@@ -5,7 +5,7 @@ import commonPageHeader from "../../page-objects/commonPageHeader";
 describe('common page header', function () {
   // console.log(`commonPageHeader: ${JSON.stringify(browser.page.commonPageHeader().elements)}`);
 
-  it.only('displays application title "Membership"', async function (browser: NightwatchBrowser) {
+  it('displays application title "Membership"', async function (browser: NightwatchBrowser) {
     browser.page.memberListPage().navigate();
     browser.page.commonPageHeader().assert.visible("@appName")
   });

@@ -27,12 +27,31 @@ const memberListPage: PageObjectModel = {
     toolsColumnHeading: {
       selector: '[ data-testid = "member-row--tools"]'
     },
-    memberRow: {
-      selector: "div#bar"
-    },
     addMemberBtn: {
       selector: "button"
-    }
+    },
+    memberRow: {
+      selector: '//*[@data-testid="member-row"]',
+      locateStrategy: 'xpath'
+    },
+    memberRowName: {
+      selector: '[ data-testid = "member-row--name"]'
+    },
+    memberRowAddress: {
+      selector: '[ data-testid = "member-row--address"]'
+    },
+    memberRowPhone: {
+      selector: '[ data-testid = "member-row--phone"]'
+    },
+    memberRowEmail: {
+      selector: '[ data-testid = "member-row--email"]'
+    },
+    memberRowMmb: {
+      selector: '[ data-testid = "member-row--mmb"]'
+    },
+    memberRowTools: {
+      selector: '[ data-testid = "member-row--tools"]'
+    },
   }
 }
 
