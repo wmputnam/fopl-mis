@@ -13,6 +13,8 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
   "page_objects_path": ["./dist/page-objects"],
   "output_folder": "./reports", // reports (test outcome) output by Nightwatch
   "disable_typescript": true,
+  "abortOnAssertionFailure": false,
+  "abortOnElementLocateError": false,
   "selenium": {
     "start_process": true,
     "server_path": seleniumServer.path,

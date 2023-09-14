@@ -1,9 +1,27 @@
 import { PageObjectModel, EnhancedPageObject } from "nightwatch"
+
+const memberRowToolsXpath = (n: number): string => `(//*[@data-testid="member-row--tools"])[${n + 1}]//button`;
+
+const memberRowToolsEditXpath = (n: number): string => `(//*[@data-testid="member-row--menu-edit"])[${n}]`;
+
 const memberListPageCommands = {
-  openAddMember(this: MemberListPage) {
-    return this.waitForElementVisible("@addMemberBtn").click("@addMemberBtn")
+  async openAddMember(this: MemberListPage) {
+    return await this.waitForElementVisible("@addMemberBtn")
+      .click("@addMemberBtn")
       .waitForElementNotPresent("@addMemberBtn");
+  },
+
+  async openEditMember(this: MemberListPage, rowNum: number) {
+    const toolsSelector: string = memberRowToolsXpath(rowNum);
+    const menuEditSelector: string = memberRowToolsEditXpath(rowNum);
+    console.log(`row ${rowNum}\n    tools menu: ${toolsSelector}\n    edit button: ${menuEditSelector}`)
+    await this.waitForElementVisible(by.xpath(toolsSelector));
+    await this.click(by.xpath(memberRowToolsXpath(rowNum)));
+    await this.waitForElementVisible(by.xpath(menuEditSelector));
+    await this.click(by.xpath(menuEditSelector));
+    return await this.waitForElementNotPresent(by.xpath(toolsSelector));
   }
+
 }
 const memberListPage: PageObjectModel = {
   url: "http://localhost:3000",

@@ -1,5 +1,10 @@
 import { PageObjectModel, EnhancedPageObject } from "nightwatch"
 const memberFormPageCommands = {
+  async clickCancel(this: MemberFormPage) {
+    return await this.waitForElementVisible("@cancelBtn")
+      .click("@cancelBtn")
+      .waitForElementNotPresent("@cancelBtn");
+  }
 
 }
 const memberFormPage: PageObjectModel = {
@@ -25,8 +30,9 @@ const memberFormPage: PageObjectModel = {
   { shortName: "remitDonation", placeHolder: "Donation amount" },
 */
     lastName: {
-      selector: '//*[@data-testid="member--lastname"]',
-      locateStrategy: 'xpath'
+      selector: '#last-name'
+      // ,
+      // locateStrategy: 'css'
     },
     address: {
       selector: '//*[@data-testid="member--address"]',
@@ -45,8 +51,7 @@ const memberFormPage: PageObjectModel = {
       locateStrategy: 'xpath'
     },
     postalCode: {
-      selector: '//*[@data-testid="member--postalCode"]',
-      locateStrategy: 'xpath'
+      selector: '#postal-code',
     },
     phone: {
       selector: '//*[@data-testid="member--phone"]',
@@ -142,7 +147,7 @@ const memberFormPage: PageObjectModel = {
       locateStrategy: 'xpath'
     },
     joined: {
-      selector: '//*[@ata-testid="member--joined--input"]',
+      selector: '//*[@data-testid="member--joined--input"]',
       locateStrategy: 'xpath'
     },
     lastUpdated: {
@@ -177,5 +182,5 @@ const memberFormPage: PageObjectModel = {
 }
 
 export default memberFormPage;
-export interface MemberListPage
+export interface MemberFormPage
   extends EnhancedPageObject<typeof memberFormPageCommands, typeof memberFormPage.elements> { };
