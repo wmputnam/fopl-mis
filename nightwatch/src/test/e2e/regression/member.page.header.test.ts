@@ -1,6 +1,6 @@
 import { NightwatchTests, NightwatchBrowser } from "nightwatch";
-import memberListPage from "../../page-objects/memberListPage";
-import commonPageHeader from "../../page-objects/commonPageHeader";
+import memberListPage from "../../../page-objects/memberListPage";
+import commonPageHeader from "../../../page-objects/commonPageHeader";
 
 describe('common page header', function () {
   // console.log(`commonPageHeader: ${JSON.stringify(browser.page.commonPageHeader().elements)}`);

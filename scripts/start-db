@@ -1,0 +1,12 @@
+#! /bin/bash
+
+# is docker running the database already?
+isUp=$(docker ps | grep mongo)
+
+if [ "${isUp}" = "" ] ; then
+  echo "Starting DB -- may take a minute"
+  docker start backend-mongo-1
+  echo "DB started"
+else
+  echo "DB is already running"
+fi

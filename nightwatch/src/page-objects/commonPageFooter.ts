@@ -18,6 +18,6 @@ const commonPageFooter: PageObjectModel = {
   }
 }
 
-export { commonPageFooter };
+export default commonPageFooter;
 export interface CommonPageHeader
   extends EnhancedPageObject<typeof commonPageFooterCommands, typeof commonPageFooter.elements> { };

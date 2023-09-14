@@ -73,120 +73,240 @@ export const MemberFormVolGroup = (
     const volGroup = (
       <>
         <Profiler id="MemberVol" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
-          <div className="member-form--volunteer-preferences" data-testid="member-form--volunteer-preferences">
-            <fieldset className="member-form--volunteer-preferences-fieldset" data-testid="member-form--volunteer-preferences-fieldset" >
+          <div 
+            className="member-form--volunteer-preferences" 
+            data-testid="member-form--volunteer-preferences">
+            <fieldset 
+              className="member-form--volunteer-preferences-fieldset" 
+              data-testid="member-form--volunteer-preferences-fieldset" >
               <legend>&nbsp;&nbsp;Volunteer preferences&nbsp;&nbsp;</legend>
-              <ul className="member-form--volunteer-preferences-list" data-testid="member-form--volunteer-preferences-list">
-                <li><div className="new-member--book-sale" data-testid="new-member--book-sale">
-                  <label htmlFor="volunteer-preference--book-sale">Staff book sale</label>
-                  <input type="checkbox" id="volunteer-preference--book-sale" className="form--book-sale" data-testid="form--book-sale"
+              <ul 
+                className="member-form--volunteer-preferences-list" 
+                data-testid="member-form--volunteer-preferences-list">
+                <li><div 
+                  className="vol-role--book-sale--wrapper" 
+                  data-testid="vol-role--book-sale--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--book-sale">Staff book sale</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--book-sale" 
+                    className="vol-role--book-sale--input" 
+                    data-testid="vol-role--book-sale--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--book-store" data-testid="new-member--book-store">
-                  <label htmlFor="volunteer-preference--book-store">Staff book store</label>
-                  <input type="checkbox" id="volunteer-preference--book-store" className="form--bookstore" data-testid="form--bookstore"
+                <li><div 
+                  className="vol-role--book-store--wrapper" 
+                  data-testid="vol-role--book-store--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--book-store">Staff book store</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--book-store" 
+                    className="vol-role--bookstore--input" 
+                    data-testid="vol-role--bookstore--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--hospitality" data-testid="new-member--hospitality">
-                  <label htmlFor="volunteer-preference--hospitality">Hospitality</label>
-                  <input type="checkbox" id="volunteer-preference--hospitality" className="form--hospitality" data-testid="form--hospitality"
+                <li><div 
+                  className="vol-role--hospitality--wrapper" 
+                  data-testid="vol-role--hospitality--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--hospitality">Hospitality</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--hospitality" 
+                    className="vol-role--hospitality--input" 
+                    data-testid="vol-role--hospitality--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--newsletter" data-testid="new-member--newsletter">
-                  <label htmlFor="volunteer-preference--newsletter">Newsletter</label>
-                  <input type="checkbox" id="volunteer-preference--newsletter" className="form--newsletter" data-testid="form--newsletter"
+                <li><div 
+                  className="vol-role--newsletter--wrapper" 
+                  data-testid="vol-role--newsletter--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--newsletter">Newsletter</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--newsletter" 
+                    className="vol-role--newsletter--input" 
+                    data-testid="vol-role--newsletter--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--publicity" data-testid="new-member--publicity">
-                  <label htmlFor="volunteer-preference--publicity">Publicity</label>
-                  <input type="checkbox" id="volunteer-preference--publicity" className="form--publicity" data-testid="form--publicity"
+                <li><div 
+                  className="vol-role--publicity--wrapper" 
+                  data-testid="vol-role--publicity--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--publicity">Publicity</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--publicity" 
+                    className="vol-role--publicity--input" 
+                    data-testid="vol-role--publicity--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--schedule-volunteers" data-testid="new-member--schedule-volunteers">
-                  <label htmlFor="volunteer-preference--schedule-volunteers">Schedule volunteers</label>
-                  <input type="checkbox" id="volunteer-preference--schedule-volunteers" className="form--schedule-volunteers" data-testid="form--schedule-volunteers"
+                <li><div 
+                  className="vol-role--schedule-volunteers--wrapper" 
+                  data-testid="vol-role--schedule-volunteers--wrapper">
+                  <label
+                    htmlFor="volunteer-preference--schedule-volunteers">Schedule volunteers</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--schedule-volunteers" 
+                    className="vol-role--schedule-volunteers--input" 
+                    data-testid="vol-role--schedule-volunteers--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--sort-books" data-testid="new-member--sort-books">
-                  <label htmlFor="volunteer-preference--sort-books">Sort books</label>
-                  <input type="checkbox" id="volunteer-preference--sort-books" className="form--sort-books" data-testid="form--sort-books"
+                <li><div 
+                  className="vol-role--sort-books--wrapper" 
+                  data-testid="vol-role--sort-books--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--sort-books">Sort books</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--sort-books" 
+                    className="vol-role--sort-books--input" 
+                    data-testid="vol-role--sort-books--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--fund-raising" data-testid="new-member--fund-raising">
-                  <label htmlFor="volunteer-preference--fund-raising">Fund raising</label>
-                  <input type="checkbox" id="volunteer-preference--fund-raising" className="form--fund-raising" data-testid="form--fund-raising"
+                <li><div 
+                  className="vol-role--fund-raising--wrapper" 
+                  data-testid="vol-role--fund-raising--wrapper">
+                  <label 
+                  htmlFor="volunteer-preference--fund-raising">Fund raising</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--fund-raising" 
+                    className="vol-role--fund-raising--input" 
+                    data-testid="vol-role--fund-raising--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--lumacon" data-testid="new-member--lumacon">
-                  <label htmlFor="volunteer-preference--lumacon">Staff LUMACON</label>
-                  <input type="checkbox" id="volunteer-preference--lumacon" className="form--lumacon" data-testid="form--lumacon"
+                <li><div 
+                  className="vol-role--lumacon--wrapper" 
+                  data-testid="vol-role--lumacon--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--lumacon">Staff LUMACON</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--lumacon" 
+                    className="vol-role--lumacon--input" 
+                    data-testid="vol-role--lumacon--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--mend-books" data-testid="new-member--mend-books">
-                  <label htmlFor="volunteer-preference--mend-books">Mend books</label>
-                  <input type="checkbox" id="volunteer-preference--mend-books" className="form--mend-books" data-testid="form--mend-books"
+                <li><div 
+                  className="vol-role--mend-books--wrapper" 
+                  data-testid="vol-role--mend-books--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--mend-books">Mend books</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--mend-books" 
+                    className="vol-role--mend-books--input" 
+                    data-testid="vol-role--mend-books--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--pick-up-donations" data-testid="new-member--pick-up-donations">
-                  <label htmlFor="volunteer-preference--pick-up-donations">Pick up donations</label>
-                  <input type="checkbox" id="volunteer-preference--pick-up-donations" className="form--pick-up-donations" data-testid="form--pick-up-donations"
+                <li><div 
+                  className="vol-role--pick-up-donations--wrapper" 
+                  data-testid="vol-role--pick-up-donations--wrapper">
+                  <label 
+                  htmlFor="volunteer-preference--pick-up-donations">Pick up donations</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--pick-up-donations" 
+                    className="vol-role--pick-up-donations--input" 
+                    data-testid="vol-role--pick-up-donations--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--price-books" data-testid="new-member--price-books">
-                  <label htmlFor="volunteer-preference--price-books">Price books</label>
-                  <input type="checkbox" id="volunteer-preference--price-books" className="form--price-books" data-testid="form--price-books"
+                <li><div 
+                  className="vol-role--price-books--wrapper" 
+                  data-testid="vol-role--price-books--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--price-books">Price books</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--price-books" 
+                    className="vol-role--price-books--input" 
+                    data-testid="vol-role--price-books--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--set-up-for-sales" data-testid="new-member--set-up-for-sales">
-                  <label htmlFor="volunteer-preference--set-up-for-sales">Set up for sales</label>
-                  <input type="checkbox" id="volunteer-preference--set-up-for-sales" className="form--set-up-for-sales" data-testid="form--set-up-for-sales"
+                <li><div 
+                  className="vol-role--set-up-for-sales--wrapper" 
+                  data-testid="vol-role--set-up-for-sales--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--set-up-for-sales">Set up for sales</label>
+                  <input 
+                    type="checkbox" id="volunteer-preference--set-up-for-sales" 
+                    className="vol-role--set-up-for-sales--input" 
+                    data-testid="vol-role--set-up-for-sales--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--sales-signage" data-testid="new-member--sales-signage">
-                  <label htmlFor="volunteer-preference--sales-signage">Sales signage</label>
-                  <input type="checkbox" id="volunteer-preference--sales-signage" className="form--sales-signage" data-testid="form--sales-signage"
+                <li><div 
+                  className="vol-role--sales-signage--wrapper" 
+                  data-testid="vol-role--sales-signage--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--sales-signage">Sales signage</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--sales-signage" 
+                    className="vol-role--sales-signage--input" 
+                    data-testid="vol-role--sales-signage--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--stock-book-store" data-testid="new-member--stock-book-store">
-                  <label htmlFor="volunteer-preference--stock-book-store">Stock book store</label>
-                  <input type="checkbox" id="volunteer-preference--stock-book-store" className="form--stock-book-store" data-testid="form--stock-book-store"
+                <li><div 
+                  className="vol-role--stock-book-store--wrapper" 
+                  data-testid="vol-role--stock-book-store--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--stock-book-store">Stock book store</label>
+                  <input 
+                    type="checkbox" 
+                    id="volunteer-preference--stock-book-store" 
+                    className="vol-role--stock-book-store--input" 
+                    data-testid="vol-role--stock-book-store--input"
                     onClick={handleCheckboxClick}
                     defaultChecked={false}
                   />
                 </div></li>
-                <li><div className="new-member--other" data-testid="new-member--other">
-                  <label htmlFor="volunteer-preference--other" className="form--other-label" data-testid="form--other-label">Other</label>
-                  <input type="text" id="volunteer-preference--other" className="form--other" data-testid="form--other"
+                <li><div 
+                  className="vol-role--other--wrapper" 
+                  data-testid="vol-role--other--wrapper">
+                  <label 
+                    htmlFor="volunteer-preference--other" 
+                    className="volunteer-preference--other-label" 
+                    data-testid="volunteer-preference--other-label">Other</label>
+                  <input 
+                    type="text" 
+                    id="volunteer-preference--other" 
+                    className="vol-role--other--input" 
+                    data-testid="vol-role--other--input"
                     onChange={handleOtherVolFieldChange}
                     defaultChecked={false}
+                    placeholder="Other volunteer role"
                   />
                 </div></li>
               </ul>

@@ -1,5 +1,5 @@
 import { NightwatchTests, NightwatchBrowser, assert, Element, Elements, ScopedElement } from "nightwatch";
-import memberListPage from "../../page-objects/memberListPage";
+import memberListPage from "../../../page-objects/memberListPage";
 
 describe('member list page', function () {
 

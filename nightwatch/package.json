@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:e2e": "tsc --build --clean && tsc --listFilesOnly && tsc && nightwatch --config nightwatch.conf.e2e.js --env chrome --filter '*.test.js' --skipgroup skip ./dist/src/test/e2e"
+    "test:e2e": "scripts/clean-dist && tsc --showConfig && tsc && nightwatch --config nightwatch.conf.e2e.js --env chrome --filter '*.test.js' --skipgroup regression ./dist/test/e2e"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.84",
     "@types/chromedriver": "^81.0.2",
+    "@types/nightwatch": "^2.3.25",
     "aws-sdk": "^2.653",
     "chromedriver": "^116.0.0",
     "env2": "^2.2.2",

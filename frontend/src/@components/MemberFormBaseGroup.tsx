@@ -67,7 +67,11 @@ export const MemberFormBaseGroup = (
         <Profiler id="memberFormBase" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <div className="member-form--name-group" data-testid="member-form--name-group" >
             <label htmlFor="first-name">First name</label>
-            <input type="text" id="first-name" className="member--first-name width-wide" data-testid="member--first-name"
+            <input type="text" 
+              id="first-name" 
+              className="member--first-name width-wide" 
+              data-testid="member--first-name"
+              placeholder="First name"
               required={true}
               value={memberObj.firstName}
               onChange={handleFirstNameChange}
@@ -76,7 +80,10 @@ export const MemberFormBaseGroup = (
             />
             <div className="member--first-name-error red-text width-wide" data-testid="member--first-name-error">{memberObj.getFirstNameError()}</div>
             <label htmlFor="last-name">Last name</label>
-            <input type="text" id="last-name" className="member--last-name width-wide" data-testid="member--last-name"
+            <input type="text" 
+              id="last-name" 
+              className="member--last-name width-wide" data-testid="member--last-name"
+              placeholder="Last name"
               required={true}
               value={memberObj.lastName}
               onChange={handleLastNameChange}

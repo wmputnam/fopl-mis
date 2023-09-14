@@ -1,5 +1,5 @@
 import { NightwatchTests, NightwatchBrowser } from "nightwatch";
-import { MemberListPage } from "../../page-objects/memberListPage";
+import { MemberListPage } from "../../../page-objects/memberListPage";
 
 describe('member list page row', function () {
   // const memberListPage: MemberListPage = browser.page.memberListPage();
