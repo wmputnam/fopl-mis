@@ -1,10 +1,124 @@
 import { PageObjectModel, EnhancedPageObject } from "nightwatch"
+import { WebElement, By, RelativeBy, Actions, Capabilities } from 'selenium-webdriver';
 const memberFormPageCommands = {
-  async clickCancel(this: MemberFormPage) {
+  async clickCancel(this: MemberFormPage): Promise<any> {
     return await this.waitForElementVisible("@cancelBtn")
       .click("@cancelBtn")
       .waitForElementNotPresent("@cancelBtn");
-  }
+  },
+  async clickSave(this: MemberFormPage): Promise<any> {
+    // await this.waitForElementVisible("@saveBtn");
+    // return;
+    return await this.element("@saveBtn").click();
+    // return this.waitForElementNotPresent("@saveBtn");
+  },
+  async enterFirstName(this: MemberFormPage, value: string): Promise<WebElement> {
+    await this.waitForElementVisible("@firstName");
+    // await this.element("@firstName").clear();
+    return await this.element("@firstName").setValue(value);
+  },
+  async getFirstName(this: MemberFormPage): Promise<string | null> {
+    // console.log(`memberFormPage: getting value of firstName field`)
+    return await this.element("@firstName").getValue();
+  },
+  async enterLastName(this: MemberFormPage, value: string): Promise<WebElement> {
+    await this.waitForElementVisible("@lastName");
+    await this.element("@lastName").clear();
+    return await this.element("@lastName").setValue(value);
+  },
+  async getLastName(this: MemberFormPage): Promise<string | null> {
+    // await this.waitForElementVisible("@lastName");
+    return await this.element("@lastName").getValue();
+  },
+  async enterAddress(this: MemberFormPage, value: string): Promise<WebElement> {
+    await this.waitForElementVisible("@address");
+    await this.element("@address").clear();
+    return await this.element("@address").setValue(value);
+  },
+  async getAddress(this: MemberFormPage): Promise<string | null> {
+    // await this.waitForElementVisible("@address");
+    return await this.element("@address").getValue();
+  },
+  async enterUnit(this: MemberFormPage, value: string): Promise<WebElement> {
+    await this.waitForElementVisible("@unit");
+    await this.element("@unit").clear();
+    return await this.element("@unit").setValue(value);
+  },
+  async getUnit(this: MemberFormPage): Promise<string | null> {
+    // await this.waitForElementVisible("@unit");
+    return await this.element("@unit").getValue();
+  },
+  async enterCity(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@city").setValue(value);
+  },
+  async getCity(this: MemberFormPage): Promise<string | null> {
+    // await this.waitForElementVisible("@city");
+    return await this.element("@city").getValue();
+  },
+  async enterState(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@state").setValue(value);
+  },
+  async getState(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@state").getValue();
+  },
+  async enterPostalCode(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@postalCode").setValue(value);
+  },
+  async getPostalCode(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@postalCode").getValue();
+  },
+  async enterPhone(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@phone").setValue(value);
+  },
+  async getPhone(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@phone").getValue();
+  },
+  async enterEmail(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@email").setValue(value);
+  },
+  async getEmail(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@email").getValue();
+  },
+  async enterRemitDate(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@remitDate").setValue(value);
+  },
+  async snapRemitDate(this: MemberFormPage): Promise<string | null> {
+    const screenshot: string = await this.element("@remitDate").takeScreenshot();
+    require("fs")
+      .writeFile("./screenshots/page/memberFormPage/remitDate.png",
+        screenshot, { encoding: "base64" }, (err: Error) => {
+          if (err) throw err;
+        })
+    return "";
+  },
+
+  async getRemitDate(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@remitDate").getValue();
+  },
+  async enterRemitDues(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@remitDues").setValue(value);
+  },
+  async getRemitDues(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@remitDues").getValue();
+  },
+  async enterRemitDonation(this: MemberFormPage, value: string): Promise<WebElement> {
+    return await this.element("@remitDonation").setValue(value);
+  },
+  async getRemitDonation(this: MemberFormPage): Promise<string | null> {
+    return await this.element("@remitDonation").getValue();
+  },
+  async enterVolunteerRoles(this: MemberFormPage, value: string): Promise<WebElement> {
+    // await this.waitForElementVisible("@remitDonation");
+    // await this.element("@remitDonation").clear();
+    // return await this.element("@remitDonation").sendKeys(value);
+    return {} as WebElement;
+  },
+  async getVolunteerRoles(this: MemberFormPage): Promise<string | null> {
+    // await this.waitForElementVisible("@remitDonation");
+    // return await this.element("@remitDonation").getValue();
+    return "";
+  },
+
 
 }
 const memberFormPage: PageObjectModel = {
@@ -66,8 +180,7 @@ const memberFormPage: PageObjectModel = {
       locateStrategy: 'xpath'
     },
     remitDues: {
-      selector: '//*[@data-testid="member--dues-amount"]',
-      locateStrategy: 'xpath'
+      selector: '#money-dues-amount',
     },
     remitDonation: {
       selector: '//*[@data-testid="member--donation-amount"]',
@@ -163,20 +276,16 @@ const memberFormPage: PageObjectModel = {
       locateStrategy: 'xpath'
     },
     firstNameError: {
-      selector: '[ data-testid = "member-row--phone"]',
-      locateStrategy: 'xpath'
+      selector: '.member--first-name-error'
     },
     lastNameError: {
-      selector: '[ data-testid = "member-row--email"]',
-      locateStrategy: 'xpath'
+      selector: '.member--last-name-error'
     },
     remitDateWarn: {
-      selector: '[ data-testid = "member-row--mmb"]',
-      locateStrategy: 'xpath'
+      selector: '.new-member--remit-warn'
     },
     remitAmountError: {
-      selector: '[ data-testid = "member-row--tools"]',
-      locateStrategy: 'xpath'
+      selector: '.new-member--remit-error'
     },
   }
 }

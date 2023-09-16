@@ -15,6 +15,9 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
   "disable_typescript": true,
   "abortOnAssertionFailure": false,
   "abortOnElementLocateError": false,
+  "webdriver": {
+    "timeout_options": { "timeout": 3000, "retry_attempts": 0 }
+  },
   "selenium": {
     "start_process": true,
     "server_path": seleniumServer.path,
@@ -33,7 +36,9 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
       "selenium_host": "ondemand.saucelabs.com",
       "silent": true,
       "screenshots": {
-        "enabled": true, // save screenshots to this directory (excluded by .gitignore)
+        "enabled": true,
+        "on_failure": true,
+        // save screenshots to this directory (excluded by .gitignore)
         "path": SCREENSHOT_PATH
       },
       "username": "${SAUCE_USERNAME}",     // if you want to use Saucelabs remember to
@@ -74,7 +79,7 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
         "browserName": "chrome",
         "chromeOptions": {
           "args": [
-            "--window-size=1680,885"
+            "--window-size=1680,925"
           ],
         },
         "javascriptEnabled": true,
