@@ -4,7 +4,7 @@ import { MemberListPage } from "../../../page-objects/memberListPage";
 describe('member list page row', function () {
   // const memberListPage: MemberListPage = browser.page.memberListPage();
 
-  it.skip('displays a full name value in the Name column', async function (browser: NightwatchBrowser) {
+  it('displays a full name value in the Name column', async function (browser: NightwatchBrowser) {
     const row0NameEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--name"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -16,7 +16,7 @@ describe('member list page row', function () {
     expect(firstRowName).to.be.contain("Putnam");
   });
 
-  it.skip('displays an identifing address value in the Address column', async function (browser: NightwatchBrowser) {
+  it('displays an identifing address value in the Address column', async function (browser: NightwatchBrowser) {
     const row0AddressEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--address"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -29,7 +29,7 @@ describe('member list page row', function () {
 
   });
 
-  it.skip('displays a formatted phone value in the Phone column', async function (browser: NightwatchBrowser) {
+  it('displays a formatted phone value in the Phone column', async function (browser: NightwatchBrowser) {
     const row0PhoneEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--phone"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -41,7 +41,7 @@ describe('member list page row', function () {
     expect(firstRowPhone).to.be.contain("-0985");
   });
 
-  it.skip('displays email value in the Email column', async function (browser: NightwatchBrowser) {
+  it('displays email value in the Email column', async function (browser: NightwatchBrowser) {
     const row0PhoneEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--phone"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -53,7 +53,7 @@ describe('member list page row', function () {
     expect(firstRowPhone).to.be.contain("-0985");
   });
 
-  it.skip('displays MMB value in the MMB column', async function (browser: NightwatchBrowser) {
+  it('displays MMB value in the MMB column', async function (browser: NightwatchBrowser) {
     const row0MmbEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--mmb"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -88,7 +88,7 @@ describe('member list page row', function () {
       <div class=\"member-row--menu-renewal\"                              ││   data-testid=\"member-row--menu-renewal\" member-id=\"TQ-9HNzNC\">Process         ││   donation</div><div class=\"member-row--menu-money\"                              ││   data-testid=\"member-row--menu-money\">View remittances</div><div                ││   class=\"member-row--menu-notes\" data-testid=\"member-row--menu-notes\">View     ││   notes</div><div class=\"member-row--menu-drop\"                                  ││   data-testid=\"member-row--menu-drop\">Drop member</div></div></div>"     
   */
 
-  it.skip('the row context menu includes an Edit item', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an Edit item', async function (browser: NightwatchBrowser) {
     const row0ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--menu-edit"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -102,7 +102,7 @@ describe('member list page row', function () {
     expect(firstRowTools).to.be.contain("Edit");
   });
 
-  it.skip('the row context menu includes an View remittances item', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an View remittances item', async function (browser: NightwatchBrowser) {
     const row0ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--menu-money"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -116,7 +116,7 @@ describe('member list page row', function () {
     expect(firstRowTools).to.be.contain("View remittances");
   });
 
-  it.skip('the row context menu includes an View notes item', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an View notes item', async function (browser: NightwatchBrowser) {
     const row0ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--menu-notes"]'));
     browser.page.memberListPage().navigate();
     await browser.waitForElementPresent(by.xpath('//*[@data-testid="member-row"]'));
@@ -130,7 +130,7 @@ describe('member list page row', function () {
     expect(firstRowTools).to.be.contain("View notes");
   });
 
-  it.skip('the row context menu includes an Process donation item when row is for a Life member', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an Process donation item when row is for a Life member', async function (browser: NightwatchBrowser) {
     // TODO walk down to a certain LM
     const row0ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[1]//*[@data-testid="member-row--menu-renewal"]'));
     browser.page.memberListPage().navigate();
@@ -147,7 +147,7 @@ describe('member list page row', function () {
     expect(["Process donation", "Renew member"].includes(firstRowTools)).to.be.true;
   });
 
-  it.skip('the row context menu includes an Renew member item when row is for a paying member or volunteer', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an Renew member item when row is for a paying member or volunteer', async function (browser: NightwatchBrowser) {
     // TODO walk down to a certain LM
     const row1ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[2]//*[@data-testid="member-row--menu-renewal"]'));
     browser.page.memberListPage().navigate();
@@ -164,7 +164,7 @@ describe('member list page row', function () {
     expect(["Process donation", "Renew member"].includes(secondRowTools)).to.be.true;
   });
 
-  it.skip('the row context menu includes an Drop member item ', async function (browser: NightwatchBrowser) {
+  it('the row context menu includes an Drop member item ', async function (browser: NightwatchBrowser) {
     // TODO walk down to a certain LM
     const row1ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[2]//*[@data-testid="member-row--menu-drop"]'));
     browser.page.memberListPage().navigate();
@@ -181,7 +181,7 @@ describe('member list page row', function () {
     expect(secondRowTools).to.be.contain("Drop");
   });
 
-  it.skip('the row context menu opens upon click ', async function (browser: NightwatchBrowser) {
+  it('the row context menu opens upon click ', async function (browser: NightwatchBrowser) {
     const row1ToolsMenuEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[2]//*[@data-testid="member-row--menu"]'));
     const row1ToolsMenuDropEl = locateWith(By.xpath('(//*[@data-testid="member-row"])[2]//*[@data-testid="member-row--menu-drop"]'));
     browser.page.memberListPage().navigate();

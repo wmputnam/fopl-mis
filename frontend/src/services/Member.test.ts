@@ -687,4 +687,23 @@ describe(`${fn()}: getFormErrorsForDisplay`, function () {
     expect(formErr).to.be.equal("");
   })
 });
+// brp
+// TODO
+// toIMember
+describe(`${fn()}: toIMember`, function () {
 
+  it('should return an IMember (DTO) with same MMB for the Member object when value is "VOL"', function () {
+    const testMember: Member = getTestMember();
+    const testImember = testMember.toIMember()
+    expect(testImember.mmb).to.be.equal("VOL");
+  });
+
+  it('should return an IMember (DTO) with same MMB for the Member object when value is "LM"', function () {
+    const testMember: Member = getTestMember();
+    testMember.mmb = "LM"
+    const testImember = testMember.toIMember()
+    expect(testImember.mmb).to.be.equal("LM");
+  });
+
+
+});

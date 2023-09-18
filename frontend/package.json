@@ -85,17 +85,17 @@
   "scripts": {
     "start": "react-scripts start --profile",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "npm run test:mocha",
+    "test:react": "react-scripts test",
     "test:jest": "jest",
     "test:unit": "mocha -r ./test/helpers.js -r ./test/dom.js -r ./test/hook.js -r ts-node/register '**/*.test.ts' --unhandled-rejections=strict",
     "test:unit2": "mocha --unhandled-rejections=strict",
-    "test-mocha": "mocha -r node_modules/@esbuild-kit/cjs-loader -r ./test/helpers.js -r node-localstorage/register -r ./test/dom.js",
+    "test:mocha": "mocha -r node_modules/@esbuild-kit/cjs-loader -r ./test/helpers.js -r node-localstorage/register -r ./test/dom.js",
     "test:ci": "CI=true react-scripts test --watchAll=false --verbose --debug --detectOpenHandles --forceExit --runInBand --logHeapUsage --watchman=false --no-watchman--testEnvironmentOptions='{\"html\": \"<html></html>\"}'",
     "test:tsmocha": "DEBUG=* ts-mocha",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint",
-    "ts-node:run": "node ./src/@components/DataLoader.test.ts",
-    "hello": "echo hello"
+    "ts-node:run": "node ./src/@components/DataLoader.test.ts"
   },
   "eslintConfig": {
     "env": {

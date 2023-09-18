@@ -38,7 +38,10 @@ export const MemberFormRemitGroup = ({
   }
   const handleRemitDuesChange = (e: any) => {
     if (e.target.id === "money-dues-amount") {
-      setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _remitDues: e.target.value } as Partial<Member>)));
+      const valueClean = e.target.value.indexOf("$") >= 0
+        ? e.target.value.substring(1)
+        : e.target.value;
+      setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _remitDues: valueClean } as Partial<Member>)));
     }
   }
   const handleRemitDonationChange = (e: any) => {

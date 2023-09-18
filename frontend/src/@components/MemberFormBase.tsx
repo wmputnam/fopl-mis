@@ -119,7 +119,7 @@ const MemberFormBase = ({ memberId, mode, getAppState, setAppState }: EditProps)
     setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _dataEntryErrors: [...newErrArr] } as Partial<Member>)));
   }
 
-  function handleFormSave(a: string): any {
+  function handleFormSave(): any {
     console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
 
     const formErrors: Array<FormError> | null = getFormProblems(memberObj);
@@ -132,6 +132,8 @@ const MemberFormBase = ({ memberId, mode, getAppState, setAppState }: EditProps)
       //  - putting entered remits into the remittances array
       //  - updating mmb, paidThrough, and joined as appropriate
       const readyMemberobj = MemberService.postUnjournalledRemits(memberObj);
+      console.log(`before: ${JSON.stringify(memberObj)}`);
+      console.log(`after: ${JSON.stringify(readyMemberobj)}`);
 
       const memberObjToSave = readyMemberobj.toIMember();
 

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test:e2e": "scripts/clean-dist && tsc --showConfig && tsc && nightwatch --config nightwatch.conf.e2e.js --env chrome --filter '*.test.js' --skipgroup regression ./dist/test/e2e"
+    "test": "scripts/be-status && scripts/fe-status && scripts/clean-dist && tsc --showConfig && tsc && nightwatch --config nightwatch.conf.e2e.js --env chrome --filter '*.test.js' ./dist/test/e2e",
+    "test:dev": "scripts/clean-dist && tsc --showConfig && tsc && nightwatch --config nightwatch.conf.e2e.js --env chrome --filter '*.test.js' --skipgroup regression ./dist/test/e2e"
   },
   "keywords": [],
   "author": "",

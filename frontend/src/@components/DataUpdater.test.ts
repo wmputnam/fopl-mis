@@ -6,6 +6,7 @@ import { getServerUrl } from "../services/AppConfig.js";
 import supertest from "supertest";
 import { fileURLToPath } from "url";
 import Save from "./DataUpdater.js";
+import { IMember } from "../../../packages/member-shared";
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -19,15 +20,20 @@ async function runDelay(time = 1000) {
   await delay(time);
 }
 
-const getTestPostPayload = () => {
+const getTestPostPayload = (testMember: IMember | undefined = undefined) => {
   runDelay(2000);
   const randomizer = Date.now();
 
-  const testMemberBody = {
-    email: `wmputnam+${randomizer}@gmail.com`,
-    firstName: "William",
-    lastName: "Putnam"
-  };
+  let testMemberBody;
+  if (testMember) {
+    testMemberBody = testMember;
+  } else {
+    testMemberBody = {
+      email: `wmputnam+${randomizer}@gmail.com`,
+      firstName: "William",
+      lastName: "Putnam"
+    };
+  }
   return testMemberBody;
 }
 
@@ -93,6 +99,19 @@ describe(`${fn()}: Save`, function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(id).not.to.be.null;
     expect(id).to.a('string');
+  });
+
+  it('should POST "LM" member data that is same when retrieved', async function () {
+    const basePayload = getTestPostPayload();
+    const testPayload = { ...basePayload, mmb: "LM" }
+    const res = await Save(getServerUrl(), testPayload);
+    // console.log(JSON.stringify(res));
+    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug
+    const id = body.id;
+    const
+      getRes = await request.get(`/members/${id}`);
+    // testMemberId = getRes.body?.[0]?.['_id'];
+    console.log(`getRes: ${JSON.stringify(getRes.body)}`)
   });
 
   it('should return successful PUT result when member is supplied', async function () {

@@ -164,9 +164,15 @@ export class MemberService {
       if (newMember.remitDate) {
 
         if (newMember.remitDues) {
-          newMember._remittances?.push({ date: newMember.remitDate, amount: newMember.remitDues, memo: "dues" });
+          const remitDuesClean = newMember.remitDues.indexOf("$") >= 0
+            ? newMember.remitDues.substring(1)
+            : newMember.remitDues;
+          newMember._remittances?.push({ date: newMember.remitDate, amount: remitDuesClean, memo: "dues" });
+          console.log(`newMember: \n${JSON.stringify(newMember)}`);
           if (newMember.mmb !== "LM") {
-            const { mmb, paidThroughDate, joined }: MmbBundle = MemberService.getNewMmbBundle(newMember);
+            const { mmb, paidThroughDate, joined }: MmbBundle =
+              MemberService.getNewMmbBundle(newMember);
+            console.log(`get new mmb bundle: ${mmb},${paidThroughDate},${joined} `);
             if (mmb) {
               newMember.mmb = mmb;
             }

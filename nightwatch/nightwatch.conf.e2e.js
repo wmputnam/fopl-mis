@@ -79,7 +79,8 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
         "browserName": "chrome",
         "chromeOptions": {
           "args": [
-            "--window-size=1680,925"
+            "--window-size=1680,925",
+            "--no-sandbox"
           ],
         },
         "javascriptEnabled": true,

@@ -144,7 +144,7 @@ describe('add new member', function () {
 
   newLifeMems.forEach((data) => {
     // console.log(`data: ${JSON.stringify(data)}`)
-    it.skip('supports adding a new Life Member', async function (browser: NightwatchBrowser) {
+    it('supports adding a new Life Member', async function (browser: NightwatchBrowser) {
       enterNewMember(browser, data);
     });
   });

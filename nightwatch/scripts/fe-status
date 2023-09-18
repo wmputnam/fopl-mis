@@ -1,0 +1,7 @@
+#! /bin/bash
+curl --silent localhost:3000 2>&1 > /dev/null
+res=$?
+if [ $res -ne 0 ]; then
+  echo "web server is not running -- not able to run E2E tests"
+fi
+exit $res

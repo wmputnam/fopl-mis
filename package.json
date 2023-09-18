@@ -6,6 +6,7 @@
   "license": "reserved",
   "scripts": {
     "start": "pnpm --stream -r start",
+    "test": "pnpm --stream -r test",
     "start:dev": "scripts/start-db; pnpm --stream -r start:dev"
   },
   "dependencies": {

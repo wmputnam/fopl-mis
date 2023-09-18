@@ -16,6 +16,23 @@ const getTestImember = () => ({
   _id: shortid()
 });
 
+const getFm4TestData = () => {
+  const testMember = Member.create();
+  testMember.firstName = "Cliff";
+  testMember.lastName = "Castillo";
+  testMember.email = "not.me@test.it";
+  testMember.phone = "414-555-1212";
+  testMember.address = "100 Manor Ln";
+  testMember.unit = "Bed 300";
+  testMember.city = "Petaluma";
+  testMember.state = "CA";
+  testMember.postalCode = "94952";
+  testMember.remitDate = new Date("2023-09-17");
+  testMember.remitDues = "$100.00";
+  // console.log(`test member:\n ${JSON.stringify(testMember)}`);
+  // console.log('compare:    \n {"_firstName":"Cliff","_lastName":"Castillo","_names":[],"_email":"not.me@test.it","_phone":"414-555-1212","_address":"100 Manor Ln","_unit":"Bed 300","_city":"Petaluma","_state":"CA","_postalCode":"94952","_volunteerPreferences":[],"_remittances":[],"_remitDate":"2023-09-17T00:00:00.000Z","_remitDues":"$100.00","_notes":[],"_dataEntryErrors":[]}');
+  return testMember;
+}
 const __filename = fileURLToPath(import.meta.url);
 
 const fn = () => `${__filename.split('/').pop()}`;
@@ -79,13 +96,14 @@ const getTestMemberWithRemit = (remit: Remittance, priorPaidThru: string | null 
   member.mmb = "VOL";
   member.paidThrough = priorPaidThru === null ? undefined : new Date(priorPaidThru);
   member.joined = joined === null ? undefined : new Date(joined);
-  member.remittances = [{ date: new Date(remit.date), amount: remit.amount, memo: remit.memo }, { date: new Date("2019-03-19"), amount: "2", memo: "donation" }];
+  member.remittances = [{ date: new Date(remit.date), amount: remit.amount, memo: remit.memo }];
   member.notes = [{ date: new Date(), note: "this is a test" }];
   member.dataEntryErrors = [];
   member.lastUpdated = new Date();
   return member;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getTestMemberWithOnlyLastNameErrors = (): Member => {
   const member = Member.create(shortid());
   member.firstName = "Oliver";
@@ -469,10 +487,13 @@ describe(`${fn()}: getNewMmbBundle`, function () {
 
   it('should return "LM" when the member object includes a Life dues remit', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" });
+    console.log(`test member: ${JSON.stringify(testMember)}`)
     const { mmb, paidThroughDate, joined } = MemberService.getNewMmbBundle(testMember);
     console.log(`mmb: *${mmb}*, paidThrough: ${paidThroughDate && paidThroughDate?.toDateString().substring(0, 10)}, joined: ${joined && joined?.toDateString().substring(0, 10)}`);
     expect(mmb).to.be.equal("LM");
   });
+
+
 
   it('should return paidThrough === 1 year after remit date when the member object has not prior remit and includes a paid dues remit using a date older than 1 year', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" });
@@ -722,6 +743,118 @@ describe(`${fn()}: postUnjournalledRemits`, function () {
     expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("4");
     expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("donation");
   });
+  it('should return a Member object has MMB = "LM" when dues remit on the passed Member is greater than the LM amount', function () {
+    // const testDate = new Date("2023-10-31");
+    const testMember: Member = getFm4TestData();
+    // const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // // suspense entry
+    // testMember.remitDate = testDate;
+    // testMember.remitDues = "100";
+    console.log(`before:\n  ${JSON.stringify(testMember)}`)
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    console.log(`after: \n  ${JSON.stringify(newMember)}`)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.mmb).not.to.be.undefined;
+    expect(newMember.mmb).to.be.equal("LM");
+  });
+  // brp
+  // TODO
+  it.skip('should return a Member object has MMB = "BEN" when dues remit on the passed Member is greater than the BEN amount', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+  // TODO
+  it.skip('should return a Member object has MMB = "Pyy" when dues remit on the passed Member is greater than the Patron amount', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+  // TODO
+  it.skip('should return a Member object has MMB = "Fyy" when dues remit on the passed Member is greater than the Family amount', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+  // TODO
+  it.skip('should return a Member object has MMB = "yy" when dues remit on the passed Member is greater than the Individual amount', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+  // TODO
+  it.skip('should return a Member object has MMB = "Syy" when dues remit on the passed Member is greater than the Senior/Student amount', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+  // TODO
+  it.skip('should return a Member object has MMB = "VOL" when dues remit on the passed Member is less than the lowest due rate', function () {
+    const testDate = new Date("2023-10-31");
+    const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
+    // suspense entry
+    testMember.remitDate = testDate;
+    testMember.remitDues = "7";
+    const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(newMember.remittances).not.to.be.undefined;
+    expect(newMember.remittances?.length).to.be.equal(expectArrLength);
+    expect(newMember.remittances?.[expectArrLength - 1].date.valueOf()).to.be.equal(testDate.valueOf());
+    expect(newMember.remittances?.[expectArrLength - 1].amount).to.be.equal("7");
+    expect(newMember.remittances?.[expectArrLength - 1].memo).to.be.equal("dues");
+  });
+
 });
 
 // addNote
