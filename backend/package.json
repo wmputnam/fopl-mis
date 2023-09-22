@@ -8,6 +8,7 @@
     "start-debug": "export DEBUG=* && npm run start",
     "test": "mocha -r ts-node/register '**/*.test.ts' --unhandled-rejections=strict",
     "test-debug": "export DEBUG=* && npm test",
+    "test:dev": "npm run test",
     "former:build": "typescript",
     "former:start:servr": "node src/server.js"
   },

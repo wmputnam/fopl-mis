@@ -70,7 +70,7 @@ export const oldMemberStateToNew = (oldObj: Member, chgObj: Partial<Member>) => 
   const newMemberObj = Member.create();
   const lupdt = new Date().valueOf();
 
-  const someObj = { ...oldObj, ...chgObj, lastUpdated: new Date(lupdt) }
+  const someObj = { ...oldObj, ...chgObj, _lastUpdated: new Date(lupdt) }
   for (const k in someObj) {
     if (Object.hasOwn(newMemberObj, k)) {
       newMemberObj[k as keyof Member] = someObj[k as keyof Member];
@@ -94,8 +94,10 @@ const replacerFunc = () => {
 };
 
 
-const MemberFormBase = ({ memberId, mode, getAppState, setAppState }: EditProps): JSX.Element => {
+const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element => {
 
+  const memberId = getAppState().memberId;
+  const mode = getAppState().viewState;
   console.log(`url: /members/${memberId}`);
   const [{ data, error, loading }] = useAxios<IMember[]>(
     { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
@@ -144,7 +146,15 @@ const MemberFormBase = ({ memberId, mode, getAppState, setAppState }: EditProps)
             if ([200, 201, 204].includes(savRes.status)) {
               // clearFieldChangesWithSaves();
               console.log("successful save")
-              setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.list }));
+              const newFromViewState = getAppState().fromViewState;
+              const returnToViewState = newFromViewState.pop();
+              setAppState((oldState: AppState) => ({
+                ...oldState,
+                viewState: returnToViewState
+                  ? returnToViewState
+                  : MemberViewStates.list,
+                fromViewState: [...newFromViewState]
+              }));
             } else {
               let errArr = new Array<FormError>();
               errArr.push({ target: "any", message: savRes?.body?.error, level: "error" }); // TODO -- process this array

@@ -9,7 +9,13 @@ import { MemberViewStates } from "../@interfaces/enums";
 function MemberFormNav2Base({ getAppState, setAppState }: FrontendProps): any {
 
     function updViewState() {
-        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.edit }));
+        const newFromViewState = getAppState().fromViewState;
+        newFromViewState.push(getAppState().viewState);
+
+        setAppState((oldState: any) => ({ ...oldState, 
+            viewState: MemberViewStates.edit,
+            fromViewState: newFromViewState
+ }));
     }
     return (
         <button onClick={updViewState}>member base</button>

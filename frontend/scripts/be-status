@@ -1,0 +1,10 @@
+#! /bin/bash
+curl --silent localhost:3030 2>&1 > /dev/null
+res=$?
+if [ $res -ne 0 ]; then
+  echo "backend server is not running";
+  exit 0
+else
+  echo "backend server is running -- not able to run frontend tests";
+  exit -1
+fi

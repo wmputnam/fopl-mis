@@ -1,15 +1,26 @@
 import React from "react";
 import { FrontendProps } from "../@interfaces/MemberProps";
-import { MemberViewStates } from "../@interfaces/enums";
 
 
-function CancelBtn({ setAppState }: FrontendProps): any {
+function CancelBtn({ getAppState,setAppState }: FrontendProps): any {
 
     function updViewState() {
-        setAppState((oldState: any) => ({ ...oldState, memberId: undefined, iMember: undefined, viewState: MemberViewStates.list }));
+        const newFromViewState = getAppState().fromViewState;
+        const returnToViewState = newFromViewState.pop();
+        console.log(`cancel on ${getAppState().fromViewState} will return to ${returnToViewState.toString()}`);
+        setAppState((oldState: any) => ({ 
+            ...oldState,  
+            viewState: returnToViewState, 
+            fromViewState: newFromViewState }));
     }
     return (
-        <button type="button" onClick={updViewState} data-testid="cancel-btn">Cancel</button>
+        <button
+            type="button"
+            className="cancel-btn"
+            onClick={updViewState}
+            data-testid="cancel-btn">
+            Cancel
+        </button>
     )
 }
 

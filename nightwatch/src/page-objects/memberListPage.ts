@@ -4,6 +4,8 @@ const memberRowToolsXpath = (n: number): string => `(//*[@data-testid="member-ro
 
 const memberRowToolsEditXpath = (n: number): string => `(//*[@data-testid="member-row--menu-edit"])[${n}]`;
 
+const memberRowToolsRemitsXpath = (n: number): string => `(//*[@data-testid="member-row--menu-money"])[${n}]`;
+
 const memberListPageCommands = {
   async openAddMember(this: MemberListPage) {
     return await this.waitForElementVisible("@addMemberBtn")
@@ -20,8 +22,19 @@ const memberListPageCommands = {
     await this.waitForElementVisible(by.xpath(menuEditSelector));
     await this.click(by.xpath(menuEditSelector));
     return await this.waitForElementNotPresent(by.xpath(toolsSelector));
-  }
+  },
 
+  async openRemitsMember(this: MemberListPage, rowNum: number) {
+    const toolsSelector: string = memberRowToolsXpath(rowNum);
+    const menuRemitsSelector: string = memberRowToolsRemitsXpath(rowNum);
+    console.log(`row ${rowNum}\n    tools menu: ${toolsSelector}\n    remits button: ${menuRemitsSelector}`)
+    await this.waitForElementVisible(by.xpath(toolsSelector));
+    await this.click(by.xpath(memberRowToolsXpath(rowNum)));
+    await this.waitForElementVisible(by.xpath(menuRemitsSelector));
+    await this.click(by.xpath(menuRemitsSelector));
+    this.pause(10000);
+    return await this.waitForElementNotPresent(by.xpath(toolsSelector));
+  }
 }
 const memberListPage: PageObjectModel = {
   url: "http://localhost:3000",

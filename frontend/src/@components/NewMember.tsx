@@ -1,6 +1,6 @@
 import React from "react";
 import MemberFormBase from "./MemberFormBase";
-import { MemberViewStates } from "../@interfaces/enums";
+// import { MemberViewStates } from "../@interfaces/enums";
 import { AppState } from "../App";
 
 export interface NewMemberProps {
@@ -14,8 +14,6 @@ const NewMember = ({ getAppState, setAppState }: NewMemberProps) => {
         <MemberFormBase
             getAppState={getAppState}
             setAppState={setAppState}
-            mode={MemberViewStates.new}
-            memberId={""}
         />
     </>
     )

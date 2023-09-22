@@ -69,6 +69,5 @@ export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, Curr
 export interface FrontendProps {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
-
 }
 export interface MemberProps { }

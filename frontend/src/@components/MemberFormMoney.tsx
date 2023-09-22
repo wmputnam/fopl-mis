@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from "react"
-import { FrontendProps } from "../@interfaces/MemberProps";
-import Home from "./CancelBtn";
 import { Remittance } from "packages/Remittance";
 import RemittancesListRow from "./MoneyListRow";
-import BackToMemberBtn from "./BackToMemberBtn";
 import CancelBtn from "./CancelBtn";
 import RemittancesListHeader from "./MoneyListHeader";
 // import { MemberService } from "../services/MemberService";
@@ -12,13 +9,14 @@ import { getServerUrl } from "../services/AppConfig";
 import { AppState, onRenderCallback } from "../App";
 import useAxios from "axios-hooks";
 import { IMember } from "packages";
+import { MemberViewStates } from "../@interfaces/enums";
 
 export interface MemberFormRemitsProps {
-  memberId?: string;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
 }
-const MemberFormMoney = ({ memberId, getAppState, setAppState }: MemberFormRemitsProps) => {
+const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) => {
+  const memberId = getAppState().memberId;
 
   // function isEmptyObject(obj: Object) {
   //   for (let i in obj) return false;
@@ -79,14 +77,6 @@ const MemberFormMoney = ({ memberId, getAppState, setAppState }: MemberFormRemit
 
     return (
       <>
-        <BackToMemberBtn
-          getAppState={getAppState}
-          setAppState={setAppState}
-        />
-        <Home
-          getAppState={getAppState}
-          setAppState={setAppState}
-        />
         <CancelBtn
           getAppState={getAppState}
           setAppState={setAppState}

@@ -8,39 +8,65 @@ export type MemberListRowMenuProps = {
   getAppState: () => any;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
-const MemberListRowMenu = ({ recordId, mmb, setAppState }: MemberListRowMenuProps) => {
+
+const getNewFromState = (getAppState: () => any) => {
+  const newFromViewState = getAppState().fromViewState;
+  newFromViewState.push(getAppState().viewState);
+  return newFromViewState;
+}
+const MemberListRowMenu = ({ recordId, mmb, setAppState, getAppState }: MemberListRowMenuProps) => {
 
   const handleEditClick = (): any => {
     console.log(`edit member ${recordId}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.edit }));
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      viewState: MemberViewStates.edit,
+      fromViewState: getNewFromState(getAppState)
+    }));
   }
 
   const handleRenewClick = (): any => {
     console.log(`renew member ${recordId}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.renew }));
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      viewState: MemberViewStates.renew,
+      fromViewState: getNewFromState(getAppState)
+    }));
   }
-
-  // const handleNewClick = (): any => {
-  //   console.log(`new member`);
-  //   setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.new }));
-  // }
 
   const handleMoneyClick = (): any => {
     console.log(`edit member money ${recordId}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.money }));
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      viewState: MemberViewStates.money,
+      fromViewState: getNewFromState(getAppState)
+    }));
   }
   const handleNotesClick = (): any => {
     console.log(`edit member money ${recordId}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.notes }));
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      viewState: MemberViewStates.notes,
+      fromViewState: getNewFromState(getAppState)
+    }));
   }
   const handleDropClick = (): any => {
     console.log(`drop member ${recordId}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({ ...oldState, viewState: MemberViewStates.drop }));
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      viewState: MemberViewStates.drop,
+      fromViewState: getNewFromState(getAppState)
+    }));
   }
 
 

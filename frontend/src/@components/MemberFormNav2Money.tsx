@@ -6,14 +6,24 @@ import { MemberViewStates } from "../@interfaces/enums";
 //     setViewState:(a:string) => void;
 //   }
 
-function MemberFormNav2Money({ setAppState }: FrontendProps): any {
+function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
 
     function updViewState() {
-        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.money }));
+        const newFromViewState = getAppState().fromViewState;
+        newFromViewState.push(getAppState().viewState);
+        setAppState((oldState: any) => ({
+            ...oldState,
+            viewState: MemberViewStates.money,
+            fromViewState: newFromViewState
+        }));
     }
 
     return (
-        <button onClick={updViewState}>member $$$</button>
+        <button
+            className="member--remit-btn"
+            id="member--remit-btn"
+            onClick={updViewState}
+        >member $$$</button>
     )
 }
 

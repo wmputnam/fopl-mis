@@ -1,9 +1,9 @@
-describe('Ecosia.org Demo', function() {
+describe('Ecosia.org Demo', function () {
   this.tags = ['demo'];
 
   before(browser => browser.navigateTo('https://www.ecosia.org/'));
 
-  it('Demo test ecosia.org', function(browser) {
+  it('Demo test ecosia.org', function (browser) {
     browser
       .waitForElementVisible('body')
       .assert.titleContains('Ecosia')

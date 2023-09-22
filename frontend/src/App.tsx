@@ -5,7 +5,7 @@ import './App.css';
 
 import DropMember from './@components/DropMember';
 import EditMember from './@components/EditMember';
-import Home from "./@components/CancelBtn"
+import CancelBtn from "./@components/CancelBtn"
 import MemberList from './@components/MemberList';
 import NewMember from './@components/NewMember';
 import RenewMember from './@components/RenewMember';
@@ -18,7 +18,9 @@ import { FormError } from "./@components/MemberFormBase"
 import { MemberService } from './services/MemberService';
 
 export interface AppState {
+  memberId: string;
   viewState: MemberViewStates;
+  fromViewState: MemberViewStates[];
 }
 
 export interface RenderCallBackI {
@@ -41,10 +43,18 @@ export const isEmptyObject = (obj: Object) => {
 }
 
 export const getInitialViewState = (): AppState => (
-  { viewState: MemberViewStates.list });
+  {
+    memberId: "",
+    viewState: MemberViewStates.list,
+    fromViewState: []
+  });
 
 export const getTestViewState = (): AppState => (
-  { viewState: MemberViewStates.test });
+  {
+    memberId: "",
+    viewState: MemberViewStates.test,
+    fromViewState: []
+  });
 
 // ***
 interface AppProps {
@@ -87,8 +97,6 @@ export default function App({ testMode }: AppProps): JSX.Element {
       break;
     case MemberViewStates.edit:
       component = <EditMember
-        memberId={MemberService.retrieveMemberId(true)}
-        mode={MemberViewStates.edit}
         setAppState={setAppState}
         getAppState={getAppState}
       />
@@ -116,14 +124,12 @@ export default function App({ testMode }: AppProps): JSX.Element {
       break;
     case MemberViewStates.notes:
       component = <MemberFormNotes
-        memberId={MemberService.retrieveMemberId(true)}
         setAppState={setAppState}
         getAppState={getAppState}
       />
       break;
     case MemberViewStates.money:
       component = <MemberFormMoney
-        memberId={MemberService.retrieveMemberId(true)}
         setAppState={setAppState}
         getAppState={getAppState}
       />
@@ -132,7 +138,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
       console.log("in the lost entry -- expected in test mode")
       component = <>
         <h1 id="lost"> opps we are now lost</h1>
-        <Home
+        <CancelBtn
           setAppState={setAppState}
           getAppState={getAppState}
         />

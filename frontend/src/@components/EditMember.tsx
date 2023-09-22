@@ -3,28 +3,24 @@ import React from "react";
 // import MemberForm from "./MemberForm";
 import MemberFormHeader from "./MemberFormHeader";
 import MemberFormBase from "./MemberFormBase";
-import { AppState  } from "../App";
-import { MemberViewStates } from "../@interfaces/enums";
+import { AppState } from "../App";
+// import { MemberViewStates } from "../@interfaces/enums";
 
-export interface EditProps { 
-    memberId?: string, 
-    mode: MemberViewStates,
+export interface EditProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>; //React.Dispatch<React.SetStateAction<AppState>>
     getAppState: () => AppState;
- }
+}
 
-const EditMember = ({ memberId, mode, setAppState, getAppState }: EditProps) => {
+const EditMember = ({ setAppState, getAppState }: EditProps) => {
     return (
         <>
-            <MemberFormHeader 
-            setAppState={setAppState} 
-            getAppState={getAppState} 
-             />
-            <MemberFormBase
-                memberId={memberId}
-                mode={MemberViewStates.edit}
+            <MemberFormHeader
                 setAppState={setAppState}
-                getAppState={getAppState} 
+                getAppState={getAppState}
+            />
+            <MemberFormBase
+                setAppState={setAppState}
+                getAppState={getAppState}
             />
         </>
     )

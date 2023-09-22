@@ -1,0 +1,20 @@
+flow
+
+L:edit(memberId):[] -> E:save|cancel:[L] -> L[]
+L:edit(memberId):[] -> E:remits(memberId):[L] -> R:cancel:[LE] -> E:notes(memberId):[L] -> N:cancel:[LE] -> E:save|cancel:[L] -> L[]
+L:remits(memberId):[] -> R:cancel:[L] -> L[]
+L:notes(memberId):[] -> N:cancel:[L] -> L[]
+L:drop(memberId):[] -> D:save|cancel:[L] -> L[]
+L:new(null):[] -> X:save|cancel|[L] -> L[]
+L:renew(memberId):[] -> Y:save|cancel|[L] -> L[]
+L:donate(memberId):[] -> Z:save|cancel|[L] -> L[]
+
+--key--
+L list view
+E edit view
+R remits view
+N notes view
+D drop view
+X new view
+Y renew/join view
+Z donate view

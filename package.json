@@ -7,6 +7,7 @@
   "scripts": {
     "start": "pnpm --stream -r start",
     "test": "pnpm --stream -r test",
+    "test:dev": "pnpm --stream -r test:dev",
     "start:dev": "scripts/start-db; pnpm --stream -r start:dev"
   },
   "dependencies": {

@@ -16,8 +16,6 @@ const RenewMember = ({ memberId, getAppState, setAppState }: RenewMemberProps) =
             <MemberFormBase
                 getAppState={getAppState}
                 setAppState={setAppState}
-                mode={MemberViewStates.renew}
-                memberId={memberId}
             />
         </Profiler>
     </>

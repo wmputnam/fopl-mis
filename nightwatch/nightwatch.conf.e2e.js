@@ -10,6 +10,7 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
   "src_folders": [
     "./dist/test/e2e"     // we use '/test' as the name of our test directory by default. So 'test/e2e' for 'e2e'.
   ],
+  "plugins": ["@nightwatch/apitesting"],
   "page_objects_path": ["./dist/page-objects"],
   "output_folder": "./reports", // reports (test outcome) output by Nightwatch
   "disable_typescript": true,
@@ -17,6 +18,9 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
   "abortOnElementLocateError": false,
   "webdriver": {
     "timeout_options": { "timeout": 3000, "retry_attempts": 0 }
+  },
+  "@nightwatch/apitesting": {
+    "log_responses": true,
   },
   "selenium": {
     "start_process": true,
@@ -80,7 +84,11 @@ const config = { // we use a nightwatch.conf.js file so we can include comments 
         "chromeOptions": {
           "args": [
             "--window-size=1680,925",
-            "--no-sandbox"
+            "--no-sandbox",
+            "--disable-gpu",
+            "--disable-impl-side-painting",
+            "--disable-dev-shm-usage",
+            "--test-name='dorf'",
           ],
         },
         "javascriptEnabled": true,

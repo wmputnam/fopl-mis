@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from "react"
-import Home from "./CancelBtn";
 import NotesListRow from "./NotesListRow";
 import { Notes } from "packages/Notes";
 import NotesListHeader from "./NotesListHeader";
 import CancelBtn from "./CancelBtn";
-import BackToMemberBtn from "./BackToMemberBtn";
 import { getServerUrl } from "../services/AppConfig";
 import { AppState, onRenderCallback } from "../App";
 import { IMember } from "packages/member-shared";
 import useAxios from "axios-hooks";
 
 export interface MemberFormNotesProps {
-  memberId?: string;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
 }
 
-const MemberFormNotes = ({ memberId, getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
+const MemberFormNotes = ({getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
 
+  const memberId = getAppState().memberId;
   const LoadFromDb = (memberId: string): Array<any> => {
     return useAxios<IMember>(
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
@@ -52,14 +50,6 @@ const MemberFormNotes = ({ memberId, getAppState, setAppState }: MemberFormNotes
 
     return (
       <>
-        <BackToMemberBtn
-          getAppState={getAppState}
-          setAppState={setAppState}
-        />
-        <Home
-          getAppState={getAppState}
-          setAppState={setAppState}
-        />
         <CancelBtn
           getAppState={getAppState}
           setAppState={setAppState}

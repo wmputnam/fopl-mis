@@ -2,6 +2,8 @@
 curl --silent localhost:3030 2>&1 > /dev/null
 res=$?
 if [ $res -ne 0 ]; then
-  echo "backend server is not running -- not able to run E2E tests"
+  echo "backend server is not running -- not able to run E2E tests";
+else
+  echo "backend server is running";
 fi
 exit $res

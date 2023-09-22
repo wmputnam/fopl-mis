@@ -12,18 +12,26 @@ const memberFormPageCommands = {
     return await this.element("@saveBtn").click();
     // return this.waitForElementNotPresent("@saveBtn");
   },
+  async clickRemits(this: MemberFormPage): Promise<any> {
+    return await this.waitForElementVisible("@remitsBtn")
+      .click("@remitsBtn")
+      .waitForElementNotPresent("@remitsBtn");
+  },
   async enterFirstName(this: MemberFormPage, value: string): Promise<WebElement> {
     await this.waitForElementVisible("@firstName");
+    await this.element("@firstName").click();
     // await this.element("@firstName").clear();
-    return await this.element("@firstName").setValue(value);
+    const webEl = await this.element("@firstName").setValue(value);
+    this.pause(1000);
+    return webEl;
   },
   async getFirstName(this: MemberFormPage): Promise<string | null> {
     // console.log(`memberFormPage: getting value of firstName field`)
     return await this.element("@firstName").getValue();
   },
   async enterLastName(this: MemberFormPage, value: string): Promise<WebElement> {
-    await this.waitForElementVisible("@lastName");
-    await this.element("@lastName").clear();
+    // await this.waitForElementVisible("@lastName");
+    // await this.element("@lastName").clear();
     return await this.element("@lastName").setValue(value);
   },
   async getLastName(this: MemberFormPage): Promise<string | null> {
@@ -31,8 +39,8 @@ const memberFormPageCommands = {
     return await this.element("@lastName").getValue();
   },
   async enterAddress(this: MemberFormPage, value: string): Promise<WebElement> {
-    await this.waitForElementVisible("@address");
-    await this.element("@address").clear();
+    // await this.waitForElementVisible("@address");
+    // await this.element("@address").clear();
     return await this.element("@address").setValue(value);
   },
   async getAddress(this: MemberFormPage): Promise<string | null> {
@@ -40,8 +48,8 @@ const memberFormPageCommands = {
     return await this.element("@address").getValue();
   },
   async enterUnit(this: MemberFormPage, value: string): Promise<WebElement> {
-    await this.waitForElementVisible("@unit");
-    await this.element("@unit").clear();
+    // await this.waitForElementVisible("@unit");
+    // await this.element("@unit").clear();
     return await this.element("@unit").setValue(value);
   },
   async getUnit(this: MemberFormPage): Promise<string | null> {
@@ -272,7 +280,7 @@ const memberFormPage: PageObjectModel = {
       locateStrategy: 'xpath'
     },
     cancelBtn: {
-      selector: '//*[@data-testid="member-form--controls"]//*[@data-testid="save-btn"]',
+      selector: '//*[@data-testid="member-form--controls"]//*[@data-testid="cancel-btn"]',
       locateStrategy: 'xpath'
     },
     firstNameError: {
@@ -287,6 +295,13 @@ const memberFormPage: PageObjectModel = {
     remitAmountError: {
       selector: '.new-member--remit-error'
     },
+    remitsBtn: {
+      selector: '#member--remit-btn',
+    },
+    notesBtn: {
+      selector: '#member--notes-btn',
+    }
+
   }
 }
 

@@ -6,14 +6,24 @@ import { MemberViewStates } from "../@interfaces/enums";
 //     setViewState:(a:string) => void;
 //   }
 
-function MemberFormNav2Notes({ getAppState, setAppState }: FrontendProps): any {
+function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
 
     function updViewState() {
-        setAppState((oldState: any) => ({ ...oldState, viewState: MemberViewStates.notes }));
+        const newFromViewState = getAppState().fromViewState;
+        newFromViewState.push(getAppState().viewState);
+        setAppState((oldState: any) => ({
+            ...oldState,
+            viewState: MemberViewStates.notes,
+            fromViewState: newFromViewState
+        }));
     }
 
     return (
-        <button onClick={updViewState}>member notes</button>
+        <button
+            className="member--notes-btn"
+            id="member--notes-btn"
+            onClick={updViewState}>
+            member notes</button>
     )
 }
 

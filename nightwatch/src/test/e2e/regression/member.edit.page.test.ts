@@ -43,9 +43,9 @@ describe('edit member page', function () {
   const notVisibleFields = fields.filter((data) => !data.visible);
   const visibleFieldsHavingPlaceholder = fields.filter((data) => (data.visible && data.placeHolder !== ""));
 
-  afterEach(() => {
-    browser.end();
-  })
+  // afterEach(() => {
+  //   browser.end();
+  // });
   it('opens from member list page', async function (browser: NightwatchBrowser) {
     await browser.page.memberListPage().navigate().openEditMember(1);
     // browser.pause(10000);
@@ -108,4 +108,6 @@ describe('edit member page', function () {
     await browser.page.memberFormPage().clickCancel();
     // await browser.saveScreenshot("./screenshots/list.png")
   });
+
+  after(browser => browser.end());
 });
