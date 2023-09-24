@@ -3,17 +3,11 @@ import { Remittance } from "packages/Remittance";
 
 function formatDate(d: Date): string {
     const yr: string = d.getFullYear().toString();
-    const rmo: string = d.getMonth().toString();
+    const rmo: string = (d.getMonth() + 1).toString();
     const mo = rmo.length < 2 ? "0" + rmo : rmo;
-    const rda: string = d.getDay().toString();
+    const rda: string = (d.getDate() + 1).toString();
     const da = rda.length < 2 ? "0" + rda : rda;
-    const rhr: string = d.getHours().toString();
-    const hr = rhr.length < 2 ? "0" + rhr : rhr;
-    const rmi: string = d.getMinutes().toString();
-    const mi = rmi.length < 2 ? "0" + rmi : rmi;
-    const rse: string = d.getSeconds().toString();
-    const se = rse.length < 2 ? "0" + rse : rse;
-    return yr + "-" + mo + "-" + da + " " + hr + ":" + mi + ":" + se;
+    return yr + "-" + mo + "-" + da;
 }
 
 const repeatMe = (str: string, n: number) => {

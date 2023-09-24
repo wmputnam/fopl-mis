@@ -1,0 +1,13 @@
+{
+  "name": "basic-testcafe-example",
+  "version": "0.1.0",
+  "description": "Basic TestCafe API example",
+  "main": "tests/test.ts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevExpress/testcafe/issues"
+  },
+  "devDependencies": {
+    "testcafe": "*"
+  }
+}
