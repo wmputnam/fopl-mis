@@ -61,6 +61,7 @@ export class MemberService {
       }
       if (isPropDefined(loadedIMemberData, "mmb")) newMember["mmb"] = loadedIMemberData["mmb"];
       if (isPropDefined(loadedIMemberData, "joined")) newMember["joined"] = loadedIMemberData["joined"];
+      if (isPropDefined(loadedIMemberData, "paidThrough")) newMember["paidThrough"] = loadedIMemberData["paidThrough"];
       if (isPropDefined(loadedIMemberData, "lastUpdated")) newMember["lastUpdated"] = loadedIMemberData["lastUpdated"];
       if (isPropDefined(loadedIMemberData, "remittances")) {
         if (newMember.remittances === undefined) {

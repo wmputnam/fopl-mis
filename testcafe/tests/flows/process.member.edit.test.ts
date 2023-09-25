@@ -7,7 +7,24 @@ import MemberListPageService from '../../helpers/services/member.list.page.servi
 import MemberRemitPage from '../../page-objects/member.remit.page';
 import MemberRemitsPageService from '../../helpers/services/member.remits.page.service';
 
-fixture.skip`Member dues payment process flows`
+const getFields = () => [
+  { field: 'firstName', isReadOnly: false },
+  { field: 'lastName', isReadOnly: false },
+  { field: 'address', isReadOnly: false },
+  { field: 'unit', isReadOnly: false },
+  { field: 'city', isReadOnly: false },
+  { field: 'state', isReadOnly: false },
+  { field: 'postalCode', isReadOnly: false },
+  { field: 'phone', isReadOnly: false },
+  { field: 'email', isReadOnly: false },
+  { field: 'mmb', isReadOnly: true },
+  { field: 'joined', isReadOnly: true },
+  { field: 'lastUpdated', isReadOnly: true },
+  { field: 'paidThrough', isReadOnly: true },
+]
+
+
+fixture`Member edit process flows`
   .page`${userVariables.baseUrl}`
   .beforeEach(async t => {
     if (t.ctx.memberId) {
@@ -16,7 +33,7 @@ fixture.skip`Member dues payment process flows`
   })
 
 // Tests
-test('should be able to open Renew member (process dues payment) for member', async t => {
+test('should be able to open Edit member to view member', async t => {
 
   const memberService = new MemberService(t);
   const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: "T" });
@@ -25,7 +42,7 @@ test('should be able to open Renew member (process dues payment) for member', as
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
-  const visibleRenewMenuItem = Selector('div').withAttribute(`data-testid`, "member-row--menu-renewal").withAttribute('member-id', memberId);
+  const visibleEditMenuItem = Selector('div').withAttribute(`data-testid`, "member-row--menu-edit").withAttribute('member-id', memberId);
   const sillyHeader = Selector('h1');
 
   await t
@@ -35,13 +52,54 @@ test('should be able to open Renew member (process dues payment) for member', as
 
   await t.hover(toolsSelector)
     .wait(250)
-    .click(visibleRenewMenuItem)
+    .click(visibleEditMenuItem)
     .wait(500);
 
-  await t.expect(sillyHeader.textContent).contains('renew');
+  await t.expect(sillyHeader.textContent).contains('Edit');
 });
 
-test('should be able to open Process donation for life member', async t => {
+getFields().forEach(data => {
+  test.only(`should ${data.isReadOnly ? "not " : " "}be able to Edit member field ${data.field} `, async t => {
+    const memberMmb = 'F24';
+    let memberId: string;
+    if (t.fixtureCtx.memberId && t.fixtureCtx.memberId !== "") {
+      memberId = t.fixtureCtx.memberId;
+    } else {
+      memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: memberMmb });
+      t.fixtureCtx.memberId = memberId;
+      console.log(`found ${memberMmb} member document with id: ${memberId}`)
+    }
+
+
+    if (memberId && memberId !== "") {
+      const title = Selector(`title`);
+      const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
+      const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
+      const visibleEditMenuItem = Selector('div').withAttribute(`data-testid`, "member-row--menu-edit").withAttribute('member-id', memberId);
+      const fieldSelector = Selector(MemberFormPage.selectorFor(data.field));
+
+      await t
+        .expect(title.textContent).eql('React App')
+        .maximizeWindow()
+        .eval(() => location.reload());
+
+      await t.hover(toolsSelector)
+        .wait(250)
+        .click(visibleEditMenuItem)
+        .wait(500);
+
+      // const expectReadOnly = data.isReadOnly;
+      const readOnlyAttr = await fieldSelector.getAttribute('readonly');
+      if (data.isReadOnly) {
+        await t.expect(readOnlyAttr === "").ok();
+      } else {
+        await t.expect(readOnlyAttr === null).ok();
+      }
+    }
+  })
+});
+
+test.skip('should be able to open Process donation for life member', async t => {
   const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
 
   const title = Selector(`title`);
@@ -64,7 +122,7 @@ test('should be able to open Process donation for life member', async t => {
 
 });
 
-test('should be able to Process dues payment for member', async t => {
+test.skip('should be able to Process dues payment for member', async t => {
   const memberService = new MemberService(t);
 
   const title = Selector(`title`);
@@ -105,7 +163,7 @@ test('should be able to Process dues payment for member', async t => {
     .expect(mmbSelector.textContent).contains('F24');
 });
 
-test('should be able to Process donation payment for member', async t => {
+test.skip('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
   const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
   console.log(`added new member document with id: ${memberId}`)
@@ -144,7 +202,7 @@ test('should be able to Process donation payment for member', async t => {
     .expect(mmbSelector.textContent).contains('LM');
 });
 
-test('should be able find processed dues payment for member on remits page', async t => {
+test.skip('should be able find processed dues payment for member on remits page', async t => {
   const enteredRemitDate = '2023-09-13';
   const enteredRemitDues = '10';
 
@@ -211,7 +269,7 @@ test('should be able find processed dues payment for member on remits page', asy
     .expect(memo).eql('dues');
 });
 
-test('should be able to Process donation payment for member', async t => {
+test.skip('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
   const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
 

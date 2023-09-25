@@ -5,13 +5,21 @@ export default class MemberListPageService {
     let selectorString
     if (criteria.mmb) {
       selectorString = '.member-row--mmb';
-    }
-    const searchSelector = Selector(selectorString).nth(1).parent('.member-row');
-    const foundRow = await searchSelector();
-    if (foundRow && foundRow.getAttribute) {
-      return foundRow.getAttribute('data-id');
     } else {
-      return "";
+      selectorString = '.member-row--mmb';
     }
+    const rowCount = await Selector(selectorString).count
+    for (let i = 1; i <= rowCount + 1; i++) {
+      const searchSelector = Selector(selectorString).nth(i).parent('.member-row');
+      const foundRow = await searchSelector();
+      if (foundRow && foundRow.getAttribute) {
+        const mmb = await searchSelector().child('.member-row--mmb.col').textContent;
+        if (mmb === criteria.mmb) {
+          const memberId = await foundRow.getAttribute('data-id');
+          return memberId;
+        }
+      }
+    }
+    return "";
   }
 }
