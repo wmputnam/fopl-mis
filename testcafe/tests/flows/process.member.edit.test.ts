@@ -59,7 +59,7 @@ test('should be able to open Edit member to view member', async t => {
 });
 
 getFields().forEach(data => {
-  test.only(`should ${data.isReadOnly ? "not " : " "}be able to Edit member field ${data.field} `, async t => {
+  test(`should ${data.isReadOnly ? "not " : " "}be able to Edit member field ${data.field} `, async t => {
     const memberMmb = 'F24';
     let memberId: string;
     if (t.fixtureCtx.memberId && t.fixtureCtx.memberId !== "") {
