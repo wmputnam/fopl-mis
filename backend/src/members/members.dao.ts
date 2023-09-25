@@ -6,6 +6,7 @@ import { Remittance } from "packages/Remittance";
 import { Volunteer } from "packages/Volunteer";
 import { Notes } from "packages/Notes";
 import { Names } from "packages/Names";
+import { Status } from "packages/Status";
 
 import mongooseService from "../common/services/mongoose.service";
 
@@ -22,19 +23,29 @@ class MembersDao {
     date: Date,
     amount: String,
     memo: String,
-  }, { _id: false })
+  }, { _id: false });
+
   volunteeerSchema = new this.Schema<Volunteer>({
     role: String,
     lastWorkDate: Date,
-  }, { _id: false })
+  }, { _id: false });
+
   notesSchema = new this.Schema<Notes>({
     date: Date,
     note: String,
-  }, { _id: false })
+  }, { _id: false });
+
   namesSchema = new this.Schema<Names>({
     firstName: String,
     lastName: String,
-  }, { _id: false })
+  }, { _id: false });
+
+  statusSchema = new this.Schema<Status>({
+    active: Boolean,
+    postMail: Boolean,
+    email: Boolean,
+    newsletter: String, // newsletter: 'email' | 'post' | 'none';
+  })
   memberSchema = new this.Schema<IMember>({
     _id: String,
     firstName: { type: String, required: true, alias: "first name" },
@@ -48,12 +59,16 @@ class MembersDao {
     state: String,
     postalCode: { type: String, alias: "zipmerge" },
     volunteerPreferences: { type: [this.volunteeerSchema], alias: "volunteer" },
-    mmb: String,
+    mmb: String,                     // TODO make this a calculated value
     paidThrough: { type: Date, alias: "paid thru" },
     joined: Date,
     lastUpdated: { type: Date, alias: "updated" },
     remittances: { type: [this.remittanceSchema], alias: "payment history" },
     notes: { type: [this.notesSchema] },
+    status: { type: this.statusSchema },
+    mem: String,                        // TODO remove after migration
+    zip: String,                        // TODO remove after migration
+    plus4: String,                      // TODO remove after migration
   }, { id: false })
 
   Member = mongooseService.getMongoose().model('Members', this.memberSchema);

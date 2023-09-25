@@ -7,7 +7,7 @@ import MemberListPageService from '../../helpers/services/member.list.page.servi
 import MemberRemitPage from '../../page-objects/member.remit.page';
 import MemberRemitsPageService from '../../helpers/services/member.remits.page.service';
 
-fixture.skip`Member dues payment process flows`
+fixture`Member dues payment process flows`
   .page`${userVariables.baseUrl}`
   .beforeEach(async t => {
     if (t.ctx.memberId) {
