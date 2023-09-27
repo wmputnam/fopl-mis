@@ -62,14 +62,17 @@ export const MemberFormBaseGroup = (
     }
   }
   if (memberObj) {
+    const memberActive = (memberObj.status && memberObj.status.active)
+      ? "Active"
+      : "OUT";
     return (
       <>
         <Profiler id="memberFormBase" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <div className="member-form--name-group" data-testid="member-form--name-group" >
             <label htmlFor="first-name">First name</label>
-            <input type="text" 
-              id="first-name" 
-              className="member--first-name width-wide" 
+            <input type="text"
+              id="first-name"
+              className={"member--first-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--first-name"
               placeholder="First name"
               required={true}
@@ -77,18 +80,20 @@ export const MemberFormBaseGroup = (
               onChange={handleFirstNameChange}
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+              readOnly={memberActive !== "Active"}
             />
             <div className="member--first-name-error red-text width-wide" data-testid="member--first-name-error">{memberObj.getFirstNameError()}</div>
             <label htmlFor="last-name">Last name</label>
-            <input type="text" 
-              id="last-name" 
-              className="member--last-name width-wide" data-testid="member--last-name"
+            <input type="text"
+              id="last-name"
+              className={"member--last-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               placeholder="Last name"
               required={true}
               value={memberObj.lastName}
               onChange={handleLastNameChange}
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+              readOnly={memberActive !== "Active"}
             />
             <div className="member--last-name-error red-text width-wide" data-testid="member--last-name-error">{memberObj.getLastNameError()}</div>
           </div>
@@ -97,51 +102,57 @@ export const MemberFormBaseGroup = (
             <input
               type="text"
               id="address"
-              className="member--address width-wide"
+              className={"member--address width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--address"
               placeholder="Address"
               value={memberObj.address}
               onChange={handleAddressChange}
+              readOnly={memberActive !== "Active"}
             />
             <label htmlFor="unit">Unit</label>
             <input
               type="text"
               id="unit"
-              className="member--unit width-wide"
+              className={"member--unit width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--unit"
               placeholder="Unit"
               value={memberObj.unit}
               onChange={handleUnitChange}
+              readOnly={memberActive !== "Active"}
             />
             <br />
             <label htmlFor="city">City</label>
             <input
               type="text"
               id="city"
-              className="member--city width-wide"
+              className={"member--city width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--city"
               placeholder="City"
               value={memberObj.city}
               onChange={handleCityChange}
+              readOnly={memberActive !== "Active"}
             />
             <label htmlFor="state">State</label>
             <input
               type="text"
               id="state"
-              className="member--state width-narrow"
+              className={"member--state width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--state"
               placeholder="State"
               value={memberObj.state}
               onChange={handleStateChange}
+              readOnly={memberActive !== "Active"}
             />
             <label htmlFor="postal-code">ZIP code</label>
             <input
               type="text"
               id="postal-code"
-              className="member--postal-code  width-medium" data-testid="member--postal-code"
+              className={"member--postal-code width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+              data-testid="member--postal-code"
               placeholder="ZIP code"
               value={memberObj.postalCode}
               onChange={handlePostalCodeChange}
+              readOnly={memberActive !== "Active"}
             />
           </div>
           <div className="member-form--contact-group" data-testid="member-form--contact-group" >
@@ -149,16 +160,18 @@ export const MemberFormBaseGroup = (
             <input
               type="telephone"
               id="phone"
-              className="member--phone width-phone"
+              className={"member--phone width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--phone"
               placeholder="Phone"
               value={memberObj.phone}
-              onChange={handlePhoneChange} />
+              onChange={handlePhoneChange}
+              readOnly={memberActive !== "Active"}
+            />
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
-              className="member--email width-phone"
+              className={"member--email width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
               data-testid="member--email"
               placeholder="Email"
               required={false}
@@ -166,6 +179,7 @@ export const MemberFormBaseGroup = (
               onChange={handleEmailChange}
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Email is required')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+              readOnly={memberActive !== "Active"}
             />
           </div>
         </Profiler>

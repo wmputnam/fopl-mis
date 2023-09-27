@@ -20,12 +20,26 @@ const stringForMmbDate = (dt: Date | string | undefined) => {
 
 export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void) => {
   if (memberObj) {
+    const memberActive = (memberObj.status && memberObj.status.active)
+      ? "Active"
+      : "OUT";
+    const memberPost = (memberObj.status && memberObj.status.postMail)
+      ? true
+      : false;
+    const memberEmail = (memberObj.status && memberObj.status.email)
+      ? true
+      : false;
+    const memberNews = (memberObj.status && memberObj.status.newsletter)
+      ? memberObj.status.newsletter
+      : 'None';
+
     const mmbGroup =
       (
         <>
           <Profiler id="MemberMmb" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
             <div className="member-form--mmb-group"
               data-testid="member-form--mmb-group">
+              { memberActive === 'Active' &&
               <div className="member--mmb-wrapper"
                 data-testid="member--mmb-wrapper">
                 <label htmlFor="mmb">MMB </label>
@@ -34,11 +48,11 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                   maxLength={10}
                   readOnly={true}
                   id="mmb"
-                  className="member--mmb--input readonly-input"
+                  className="member--mmb--input readonly-input width-mmb"
                   data-testid="member--mmb--input"
                   value={memberObj.mmb} />
-              </div>
-              {!MemberService.isLifeMember(memberObj) &&
+              </div> }
+              { memberActive === 'Active' && !MemberService.isLifeMember(memberObj) &&
                 <div className="member--paid-through-wrapper"
                   data-testid="member--paid-through-wrapper">
                   <label htmlFor="paidThrough" >Paid through </label>
@@ -50,6 +64,7 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                     value={stringForMmbDate(memberObj.paidThrough)} />
                 </div>
               }
+              {memberActive === 'Active' &&
               <div className="member--joined-wrapper"
                 data-testid="member--joined-wrapper">
                 <label htmlFor="joined">Joined </label>
@@ -57,10 +72,10 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                   type="text"
                   readOnly={true}
                   id="joined"
-                  className="member--joined--input width-date readonly-input" 
+                  className="member--joined--input width-date readonly-input"
                   data-testid="member--joined--input"
                   value={stringForMmbDate(memberObj.joined)} />
-              </div>
+              </div>}
               <div className="member--last-updated-wrapper"
                 data-testid="member--last-updated-wrapper">
                 <label htmlFor="last-updated">Last updated </label>
@@ -71,6 +86,52 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                   className="member--last-updated--input width-date readonly-input" data-testid="member--last-updated--input"
                   value={stringForMmbDate(memberObj.lastUpdated)} />
               </div>
+
+              <div className="member--active-wrapper"
+                data-testid="member--active-wrapper">
+                <label htmlFor="active">Status </label>
+                <input
+                  type="text"
+                  readOnly={true}
+                  id="active"
+                  className="member--active--input width-date readonly-input"
+                  data-testid="member--active--input"
+                  value={memberActive} />
+              </div>
+              {memberActive === 'Active' &&
+                <div className="member--post-mail-wrapper"
+                  data-testid="member--post-mail-wrapper">
+                  <label htmlFor="post-mail">US Post status </label>
+                  <input
+                    type="checkbox"
+                    readOnly={true}
+                    id="post-mail"
+                    className="member--post-mail--input width-date readonly-input" data-testid="member--post-mail--input"
+                    checked={memberPost} />
+                </div>}
+              {memberActive ===
+                'Active' &&
+                <div className="member--email-status-wrapper"
+                  data-testid="member--email-status-wrapper">
+                  <label htmlFor="email-status">Email status </label>
+                  <input
+                    type="checkbox"
+                    readOnly={true}
+                    id="email-status"
+                    className="member--email-status--input width-date readonly-input" data-testid="member--email-status--input"
+                    checked={memberEmail} />
+                </div>}
+              {memberActive === 'Active' &&
+                <div className="member--newsletter-status-wrapper"
+                  data-testid="member--newsletter-status-wrapper">
+                  <label htmlFor="newsletter-status">Newsletter status </label>
+                  <input
+                    type="text"
+                    readOnly={true}
+                    id="newsletter-status"
+                    className="member--newsletter-status--input width-date readonly-input" data-testid="member--newsletter-status--input"
+                    value={memberNews} />
+                </div>}
 
             </div></Profiler>
         </>

@@ -16,6 +16,7 @@ import { MemberFormMmbGroup } from "./MemberFormMmbGroup";
 import { MemberFormRemitGroup } from "./MemberFormRemitGroup";
 import { MemberFormVolGroup } from "./MemberFormVolGroup";
 import { MemberService } from "../services/MemberService";
+import { Volunteer } from "packages/Volunteer";
 
 export interface FormError {
   target: string,
@@ -122,14 +123,36 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
   }
 
   function handleFormSave(): any {
-    console.log(`Saving changes for ${memberId === "" ? "NEW MEMBER" : memberId}`)
+    console.log(`Saving changes for ${(memberObj.id === "") ? "NEW MEMBER" : memberId}`)
 
     const formErrors: Array<FormError> | null = getFormProblems(memberObj);
     if (formErrors) {
       console.log(`current form errors preventing save: ${memberObj.getFormErrorsForDisplay()}`);
       setFormErrors(formErrors);
     } else {
-
+      // check to see if a new member has address and other status settings
+      if (memberObj.id === "" && memberObj.status) {
+        if ( memberObj.address === ""
+          ||  memberObj.city === ""
+          ||  memberObj.state === ""
+          ||  memberObj.postalCode === "") {
+          memberObj.status.postMail = false;
+        }
+        if (!memberObj.email || memberObj.email === "") {
+          memberObj.status.email = false;
+        }
+        if (!memberObj.status.email && !memberObj.status.postMail) {
+          memberObj.status.newsletter = 'none';
+        } else if (!memberObj.status.email && memberObj.status.postMail) {
+          memberObj.status.newsletter = 'post';
+        } else {
+          memberObj.status.newsletter = 'email';
+        }
+        if (!memberObj.volunteerPreferences) {
+          memberObj.volunteerPreferences = Array<Volunteer>();
+        }
+        memberObj.volunteerPreferences.push({ role: 'NEW' })
+      }
       //  memberObj object is not quite ready for commit -- postUnjournalledRemits makes final changes
       //  - putting entered remits into the remittances array
       //  - updating mmb, paidThrough, and joined as appropriate

@@ -3,7 +3,7 @@ import { Names } from "./Names";
 import { Volunteer } from "./Volunteer";
 import { Notes } from "./Notes"
 import { IAddress } from "./IAddress";
-import { Status } from "./Status";
+import { IStatus } from "./IStatus";
 export interface IMember extends IAddress {
   _id?: string;
   firstName: string;
@@ -18,7 +18,7 @@ export interface IMember extends IAddress {
   remittances?: Remittance[];
   notes?: Notes[];
   names?: Names[];
-  status?: Status;
+  status?: IStatus;
   mem?: string;     // legacy status word
-  
+
 }

@@ -1,18 +1,20 @@
-export class Status {
+import { IStatus } from "packages/IStatus";
+
+export class Status implements IStatus {
   active: boolean;   // false => OUT  (see notes)
   postMail: boolean; // false => do not mail -- may be due to RM or member request or lack of address  (see notes)
   email: boolean;    // false => do not email -- may be due to not being verified or returned email or member request (see notes)
-  newsletter:'email'|'post'|'none';
+  newsletter: 'email' | 'post' | 'none';
   constructor() {
-    this.active = true;
-    this.postMail = true;
+    this.active = false;
+    console.log(`Status class constructor setting postMail to false`)
+    this.postMail = false;
     this.email = false;
-    this.newsletter = 'email'
-
+    this.newsletter = 'none'
   }
 }
 
-export default {};
+export default Status;
 
 // new member
 // Status.active = true

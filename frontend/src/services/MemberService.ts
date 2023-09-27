@@ -7,6 +7,7 @@ import { IAddress } from "packages/IAddress";
 import { Names } from "packages/Names";
 import { Notes } from "packages/Notes";
 import { MemberViewStates } from "../@interfaces/enums";
+import { Status } from "../services/Status";
 
 const isPropDefined = (imember: IMember, prop: string & keyof IMember) => imember?.[prop] !== undefined;
 
@@ -83,6 +84,28 @@ export class MemberService {
           }
         }
       }
+
+      if (isPropDefined(loadedIMemberData, "status")) {
+        if (newMember.status === undefined) {
+          newMember.status = new Status();
+        }
+        if (loadedIMemberData.status) {
+          if (loadedIMemberData.status.active !== undefined) {
+            newMember.status.active = loadedIMemberData.status.active;
+          }
+          if (loadedIMemberData.status.postMail !== undefined) {
+            console.log(`MemberService.createMemberFromLoad: setting status.postMail to ${loadedIMemberData.status.postMail}`)
+            newMember.status.postMail = loadedIMemberData.status.postMail;
+          }
+          if (loadedIMemberData.status.email !== undefined) {
+            newMember.status.email = loadedIMemberData.status.email;
+          }
+          if (loadedIMemberData.status.newsletter !== undefined) {
+            newMember.status.newsletter = loadedIMemberData.status.newsletter;
+          }
+        }
+      }
+
       return newMember;
     }
   }
@@ -439,4 +462,87 @@ export class MemberService {
       localStorage.removeItem("memberId");
     }
   }
+
+  static setMemberStatusToActive = (memberObj: Member) => {
+    if (memberObj) {
+      const memberOutObj: Member | undefined = memberObj.deepClone();
+      if (memberOutObj) {
+        if (memberObj.status) {
+          memberOutObj.status = { ...memberObj.status, active: true }
+        } else {
+          memberOutObj.status = new Status();
+          memberOutObj.status.active = true;
+        }
+        return memberOutObj;
+      }
+    }
+    return memberObj;
+  }
+
+  static setMemberEmailStatus = (memberObj: Member, newStatus: boolean = true) => {
+    if (memberObj) {
+      const memberOutObj: Member | undefined = memberObj.deepClone();
+      if (memberOutObj) {
+        if (memberObj.status) {
+          memberOutObj.status = { ...memberObj.status, email: newStatus }
+        } else {
+          memberOutObj.status = new Status();
+          memberOutObj.status.email = newStatus;
+        }
+        return memberOutObj;
+      }
+    }
+    return memberObj;
+  }
+
+  static setMemberPostalStatus = (memberObj: Member, newStatus: boolean = true) => {
+    if (memberObj) {
+      const memberOutObj: Member | undefined = memberObj.deepClone();
+      if (memberOutObj) {
+        if (memberObj.status) {
+          console.log(`MemberService.setMemberPostalStatus setting postMail to ${newStatus}`)
+          memberOutObj.status = { ...memberObj.status, postMail: newStatus }
+        } else {
+          memberOutObj.status = new Status();
+          console.log(`MemberService.setMemberPostalStatus setting new status postMail to ${newStatus}`)
+          memberOutObj.status.postMail = newStatus;
+        }
+        return memberOutObj;
+      }
+    }
+    return memberObj;
+  }
+
+  static setMemberNewsletterStatus = (memberObj: Member, newStatus: 'email' | 'post' | 'none' = 'email') => {
+    if (memberObj) {
+      const memberOutObj: Member | undefined = memberObj.deepClone();
+      if (memberOutObj) {
+        if (memberObj.status) {
+          memberOutObj.status = { ...memberObj.status, newsletter: newStatus }
+        } else {
+          memberOutObj.status = new Status();
+          memberOutObj.status.newsletter = newStatus;
+        }
+        return memberOutObj;
+      }
+    }
+    return memberObj;
+  }
+
+  static setMemberStatusToInactive = (memberObj: Member) => {
+    if (memberObj) {
+      const memberOutObj: Member | undefined = memberObj.deepClone();
+      if (memberOutObj) {
+        if (memberObj.status) {
+          memberOutObj.status = { ...memberObj.status, active: false }
+        } else {
+          memberOutObj.status = new Status();
+          memberOutObj.status.active = false;
+        }
+        return memberOutObj;
+      }
+    }
+    return memberObj;
+  }
+
 }

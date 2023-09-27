@@ -1,9 +1,11 @@
 import { Names } from "packages/Names";
 import { Notes } from "packages/Notes";
 import { Remittance } from "packages/Remittance";
+import { IStatus } from "packages/IStatus";
 import { Volunteer } from "packages/Volunteer";
 import { IMember } from "packages/member-shared";
 import { FormError } from "../@components/MemberFormBase";
+import Status from "./Status";
 
 interface MemberParams {
   memberId?: string;
@@ -490,6 +492,32 @@ export class Member {
     }
   }
 
+  _status: IStatus | undefined = undefined;
+  public get status(): IStatus | undefined {
+    return this._status;
+  }
+  public set status(value: IStatus | undefined) {
+    if (this._status === undefined) {
+      this._status = {} as IStatus;
+    }
+
+    if (this.status && value) {
+      if (value.active !== undefined) {
+        this._status.active = value.active;
+      }
+      if (value.postMail !== undefined) {
+        console.log(`Member.set.status.postMail: ${value.postMail}`)
+        this._status.postMail = value.postMail;
+      }
+      if (value.email !== undefined) {
+        this._status.email = value.email;
+      }
+      if (value.newsletter !== undefined) {
+        this._status.newsletter = value.newsletter;
+      }
+    }
+  }
+
 
   constructor(params: MemberParams = {} as MemberParams) {
     let { memberId = undefined } = params;
@@ -502,6 +530,12 @@ export class Member {
       return m;
     } else {
       const m: Member = new Member();
+      m.status = new Status();
+      m.status.active = true;
+      m.status.email = false;
+      console.log(`Member.create setting status.postMail to true`)
+      m.status.postMail = true;
+      m.status.newsletter = 'email';
       return m;
     }
   }
@@ -530,6 +564,7 @@ export class Member {
       Member._isDefined(imember, "remittances") && (member.remittances = imember.remittances);
       Member._isDefined(imember, "notes") && (member.notes = imember.notes);
       Member._isDefined(imember, "lastUpdated") && (member.lastUpdated = imember.lastUpdated);
+      Member._isDefined(imember, "status") && (member.status = imember.status);
       return member;
     } else {
       return undefined;
@@ -556,6 +591,7 @@ export class Member {
     if (this.remittances) { imember["remittances"] = this.remittances; }
     if (this.notes) { imember["notes"] = this.notes; }
     if (this.lastUpdated) { imember["lastUpdated"] = this.lastUpdated; }
+    if (this.status) { imember["status"] = this.status; }
     return imember
   }
 
