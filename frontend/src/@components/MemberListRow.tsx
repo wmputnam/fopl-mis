@@ -28,12 +28,17 @@ export type MemberListRowProps = {
     getAppState: () => any;
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
+const nop = (e:any) => {
+    e.preventDefault();
+    console.log(`context menu invoked`);
+};
 const MemberListRow = ({ recordId, name, address, phone, email, paidThrough, mmb, getAppState, setAppState }: MemberListRowProps): any => {
     return (
         <div className="member-row row"
             data-testid="member-row"
             title={name + " " + paidThrough}
-            data-id={recordId}>
+            data-id={recordId}
+            onContextMenu={nop}>
             <div className="member-row--name col"
                 data-testid="member-row--name">{name}</div>
             <div className="member-row--address col"
@@ -49,6 +54,7 @@ const MemberListRow = ({ recordId, name, address, phone, email, paidThrough, mmb
                 <MemberListRowMenu
                     recordId={recordId}
                     mmb={mmb}
+                    name={name}
                     getAppState={getAppState}
                     setAppState={setAppState}
                 /></div>

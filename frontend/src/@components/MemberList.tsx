@@ -17,7 +17,7 @@ const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
   const [{ data, error, loading }] = useAxios<IMember[]>(
     { baseURL: getServerUrl(), url: "/members" }, { manual: false, useCache: false }
 
-  );  
+  );
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error! {error.message}</p>
 
@@ -31,8 +31,8 @@ const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
           recordId={m?._id ? m._id : ""}
           name={MembersReducers.reduceMemberFullName(m)}
           address={MembersReducers.reduceAddressForMemberList(m)}
-          phone={m?.phone}
-          email={m?.email}
+          phone={m.phone !== undefined ? m.phone : ""}
+          email={m.email !== undefined ? m.email : ""}
           paidThrough={MembersReducers.reducePaidThroughForMemberList(m)}
           mmb={m.mmb ? m.mmb : "VOL"}
           getAppState={getAppState}

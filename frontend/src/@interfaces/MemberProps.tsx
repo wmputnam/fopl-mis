@@ -70,4 +70,11 @@ export interface FrontendProps {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
 }
+
+export interface ModalFmProps {
+  actionMessage: string;
+  setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+  getAppState: () => any;
+
+}
 export interface MemberProps { }

@@ -6,7 +6,7 @@ import { Remittance } from "packages/Remittance";
 import { Volunteer } from "packages/Volunteer";
 import { Notes } from "packages/Notes";
 import { Names } from "packages/Names";
-import { Status } from "packages/Status";
+import { IStatus } from "packages/IStatus";
 
 import mongooseService from "../common/services/mongoose.service";
 
@@ -40,7 +40,7 @@ class MembersDao {
     lastName: String,
   }, { _id: false });
 
-  statusSchema = new this.Schema<Status>({
+  statusSchema = new this.Schema<IStatus>({
     active: Boolean,
     postMail: Boolean,
     email: Boolean,

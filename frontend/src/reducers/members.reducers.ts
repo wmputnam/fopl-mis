@@ -17,8 +17,6 @@ class MembersReducers {
       fullname = fullnames.join(" & ");
     } else if (m.hasOwnProperty("lastName") || m.hasOwnProperty("firstName")) {
       fullname = m?.firstName + " " + m?.lastName;
-    } else if (m.hasOwnProperty("name")) {
-      fullname = m?.name === undefined ? "" : m.name;
     }
     return fullname;
   }

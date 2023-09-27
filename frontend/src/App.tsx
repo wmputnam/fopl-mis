@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from 'react';
+import Modal from 'react-modal';
 
 import './App.css';
 
@@ -13,14 +14,18 @@ import { MemberViewStates } from './@interfaces/enums';
 import AppHeader from './@components/AppHeader';
 import MemberFormNotes from './@components/MemberFormNotes';
 import MemberFormMoney from './@components/MemberFormMoney';
-import { IMember } from 'packages/member-shared';
-import { FormError } from "./@components/MemberFormBase"
+// import { IMember } from 'packages/member-shared';
+// import { FormError } from "./@components/MemberFormBase"
 import { MemberService } from './services/MemberService';
+import { ModalFM } from './@components/ModalFM';
 
 export interface AppState {
   memberId: string;
   viewState: MemberViewStates;
   fromViewState: MemberViewStates[];
+  modalIsOpen: boolean;
+  modalMessage:string;
+  modalAction: () => any;
 }
 
 export interface RenderCallBackI {
@@ -31,6 +36,7 @@ export interface RenderCallBackI {
   startTime?: number;
   endTime?: number;
 }
+
 export const onRenderCallback = (
   { id, phase }: Partial<RenderCallBackI>
 ): void => {
@@ -42,24 +48,33 @@ export const isEmptyObject = (obj: Object) => {
   return true;
 }
 
+function noOp () { };
+
 export const getInitialViewState = (): AppState => (
   {
     memberId: "",
     viewState: MemberViewStates.list,
-    fromViewState: []
+    fromViewState: [],
+    modalIsOpen: false,
+    modalMessage: "",
+    modalAction: () => {},
   });
 
 export const getTestViewState = (): AppState => (
   {
     memberId: "",
     viewState: MemberViewStates.test,
-    fromViewState: []
+    fromViewState: [],
+    modalIsOpen: false,
+    modalMessage: "",
+    modalAction: () => { },
   });
 
 // ***
 interface AppProps {
   testMode?: boolean;
 }
+
 export default function App({ testMode }: AppProps): JSX.Element {
   let initialAppState: () => AppState;
   if (testMode && testMode === true) {
@@ -83,7 +98,9 @@ export default function App({ testMode }: AppProps): JSX.Element {
 
   const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
 
-  let component
+  Modal.setAppElement(document.getElementById('root') as HTMLElement);
+
+  let component: any;
   console.log(appState.viewState);
   switch (appState.viewState) {
     case MemberViewStates.list:
@@ -146,12 +163,26 @@ export default function App({ testMode }: AppProps): JSX.Element {
       break;
   }
 
+  const openModal = () => {
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      modalIsOpen: true
+    }));
+  };
+
+
   return (
     <div className="App" data-testid="App">
       <header>
         <AppHeader messages={appMessages} />
       </header>
       <main>
+        <ModalFM 
+          setAppState={setAppState}
+          getAppState={getAppState}
+          actionMessage=''
+          actionHandler={noOp}
+        />
         {component}
       </main>
       <footer></footer>

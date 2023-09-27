@@ -7,6 +7,10 @@
   "bugs": {
     "url": "https://github.com/DevExpress/testcafe/issues"
   },
+  "scripts": {
+    "test": "clear && testcafe chrome",
+    "test:headless": "clear && testcafe chrome:headless"
+  },
   "devDependencies": {
     "testcafe": "*"
   }
