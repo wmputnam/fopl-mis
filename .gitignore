@@ -5,6 +5,7 @@ build
 .vscode
 logs
 screenshots
-dist
+**/dist/
 nightwatch/reports
 screens
+data

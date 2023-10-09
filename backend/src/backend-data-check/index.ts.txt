@@ -1,0 +1,47 @@
+function main(){
+  // open a cursor for the DB data documents
+  // 1. connect and use 'fopl'
+  // TODO
+
+  // 2. create a cursor
+  const db = {members:{ find: () =>{} }} // .PHONEY
+  const xcursorx = db.members.find();
+
+  // 3. get next document
+  while( xcursorx.hasNext() ) {
+    const curDoc:string = tojson(xcursorx.next());
+    const id :string = "";
+
+    // 4. look for missing required fields
+    // TODO
+    const missingFields:string[] = checkForMissingRequiredFields(curDoc)
+
+    // 5. look for non schema fields
+    // TODO
+    const nonSchemaFields: string[] = checkForNonSchemaFields(curDoc)
+
+    // 6. store report for this document
+    // TODO
+    stowDocumentReport(id,missingFields,nonSchemaFields)
+    
+  }
+  // loop until all documents checked
+
+  // output reports
+  // TODO
+  outputDbReport();
+}
+
+function checkForMissingRequiredFields( doc:string){
+  return [];
+}
+
+function checkForNonSchemaFields(doc: string) {
+  return [];
+}
+
+function stowDocumentReport( id:string, missingFields:string[], nonSchemaFields:string[]) {
+
+}
+
+function outputDbReport(){}

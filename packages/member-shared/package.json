@@ -5,7 +5,8 @@
   "main": "member-shared.ts",
   "types": "member-shared.d.ts",
   "scripts": {
-    "build": "tsc -d"
+    "build": "tsc -d",
+    "lint": "tsc --no-emit"
   },
   "keywords": [],
   "author": "",

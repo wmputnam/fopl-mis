@@ -1,0 +1,11 @@
+{
+  "name": "mis-background-data-check",
+  "version": "1.0.0",
+  "description": "stand alone check data store against schema",
+  "keywords": [],
+  "license": "reserved",
+  "scripts": {
+    "start": "echo start nothing here yet",
+    "test": "echo test nothing here yet"
+  }
+}

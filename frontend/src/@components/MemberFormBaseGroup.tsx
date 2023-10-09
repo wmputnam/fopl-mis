@@ -62,7 +62,7 @@ export const MemberFormBaseGroup = (
     }
   }
   if (memberObj) {
-    const memberActive = (memberObj.status && memberObj.status.active)
+    const memberActive = (memberObj.status && memberObj.status.isActive)
       ? "Active"
       : "OUT";
     return (

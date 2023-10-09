@@ -500,20 +500,18 @@ export class Member {
     if (this._status === undefined) {
       this._status = {} as IStatus;
     }
-
     if (this.status && value) {
-      if (value.active !== undefined) {
-        this._status.active = value.active;
+      if (value.isActive !== undefined) {
+        this._status.isActive = value.isActive;
       }
-      if (value.postMail !== undefined) {
-        console.log(`Member.set.status.postMail: ${value.postMail}`)
-        this._status.postMail = value.postMail;
+      if (value.validPostMail !== undefined) {
+        this._status.validPostMail = value.validPostMail;
       }
-      if (value.email !== undefined) {
-        this._status.email = value.email;
+      if (value.validEmail !== undefined) {
+        this._status.validEmail = value.validEmail;
       }
-      if (value.newsletter !== undefined) {
-        this._status.newsletter = value.newsletter;
+      if (value.newsletterType !== undefined) {
+        this._status.newsletterType = value.newsletterType;
       }
     }
   }
@@ -531,11 +529,10 @@ export class Member {
     } else {
       const m: Member = new Member();
       m.status = new Status();
-      m.status.active = true;
-      m.status.email = false;
-      console.log(`Member.create setting status.postMail to true`)
-      m.status.postMail = true;
-      m.status.newsletter = 'email';
+      m.status.isActive = true;
+      m.status.validEmail = 'unchecked';
+      m.status.validPostMail = true;
+      m.status.newsletterType = 'email';
       return m;
     }
   }
@@ -564,7 +561,14 @@ export class Member {
       Member._isDefined(imember, "remittances") && (member.remittances = imember.remittances);
       Member._isDefined(imember, "notes") && (member.notes = imember.notes);
       Member._isDefined(imember, "lastUpdated") && (member.lastUpdated = imember.lastUpdated);
-      Member._isDefined(imember, "status") && (member.status = imember.status);
+      if (!member.status) {
+        member.status = new Status();
+      }
+      Member._isDefined(imember, "isActive") && (member.status.isActive = imember.isActive);
+      Member._isDefined(imember, "isNewMember") && (member.status.isNewMember = imember.isNewMember);
+      Member._isDefined(imember, "newsletterType") && (member.status.newsletterType = imember.newsletterType);
+      Member._isDefined(imember, "validEmail") && (member.status.validEmail = imember.validEmail);
+      Member._isDefined(imember, "validPostMail") && (member.status.validPostMail = imember.validPostMail);
       return member;
     } else {
       return undefined;
@@ -591,7 +595,23 @@ export class Member {
     if (this.remittances) { imember["remittances"] = this.remittances; }
     if (this.notes) { imember["notes"] = this.notes; }
     if (this.lastUpdated) { imember["lastUpdated"] = this.lastUpdated; }
-    if (this.status) { imember["status"] = this.status; }
+    if (this.status) {
+      if (this.status.isActive !== undefined) {
+        imember["isActive"] = this.status.isActive;
+      }
+      if (this.status.isNewMember !== undefined) {
+        imember["isNewMember"] = this.status.isNewMember;
+      }
+      if (this.status.validEmail !== undefined) {
+        imember["validEmail"] = this.status.validEmail;
+      }
+      if (this.status.validPostMail !== undefined) {
+        imember["validPostMail"] = this.status.validPostMail;
+      }
+      if (this.status.newsletterType !== undefined) {
+        imember["newsletterType"] = this.status.newsletterType;
+      }
+    }
     return imember
   }
 
@@ -601,6 +621,9 @@ export class Member {
     let cloneMember: Member | undefined = currImember ? Member.createFromIMember(currImember) : undefined;
     if (cloneMember) {
       console.log(`clone.id: ${cloneMember.id}`);
+    }
+    if (this.status && cloneMember) {
+      cloneMember.status = this.status;
     }
     if (this.dataEntryErrors && cloneMember) {
       cloneMember.dataEntryErrors = this.dataEntryErrors;

@@ -85,29 +85,34 @@ export class MemberService {
         }
       }
 
-      if (isPropDefined(loadedIMemberData, "status")) {
+      if (isPropDefined(loadedIMemberData, "isActive")
+        || isPropDefined(loadedIMemberData, "validEmail")
+        || isPropDefined(loadedIMemberData, "validPostMail")
+        || isPropDefined(loadedIMemberData, "newsletterType")
+        || isPropDefined(loadedIMemberData, "isNewMember")
+      ) {
         if (newMember.status === undefined) {
           newMember.status = new Status();
         }
-        if (loadedIMemberData.status) {
-          if (loadedIMemberData.status.active !== undefined) {
-            newMember.status.active = loadedIMemberData.status.active;
-          }
-          if (loadedIMemberData.status.postMail !== undefined) {
-            console.log(`MemberService.createMemberFromLoad: setting status.postMail to ${loadedIMemberData.status.postMail}`)
-            newMember.status.postMail = loadedIMemberData.status.postMail;
-          }
-          if (loadedIMemberData.status.email !== undefined) {
-            newMember.status.email = loadedIMemberData.status.email;
-          }
-          if (loadedIMemberData.status.newsletter !== undefined) {
-            newMember.status.newsletter = loadedIMemberData.status.newsletter;
-          }
+        if (loadedIMemberData.isActive !== undefined) {
+          newMember.status.isActive = loadedIMemberData.isActive;
+        }
+        if (loadedIMemberData.validPostMail !== undefined) {
+          newMember.status.validPostMail = loadedIMemberData.validPostMail;
+        }
+        if (loadedIMemberData.validEmail !== undefined) {
+          newMember.status.validEmail = loadedIMemberData.validEmail;
+        }
+        if (loadedIMemberData.newsletterType !== undefined) {
+          newMember.status.newsletterType = loadedIMemberData.newsletterType;
+        }
+        if (loadedIMemberData.isNewMember !== undefined) {
+          newMember.status.isNewMember = loadedIMemberData.isNewMember;
         }
       }
-
-      return newMember;
     }
+
+    return newMember;
   }
 
   public static getDuesRates(): IDuesRates {
@@ -468,10 +473,10 @@ export class MemberService {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
         if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, active: true }
+          memberOutObj.status = { ...memberObj.status, isActive: true }
         } else {
           memberOutObj.status = new Status();
-          memberOutObj.status.active = true;
+          memberOutObj.status.isActive = true;
         }
         return memberOutObj;
       }
@@ -479,15 +484,15 @@ export class MemberService {
     return memberObj;
   }
 
-  static setMemberEmailStatus = (memberObj: Member, newStatus: boolean = true) => {
+  static setMemberEmailStatus = (memberObj: Member, newStatus: 'verified' | ' bounced' | 'unchecked' | 'none' = 'unchecked') => {
     if (memberObj) {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
         if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, email: newStatus }
+          memberOutObj.status = { ...memberObj.status, validEmail: newStatus }
         } else {
           memberOutObj.status = new Status();
-          memberOutObj.status.email = newStatus;
+          memberOutObj.status.validEmail = newStatus;
         }
         return memberOutObj;
       }
@@ -501,11 +506,11 @@ export class MemberService {
       if (memberOutObj) {
         if (memberObj.status) {
           console.log(`MemberService.setMemberPostalStatus setting postMail to ${newStatus}`)
-          memberOutObj.status = { ...memberObj.status, postMail: newStatus }
+          memberOutObj.status = { ...memberObj.status, validPostMail: newStatus }
         } else {
           memberOutObj.status = new Status();
           console.log(`MemberService.setMemberPostalStatus setting new status postMail to ${newStatus}`)
-          memberOutObj.status.postMail = newStatus;
+          memberOutObj.status.validPostMail = newStatus;
         }
         return memberOutObj;
       }
@@ -518,10 +523,10 @@ export class MemberService {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
         if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, newsletter: newStatus }
+          memberOutObj.status = { ...memberObj.status, newsletterType: newStatus }
         } else {
           memberOutObj.status = new Status();
-          memberOutObj.status.newsletter = newStatus;
+          memberOutObj.status.newsletterType = newStatus;
         }
         return memberOutObj;
       }
@@ -534,10 +539,10 @@ export class MemberService {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
         if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, active: false }
+          memberOutObj.status = { ...memberObj.status, isActive: false }
         } else {
           memberOutObj.status = new Status();
-          memberOutObj.status.active = false;
+          memberOutObj.status.isActive = false;
         }
         return memberOutObj;
       }

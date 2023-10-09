@@ -1,0 +1,331 @@
+openapi: '3.0.2'
+info:
+  title: FoPL Membership
+  description: This API supports management for Petaluma Friends of the Library membership data
+  # this is currently aspirational design and not what is implemented in code  
+  version: '1.0.0'
+servers:
+  - url: http://localhost:3030/api/v1
+paths:
+# list operations
+  /members:
+    get:
+      summary: get list of members
+      parameters:
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/sortParam'
+        - $ref: '#/components/parameters/pageParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberListResponse'
+        '400':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    post:
+      summary: create new member document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/memberData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberStatusResponse'  # TODO
+        '400':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /members/{id}:
+    get:
+      summary: data for member given by id
+      parameters:
+        - $ref: '#/components/parameters/memberIdParam'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberDataResponse'
+        '400':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    patch:
+      operationId: patch-member
+      summary: update member document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/memberData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberStatusResponse'  # TODO
+        '400':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    put:
+      operationId: patch-member
+      responses:
+      # same as for patch
+        '200':
+          description: OK
+        '400':
+          description: invalid parameter or other error
+        '404':
+          description: not found
+    delete:
+      summary: '"delete" member document'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/memberData'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberStatusResponse'  # TODO
+        '404':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /members/{id}/status:
+    parameters:
+        - $ref: '#/components/parameters/memberIdParam'
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberStatusResponse'  # TODO
+        '404':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    patch:
+      operationId: patch-member-status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/memberStatusSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/memberStatusResponse'  # TODO
+        '404':
+          description: invalid parameter or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    put:
+      operationId: patch-member-status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/memberStatusSchema'
+      responses:
+      # same as patch
+        '200':
+          description: OK
+        '404':
+          description: invalid parameter or other error
+components:
+  parameters:
+    memberIdParam:
+      description: document id
+      in: path
+      name: id
+      required: true
+      schema: 
+        $ref: '#/components/schemas/memberIdSchema'
+    limitParam:
+      description: limit of number of entries returned in list
+      name: limit
+      in: query
+      required: false
+      schema: 
+        $ref: '#/components/schemas/sizeValue'
+    sortParam:
+      description: limit of number of entries returned in list
+      name: limit
+      in: query
+      required: false
+      schema: 
+        $ref: '#/components/schemas/sortSpecifications'
+    pageParam:
+      description: page number -- 1 means skip 0 from beginning, 2 means skip the first N (limit) records
+      name: page
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/pageValue'
+  schemas:
+    memberIdSchema:
+      type: string
+    sizeValue:
+      type: integer
+      minimum: 1
+      maximum: 200
+    pageValue:
+      type: integer
+      minimum: 1
+    fieldSpecification:
+      type: string
+    orderSpecification:
+      enum: [0,1]
+    sortSpecification:
+      type: object
+      properties:
+        field: 
+          $ref: '#/components/schemas/fieldSpecification'
+        order:
+          $ref: '#/components/schemas/orderSpecification'
+    sortSpecifications:
+      type: array
+      items:
+        $ref: '#/components/schemas/sortSpecification'
+    memberDataResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/memberData'
+    memberData:
+      type: object
+      properties:
+        id: 
+          type: string
+        firstName: 
+          type: string
+        lastName: 
+          type: string
+        email: 
+          type: string
+        phone: 
+          type: string
+        volunteerPreferences:
+          type: array
+          #  Volunteer[];
+          items:
+            type: integer
+        mmb: 
+          type: string
+        paidThrough:
+          type: string
+          #  Date;
+        joined:
+          type: string
+          #  Date;
+        lastUpdated: 
+          type: string
+          # Date;
+        remittances: 
+        # Remittance[];
+          type: array
+          items:
+            type: integer
+        notes:
+        #  Notes[];
+          type: array
+          items:
+            type: integer
+        names: 
+        # Names[];
+          type: array
+          items:
+            type: integer
+        status?: 
+        # IStatus;
+          type: integer
+    memberListResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/memberList'
+    memberList:
+    # TODO migrate to data: 
+      type: array
+      items:
+        $ref: '#/components/schemas/memberData'
+    memberStatusResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/memberStatusSchema'
+    memberStatusSchema:
+      type: object
+      properties:
+        id:   # member id
+          type: string
+        active:
+          type: boolean
+        postEmail:
+          type: boolean
+        email:
+          type: boolean
+        newsletters:
+          type: string
+          enum: ['email','post','none']
+    errorResponse:  # TODO
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+
+    

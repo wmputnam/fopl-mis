@@ -57,7 +57,9 @@ describe(`${fn()}: getMemberById`, function () {
 
   before(async function () {
     const memberList = await membersDao.getMembers(1);
-    memberId = memberList[0]['_id'];
+    if (memberList && memberList[0] && memberList[0]['_id']) {
+      memberId = memberList[0]['_id'];
+    }
   });
 
   it(`should return data for member specified by memberId parameter`, async function () {

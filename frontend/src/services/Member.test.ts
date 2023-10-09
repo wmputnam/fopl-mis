@@ -4,6 +4,7 @@ import { describe, it } from "mocha";
 import { fileURLToPath } from "url";
 import { Member } from "./Member";
 import shortid from "shortid";
+import Status from "./Status";
 
 const getTestImember = () => ({
   lastName: "Wang",
@@ -25,7 +26,13 @@ const getTestMember = (): Member => {
   member.state = "VA";
   member.postalCode = "10200-2325";
   member.email = "test@test.it";
-  member.phone = "707-555-1212 x432"
+  member.phone = "707-555-1212 x432";
+  member.status=new Status();
+  member.status.isActive=true;
+  member.status.isNewMember = false;
+  member.status.validEmail = 'verified';
+  member.status.validPostMail = true;
+  member.status.newsletterType = 'email';
   member.volunteerPreferences = [{ role: "SALE" }, { role: "LUMACON", lastWorkDate: new Date("2023-01-28") }];
   member.mmb = "VOL";
   member.paidThrough = new Date("2020-04-01");
@@ -426,6 +433,73 @@ const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: boolean
     isSame = false;
   }
 
+  // status isActive
+  if (a.status && a.status.isActive !== undefined && b.status && b.status.isActive !== undefined) {
+    if (a.status.isActive !== b.status.isActive) {
+      messages.push("status.isActive: >" + a.status.isActive + "<" + b.status.isActive);
+      isSame = false;
+    }
+  } else if (a.status && a.status.isActive) {
+    messages.push("status.isActive: >" + a.status.isActive + "<");
+    isSame = false;
+  } else if (b.status && b.status.isActive) {
+    messages.push("status.isActive: ><" + b.status.isActive);
+    isSame = false;
+  }
+
+  // status isNewMember
+  if (a.status && a.status.isNewMember !== undefined && b.status && b.status.isNewMember !== undefined) {
+    if (a.status.isNewMember !== b.status.isNewMember) {
+      messages.push("status.isNewMember: >" + a.status.isNewMember + "<" + b.status.isNewMember);
+      isSame = false;
+    }
+  } else if (a.status && a.status.isNewMember) {
+    messages.push("status.isNewMember: >" + a.status.isNewMember + "<");
+    isSame = false;
+  } else if (b.status && b.status.isNewMember) {
+    messages.push("status.isNewMember: ><" + b.status.isNewMember);
+    isSame = false;
+  }
+  // status validEmail
+  if (a.status && a.status.validEmail !== undefined && b.status && b.status.validEmail !== undefined) {
+    if (a.status.validEmail !== b.status.validEmail) {
+      messages.push("status.validEmail: >" + a.status.validEmail + "<" + b.status.validEmail);
+      isSame = false;
+    }
+  } else if (a.status && a.status.validEmail) {
+    messages.push("status.validEmail: >" + a.status.validEmail + "<");
+    isSame = false;
+  } else if (b.status && b.status.validEmail) {
+    messages.push("status.validEmail: ><" + b.status.validEmail);
+    isSame = false;
+  }
+  // status validPostMail
+  if (a.status && a.status.validPostMail !== undefined && b.status && b.status.validPostMail !== undefined) {
+    if (a.status.validPostMail !== b.status.validPostMail) {
+      messages.push("status.validPostMail: >" + a.status.validPostMail + "<" + b.status.validPostMail);
+      isSame = false;
+    }
+  } else if (a.status && a.status.validPostMail) {
+    messages.push("status.validPostMail: >" + a.status.validPostMail + "<");
+    isSame = false;
+  } else if (b.status && b.status.validPostMail) {
+    messages.push("status.validPostMail: ><" + b.status.validPostMail);
+    isSame = false;
+  }
+  // status newsletterType
+  if (a.status && a.status.newsletterType !== undefined && b.status && b.status.newsletterType !== undefined) {
+    if (a.status.newsletterType !== b.status.newsletterType) {
+      messages.push("status.newsletterType: >" + a.status.newsletterType + "<" + b.status.newsletterType);
+      isSame = false;
+    }
+  } else if (a.status && a.status.newsletterType) {
+    messages.push("status.newsletterType: >" + a.status.newsletterType + "<");
+    isSame = false;
+  } else if (b.status && b.status.newsletterType) {
+    messages.push("status.newsletterType: ><" + b.status.newsletterType);
+    isSame = false;
+  }
+  
   return { same: isSame, messages: messages };
 }
 

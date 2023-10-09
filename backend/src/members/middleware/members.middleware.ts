@@ -65,7 +65,7 @@ class MembersMiddleware {
       next();
     } else {
       res.status(404).send({
-        error: [`Member ${req.params.memberId} not found -- memberId`]
+        error: [`Member "${req.params.memberId}" not found -- memberId`]
       })
     }
   }

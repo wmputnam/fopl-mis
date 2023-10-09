@@ -4,7 +4,7 @@ import { Volunteer } from "./Volunteer";
 import { Notes } from "./Notes";
 import { IAddress } from "./IAddress";
 import { IStatus } from "./IStatus";
-export interface IMember extends IAddress {
+export interface IMember extends IAddress,IStatus {
     _id?: string;
     firstName: string;
     lastName: string;
@@ -18,6 +18,5 @@ export interface IMember extends IAddress {
     remittances?: Remittance[];
     notes?: Notes[];
     names?: Names[];
-    status?: IStatus;
     mem?: string;
 }

@@ -20,17 +20,17 @@ const stringForMmbDate = (dt: Date | string | undefined) => {
 
 export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void) => {
   if (memberObj) {
-    const memberActive = (memberObj.status && memberObj.status.active)
+    const memberActive = (memberObj.status && memberObj.status.isActive)
       ? "Active"
       : "OUT";
-    const memberPost = (memberObj.status && memberObj.status.postMail)
+    const memberPost = (memberObj.status && memberObj.status.validPostMail)
       ? true
       : false;
-    const memberEmail = (memberObj.status && memberObj.status.email)
+    const memberEmail = (memberObj.status && memberObj.status.validEmail)
       ? true
       : false;
-    const memberNews = (memberObj.status && memberObj.status.newsletter)
-      ? memberObj.status.newsletter
+    const memberNews = (memberObj.status && memberObj.status.newsletterType)
+      ? memberObj.status.newsletterType
       : 'None';
 
     const mmbGroup =

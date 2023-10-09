@@ -19,7 +19,7 @@ export class MembersRoutes extends CommonRoutesConfig {
     this.app.route(`/members`)
       .get(membersController.listMembers)
       .post(
-        body("firstName","firstname is a required field").exists(),
+        body("firstName", "firstname is a required field").exists(),
         body("firstName", "firstname cannot be empty").isLength({ min: 1 }),
         body("lastName", "lastname is a required field").exists(),
         body("lastName", "lastname cannot be empty").isLength({ min: 1 }),
@@ -27,6 +27,18 @@ export class MembersRoutes extends CommonRoutesConfig {
         membersMiddleware.validateSameEmailDoesntExist,
         membersController.createMember
       );
+    this.app.route(`/v1/members`)
+      .get(membersController.listMembersV1)
+      .post(
+        body("firstName", "firstname is a required field").exists(),
+        body("firstName", "firstname cannot be empty").isLength({ min: 1 }),
+        body("lastName", "lastname is a required field").exists(),
+        body("lastName", "lastname cannot be empty").isLength({ min: 1 }),
+        bodyValidationMiddleware.verifyBodyFieldsErrors,
+        membersMiddleware.validateSameEmailDoesntExist,
+        membersController.createMember
+      );
+
 
     this.app.param('memberId', membersMiddleware.extractMemberId);
 
@@ -51,6 +63,34 @@ export class MembersRoutes extends CommonRoutesConfig {
       body('lastName', "lastname cannot be empty").isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersController.patch
+    ]);
+
+    /**
+     * request body: {
+     *   status: {
+     *     active?: boolean,
+     *     postMail?: boolean,
+     *     email?: boolean,
+     *     newsletter?: 'email'|'post'|'none',
+     *   }
+     * }
+     * 
+     * response success body: {
+     *  status: {
+     *    active: true/false,
+     *    postMail: true/false,
+     *    email: true/false
+     *    newsletter: 'email'|'post'|'none',
+     *  }
+     * }
+     * response error body: {
+     *  error: string[]
+     */
+    this.app.patch(`/members/:memberId/status`, [
+      body('status', "status cannot be empty").isObject(),
+      bodyValidationMiddleware.verifyBodyFieldsErrors,
+      membersMiddleware.validateMemberExists,
+      membersController.patchStatus
     ]);
 
     return this.app;

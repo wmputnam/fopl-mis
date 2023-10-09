@@ -136,17 +136,17 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
           ||  memberObj.city === ""
           ||  memberObj.state === ""
           ||  memberObj.postalCode === "") {
-          memberObj.status.postMail = false;
+          memberObj.status.validPostMail = false;
         }
         if (!memberObj.email || memberObj.email === "") {
-          memberObj.status.email = false;
+          memberObj.status.validEmail = 'unchecked';
         }
-        if (!memberObj.status.email && !memberObj.status.postMail) {
-          memberObj.status.newsletter = 'none';
-        } else if (!memberObj.status.email && memberObj.status.postMail) {
-          memberObj.status.newsletter = 'post';
+        if (!memberObj.status.validEmail && !memberObj.status.validPostMail) {
+          memberObj.status.newsletterType = 'none';
+        } else if (!memberObj.status.validEmail && memberObj.status.validPostMail) {
+          memberObj.status.newsletterType = 'post';
         } else {
-          memberObj.status.newsletter = 'email';
+          memberObj.status.newsletterType = 'email';
         }
         if (!memberObj.volunteerPreferences) {
           memberObj.volunteerPreferences = Array<Volunteer>();
