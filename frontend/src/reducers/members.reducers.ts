@@ -1,5 +1,12 @@
 import { IMember } from "packages";
 
+interface ParsedPhone {
+  ituCode: string;
+  naAreaCode: string;
+  naPrefix: string;
+  naLine: string;
+  phOther: string;
+};
 class MembersReducers {
   static reduceMemberFullName(m: Partial<IMember>): string {
     let fullname = "";
@@ -15,7 +22,7 @@ class MembersReducers {
     if (m.hasOwnProperty("names") && m?.names && m.names?.length > 0) {
       const fullnames: Array<string> = m?.names?.map(item => item?.firstName + " " + item?.lastName) as Array<string>;
       fullname = fullnames.join(" & ");
-    } else if (m.hasOwnProperty("lastName") || m.hasOwnProperty("firstName")) {
+    } else if (m.hasOwnProperty("firstName") || m.hasOwnProperty("lastName")) {
       fullname = m?.firstName + " " + m?.lastName;
     }
     return fullname;
@@ -102,5 +109,69 @@ class MembersReducers {
     }
   }
 
+  static reducePhoneForMemberList(m: Partial<IMember>): string {
+    let displayPhone = "undefined";
+    if (m?.phone !== undefined) {
+      displayPhone = "";
+      // phone number coding:
+      //   exit code for US +1 or 011
+      //   country code (US is 1)
+      //   NA area code
+      //   NA prefix
+      //   NA line
+      const parsedPhone = MembersReducers.parsePhone(m.phone);
+      console.log(`itu code: ${parsedPhone.ituCode}, ac:${parsedPhone.naAreaCode}, pre:${parsedPhone.naPrefix}, line:${parsedPhone.naLine}, oth:${parsedPhone.phOther}`)
+      if (parsedPhone.ituCode) {
+        switch (parsedPhone.ituCode) {
+          case "NA":
+            displayPhone = `${parsedPhone.naAreaCode}-${parsedPhone.naPrefix}-${parsedPhone.naLine}`;
+            break;
+          case "I":
+            displayPhone = `${parsedPhone.phOther}`;
+            break;
+          default:
+            displayPhone = `${parsedPhone.phOther}`;
+            break;
+        }
+      }
+    }
+    console.log(`returning phone ${displayPhone}`)
+    return displayPhone;
+  }
+
+
+
+  static parsePhone(phone: string): ParsedPhone {
+    let result: ParsedPhone = {
+      ituCode: "unknown",
+      naAreaCode: "",
+      naPrefix: "",
+      naLine: "",
+      phOther: phone
+    };
+    const phoneRegex = /(?<international>011[\d\s+]+)|((?<USCode>\+1){0,1}[\s-]*(?<naAreaCode>\d\d\d)-(?<naPrefix>\d\d\d)-(?<naLine>\d\d\d\d))(?<rest>.*)/;
+    const phRegex = new RegExp(phoneRegex);
+    const matches = phRegex.exec(phone);
+    if (matches !== null) {
+      if (matches.groups && matches.groups.naAreaCode && matches.groups.naPrefix && matches.groups.naLine) {
+        result = {
+          ituCode: "NA",
+          naAreaCode: matches.groups.naAreaCode,
+          naPrefix: matches.groups.naPrefix,
+          naLine: matches.groups.naLine,
+          phOther: matches.groups?.rest
+        }
+      } else if (matches.groups && matches.groups.international) {
+        result = {
+          ituCode: "I",
+          naAreaCode: "",
+          naPrefix: "",
+          naLine: "",
+          phOther: matches.groups.international
+        }
+      }
+    }
+    return result;
+  }
 }
 export default MembersReducers;

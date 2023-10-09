@@ -50,8 +50,8 @@ class MembersDao {
   // })
   memberSchema = new this.Schema<IMember>({
     _id: { type: this.Schema.ObjectId },
-    firstName: { type: String, required: true, alias: "first name" },
-    lastName: { type: String, required: true, alias: "last name" },
+    firstName: { type: String, required: true }, //, alias: "first name" },
+    lastName: { type: String, required: true }, //, alias: "last name" },
     names: { type: [this.namesSchema] },
     email: String,
     phone: String,
@@ -59,13 +59,13 @@ class MembersDao {
     unit: String,
     city: String,
     state: String,
-    postalCode: { type: String, alias: "zipmerge" },
+    postalCode: String, //{ type: String, alias: "zipmerge" },
     volunteerPreferences: { type: [this.volunteeerSchema], alias: "volunteer" },
     mmb: String,                     // TODO make this a calculated value
-    paidThrough: { type: Date, alias: "paid thru" },
+    paidThrough: Date, //{ type: Date, alias: "paid thru" },
     joined: Date,
-    lastUpdated: { type: Date, alias: "updated" },
-    remittances: { type: [this.remittanceSchema], alias: "payment history" },
+    lastUpdated: Date, //{ type: Date, alias: "updated" },
+    remittances: { type: [this.remittanceSchema] }, //, alias: "payment history" },
     notes: { type: [this.notesSchema] },
     isActive: Boolean,
     isNewMember: Boolean,
@@ -107,7 +107,7 @@ class MembersDao {
   async getMembers(limit = 25, page = 0) {
     log(`limit: ${limit}, page: ${page}`)
     const result: IMember[] = await this.Member.find()
-      .sort({ lastname: 1, firstName: 1, _id: 1 })
+      .sort({ lastName: 1, firstName: 1, _id: 1 })
       .limit(limit)
       .skip(limit * page)
       .exec();

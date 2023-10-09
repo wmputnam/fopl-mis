@@ -31,7 +31,7 @@ const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
           recordId={m?._id ? m._id : ""}
           name={MembersReducers.reduceMemberFullName(m)}
           address={MembersReducers.reduceAddressForMemberList(m)}
-          phone={m.phone !== undefined ? m.phone : ""}
+          phone={m.phone !== undefined ? MembersReducers.reducePhoneForMemberList(m) : ""}
           email={m.email !== undefined ? m.email : ""}
           paidThrough={MembersReducers.reducePaidThroughForMemberList(m)}
           mmb={m.mmb ? m.mmb : "VOL"}
