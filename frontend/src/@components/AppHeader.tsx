@@ -1,7 +1,31 @@
 import React from "react";
-import { AppMessages } from "../@interfaces/MemberProps";
+// import { AppMessages } from "../@interfaces/MemberProps";
+import ListSearch from "./ListSearch";
+import { AppState } from "../App";
 
-const AppHeader = ({ messages }: AppMessages) => {
+export interface AppHeaderProps {
+  messages: string[];
+  showListSearch: boolean;
+  updateListFilter: (v?:string) => void;
+  getListFilter: () => string;
+}
+const nop = () => { };
+const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }: AppHeaderProps) => {
+
+  // const updateSearchFilter = (filter: string) => {
+  //   if (filter) {
+  //     setAppState((oldState: any) => ({
+  //       ...oldState,
+  //       listViewFilter: filter
+  //     }));
+  //   } else {
+  //     setAppState((oldState: any) => ({
+  //       ...oldState,
+  //       listViewFilter: ""
+  //     }));
+
+  //   }
+  // }
   let messageElements;
   if (messages) {
     messageElements = messages.map((m, index) => {
@@ -34,6 +58,9 @@ const AppHeader = ({ messages }: AppMessages) => {
         </div>
         <div className="app-header--right" data-testid="app-header--right">
           <div className="app-header--right-container" data-testid="app-header--right-container" />
+          {showListSearch && <ListSearch 
+            getSearchFilter={getListFilter}
+            updateSearchFilter={updateListFilter} />}
         </div>
       </div>
 

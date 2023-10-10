@@ -15,12 +15,18 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('<AppHeader />', () => {
 
   it("mounts", () => {
-    const wrapper = shallow(<AppHeader messages={["is first message", "is second message"]} />);
+    const wrapper = shallow(<AppHeader 
+      messages={["is first message", "is second message"]} 
+      showListSearch={false} 
+      updateListFilter={()=>{}}
+      getListFilter={() => ""}/>);
     // expect(toJson(wrapper)).toMatchSnapshot()
     console.log(`view: ${JSON.stringify(toJson(wrapper))}`)
   });
   it.only("renders", () => {
-    const view = render(<AppHeader messages={["is first message", "is second message"]} />);
+    const view = render(<AppHeader messages={["is first message", "is second message"]} showListSearch={false} 
+      updateListFilter={() => { }}
+      getListFilter={() => ""} />);
     // expect(toJson(view)).toMatchSnapshot()
     console.log(`view: ${JSON.stringify(view)}`)
   });

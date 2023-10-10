@@ -11,7 +11,11 @@ class MemberService implements CRUD {
   }
 
   async listV1(limit: number, page: number, sort: string, filter:Object) {
-    return membersDao.getMembersV1(limit, page, sort, filter);
+    return await membersDao.getMembersV1(limit, page, sort, filter);
+  };
+
+  async countV1(filter: Object) {
+    return await membersDao.getMembersCountV1(filter);
   };
 
   async create(resource: CreateMemberDto) {

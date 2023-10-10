@@ -1,27 +1,54 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-// import members from "../assets/data/member-data.json"
 import MemberListRow from "./MemberListRow";
 import MemberListHeader from "./MemberListHeader"
 import { FrontendProps } from "../@interfaces/MemberProps";
-// import membersActions from "../actions/members.actions";
 import MembersReducers from "../reducers/members.reducers";
 import useAxios from "axios-hooks";
-// import { MemberViewStates } from "../@interfaces/enums";
 import { getServerUrl } from "../services/AppConfig";
 import { IMember } from "packages";
+
+interface MemberListData {
+  data: IMember[]
+}
+
+const getMemberDataParams = (pageNumber: number, pageFilter: string) => {
+  let result = {};
+  if (pageNumber > 0) {
+    result = { ...result, skip: pageNumber }
+  }
+  if (pageFilter && pageFilter !== "") {
+    result = { ...result, filter: `lastName:${pageFilter.toUpperCase()}` }
+  }
+
+return result;
+}
+
 
 
 const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
 
-  const [{ data, error, loading }] = useAxios<IMember[]>(
-    { baseURL: getServerUrl(), url: "/members" }, { manual: false, useCache: false }
+  const [pageNumber, setPageNumber] = React.useState<number>(0);
+  // const [pageFilter,setPageFilter] = React.useState<string>("");
+  const memberDataUrl = `/v1/members`;
+  const memberDataParams = getMemberDataParams(pageNumber, getAppState().listViewFilter);
+
+  const [{ data, error, loading }] = useAxios<MemberListData>(
+    { baseURL: getServerUrl(), url: memberDataUrl, params: memberDataParams }, { manual: false, useCache: false }
 
   );
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error! {error.message}</p>
 
-  const members = data;
+  const gotoPage = (pageNumber: number) => {
+    setPageNumber(pageNumber);
+  }
+
+  // const updateFilter = (lastName:string) =>{
+  //   setPageFilter(lastName);
+  // }
+
+  const members = data?.data;
   if (members) {
     let memberElements;
     memberElements = members.map((m) => {

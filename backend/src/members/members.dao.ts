@@ -12,7 +12,7 @@ import mongooseService from "../common/services/mongoose.service";
 
 import shortid from "shortid";
 import debug from "debug";
-import { Mongoose, SortOrder } from "mongoose";
+import mongoose, { Mongoose, Schema, SortOrder } from "mongoose";
 
 const log: debug.IDebugger = debug(`app:members-dao`);
 
@@ -115,8 +115,8 @@ class MembersDao {
   }
 
   async getMembersV1(limit = 25, page = 0,
-    sort: string = "lastname firstName _id",
-    filter: Object  // TODO make this into a MongoDB/mongoose query
+    sort: string,
+    filter: mongoose.FilterQuery<IMember> = {}
   ) {
     log(`getMembersV1 - limit: ${limit}, page: ${page}, sort: ${sort}`)
     //   return this.members;
@@ -127,6 +127,18 @@ class MembersDao {
       .skip(limit * page)
       .exec();
     log(`get returns ${result.length}`);
+    return result;
+  }
+
+  async getMembersCountV1(
+    filter: mongoose.FilterQuery<IMember> = {}
+  ) {
+    log(`getMembersCountV1 - `)
+    //   return this.members;
+
+    const result: number = await this.Member.find(filter)
+      .count();
+    log(`count returns ${result}`);
     return result;
   }
 

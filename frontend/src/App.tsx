@@ -14,8 +14,6 @@ import { MemberViewStates } from './@interfaces/enums';
 import AppHeader from './@components/AppHeader';
 import MemberFormNotes from './@components/MemberFormNotes';
 import MemberFormMoney from './@components/MemberFormMoney';
-// import { IMember } from 'packages/member-shared';
-// import { FormError } from "./@components/MemberFormBase"
 import { MemberService } from './services/MemberService';
 import { ModalFM } from './@components/ModalFM';
 
@@ -24,8 +22,9 @@ export interface AppState {
   viewState: MemberViewStates;
   fromViewState: MemberViewStates[];
   modalIsOpen: boolean;
-  modalMessage:string;
+  modalMessage: string;
   modalAction: () => any;
+  listViewFilter?: string;
 }
 
 export interface RenderCallBackI {
@@ -48,7 +47,7 @@ export const isEmptyObject = (obj: Object) => {
   return true;
 }
 
-function noOp () { };
+function noOp() { };
 
 export const getInitialViewState = (): AppState => (
   {
@@ -57,7 +56,7 @@ export const getInitialViewState = (): AppState => (
     fromViewState: [],
     modalIsOpen: false,
     modalMessage: "",
-    modalAction: () => {},
+    modalAction: () => { },
   });
 
 export const getTestViewState = (): AppState => (
@@ -85,7 +84,20 @@ export default function App({ testMode }: AppProps): JSX.Element {
   }
   const [appState, setAppState] = React.useState<AppState>(initialAppState);
   const getAppState = () => appState;
-
+  const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
+  const updateListFilter = (filter?: string) => {
+    if (filter) {
+      setAppState((oldState: any) => ({
+        ...oldState,
+        listViewFilter: filter
+      }));
+    } else {
+      setAppState((oldState: any) => ({
+        ...oldState,
+        listViewFilter: ""
+      }));
+    }
+  }
   const componentDidMount = () => {
     console.log("mounted")
   }
@@ -174,10 +186,14 @@ export default function App({ testMode }: AppProps): JSX.Element {
   return (
     <div className="App" data-testid="App">
       <header>
-        <AppHeader messages={appMessages} />
+        <AppHeader
+          messages={appMessages}
+          showListSearch={appState.viewState === MemberViewStates.list}
+          updateListFilter={updateListFilter}
+          getListFilter={getListFilter} />
       </header>
       <main>
-        <ModalFM 
+        <ModalFM
           setAppState={setAppState}
           getAppState={getAppState}
           actionMessage=''

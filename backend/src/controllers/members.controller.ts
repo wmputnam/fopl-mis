@@ -19,13 +19,15 @@ class MembersController {
       ? (Number(req.query.page) - 1) : 0;
     const filter: Object = req.query.filter
       ? MembersController.createFilterObject(req.query.filter as string)
-      : {};
+      : { isActive: true };
     // req.query.filter ? JSON.parse(req.query.filter as string) : "";
-    const sort: string = MembersController.createSortObject(req.query.sort as string);
+    const sort: string = req.query.sort !== undefined && req.query.sort !== ""
+      ? MembersController.createSortObject(req.query.sort as string) : "lastName firstName";
     log(`listMembersV1 - limit: ${limit}, page: ${page}, filter:${JSON.stringify(filter)}, sort:${JSON.stringify(sort)}`)
 
+    const count = await membersService.countV1(filter);
     const members = await membersService.listV1(limit, page, sort, filter);
-    res.status(200).send({ data: members });
+    res.status(200).send({ data: members, page: page, limit: limit, count: count });
   }
 
   async getMemberById(req: express.Request, res: express.Response) {
@@ -93,21 +95,25 @@ class MembersController {
   }
   static createFilterObject = (filterQueryParam: string) => {
     const termMap: Map<string, Object> = new Map<string, Object>();
-    log(`createFilterObject: filterQueryParam: ${filterQueryParam}`)
+    log(`createFilterObject: filterQueryParam: ${filterQueryParam}`);
     if (filterQueryParam && typeof filterQueryParam === 'string') {
       const items = filterQueryParam.split(",");
       log(`createFilterObject: items: ${items}`)
       let pattern;
       for (let i = 0; i < items.length; i++) {
-        const spec = items[i].split(":")
-        if (spec[1].charAt(0) === '/') {
-          const regexStr: string = spec[1].replaceAll(/\//g, '');
-          pattern = { $regex: regexStr }
+        if (items[i].indexOf(':') >= 0) {
+          const spec = items[i].split(":")
+          if (spec[1].charAt(0) === '/') {
+            const regexStr: string = spec[1].replaceAll(/\//g, '');
+            pattern = { $regex: regexStr }
+          } else {
+            pattern = spec[1]
+          }
+          log(`createFilterObject: i ${i} spec: ${spec[0]},${spec[1]}`)
+          termMap.set(spec[0], pattern)
         } else {
-          pattern = spec[1]
+          log(`ingoring badly formed filter term ${items[i]}`)
         }
-        log(`createFilterObject: i ${i} spec: ${spec[0]},${spec[1]}`)
-        termMap.set(spec[0], pattern)
       }
     }
     let filterObj = Object.fromEntries(termMap)
