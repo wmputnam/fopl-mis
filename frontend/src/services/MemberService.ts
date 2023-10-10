@@ -569,6 +569,10 @@ export class MemberService {
     await MemberService.updateMemberValidEmailInDatabase(memberId, 'verified');
   }
 
+  static setNewMemberOrientedAction = async (memberId: string) => {
+    await MemberService.updateIsNewMemberInDatabase(memberId, true);
+  }
+
   static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {  
     const payload = { isActive: newIsActive};
     await SaveUpdate(getServerUrl(), payload, memberId)
@@ -578,9 +582,14 @@ export class MemberService {
     const payload = { validPostMail: newValidPostMailStatus };
     await SaveUpdate(getServerUrl(), payload, memberId)
   }
+
   static updateMemberValidEmailInDatabase = async (memberId: string, newValidEmailStatus: ('verified' | 'bounced' | 'unchecked' | 'none') = 'bounced') => {
     const payload = { validEmail: newValidEmailStatus };
     await SaveUpdate(getServerUrl(), payload, memberId)
   }
 
+  static updateIsNewMemberInDatabase = async (memberId: string, newIsNewMember: boolean = false) => {
+    const payload = { isNewMember: newIsNewMember };
+    await SaveUpdate(getServerUrl(), payload, memberId)
+  }
 }

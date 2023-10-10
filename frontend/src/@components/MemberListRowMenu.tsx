@@ -124,6 +124,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       modalIsOpen: true,
     }));
   }
+
   const setVerifiedEmailStatus = async () => {
     const memberId = recordId;
     await MemberService.setVerifiedEmailMemberAction(memberId)
@@ -135,10 +136,15 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
     setAppState((oldState: AppState) => ({
       ...oldState,
       memberId: recordId,
-      modalAction: () => { },
+      modalAction: setNewMemberOrientedStatus,
       modalMessage: `Has ${name} completed orientation?`,
       modalIsOpen: true,
     }));
+  }
+
+  const setNewMemberOrientedStatus = async () => {
+    const memberId = recordId;
+    await MemberService.updateIsNewMemberInDatabase(memberId)
   }
 
   return (
