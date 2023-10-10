@@ -76,9 +76,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
   }
 
   const deactivateMember = async () => {
-    const memberId = recordId;// await getAppState().memberId;
-    // const goober = recordId;
-    // console.log(`memberId: ${memberId} or goober: ${goober}`)
+    const memberId = recordId;
     await MemberService.deactivateMemberAction(memberId)
   }
 
@@ -88,10 +86,15 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
     setAppState((oldState: AppState) => ({
       ...oldState,
       memberId: recordId,
-      modalAction: () => { },
+      modalAction: setReturnedMailStatus,
       modalMessage: `Returned mail without forwarding address for ${name}?`,
       modalIsOpen: true,
     }));
+  }
+
+  const setReturnedMailStatus = async () => {
+    const memberId = recordId;
+    await MemberService.setReturnedMailMemberAction(memberId)
   }
 
   const handleReturnedEmailClick = (): any => {

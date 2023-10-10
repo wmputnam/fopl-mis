@@ -554,13 +554,20 @@ export class MemberService {
   }
 
   static deactivateMemberAction = async (memberId:string) => {
-    // const memberId = MemberService.retrieveMemberId();
     await MemberService.updateMemberIsActiveInDatabase(memberId,false);
   }
 
-  static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {
-    
+  static setReturnedMailMemberAction = async (memberId:string) => {
+    await MemberService.updateMemberValidPostMailInDatabase(memberId,false);
+  }
+
+  static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {  
     const payload = { isActive: newIsActive};
+    await SaveUpdate(getServerUrl(), payload, memberId)
+  }
+
+  static updateMemberValidPostMailInDatabase = async (memberId: string, newValidPostMailStatus: boolean = false) => {
+    const payload = { validPostMail: newValidPostMailStatus };
     await SaveUpdate(getServerUrl(), payload, memberId)
   }
 
