@@ -27,8 +27,8 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
       ? true
       : false;
     const memberEmail = (memberObj.status && memberObj.status.validEmail)
-      ? true
-      : false;
+      ? memberObj.status.validEmail
+      : 'none';
     const memberNews = (memberObj.status && memberObj.status.newsletterType)
       ? memberObj.status.newsletterType
       : 'None';
@@ -39,20 +39,20 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
           <Profiler id="MemberMmb" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
             <div className="member-form--mmb-group"
               data-testid="member-form--mmb-group">
-              { memberActive === 'Active' &&
-              <div className="member--mmb-wrapper"
-                data-testid="member--mmb-wrapper">
-                <label htmlFor="mmb">MMB </label>
-                <input
-                  type="text"
-                  maxLength={10}
-                  readOnly={true}
-                  id="mmb"
-                  className="member--mmb--input readonly-input width-mmb"
-                  data-testid="member--mmb--input"
-                  value={memberObj.mmb} />
-              </div> }
-              { memberActive === 'Active' && !MemberService.isLifeMember(memberObj) &&
+              {memberActive === 'Active' &&
+                <div className="member--mmb-wrapper"
+                  data-testid="member--mmb-wrapper">
+                  <label htmlFor="mmb">MMB </label>
+                  <input
+                    type="text"
+                    maxLength={10}
+                    readOnly={true}
+                    id="mmb"
+                    className="member--mmb--input readonly-input width-mmb"
+                    data-testid="member--mmb--input"
+                    value={memberObj.mmb} />
+                </div>}
+              {memberActive === 'Active' && !MemberService.isLifeMember(memberObj) &&
                 <div className="member--paid-through-wrapper"
                   data-testid="member--paid-through-wrapper">
                   <label htmlFor="paidThrough" >Paid through </label>
@@ -65,17 +65,17 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                 </div>
               }
               {memberActive === 'Active' &&
-              <div className="member--joined-wrapper"
-                data-testid="member--joined-wrapper">
-                <label htmlFor="joined">Joined </label>
-                <input
-                  type="text"
-                  readOnly={true}
-                  id="joined"
-                  className="member--joined--input width-date readonly-input"
-                  data-testid="member--joined--input"
-                  value={stringForMmbDate(memberObj.joined)} />
-              </div>}
+                <div className="member--joined-wrapper"
+                  data-testid="member--joined-wrapper">
+                  <label htmlFor="joined">Joined </label>
+                  <input
+                    type="text"
+                    readOnly={true}
+                    id="joined"
+                    className="member--joined--input width-date readonly-input"
+                    data-testid="member--joined--input"
+                    value={stringForMmbDate(memberObj.joined)} />
+                </div>}
               <div className="member--last-updated-wrapper"
                 data-testid="member--last-updated-wrapper">
                 <label htmlFor="last-updated">Last updated </label>
@@ -115,11 +115,11 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                   data-testid="member--email-status-wrapper">
                   <label htmlFor="email-status">Email status </label>
                   <input
-                    type="checkbox"
+                    type="text"
                     readOnly={true}
                     id="email-status"
                     className="member--email-status--input width-date readonly-input" data-testid="member--email-status--input"
-                    checked={memberEmail} />
+                    value={memberEmail} />
                 </div>}
               {memberActive === 'Active' &&
                 <div className="member--newsletter-status-wrapper"

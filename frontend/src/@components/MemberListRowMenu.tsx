@@ -103,10 +103,30 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
     setAppState((oldState: AppState) => ({
       ...oldState,
       memberId: recordId,
-      modalAction: () => { },
+      modalAction: setBouncedEmailStatus,
       modalMessage: `Bounced email for ${name}?`,
       modalIsOpen: true,
     }));
+  }
+  const setBouncedEmailStatus = async () => {
+    const memberId = recordId;
+    await MemberService.setBouncedEmailMemberAction(memberId)
+  }
+
+  const handleVerifiedEmailClick = (): any => {
+    console.log(`bounced email member ${debugName}`);
+    MemberService.saveMemberId(recordId);
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      memberId: recordId,
+      modalAction: setVerifiedEmailStatus,
+      modalMessage: `Verify email for ${name}?`,
+      modalIsOpen: true,
+    }));
+  }
+  const setVerifiedEmailStatus = async () => {
+    const memberId = recordId;
+    await MemberService.setVerifiedEmailMemberAction(memberId)
   }
 
   const handleNewMemberOrientedClick = (): any => {
@@ -138,6 +158,8 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
           Returned mail</div>}
         {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-bounce" data-testid="member-row--email-bounce" onClick={() => handleReturnedEmailClick()}>
           Bounced email</div>}
+        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-verify" data-testid="member-row--email-verify" onClick={() => handleVerifiedEmailClick()}>
+          Verify email</div>}
         {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-new-mbr" data-testid="member-row--new-mbr" onClick={() => handleNewMemberOrientedClick()}>
           Orientation completed</div>}
       </div>

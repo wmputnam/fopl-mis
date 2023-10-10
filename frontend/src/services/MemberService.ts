@@ -487,7 +487,7 @@ export class MemberService {
     return memberObj;
   }
 
-  static setMemberEmailStatus = (memberObj: Member, newStatus: 'verified' | ' bounced' | 'unchecked' | 'none' = 'unchecked') => {
+  static setMemberEmailStatus = (memberObj: Member, newStatus: 'verified' | 'bounced' | 'unchecked' | 'none' = 'unchecked') => {
     if (memberObj) {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
@@ -561,6 +561,14 @@ export class MemberService {
     await MemberService.updateMemberValidPostMailInDatabase(memberId,false);
   }
 
+  static setBouncedEmailMemberAction = async (memberId: string) => {
+    await MemberService.updateMemberValidEmailInDatabase(memberId, 'bounced');
+  }
+
+  static setVerifiedEmailMemberAction = async (memberId: string) => {
+    await MemberService.updateMemberValidEmailInDatabase(memberId, 'verified');
+  }
+
   static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {  
     const payload = { isActive: newIsActive};
     await SaveUpdate(getServerUrl(), payload, memberId)
@@ -568,6 +576,10 @@ export class MemberService {
 
   static updateMemberValidPostMailInDatabase = async (memberId: string, newValidPostMailStatus: boolean = false) => {
     const payload = { validPostMail: newValidPostMailStatus };
+    await SaveUpdate(getServerUrl(), payload, memberId)
+  }
+  static updateMemberValidEmailInDatabase = async (memberId: string, newValidEmailStatus: ('verified' | 'bounced' | 'unchecked' | 'none') = 'bounced') => {
+    const payload = { validEmail: newValidEmailStatus };
     await SaveUpdate(getServerUrl(), payload, memberId)
   }
 

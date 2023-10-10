@@ -9,7 +9,7 @@ export class Status implements IStatus {
   */
   isActive: boolean;   // false => OUT  (see notes)
   validPostMail: boolean; // false => do not mail -- may be due to RM or member request or lack of address  (see notes)
-  validEmail: 'verified' | ' bounced' | 'unchecked' | 'none';    // false => do not email -- may be due to not being verified or returned email or member request (see notes)
+  validEmail: 'verified' | 'bounced' | 'unchecked' | 'none';    // false => do not email -- may be due to not being verified or returned email or member request (see notes)
   newsletterType: 'email' | 'post' | 'none';
   isNewMember: boolean;
   constructor() {
