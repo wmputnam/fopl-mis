@@ -59,8 +59,8 @@ export class MembersRoutes extends CommonRoutesConfig {
     ]);
 
     this.app.patch(`/members/:memberId`, [
-      body('firstName', "firstname cannot be empty").isString().isLength({ min: 1 }),
-      body('lastName', "lastname cannot be empty").isString().isLength({ min: 1 }),
+      // body('firstName', "firstname cannot be empty").isString().isLength({ min: 1 }),
+      // body('lastName', "lastname cannot be empty").isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersController.patch
     ]);

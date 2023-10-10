@@ -2,7 +2,7 @@ import React from "react"
 import useAxios from "axios-hooks";
 
 import CancelBtn from "./CancelBtn";
-import Save from "./DataUpdater";
+import { Save } from "./DataUpdater";
 import SaveBtn from "./SaveBtn";
 
 import { AppState, isEmptyObject, onRenderCallback } from "../App";

@@ -34,14 +34,16 @@ export const ModalFM = ({
   function closeModal() {
     setAppState((oldState: AppState) => ({
       ...oldState,
-      modalMessage:"",
-      modalAction: () => {},
+      modalMessage: "",
+      modalAction: () => { },
       modalIsOpen: false,
     }));
     ;
   }
-  function doAction() {
-    getAppState().modalAction()
+  async function doAction() {
+    const memberId = getAppState().memberId;
+    console.log(`drop ${memberId}? `)
+    await Promise.resolve(getAppState().modalAction())
     setAppState((oldState: AppState) => ({
       ...oldState,
       modalMessage: "",
@@ -58,6 +60,7 @@ export const ModalFM = ({
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="FM Modal"
+        data={{ "member-id": getAppState().memberId }}
       >
         <div>{getAppState().modalMessage}</div>
         <button onClick={doAction}>Yes</button>

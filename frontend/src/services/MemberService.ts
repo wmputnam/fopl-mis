@@ -8,6 +8,9 @@ import { Names } from "packages/Names";
 import { Notes } from "packages/Notes";
 import { MemberViewStates } from "../@interfaces/enums";
 import { Status } from "../services/Status";
+import { SaveUpdate } from "../@components/DataUpdater";
+import { getServerUrl } from "./AppConfig";
+
 
 const isPropDefined = (imember: IMember, prop: string & keyof IMember) => imember?.[prop] !== undefined;
 
@@ -534,7 +537,7 @@ export class MemberService {
     return memberObj;
   }
 
-  static setMemberStatusToInactive = (memberObj: Member) => {
+  static changeMemberStatusToInactive = (memberObj: Member) => {
     if (memberObj) {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
@@ -548,6 +551,17 @@ export class MemberService {
       }
     }
     return memberObj;
+  }
+
+  static deactivateMemberAction = async (memberId:string) => {
+    // const memberId = MemberService.retrieveMemberId();
+    await MemberService.updateMemberIsActiveInDatabase(memberId,false);
+  }
+
+  static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {
+    
+    const payload = { isActive: newIsActive};
+    await SaveUpdate(getServerUrl(), payload, memberId)
   }
 
 }

@@ -5,7 +5,7 @@ import app from "../../../backend/src/app.js";
 import { getServerUrl } from "../services/AppConfig.js";
 import supertest from "supertest";
 import { fileURLToPath } from "url";
-import Save from "./DataUpdater.js";
+import { Save } from "./DataUpdater.js";
 import { IMember } from "../../../packages/member-shared";
 
 const __filename = fileURLToPath(import.meta.url)

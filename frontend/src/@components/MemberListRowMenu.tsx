@@ -5,7 +5,7 @@ import { MemberService } from "../services/MemberService";
 export type MemberListRowMenuProps = {
   recordId: string;
   mmb: string;
-  name:string;
+  name: string;
   getAppState: () => any;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
@@ -17,7 +17,7 @@ const getNewFromState = (getAppState: () => any) => {
 }
 
 const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
-  
+
   const debugName = `${name}:${recordId}`;
 
   const handleEditClick = (): any => {
@@ -69,10 +69,17 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
     setAppState((oldState: AppState) => ({
       ...oldState,
       memberId: recordId,
-      modalAction: () => {},
+      modalAction: deactivateMember,
       modalMessage: `Drop this ${name}?`,
-      modalIsOpen:true,
+      modalIsOpen: true,
     }));
+  }
+
+  const deactivateMember = async () => {
+    const memberId = recordId;// await getAppState().memberId;
+    // const goober = recordId;
+    // console.log(`memberId: ${memberId} or goober: ${goober}`)
+    await MemberService.deactivateMemberAction(memberId)
   }
 
   const handleReturnedMailClick = (): any => {
