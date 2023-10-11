@@ -7,7 +7,7 @@ export enum MemberViewStates {
   newFromExisting = "new-from-existing",
   notes = "notes",
   money = "money",
-  drop = "drop ",
+  drop = "drop",
   refresh = "refresh",
   test = "test"
 };

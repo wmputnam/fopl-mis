@@ -16,6 +16,8 @@ import MemberFormNotes from './@components/MemberFormNotes';
 import MemberFormMoney from './@components/MemberFormMoney';
 import { MemberService } from './services/MemberService';
 import { ModalFM } from './@components/ModalFM';
+import { PostMailStatusDropdown } from './@components/PostMailStatusDropdown';
+import { EmailStatusDropdown } from './@components/EmailStatusDropdown';
 
 export interface AppState {
   memberId: string;
@@ -166,7 +168,10 @@ export default function App({ testMode }: AppProps): JSX.Element {
     default:
       console.log("in the lost entry -- expected in test mode")
       component = <>
-        <h1 id="lost"> opps we are now lost</h1>
+        <h1 id="lost">Are we lost?<br />Welcome to the playground</h1 >
+        <PostMailStatusDropdown />
+        <br />
+        <EmailStatusDropdown />
         <CancelBtn
           setAppState={setAppState}
           getAppState={getAppState}
@@ -181,6 +186,14 @@ export default function App({ testMode }: AppProps): JSX.Element {
       modalIsOpen: true
     }));
   };
+
+  const openPlayground = () => {
+    setAppState((oldState: AppState) => ({
+      ...oldState,
+      viewState: MemberViewStates.refresh
+    }));
+
+  }
 
 
   return (
@@ -201,7 +214,11 @@ export default function App({ testMode }: AppProps): JSX.Element {
         />
         {component}
       </main>
-      <footer></footer>
+      <footer>
+        <button
+          onClick={openPlayground}>
+          Playground</button>
+      </footer>
     </div>
   );
 }
