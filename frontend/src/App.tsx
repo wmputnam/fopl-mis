@@ -18,6 +18,7 @@ import { MemberService } from './services/MemberService';
 import { ModalFM } from './@components/ModalFM';
 import { PostMailStatusDropdown } from './@components/PostMailStatusDropdown';
 import { EmailStatusDropdown } from './@components/EmailStatusDropdown';
+import { VolunteerRoleMultiselect } from './@components/VolunteerRoleMultiselect';
 
 export interface AppState {
   memberId: string;
@@ -172,6 +173,9 @@ export default function App({ testMode }: AppProps): JSX.Element {
         <PostMailStatusDropdown />
         <br />
         <EmailStatusDropdown />
+        <br />
+        <VolunteerRoleMultiselect />
+        <br />
         <CancelBtn
           setAppState={setAppState}
           getAppState={getAppState}
