@@ -1,41 +1,32 @@
 import React from "react";
-import { DropDown } from "./DropDown";
-import { DropDownElement } from "./DropDownItem";
+import Select, { SingleValue, ActionMeta } from "react-select";
+
+interface SelectOption {
+  label: string;
+  value: boolean;
+}
+const options: SelectOption[] = [
+  { label: "Valid", value: true },
+  { label: "Returned mail", value: false }
+]
 
 export function PostMailStatusDropdown(props: any) {
 
-  const [value, setValue] = React.useState<any>({ label: "Click me", value: null })
+  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(null as unknown as SelectOption);
   console.log(`props keys: ${Object.keys(props)}`)
 
-  const handleItemClick = (value: any) => {
-    console.log(`: ${value}`);
-    setValue(value);
-    console.log(`type of props.parentHandleClick: ${typeof props.parentHandleClick} `);
+  const onChange = (
+    option: SingleValue<SelectOption> | null,
+    actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {
+    setSelectedOption(option as SelectOption);
   }
 
-  const choices = [{ label: "Valid", value: "valid" }, { label: "Returned mail", value: "returned-mail" }]
-
-  const choiceElements = (c: any) => {
-    if (c) {
-      return c.map((choice: any) => {
-        return <DropDownElement
-          className="post-mail-status--item fm-dd--item"
-          name={choice.value}
-          content={choice.label}
-          handleClick={() => { handleItemClick(choice); }} />
-      });
-    }
-  }
   return (
-    <DropDown
-      ddLabel="PostMail status"
-      className="post-mail-status-dd fm-dd"
-      id="post-mail-status"
-      label={value.label}
-      currentValueLabel={value.label}
-      closeAfterSelect={true}
-    >
-      {choiceElements(choices)}
-    </DropDown>
+    <Select
+      className="post-mail-status-dd"
+      defaultValue={selectedOption}
+      onChange={onChange}
+      options={options}
+    />
   )
 }
