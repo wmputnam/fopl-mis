@@ -41,13 +41,6 @@ class MembersDao {
     lastName: String,
   }, { _id: false });
 
-  // statusSchema = new this.Schema<IStatus>({
-  //   isActive: Boolean,
-  //   isNewMember:Boolean,
-  //   validPostMail: Boolean,
-  //   validEmail: String,  // 'verified' | ' bounced' | 'unchecked' | 'none'
-  //   newsletterType: String, // newsletter: 'email' | 'post' | 'none';
-  // })
   memberSchema = new this.Schema<IMember>({
     _id: { type: this.Schema.ObjectId },
     firstName: { type: String, required: true }, //, alias: "first name" },
@@ -87,10 +80,12 @@ class MembersDao {
   }
 
   async addMember(memberFields: CreateMemberDto) {
+    const updateDate = new Date();
     const memberId = shortid.generate();
     log(JSON.stringify(memberFields));
     const member = new this.Member({
-      ...memberFields
+      ...memberFields,
+      lastUpdated: updateDate
     });
     member._id = memberId;
     try {
@@ -154,10 +149,11 @@ class MembersDao {
     memberId: string,
     memberFields: PatchMemberDto | PutMemberDto
   ) {
+    const updateDate = new Date();
     log(`updateUserById \n    ${JSON.stringify(memberFields)}`)
     const existingMember = await this.Member.findOneAndUpdate(
       { _id: memberId },
-      memberFields,
+      { ...memberFields, lastUpdated: updateDate },
       // { $set: memberFields },
       { new: true }
     )

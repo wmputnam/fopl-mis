@@ -69,9 +69,8 @@ const getFormProblems = (_memberObj: Member | undefined): Array<FormError> | nul
 
 export const oldMemberStateToNew = (oldObj: Member, chgObj: Partial<Member>) => {
   const newMemberObj = Member.create();
-  const lupdt = new Date().valueOf();
 
-  const someObj = { ...oldObj, ...chgObj, _lastUpdated: new Date(lupdt) }
+  const someObj = { ...oldObj, ...chgObj }
   for (const k in someObj) {
     if (Object.hasOwn(newMemberObj, k)) {
       newMemberObj[k as keyof Member] = someObj[k as keyof Member];
