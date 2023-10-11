@@ -1,34 +1,67 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from "react"
+import useAxios from "axios-hooks";
+import { AppState, onRenderCallback } from "../App";
+import CancelBtn from "./CancelBtn";
+import { getServerUrl } from "../services/AppConfig";
+import { IMember } from "packages";
 import { Remittance } from "packages/Remittance";
 import RemittancesListRow from "./MoneyListRow";
-import CancelBtn from "./CancelBtn";
 import RemittancesListHeader from "./MoneyListHeader";
-// import { MemberService } from "../services/MemberService";
-import { getServerUrl } from "../services/AppConfig";
-import { AppState, onRenderCallback } from "../App";
-import useAxios from "axios-hooks";
-import { IMember } from "packages";
-import { MemberViewStates } from "../@interfaces/enums";
 
 export interface MemberFormRemitsProps {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
 }
+
+const computedType = (obj: Object): string => ({}).toString.call(obj).toLowerCase();
+
+const DATE_OBJECT = '[object date]';
+
+const STRING_OBJECT = '[object string]';
+
+const compareRemits = (a: Remittance, b: Remittance): number => {
+  let result = 0;
+  if (a && b) {
+    let aDateValue = undefined;
+    let bDateValue = undefined;
+    // first level sort is date DESC
+    if (a.date) {
+      const aDateComputedType = computedType(a.date);
+      if (aDateComputedType === DATE_OBJECT) {
+        aDateValue = a.date.valueOf();
+      } else if (aDateComputedType === STRING_OBJECT) {
+        aDateValue = (new Date(a.date)).valueOf();
+      }
+    }
+    if (b.date) {
+      const bDateComputedType = computedType(b.date);
+      if (bDateComputedType === DATE_OBJECT) {
+        bDateValue = b.date.valueOf();
+      } else if (bDateComputedType === STRING_OBJECT) {
+        bDateValue = (new Date(b.date)).valueOf();
+      }
+    }
+    if (aDateValue && bDateValue) {
+      // careful here == wanted is Date DESC
+      result = aDateValue < bDateValue ? 1 : (aDateValue > bDateValue ? -1 : 0);
+    }
+  }
+  return result;
+  // TODO then memo ===> dues, then, donation, then other memos alpha ASC TODO
+}
+
 const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) => {
   const memberId = getAppState().memberId;
 
-  // function isEmptyObject(obj: Object) {
-  //   for (let i in obj) return false;
-  //   return true;
-  // }
-  // const dataInitial: any = React.useRef({});
   const LoadFromDb = (memberId: string): Array<any> => {
     return useAxios<IMember>(
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
     );
   }
+
   let someData: Array<any> | undefined;
+
   if (memberId) {
     someData = LoadFromDb(memberId);
   } else {
@@ -38,31 +71,13 @@ const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) =>
   const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
   console.log(`fe-formbase\n    ${JSON.stringify(memberData)}`)
 
-  // React.useEffect(() => {
-  //   // memberData && console.log(`fe-member-form: memberData ${JSON.stringify(memberData)}`)
-  //   if (memberId && isEmptyObject(dataInitial.current)) {
-  //     loadData(getServerUrl(), memberId, "")
-  //       .then((loadRes: any) => {
-  //         if ([200, 201].includes(loadRes.status)) {
-  //           console.log("successful load")
-  //           dataInitial.current = loadRes.body;
-  //           setMemberData(dataInitial.current)
-  //         }
-  //       })
-  //       .catch((fault) => {
-  //         return { status: 500, error: `fault occured: ${JSON.stringify(fault)}` };
-  //       });
-  //   }
-  // }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   , []);
-  // const [memberData, setMemberData] = React.useState(dataInitial.current);
-  //= someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
   const remitArr: Remittance[] | undefined = memberData && memberData.remittances ? memberData.remittances : undefined;
 
   let remittancesElements;
+
   if (remitArr) {
-    remittancesElements = remitArr.map((m, indx) => {
+    const sortedRemitArr = remitArr.sort(compareRemits);
+    remittancesElements = sortedRemitArr.map((m, indx) => {
       return (
         <>
           <RemittancesListRow
@@ -81,7 +96,6 @@ const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) =>
           getAppState={getAppState}
           setAppState={setAppState}
         />
-        {/* {!!data && <MemberListHeader />} */}
         <Profiler id="memberRemit" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <h3>Remittances for {memberData.firstName + " " + memberData.lastName}</h3>
           {!!remitArr && <RemittancesListHeader />}
