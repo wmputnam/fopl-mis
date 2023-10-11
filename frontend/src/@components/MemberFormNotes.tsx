@@ -14,7 +14,7 @@ export interface MemberFormNotesProps {
   getAppState: () => any;
 }
 
-const MemberFormNotes = ({getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
+const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
 
   const memberId = getAppState().memberId;
   const LoadFromDb = (memberId: string): Array<any> => {
@@ -40,7 +40,7 @@ const MemberFormNotes = ({getAppState, setAppState }: MemberFormNotesProps): JSX
       return (
         <>
           <NotesListRow
-            key={m?.date.toString()}
+            key={m?.date !== undefined ? m?.date.toString() : 66}
             date={m?.date !== undefined ? new Date(m.date) : new Date()}
             note={m.note}
           />
