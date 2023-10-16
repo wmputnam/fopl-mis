@@ -20,10 +20,10 @@ function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
 
     return (
         <button
-            className="member--remit-btn"
+            className="member--remit-btn basic-button"
             id="member--remit-btn"
             onClick={updViewState}
-        >member $$$</button>
+        >Remittances</button>
     )
 }
 

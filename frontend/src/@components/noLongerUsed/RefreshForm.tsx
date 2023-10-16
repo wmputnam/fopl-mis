@@ -1,5 +1,5 @@
 import React from "react";
-import { FrontendProps } from "../@interfaces/MemberProps";
+import { FrontendProps } from "../../@interfaces/MemberProps";
 
 // export interface MemberToolProps {
 //     setViewState:(a:string) => void;

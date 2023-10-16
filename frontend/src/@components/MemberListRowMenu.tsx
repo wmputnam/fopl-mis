@@ -149,7 +149,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
 
   return (
     <div className="member-row--menu" data-testid="member-row--menu">
-      <button className="dropbtn" data-testid="dropbtn">⋮</button>
+      <button className="dropbtn list-row-button" data-testid="dropbtn">⋮</button>
       <div className="dropdown-content" data-testid="dropdown-content">
         <div className="member-row--menu-edit" data-testid="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit member</div>
         <div className="member-row--menu-renewal" data-testid="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>

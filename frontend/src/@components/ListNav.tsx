@@ -23,11 +23,13 @@ const ListNav = ({ pageNumber, pageSize, totalSize, gotoPage }: ListNavProps) =>
         aria-label={`page ${pageNumber} of ${lastPage} showing ${pageSize} of ${totalSize} total rows`}>
         {pageNumber > 0 &&
           <button
+            className="list-nav--next-btn basic-button"
             id="next"
             onClick={handleNext}>Next page</button>}
         {pageNumber < lastPage &&
           <button
-            id="next"
+            className="list-nav--prior-btn basic-button"
+            id="prior"
             onClick={handlePrior}>Prior page</button>}
 
       </nav>

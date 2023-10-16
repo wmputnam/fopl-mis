@@ -16,7 +16,7 @@ const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
 
   return (
     <>
-      <h1>{pageTitle} member: {memberId}</h1>
+      <h1 className="member-form--page-title">{pageTitle} member: {memberId}</h1>
       <nav className="member-form--nav" data-testid="member-form--nav">
         <ul>
           <li><MemberFormNav2Money

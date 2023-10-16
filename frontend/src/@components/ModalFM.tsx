@@ -53,8 +53,11 @@ export const ModalFM = ({
   }
 
   return (
-    <div>
+    <div
+      className='modal-fm--wrapper'
+>
       <Modal
+      className='modal-fm--body'
         isOpen={getAppState().modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -62,9 +65,18 @@ export const ModalFM = ({
         contentLabel="FM Modal"
         data={{ "member-id": getAppState().memberId }}
       >
-        <div>{getAppState().modalMessage}</div>
-        <button onClick={doAction}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <div
+        className='modal-fm--message'>{getAppState().modalMessage}</div>
+        <div
+        className='modal-fm--buttons-container'>
+        <button 
+        className='modal-fm--action-btn basic-button'
+        onClick={doAction}>Yes</button>
+        <button 
+        onClick={closeModal}
+          className='modal-fm--cancel-btn basic-button'
+        >No</button>
+        </div>
       </Modal>
     </div>
   );

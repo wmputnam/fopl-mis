@@ -36,6 +36,7 @@ const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) =>
         data-testid="list-search-container"
         role="search">
         <button
+        className="list-search--search-btn basic-button"
           id="list-search"
           onClick={handleSearchClick}>
           {searchVisible ? "Search?" : "Search"}</button>

@@ -68,120 +68,180 @@ export const MemberFormBaseGroup = (
     return (
       <>
         <Profiler id="memberFormBase" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+
           <div className="member-form--name-group" data-testid="member-form--name-group" >
-            <label htmlFor="first-name">First name</label>
-            <input type="text"
-              id="first-name"
-              className={"member--first-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--first-name"
-              placeholder="First name"
-              required={true}
-              value={memberObj.firstName}
-              onChange={handleFirstNameChange}
-              onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
-              onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-              readOnly={memberActive !== "Active"}
-            />
-            <div className="member--first-name-error red-text width-wide" data-testid="member--first-name-error">{memberObj.getFirstNameError()}</div>
-            <label htmlFor="last-name">Last name</label>
-            <input type="text"
-              id="last-name"
-              className={"member--last-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              placeholder="Last name"
-              required={true}
-              value={memberObj.lastName}
-              onChange={handleLastNameChange}
-              onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
-              onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-              readOnly={memberActive !== "Active"}
-            />
-            <div className="member--last-name-error red-text width-wide" data-testid="member--last-name-error">{memberObj.getLastNameError()}</div>
+            <div
+              className="member-form--firstName-wrapper">
+              <div id="first-name-input-wrapper">
+                <label
+                  className="form-label"
+                  id="first-name--label"
+                  htmlFor="first-name">First name</label>
+                <input type="text"
+                  id="first-name"
+                  className={"member--first-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                  data-testid="member--first-name"
+                  placeholder="First name"
+                  required={true}
+                  value={memberObj.firstName}
+                  onChange={handleFirstNameChange}
+                  onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('First name is required')}
+                  onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+                  readOnly={memberActive !== "Active"}
+                /></div>
+              <div id="first-name-error-wrapper">
+                <label
+                  className="form-label"
+                  id="first-name--error-label"
+                  htmlFor="first-name-error"></label>
+                <div
+                  id="first-name-error"
+                  className="member--first-name-error red-text width-wide" data-testid="member--first-name-error">{memberObj.getFirstNameError()}</div>
+              </div>
+            </div>
+            <div
+              className="member-form--lastName-wrapper">
+              <div id="last-name-input-wrapper">
+                <label id="last-name--label"
+                  className="form-label"
+                  htmlFor="last-name">Last name</label>
+                <input type="text"
+                  id="last-name"
+                  className={"member--last-name width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                  placeholder="Last name"
+                  required={true}
+                  value={memberObj.lastName}
+                  onChange={handleLastNameChange}
+                  onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Last name is required')}
+                  onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+                  readOnly={memberActive !== "Active"}
+                />
+              </div>
+              <div id="last-name-error-wrapper">
+                <label
+                  className="form-label"
+                  id="last-name--error-label"
+                  htmlFor="last-name-error"></label>
+                <div className="member--last-name-error red-text width-wide" data-testid="member--last-name-error">{memberObj.getLastNameError()}
+                </div>
+              </div>
+            </div>
+
           </div>
           <div className="member-form--address-group" data-testid="member-form--address-group" >
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              id="address"
-              className={"member--address width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--address"
-              placeholder="Address"
-              value={memberObj.address}
-              onChange={handleAddressChange}
-              readOnly={memberActive !== "Active"}
-            />
-            <label htmlFor="unit">Unit</label>
-            <input
-              type="text"
-              id="unit"
-              className={"member--unit width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--unit"
-              placeholder="Unit"
-              value={memberObj.unit}
-              onChange={handleUnitChange}
-              readOnly={memberActive !== "Active"}
-            />
-            <br />
-            <label htmlFor="city">City</label>
-            <input
-              type="text"
-              id="city"
-              className={"member--city width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--city"
-              placeholder="City"
-              value={memberObj.city}
-              onChange={handleCityChange}
-              readOnly={memberActive !== "Active"}
-            />
-            <label htmlFor="state">State</label>
-            <input
-              type="text"
-              id="state"
-              className={"member--state width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--state"
-              placeholder="State"
-              value={memberObj.state}
-              onChange={handleStateChange}
-              readOnly={memberActive !== "Active"}
-            />
-            <label htmlFor="postal-code">ZIP code</label>
-            <input
-              type="text"
-              id="postal-code"
-              className={"member--postal-code width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--postal-code"
-              placeholder="ZIP code"
-              value={memberObj.postalCode}
-              onChange={handlePostalCodeChange}
-              readOnly={memberActive !== "Active"}
-            />
-          </div>
+            <div className="member-form--address">
+              <label
+                className="form-label"
+                id="address label" htmlFor="address">Address</label>
+              <input
+                type="text"
+                id="address"
+                className={"member--address width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                data-testid="member--address"
+                placeholder="Address"
+                value={memberObj.address}
+                onChange={handleAddressChange}
+                readOnly={memberActive !== "Active"}
+              />
+            </div /* member form address */>
+            <div className="member-form--address-unit">
+              <label
+                className="form-label"
+                id="address unit label" htmlFor="unit">Unit</label>
+              <input
+                type="text"
+                id="unit"
+                className={"member--unit width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                data-testid="member--unit"
+                placeholder="Unit"
+                value={memberObj.unit}
+                onChange={handleUnitChange}
+                readOnly={memberActive !== "Active"}
+              />
+            </div /* address unit */ >
+          </div /* address group */ >
+          <div className="member-form--region">
+            <div className="member-form--address-city">
+              <label
+                className="form-label"
+                id="address city label" htmlFor="city">City</label>
+              <input
+                type="text"
+                id="city"
+                className={"member--city width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                data-testid="member--city"
+                placeholder="City"
+                value={memberObj.city}
+                onChange={handleCityChange}
+                readOnly={memberActive !== "Active"}
+              />
+            </div /* address city*/>
+            <div className="member-from--state-zip">
+              <div className="member-form--address-state">
+                <label
+                  className="form-label"
+                  id="address state label" htmlFor="state">State</label>
+                <input
+                  type="text"
+                  id="state"
+                  className={"member--state width-narrow" + (memberActive !== "Active" ? " readonly-input" : "")}
+                  data-testid="member--state"
+                  placeholder="State"
+                  value={memberObj.state}
+                  onChange={handleStateChange}
+                  readOnly={memberActive !== "Active"}
+                />
+              </div /* address state */>
+              <div className="member-form--address-zip">
+                <label
+                  className="form-label"
+                  id="address zip label" htmlFor="postal-code">ZIP code</label>
+                <input
+                  type="text"
+                  id="postal-code"
+                  className={"member--postal-code width-medium" + (memberActive !== "Active" ? " readonly-input" : "")}
+                  data-testid="member--postal-code"
+                  placeholder="ZIP code"
+                  value={memberObj.postalCode}
+                  onChange={handlePostalCodeChange}
+                  readOnly={memberActive !== "Active"}
+                />
+              </div /* address zip */>
+            </div /* member-from--state-zip */ >
+          </div /* member form region */>
           <div className="member-form--contact-group" data-testid="member-form--contact-group" >
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="telephone"
-              id="phone"
-              className={"member--phone width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--phone"
-              placeholder="Phone"
-              value={memberObj.phone}
-              onChange={handlePhoneChange}
-              readOnly={memberActive !== "Active"}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              className={"member--email width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
-              data-testid="member--email"
-              placeholder="Email"
-              required={false}
-              value={memberObj.email}
-              onChange={handleEmailChange}
-              onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Email is required')}
-              onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
-              readOnly={memberActive !== "Active"}
-            />
-          </div>
+            <div className="member-form--phone">
+              <label
+                className="form-label"
+                htmlFor="phone">Phone</label>
+              <input
+                type="telephone"
+                id="phone"
+                className={"member--phone width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                data-testid="member--phone"
+                placeholder="Phone"
+                value={memberObj.phone}
+                onChange={handlePhoneChange}
+                readOnly={memberActive !== "Active"}
+              />
+            </div /* member-form--phone*/ >
+            <div className="member-form--email">
+              <label className="form-label" htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                className={"member--email width-wide" + (memberActive !== "Active" ? " readonly-input" : "")}
+                data-testid="member--email"
+                placeholder="Email"
+                required={false}
+                value={memberObj.email}
+                onChange={handleEmailChange}
+                onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Email is required')}
+                onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
+                readOnly={memberActive !== "Active"}
+              />
+            </div /* member-form--email*/ >
+          </div /* member-form--contact-group */ >
         </Profiler>
       </>)
   } else {

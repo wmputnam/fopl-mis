@@ -1,6 +1,6 @@
 import React from "react";
-import CancelBtn from "./CancelBtn";
-import { FrontendProps } from "../@interfaces/MemberProps";
+import CancelBtn from "../CancelBtn";
+import { FrontendProps } from "../../@interfaces/MemberProps";
 
 
 const EditMemberAddress = ({ getAppState, setAppState }: FrontendProps) => {

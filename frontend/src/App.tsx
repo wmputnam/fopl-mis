@@ -19,6 +19,7 @@ import { ModalFM } from './@components/ModalFM';
 import { PostMailStatusDropdown } from './@components/PostMailStatusDropdown';
 import { EmailStatusDropdown } from './@components/EmailStatusDropdown';
 import { VolunteerRoleMultiselect } from './@components/VolunteerRoleMultiselect';
+import { StateDropdown } from './@components/StateDropdown';
 
 export interface AppState {
   memberId: string;
@@ -176,6 +177,8 @@ export default function App({ testMode }: AppProps): JSX.Element {
         <br />
         <VolunteerRoleMultiselect />
         <br />
+        < StateDropdown />
+        <br />
         <CancelBtn
           setAppState={setAppState}
           getAppState={getAppState}
@@ -220,6 +223,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
       </main>
       <footer>
         <button
+          className='playground basic-button'
           onClick={openPlayground}>
           Playground</button>
       </footer>

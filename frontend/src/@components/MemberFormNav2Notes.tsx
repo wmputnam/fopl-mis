@@ -20,10 +20,10 @@ function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
 
     return (
         <button
-            className="member--notes-btn"
+            className="member--notes-btn basic-button"
             id="member--notes-btn"
             onClick={updViewState}>
-            member notes</button>
+            Notes</button>
     )
 }
 

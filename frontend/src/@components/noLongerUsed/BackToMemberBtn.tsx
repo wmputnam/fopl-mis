@@ -1,6 +1,6 @@
 import React from "react";
-import { MemberViewStates } from "../@interfaces/enums";
-import { FrontendProps } from "../@interfaces/MemberProps";
+import { MemberViewStates } from "../../@interfaces/enums";
+import { FrontendProps } from "../../@interfaces/MemberProps";
 
 
 function BackToMemberBtn({ setAppState, getAppState }: FrontendProps, fromViewState:MemberViewStates): any {
