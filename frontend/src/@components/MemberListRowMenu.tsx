@@ -16,6 +16,7 @@ const getNewFromState = (getAppState: () => any) => {
   return newFromViewState;
 }
 
+
 const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
 
   const debugName = `${name}:${recordId}`;
@@ -70,7 +71,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       ...oldState,
       memberId: recordId,
       modalAction: deactivateMember,
-      modalMessage: `Drop this ${name}?`,
+      modalMessage: `Drop '${name}'?`,
       modalIsOpen: true,
     }));
   }
@@ -89,6 +90,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       modalAction: setReturnedMailStatus,
       modalMessage: `Returned mail without forwarding address for ${name}?`,
       modalIsOpen: true,
+      // modalRoot: findRootForModal,
     }));
   }
 
@@ -106,6 +108,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       modalAction: setBouncedEmailStatus,
       modalMessage: `Bounced email for ${name}?`,
       modalIsOpen: true,
+      // modalRoot: findRootForModal,
     }));
   }
   const setBouncedEmailStatus = async () => {
@@ -122,6 +125,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       modalAction: setVerifiedEmailStatus,
       modalMessage: `Verify email for ${name}?`,
       modalIsOpen: true,
+      // modalRoot: findRootForModal,
     }));
   }
 
@@ -139,6 +143,7 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       modalAction: setNewMemberOrientedStatus,
       modalMessage: `Has ${name} completed orientation?`,
       modalIsOpen: true,
+      // modalRoot: findRootForModal,
     }));
   }
 
@@ -171,6 +176,8 @@ const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: Me
       </div>
     </div>
   );
+
+
 }
 
 export default MemberListRowMenu;

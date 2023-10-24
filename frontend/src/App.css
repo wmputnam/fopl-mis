@@ -579,7 +579,7 @@ a {
 
 .list-row-button,
 .member-row--header--new-btn {
-  background: #baf4dd;
+  background: #e7f5f4;
   border-width: 0;
   filter: drop-shadow(3px 3px .5px rgb(221, 186, 244));
   border-radius: 1.009rem;
@@ -709,4 +709,21 @@ input[type='email'] {
 
 .playground {
   background-color: rgba(186, 244, 221, .7);
+}
+
+.modal-fm--message {
+  font-weight: 500;
+  font-size: larger;
+  width: 20em;
+  padding: 3em;
+}
+
+.modal-fm--buttons-container {
+  padding: 1em;
+  /* background-color: #021335; */
+}
+
+.modal-fm--buttons-container>button {
+  margin: 0 1.4em;
+  /* background-color: #021335; */
 }

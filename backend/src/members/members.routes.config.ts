@@ -54,7 +54,7 @@ export class MembersRoutes extends CommonRoutesConfig {
       body("lastName", "lastname cannot be empty").isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersMiddleware.validateMemberExists,
-      membersMiddleware.validateSameEmailBelongToSameMember,
+      // membersMiddleware.validateSameEmailBelongToSameMember,
       membersController.put
     ]);
 

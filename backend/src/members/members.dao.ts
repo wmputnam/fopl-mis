@@ -81,20 +81,25 @@ class MembersDao {
 
   async addMember(memberFields: CreateMemberDto) {
     const updateDate = new Date();
-    const memberId = shortid.generate();
+    // const memberId = shortid.generate();
+    let memberId;
     log(JSON.stringify(memberFields));
     const member = new this.Member({
       ...memberFields,
       lastUpdated: updateDate
     });
-    member._id = memberId;
+    member._id = new mongoose.Types.ObjectId();
     try {
-      log(JSON.stringify(member));
+      log(`member being saved: ${JSON.stringify(member)}`);
       await member.save();
+      // const newMember = member.findOne();
+      memberId = member._id;
+
     } catch (error) {
       log(`caught error(s) ${error}`);
       throw new Error(`caught error(s) ${error}`);
     }
+    log(`saved member had id : ${memberId}`)
     return memberId;
     //   this.members.push(member);
   }

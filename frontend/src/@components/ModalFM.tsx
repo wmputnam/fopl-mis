@@ -16,19 +16,29 @@ export const ModalFM = ({
 }: ModalFmProps) => {
 
   const customStyles = {
+    overlay: {
+      background: 'rgba(255,255,255,.8)',
+      border: 'none',
+    },
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
+      borderRadius: '10px',
+      width: '30em',
+      border: 'none',
+      background: '#d7f6f4', //'#baf4dd',
+
+      // top: '40px',
+      // right: '40px',
+      // bottom: '40px',
+      // left: '40px',
+      // marginRight: '-50%',
+      transform: 'translate(50%, 50%)',
     },
   };
 
 
 
   function afterOpenModal() {
+    console.log(`modal is open`)
   }
 
   function closeModal() {
@@ -52,12 +62,14 @@ export const ModalFM = ({
     }));
   }
 
+  Modal.setAppElement('#root');
+
   return (
     <div
       className='modal-fm--wrapper'
->
+    >
       <Modal
-      className='modal-fm--body'
+        className='modal-fm--body'
         isOpen={getAppState().modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -66,16 +78,16 @@ export const ModalFM = ({
         data={{ "member-id": getAppState().memberId }}
       >
         <div
-        className='modal-fm--message'>{getAppState().modalMessage}</div>
+          className='modal-fm--message'>{getAppState().modalMessage}</div>
         <div
-        className='modal-fm--buttons-container'>
-        <button 
-        className='modal-fm--action-btn basic-button'
-        onClick={doAction}>Yes</button>
-        <button 
-        onClick={closeModal}
-          className='modal-fm--cancel-btn basic-button'
-        >No</button>
+          className='modal-fm--buttons-container'>
+          <button
+            className='modal-fm--action-btn basic-button'
+            onClick={doAction}>Yes</button>
+          <button
+            onClick={closeModal}
+            className='modal-fm--cancel-btn basic-button'
+          >No</button>
         </div>
       </Modal>
     </div>

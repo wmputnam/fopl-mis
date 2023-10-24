@@ -28,6 +28,7 @@ export interface AppState {
   modalIsOpen: boolean;
   modalMessage: string;
   modalAction: () => any;
+  modalRoot: () => any;
   listViewFilter?: string;
 }
 
@@ -61,6 +62,7 @@ export const getInitialViewState = (): AppState => (
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
+    modalRoot: () => document.body,
   });
 
 export const getTestViewState = (): AppState => (
@@ -71,6 +73,7 @@ export const getTestViewState = (): AppState => (
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
+    modalRoot: () => document.body,
   });
 
 // ***
@@ -216,8 +219,8 @@ export default function App({ testMode }: AppProps): JSX.Element {
         <ModalFM
           setAppState={setAppState}
           getAppState={getAppState}
-          actionMessage=''
-          actionHandler={noOp}
+          actionMessage={appState.modalMessage}
+          actionHandler={appState.modalAction}
         />
         {component}
       </main>
