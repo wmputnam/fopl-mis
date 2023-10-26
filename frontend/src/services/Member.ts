@@ -530,13 +530,14 @@ export class Member {
       const m: Member = new Member();
       m.city = 'Petaluma';
       m.state = 'CA';
-      m.postalCode='94952-'
-      m.remitDate=new Date();
+      m.postalCode = '94952-'
+      m.remitDate = new Date();
       m.status = new Status();
       m.status.isActive = true;
       m.status.validEmail = 'unchecked';
       m.status.validPostMail = true;
       m.status.newsletterType = 'email';
+      m.status.isNewMember = true;
       return m;
     }
   }
