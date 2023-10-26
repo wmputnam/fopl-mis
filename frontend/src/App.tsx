@@ -174,7 +174,11 @@ export default function App({ testMode }: AppProps): JSX.Element {
       console.log("in the lost entry -- expected in test mode")
       component = <>
         <h1 id="lost">Are we lost?<br />Welcome to the playground</h1 >
-        <PostMailStatusDropdown />
+        <PostMailStatusDropdown
+          className='post-mail--status'
+          defaultValue='Valid'
+          id='post-mail--status'
+        />
         <br />
         <EmailStatusDropdown />
         <br />

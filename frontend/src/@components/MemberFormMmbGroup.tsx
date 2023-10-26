@@ -3,6 +3,7 @@ import React, { Profiler } from "react"
 import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 import { MemberService } from "../services/MemberService";
+import { PostMailStatusDropdown } from "./PostMailStatusDropdown";
 
 const stringForMmbDate = (dt: Date | string | undefined) => {
   if (dt) {
@@ -115,12 +116,17 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                     <label htmlFor="post-mail"
                       className="post-mail-status-label mmb-group--label form-label"
                     >US Post status </label>
-                    <input
+                    <PostMailStatusDropdown
+                      className='post-mail--status'
+                      defaultValue='Valid'
+                      id='post-mail'
+                    />
+                    {/* <input
                       type="checkbox"
                       readOnly={true}
                       id="post-mail"
                       className="member--post-mail--input width-date readonly-input" data-testid="member--post-mail--input"
-                      checked={memberPost} />
+                      checked={memberPost} /> */}
                   </div>}
                 {memberActive ===
                   'Active' &&
