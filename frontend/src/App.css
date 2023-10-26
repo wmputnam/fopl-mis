@@ -665,12 +665,23 @@ input[type='email'] {
 .member-from--state-zip,
 .member-from--state-zip>div {
   display: flex;
-  flex-direction: row;
   flex: 1;
+  /* flex-direction: row;
+  flex: 1; */
 }
 
 .member-form--address-state {
-  max-width: 200px;
+  max-width: 300px;
+}
+
+.member--state {
+  border-color: #e0e3e5;
+  border-radius: 1.009em;
+  background-color: #ebf4f0;
+}
+
+.member-form--address-zip {
+  max-width: 330px;
 }
 
 .member-form--contact-group,
@@ -726,4 +737,10 @@ input[type='email'] {
 .modal-fm--buttons-container>button {
   margin: 0 1.4em;
   /* background-color: #021335; */
+}
+
+.us-states--dropdown,
+.state--dd {
+  border: 3px dotted dodgerblue;
+  width: 20em;
 }

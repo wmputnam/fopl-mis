@@ -180,7 +180,9 @@ export default function App({ testMode }: AppProps): JSX.Element {
         <br />
         <VolunteerRoleMultiselect />
         <br />
-        < StateDropdown />
+        < StateDropdown
+          className='us-states--dropdown'
+          stateName='California' />
         <br />
         <CancelBtn
           setAppState={setAppState}

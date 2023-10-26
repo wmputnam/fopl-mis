@@ -69,21 +69,58 @@ const options: SelectOption[] = [
   { value: "WY", label: "Wyoming" },
 ]
 
-export function StateDropdown(props: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getOptionByLabel = (label: string): SelectOption => {
+  let result = null as unknown as SelectOption;
 
-  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(null as unknown as SelectOption);
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].label === label) {
+      return options[i];
+    }
+  }
+  return result;
+}
+
+const getOptionByValue = (value: string): SelectOption => {
+  let result = null as unknown as SelectOption;
+
+  if (value) {
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].value === value) {
+        console.log(` getOptionByValue: got "${value}" returning ${JSON.stringify(options[i])} `)
+        return options[i];
+      }
+    }
+  }
+  return result;
+}
+export function StateDropdown(props: any) {
+  const className = props.className
+    ? props.className
+    : "state--dd";
+
+  const id = props.id
+    ? props.id
+    : "state";
+
+  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByValue(props.stateCode) as unknown as SelectOption);
   console.log(`props keys: ${Object.keys(props)}`)
 
   const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {
+    console.log(`change to new option: ${JSON.stringify(option)}`)
     setSelectedOption(option as SelectOption);
+    if (props.onChange && typeof props.onChange == 'function') {
+      props.onChange({ target: { id: id, value: option?.value } });
+    }
   }
 
   return (
     <Select
-      className="state--dd"
+      className={className}
       defaultValue={selectedOption}
       onChange={onChange}
       options={options}
+      id={id}
     />
   )
 }

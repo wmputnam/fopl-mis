@@ -3,6 +3,7 @@ import React, { Profiler } from "react"
 import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 import { oldMemberStateToNew } from "./MemberFormBase";
+import { StateDropdown } from "./StateDropdown";
 
 export interface FormBaseComponentGroupI {
   onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void;
@@ -41,6 +42,7 @@ export const MemberFormBaseGroup = (
       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _city: e.target.value } as Partial<Member>)));
     }
   }
+
   function handleStateChange(e: any) {
     if (memberObj && e.target.id === "state") {
       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _state: e.target.value } as Partial<Member>)));
@@ -61,7 +63,7 @@ export const MemberFormBaseGroup = (
       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _email: e.target.value } as Partial<Member>)));
     }
   }
-  if (memberObj) {
+  if (memberObj.status !== null) {
     const memberActive = (memberObj.status && memberObj.status.isActive)
       ? "Active"
       : "OUT";
@@ -180,8 +182,19 @@ export const MemberFormBaseGroup = (
               <div className="member-form--address-state">
                 <label
                   className="form-label"
-                  id="address state label" htmlFor="state">State</label>
-                <input
+                  id="address state label"
+                  htmlFor="state">State</label>
+                <br />
+                {memberObj.state && < StateDropdown
+                  // className='us-states--dropdown'
+                  className={"member--state" + (memberActive !== "Active" ? " readonly-input" : "")}
+                  stateCode={memberObj.state}
+                  id="state"
+                  onChange={handleStateChange}
+                  readOnly={memberActive !== "Active"}
+                />}
+
+                {/* <input
                   type="text"
                   id="state"
                   className={"member--state width-narrow" + (memberActive !== "Active" ? " readonly-input" : "")}
@@ -190,7 +203,7 @@ export const MemberFormBaseGroup = (
                   value={memberObj.state}
                   onChange={handleStateChange}
                   readOnly={memberActive !== "Active"}
-                />
+                /> */}
               </div /* address state */>
               <div className="member-form--address-zip">
                 <label
