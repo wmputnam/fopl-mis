@@ -180,7 +180,11 @@ export default function App({ testMode }: AppProps): JSX.Element {
           id='post-mail--status'
         />
         <br />
-        <EmailStatusDropdown />
+        <EmailStatusDropdown
+          className='email-mail--status'
+          defaultValue='unchecked'
+          id='email-status'
+        />
         <br />
         <VolunteerRoleMultiselect />
         <br />

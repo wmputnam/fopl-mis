@@ -27,11 +27,11 @@ const getTestMember = (): Member => {
   member.postalCode = "10200-2325";
   member.email = "test@test.it";
   member.phone = "707-555-1212 x432";
-  member.status=new Status();
-  member.status.isActive=true;
+  member.status = new Status();
+  member.status.isActive = true;
   member.status.isNewMember = false;
   member.status.validEmail = 'verified';
-  member.status.validPostMail = true;
+  member.status.validPostMail = "valid";
   member.status.newsletterType = 'email';
   member.volunteerPreferences = [{ role: "SALE" }, { role: "LUMACON", lastWorkDate: new Date("2023-01-28") }];
   member.mmb = "VOL";
@@ -499,7 +499,7 @@ const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: boolean
     messages.push("status.newsletterType: ><" + b.status.newsletterType);
     isSame = false;
   }
-  
+
   return { same: isSame, messages: messages };
 }
 

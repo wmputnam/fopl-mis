@@ -535,7 +535,7 @@ export class Member {
       m.status = new Status();
       m.status.isActive = true;
       m.status.validEmail = 'unchecked';
-      m.status.validPostMail = true;
+      m.status.validPostMail = "none";
       m.status.newsletterType = 'email';
       m.status.isNewMember = true;
       return m;

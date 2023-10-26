@@ -131,11 +131,11 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
     } else {
       // check to see if a new member has address and other status settings
       if (memberObj.id === "" && memberObj.status) {
-        if ( memberObj.address === ""
-          ||  memberObj.city === ""
-          ||  memberObj.state === ""
-          ||  memberObj.postalCode === "") {
-          memberObj.status.validPostMail = false;
+        if (memberObj.address === ""
+          || memberObj.city === ""
+          || memberObj.state === ""
+          || memberObj.postalCode === "") {
+          memberObj.status.validPostMail = "none";
         }
         if (!memberObj.email || memberObj.email === "") {
           memberObj.status.validEmail = 'unchecked';
@@ -204,7 +204,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
       memberObj,
       setMemberObj
     });
-    const formMmbGroupComponent = MemberFormMmbGroup(memberObj, onRenderCallback);
+    const formMmbGroupComponent = MemberFormMmbGroup(memberObj, setMemberObj, onRenderCallback);
     const formVolGroupComponent = MemberFormVolGroup(memberObj, setMemberObj, onRenderCallback);
     const pageComponents = (
       <>

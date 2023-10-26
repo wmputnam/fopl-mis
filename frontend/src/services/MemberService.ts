@@ -503,7 +503,7 @@ export class MemberService {
     return memberObj;
   }
 
-  static setMemberPostalStatus = (memberObj: Member, newStatus: boolean = true) => {
+  static setMemberPostalStatus = (memberObj: Member, newStatus: 'valid' | 'returned mail' | 'none' = 'none') => {
     if (memberObj) {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {

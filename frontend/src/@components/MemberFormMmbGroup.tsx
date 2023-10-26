@@ -4,6 +4,10 @@ import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 import { MemberService } from "../services/MemberService";
 import { PostMailStatusDropdown } from "./PostMailStatusDropdown";
+import { oldMemberStateToNew } from "./MemberFormBase";
+import { EmailStatusDropdown } from "./EmailStatusDropdown";
+import { NewsletterTypeDropdown } from "./NewsletterTypeDropdown";
+
 
 const stringForMmbDate = (dt: Date | string | undefined) => {
   if (dt) {
@@ -19,14 +23,41 @@ const stringForMmbDate = (dt: Date | string | undefined) => {
   };
 };
 
-export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void) => {
+export const MemberFormMmbGroup = (
+  memberObj: Member | undefined,
+  setMemberObj: React.Dispatch<React.SetStateAction<Member>>,
+  onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>
+  )
+    => void) => {
+
   if (memberObj) {
+    function handlePostMailStatusChange(e: any) {
+      if (memberObj && e.target.id === "post-mail") {
+        const newStatus = { ...memberObj.status, validPostMail: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+      }
+    }
+
+    function handleEmailStatusChange(e: any) {
+      if (memberObj && e.target.id === "post-mail") {
+        const newStatus = { ...memberObj.status, validEmail: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+      }
+    }
+
+    function handleNewsletterTypeChange(e: any) {
+      if (memberObj && e.target.id === "post-mail") {
+        const newStatus = { ...memberObj.status, newsletterType: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+      }
+    }
+
     const memberActive = (memberObj.status && memberObj.status.isActive)
       ? "Active"
       : "OUT";
     const memberPost = (memberObj.status && memberObj.status.validPostMail)
-      ? true
-      : false;
+      ? "Valid"
+      : "Returned mail";
     const memberEmail = (memberObj.status && memberObj.status.validEmail)
       ? memberObj.status.validEmail
       : 'none';
@@ -118,8 +149,9 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                     >US Post status </label>
                     <PostMailStatusDropdown
                       className='post-mail--status'
-                      defaultValue='Valid'
+                      defaultValue={memberPost}
                       id='post-mail'
+                      handleChange={handlePostMailStatusChange}
                     />
                     {/* <input
                       type="checkbox"
@@ -135,12 +167,18 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                     <label htmlFor="email-status"
                       className="email-status-label mmb-group--label form-label"
                     >Email status </label>
-                    <input
+                    <EmailStatusDropdown
+                      className='member--email-status--input'
+                      defaultValue={memberEmail}
+                      id='email-status'
+                      handleChange={handleEmailStatusChange}
+                    />
+                    {/* <input
                       type="text"
                       readOnly={true}
                       id="email-status"
                       className="member--email-status--input width-date readonly-input" data-testid="member--email-status--input"
-                      value={memberEmail} />
+                      value={memberEmail} /> */}
                   </div>}
                 {memberActive === 'Active' &&
                   <div className="member--newsletter-status-wrapper"
@@ -148,12 +186,18 @@ export const MemberFormMmbGroup = (memberObj: Member | undefined, onRenderCallba
                     <label htmlFor="newsletter-status"
                       className="newsletter-label mmb-group--label form-label"
                     >Newsletter status </label>
-                    <input
+                    <NewsletterTypeDropdown
+                      className='member--newsletter-status--input'
+                      defaultValue={memberNews}
+                      id='newsletter-status'
+                      handleChange={handleNewsletterTypeChange}
+                    />
+                    {/* <input
                       type="text"
                       readOnly={true}
                       id="newsletter-status"
                       className="member--newsletter-status--input width-date readonly-input" data-testid="member--newsletter-status--input"
-                      value={memberNews} />
+                      value={memberNews} /> */}
                   </div>}
               </div /* mmb-group--status-views */ >
             </div></Profiler>

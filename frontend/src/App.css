@@ -750,7 +750,10 @@ input[type='email'] {
   margin: 0;
 }
 
-.post-mail--status div[class*='control'] {
+.post-mail--status div[class*='control'],
+.member--email-status--input div[class*='control'],
+.member--newsletter-status--input div[class*='control'],
+.member--state div[class*='control'] {
   border: 3px dotted dodgerblue;
   width: 10em;
   padding: 0;
@@ -764,10 +767,25 @@ input[type='email'] {
   /* height: .45em; */
 }
 
-.post-mail--status div[class*='Input'] {
+.post-mail--status div[class*='Input'],
+.member--email-status--input div[class*='Input'],
+.member--newsletter-status--input div[class*='Input'],
+.member--state div[class*='Input'] {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   /* font-size: 2em; */
   /* line-height: 1.2em; */
+}
+
+.email-mail--status {
+  border: 3px dotted dodgerblue;
+  width: 10em;
+  color: #021335;
+  background-color: #efefef;
+  border-width: 0;
+  border-radius: 1.009em;
+  line-height: .75em;
+  height: .75em;
+  margin: 0;
 }
