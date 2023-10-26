@@ -528,6 +528,10 @@ export class Member {
       return m;
     } else {
       const m: Member = new Member();
+      m.city = 'Petaluma';
+      m.state = 'CA';
+      m.postalCode='94952-'
+      m.remitDate=new Date();
       m.status = new Status();
       m.status.isActive = true;
       m.status.validEmail = 'unchecked';
