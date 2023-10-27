@@ -6,5 +6,7 @@ export interface IAddress {
   postalCode?: string;
   zip?: string;         // TODO remove after migration
   plus4?: string;         // TODO remove after migration
+  zipmerge?: string;         // TODO remove after migration
+
 
 }

@@ -33,22 +33,22 @@ export const MemberFormMmbGroup = (
   if (memberObj) {
     function handlePostMailStatusChange(e: any) {
       if (memberObj && e.target.id === "post-mail") {
-        const newStatus = { ...memberObj.status, validPostMail: e.target.value };
-        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+        const newStatus = { ...memberObj._status, validPostMail: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _status: newStatus } as Partial<Member>)));
       }
     }
 
     function handleEmailStatusChange(e: any) {
-      if (memberObj && e.target.id === "post-mail") {
-        const newStatus = { ...memberObj.status, validEmail: e.target.value };
-        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+      if (memberObj && e.target.id === "email-status") {
+        const newStatus = { ...memberObj._status, validEmail: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _status: newStatus } as Partial<Member>)));
       }
     }
 
     function handleNewsletterTypeChange(e: any) {
-      if (memberObj && e.target.id === "post-mail") {
-        const newStatus = { ...memberObj.status, newsletterType: e.target.value };
-        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, newStatus as Partial<Member>)));
+      if (memberObj && e.target.id === "newsletter-type") {
+        const newStatus = { ...memberObj._status, newsletterType: e.target.value };
+        setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _status: newStatus } as Partial<Member>)));
       }
     }
 
@@ -60,7 +60,7 @@ export const MemberFormMmbGroup = (
       : "Returned mail";
     const memberEmail = (memberObj.status && memberObj.status.validEmail)
       ? memberObj.status.validEmail
-      : 'none';
+      : 'Unchecked';
     const memberNews = (memberObj.status && memberObj.status.newsletterType)
       ? memberObj.status.newsletterType
       : 'None';
@@ -183,13 +183,13 @@ export const MemberFormMmbGroup = (
                 {memberActive === 'Active' &&
                   <div className="member--newsletter-status-wrapper"
                     data-testid="member--newsletter-status-wrapper">
-                    <label htmlFor="newsletter-status"
+                    <label htmlFor="newsletter-type"
                       className="newsletter-label mmb-group--label form-label"
-                    >Newsletter status </label>
+                    >Newsletter type </label>
                     <NewsletterTypeDropdown
                       className='member--newsletter-status--input'
                       defaultValue={memberNews}
-                      id='newsletter-status'
+                      id='newsletter-type'
                       handleChange={handleNewsletterTypeChange}
                     />
                     {/* <input

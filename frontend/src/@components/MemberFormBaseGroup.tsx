@@ -179,7 +179,7 @@ export const MemberFormBaseGroup = (
               />
             </div /* address city*/>
             <div className="member-from--state-zip">
-              <div className="member-form--address-state">
+              {memberActive && <div className="member-form--address-state">
                 <label
                   className="form-label"
                   id="address state label"
@@ -205,7 +205,8 @@ export const MemberFormBaseGroup = (
                   readOnly={memberActive !== "Active"}
                 /> */}
               </div /* address state */>
-              <div className="member-form--address-zip">
+              }
+              {memberActive && <div className="member-form--address-zip">
                 <label
                   className="form-label"
                   id="address zip label" htmlFor="postal-code">ZIP code</label>
@@ -220,6 +221,7 @@ export const MemberFormBaseGroup = (
                   readOnly={memberActive !== "Active"}
                 />
               </div /* address zip */>
+              }
             </div /* member-from--state-zip */ >
           </div /* member form region */>
           <div className="member-form--contact-group" data-testid="member-form--contact-group" >

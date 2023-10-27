@@ -533,7 +533,7 @@ export class Member {
       m.postalCode = '94952-'
       m.remitDate = new Date();
       m.status = new Status();
-      m.status.isActive = true;
+      m.status.isActive = false;
       m.status.validEmail = 'unchecked';
       m.status.validPostMail = "none";
       m.status.newsletterType = 'email';

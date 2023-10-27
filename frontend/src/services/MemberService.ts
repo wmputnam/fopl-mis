@@ -24,6 +24,8 @@ export class MemberService {
     const newMember: Member = Member.create();
     if (mode === MemberViewStates.new) {
       return newMember
+    } else if (!loadedIMemberData) {
+      return null as unknown as Member;
     } else {
       if (isPropDefined(loadedIMemberData, "_id")) newMember["_id"] = loadedIMemberData["_id"];
       if (isPropDefined(loadedIMemberData, "firstName")) newMember["firstName"] = loadedIMemberData["firstName"];
@@ -44,7 +46,11 @@ export class MemberService {
       if (isPropDefined(loadedIMemberData, "unit")) newMember["unit"] = loadedIMemberData["unit"];
       if (isPropDefined(loadedIMemberData, "city")) newMember["city"] = loadedIMemberData["city"];
       if (isPropDefined(loadedIMemberData, "state")) newMember["state"] = loadedIMemberData["state"];
-      if (isPropDefined(loadedIMemberData, "postalCode")) newMember["postalCode"] = loadedIMemberData["postalCode"];
+      if (isPropDefined(loadedIMemberData, "postalCode") && loadedIMemberData["postalCode"]?.length === 10) {
+        newMember["postalCode"] = loadedIMemberData["postalCode"]
+      } else if (isPropDefined(loadedIMemberData, "zipmerge")) {
+        newMember["postalCode"] = loadedIMemberData["zipmerge"]
+      };
       if (isPropDefined(loadedIMemberData, "volunteerPreferences")) {
         for (let i = 0; i < (loadedIMemberData?.volunteerPreferences ? loadedIMemberData?.volunteerPreferences?.length : 0); i++) {
           if (newMember.volunteerPreferences === undefined) {
@@ -113,6 +119,7 @@ export class MemberService {
           newMember.status.isNewMember = loadedIMemberData.isNewMember;
         }
       }
+      if (newMember._remitDate) { newMember["_remitDate"] = undefined };
     }
 
     return newMember;
@@ -553,12 +560,12 @@ export class MemberService {
     return memberObj;
   }
 
-  static deactivateMemberAction = async (memberId:string) => {
-    await MemberService.updateMemberIsActiveInDatabase(memberId,false);
+  static deactivateMemberAction = async (memberId: string) => {
+    await MemberService.updateMemberIsActiveInDatabase(memberId, false);
   }
 
-  static setReturnedMailMemberAction = async (memberId:string) => {
-    await MemberService.updateMemberValidPostMailInDatabase(memberId,false);
+  static setReturnedMailMemberAction = async (memberId: string) => {
+    await MemberService.updateMemberValidPostMailInDatabase(memberId, false);
   }
 
   static setBouncedEmailMemberAction = async (memberId: string) => {
@@ -573,8 +580,8 @@ export class MemberService {
     await MemberService.updateIsNewMemberInDatabase(memberId, true);
   }
 
-  static updateMemberIsActiveInDatabase = async (memberId:string, newIsActive:boolean = false) => {  
-    const payload = { isActive: newIsActive};
+  static updateMemberIsActiveInDatabase = async (memberId: string, newIsActive: boolean = false) => {
+    const payload = { isActive: newIsActive };
     await SaveUpdate(getServerUrl(), payload, memberId)
   }
 

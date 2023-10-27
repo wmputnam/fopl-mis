@@ -103,7 +103,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
     { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
   );
 
-  const haveData = isEmptyObject(data as Object);
+  const haveData = !isEmptyObject(data as Object);
 
   const [memberObj, setMemberObj] = React.useState<Member>({} as Member);
 
@@ -193,7 +193,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
 
   console.log(`building JSX \n data fetch status ${JSON.stringify(data)}`)
 
-  if ((data) || mode === MemberViewStates.new) {
+  if ((data && memberObj) || mode === MemberViewStates.new) {
     const formBaseGroupComponent = MemberFormBaseGroup({
       onRenderCallback,
       memberObj,

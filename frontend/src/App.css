@@ -63,8 +63,7 @@ a {
 }
 
 .app-header--middle {
-  width: 1544px;
-  ;
+  width: 1000px;
   height: 64px;
   display: flex;
   align-items: center;
@@ -95,7 +94,7 @@ a {
 
 .app-header--right {
   height: 64px;
-  width: 100px;
+  width: 500px;
   /* border: 1px solid orange; */
 }
 
@@ -382,6 +381,7 @@ a {
 
 .mmb-group--status-views {
   display: grid;
+  padding: 0 0 1em 0;
 }
 
 .existing-member--mmb label {
@@ -554,7 +554,10 @@ a {
 }
 
 .list-search-container {
-  border: 1px dashed blue;
+  /* border: 1px dashed red; */
+    display: flex;
+      flex-direction: column;
+      align-items: center;;
 }
 
 .fm-dd {
@@ -779,7 +782,7 @@ input[type='email'] {
 }
 
 .email-mail--status {
-  border: 3px dotted dodgerblue;
+  /* border: 3px dotted dodgerblue; */
   width: 10em;
   color: #021335;
   background-color: #efefef;
@@ -788,4 +791,16 @@ input[type='email'] {
   line-height: .75em;
   height: .75em;
   margin: 0;
+}
+
+.list-search--search-btn {
+  padding: .2em .3em;
+  margin: 0 0 0 0;
+  max-width:100px;
+}
+
+.list-search--input {
+  /* border: 3px dotted dodgerblue; */
+  margin: 0 0 0 0;
+  font-size: 1.1em;
 }

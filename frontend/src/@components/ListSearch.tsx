@@ -15,7 +15,11 @@ const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) =>
 
   function handleSearchUpdate(e: any) {
     if (e.target.id === "search-text") {
-      setSearchFilterText(e.target.value);
+      if (e.target.value === "\r") {
+
+      } else {
+        setSearchFilterText(e.target.value);
+      }
     }
   }
 
@@ -36,11 +40,12 @@ const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) =>
         data-testid="list-search-container"
         role="search">
         <button
-        className="list-search--search-btn basic-button"
+          className="list-search--search-btn basic-button"
           id="list-search"
           onClick={handleSearchClick}>
           {searchVisible ? "Search?" : "Search"}</button>
         {searchVisible && <input
+          className="list-search--input"
           type="text"
           id="search-text"
           placeholder="Lastname"

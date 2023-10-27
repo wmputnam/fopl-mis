@@ -38,10 +38,15 @@ export function PostMailStatusDropdown(props: any) {
     option: SingleValue<SelectOption> | null,
     actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {
     setSelectedOption(option as SelectOption);
+  }
+
+  React.useEffect(() => {
     if (props.handleChange && typeof props.handleChange === 'function') {
       props.handleChange({ target: { id: id, value: selectedOption.value } })
     }
-  }
+  },
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+    [selectedOption]);
 
   return (
     <Select
