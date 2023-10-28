@@ -175,7 +175,8 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
                 viewState: returnToViewState
                   ? returnToViewState
                   : MemberViewStates.list,
-                fromViewState: [...newFromViewState]
+                  fromViewState: [...newFromViewState],
+                  memberId: ""
               }));
             } else {
               let errArr = new Array<FormError>();

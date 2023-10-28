@@ -41,6 +41,13 @@ class MembersDao {
     lastName: String,
   }, { _id: false });
 
+  collation = {
+    locale: 'en',
+    strength: 2,
+    caseLevel: false,
+    caseFirst: 'off'
+  };
+
   memberSchema = new this.Schema<IMember>({
     _id: { type: this.Schema.ObjectId },
     firstName: { type: String, required: true }, //, alias: "first name" },
@@ -62,13 +69,13 @@ class MembersDao {
     notes: { type: [this.notesSchema] },
     isActive: Boolean,
     isNewMember: Boolean,
-    validPostMail: Boolean,
+    validPostMail: String,
     validEmail: String,  // 'verified' | ' bounced' | 'unchecked' | 'none'
     newsletterType: String, // newsletter: 'email' | 'post' | 'none';
     mem: String,                        // TODO remove after migration
     zip: String,                        // TODO remove after migration
     plus4: String,                      // TODO remove after migration
-  }, { id: false })
+  }, { id: false, collation: this.collation })
 
   collectionName: string;
   Member: any;

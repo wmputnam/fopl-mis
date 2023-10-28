@@ -23,6 +23,10 @@ export class MemberService {
   public static createMemberFromLoad(loadedIMemberData: IMember, mode: MemberViewStates): Member {
     const newMember: Member = Member.create();
     if (mode === MemberViewStates.new) {
+      if (!newMember.status) {
+        newMember.status = new Status();
+      }
+      newMember.status.isActive = true;
       return newMember
     } else if (!loadedIMemberData) {
       return null as unknown as Member;
