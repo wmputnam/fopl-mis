@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import debug from "debug";
 
 const log: debug.IDebugger = debug('app:mongoose-service');
-const DEFAULT_SCHEME = "mongodb";
+const DEFAULT_SCHEME = "mongodb:";
 const DEFAULT_HOST = "localhost";
 const DEFAULT_PORT = "27017";
-const DEFAULT_DATABASE = "api-db"; 
+const DEFAULT_DATABASE = "api-db";
 const DEFAULT_DATABASE_TABLE = "members";
 
 class MongooseService {

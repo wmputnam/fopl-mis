@@ -1,5 +1,6 @@
 import { PageObjectModel, EnhancedPageObject } from "nightwatch"
 import { WebElement, By, RelativeBy, Actions, Capabilities } from 'selenium-webdriver';
+
 const memberFormPageCommands = {
   async clickCancel(this: MemberFormPage): Promise<any> {
     return await this.waitForElementVisible("@cancelBtn")
@@ -8,7 +9,7 @@ const memberFormPageCommands = {
   },
   async clickSave(this: MemberFormPage): Promise<any> {
     // await this.waitForElementVisible("@saveBtn");
-    // return;
+    // return
     return await this.element("@saveBtn").click();
     // return this.waitForElementNotPresent("@saveBtn");
   },
@@ -21,7 +22,7 @@ const memberFormPageCommands = {
     await this.waitForElementVisible("@firstName");
     await this.element("@firstName").click();
     // await this.element("@firstName").clear();
-    const webEl = await this.element("@firstName").setValue(value);
+    const webEl:WebElement = await this.element("@firstName").setValue(value);
     this.pause(1000);
     return webEl;
   },

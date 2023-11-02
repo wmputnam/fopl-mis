@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import membersDao from "./members.dao";
 import { IMember } from "packages";
+import mongoose from "mongoose";
 
 const fn = () => `${__filename.split('/').pop()}`;
 
@@ -51,6 +52,7 @@ describe(`${fn()}: getMembers`, function () {
 
 });
 
+const dorfId = "303030303030303030303030"
 describe(`${fn()}: getMemberById`, function () {
 
   let memberId: string;
@@ -59,6 +61,9 @@ describe(`${fn()}: getMemberById`, function () {
     const memberList = await membersDao.getMembers(1);
     if (memberList && memberList[0] && memberList[0]['_id']) {
       memberId = memberList[0]['_id'];
+      console.log(`using ${memberId}`)
+      const memberIdObj = new mongoose.Types.ObjectId(memberId);
+      console.log(`${JSON.stringify(memberIdObj)} -- ${Object.keys(memberIdObj)}`)
     }
   });
 
@@ -66,12 +71,14 @@ describe(`${fn()}: getMemberById`, function () {
     const member = await membersDao.getMemberById(memberId);
     expect(member).not.to.be.null;
     if (member) {
-      expect(member['_id']).to.equal(memberId);
+      const memberIdAsString = new String(memberId);
+      const returnedMemberIdAsString = new String(member['_id'])
+      expect(returnedMemberIdAsString.trim()).to.equal(memberIdAsString.trim());
     }
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(memberId + 'DORF');
+    const member = await membersDao.getMemberById(dorfId);
     expect(member).to.be.null;
   });
 
@@ -83,8 +90,8 @@ describe(`${fn()}: updateUserById`, function () {
   before(async function () {
     const randomizer = Date.now();
     testMemberId = await membersDao.addMember({
-      firstName: `f${randomizer}`,
-      lastName: `l${randomizer}`
+      firstName: `f${randomizer} `,
+      lastName: `l${randomizer} `
     });
   });
 
@@ -101,7 +108,7 @@ describe(`${fn()}: updateUserById`, function () {
     }
   });
 
-  it(`should update data for member specified by memberId and {} parameters`, async function () {
+  it(`should update data for member specified by memberId and { } parameters`, async function () {
     const member = await membersDao.updateUserById(testMemberId, {});
     expect(member).not.to.be.null;
   });
@@ -113,7 +120,7 @@ describe(`${fn()}: updateUserById`, function () {
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.updateUserById(testMemberId + 'DORF', { mmb: "VOL" });
+    const member = await membersDao.updateUserById(dorfId, { mmb: "VOL" });
     expect(member).to.be.undefined;
   });
 
@@ -127,8 +134,8 @@ describe(`${fn()}: removeMemberById`, function () {
   before(async function () {
     const randomizer = Date.now();
     testMemberId = await membersDao.addMember({
-      firstName: `f${randomizer}`,
-      lastName: `l${randomizer}`
+      firstName: `f${randomizer} `,
+      lastName: `l${randomizer} `
     });
   });
 
@@ -151,7 +158,7 @@ describe(`${fn()}: removeMemberById`, function () {
     expect(result.deletedCount).to.equal(1);
   });
   it(`should return ??? when given memberid parameter that does not exist`, async function () {
-    const result = await membersDao.removeMemberById(testMemberId + 'DORF');
+    const result = await membersDao.removeMemberById(dorfId);
     expect(result.acknowledged).to.be.true;
     expect(result.deletedCount).to.equal(0);
   });
@@ -183,7 +190,7 @@ describe(`${fn()}: getMemberByEmail`, function () {
   });
 
   it(`should return null when given email parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(email + 'DORF');
+    const member = await membersDao.getMemberById(dorfId);
     expect(member).to.be.null;
   });
 

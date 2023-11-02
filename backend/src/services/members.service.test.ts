@@ -5,7 +5,7 @@ import debug from "debug";
 import membersService from "./members.service";
 
 const fn = () => `${__filename.split('/').pop()}`;
-
+const dorfId = "303030303030303030303030"
 describe(`${fn()}: getMemberById`, function () {
   let request: supertest.SuperAgentTest;
 
@@ -33,8 +33,7 @@ describe(`${fn()}: getMemberById`, function () {
 
 
   it(`should return null from db when given an invalid id`, async function () {
-    const testMemberId = 'duncell';
-    const member = await membersService.getMemberById(testMemberId);
+    const member = await membersService.getMemberById(dorfId);
     expect(member).to.be.null;
   });
 })

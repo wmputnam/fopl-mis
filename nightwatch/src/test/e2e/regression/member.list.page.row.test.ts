@@ -144,7 +144,7 @@ describe('member list page row', function () {
     }
     firstRowTools = firstRowTools ? firstRowTools : "";
     // TODO when we know we are on an LM change to equal test
-    expect(["Process donation", "Renew member"].includes(firstRowTools)).to.be.true;
+    expect(["Process donation", "Renew member"].includes(firstRowTools)).to.be.equal(true);
   });
 
   it('the row context menu includes an Renew member item when row is for a paying member or volunteer', async function (browser: NightwatchBrowser) {
@@ -161,7 +161,7 @@ describe('member list page row', function () {
     }
     secondRowTools = secondRowTools ? secondRowTools : "";
     // TODO when we know we are on an LM change to equal test
-    expect(["Process donation", "Renew member"].includes(secondRowTools)).to.be.true;
+    expect(["Process donation", "Renew member"].includes(secondRowTools)).to.be.equal(true);
   });
 
   it('the row context menu includes an Drop member item ', async function (browser: NightwatchBrowser) {

@@ -80,7 +80,7 @@ describe('edit member page', function () {
     await browser.assert.visible(browser.page.memberRemitsPage().element("@remitRowMemo"));
     const value = await browser.page.memberRemitsPage().element("@remitRowMemo").getText();
     console.log(`memo: ${value}`);
-    expect(["donation", "dues"].includes(value)).to.be.true;
+    expect(["donation", "dues"].includes(value)).to.be.equal(true);
   });
 
   // TODO add $ to remit amount
@@ -103,7 +103,7 @@ describe('edit member page', function () {
     const numberText = value.indexOf("$") >= 0 ? value.substring(value.indexOf("$") + 1) : value;
     console.log(`amount: ${numberText}`);
 
-    expect(isNumber(numberText)).to.be.true;
+    expect(isNumber(numberText)).to.be.equal(true);
   });
 
   it('return to member list on Cancel', async function (browser: NightwatchBrowser) {

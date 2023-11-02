@@ -8,7 +8,7 @@ const SCREENSHOT_PATH = "./screenshots/"; // + PKG.version + "/";
 
 const config = { // we use a nightwatch.conf.js file so we can include comments and helper functions
   "src_folders": [
-    "./dist/test/e2e"     // we use '/test' as the name of our test directory by default. So 'test/e2e' for 'e2e'.
+    "./dist/test/e2e/regression"     // we use '/test' as the name of our test directory by default. So 'test/e2e' for 'e2e'.
   ],
   "plugins": ["@nightwatch/apitesting"],
   "page_objects_path": ["./dist/page-objects"],

@@ -12,7 +12,7 @@ import mongooseService from "../common/services/mongoose.service";
 
 import shortid from "shortid";
 import debug from "debug";
-import mongoose, { Mongoose, Schema, SortOrder } from "mongoose";
+import mongoose, { Mongoose, Schema, SortOrder,} from "mongoose";
 
 const log: debug.IDebugger = debug(`app:members-dao`);
 

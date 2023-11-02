@@ -7,6 +7,9 @@ import MemberListPageService from '../../helpers/services/member.list.page.servi
 import MemberRemitPage from '../../page-objects/member.remit.page';
 import MemberRemitsPageService from '../../helpers/services/member.remits.page.service';
 
+function randomString() {
+  return "T" + Math.floor(Math.random() * 99999999).toString()
+}
 fixture`Member dues payment process flows`
   .page`${userVariables.baseUrl}`
   .beforeEach(async t => {
@@ -19,7 +22,7 @@ fixture`Member dues payment process flows`
 test('should be able to open Renew member (process dues payment) for member', async t => {
 
   const memberService = new MemberService(t);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: "T" });
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
 
 
   const title = Selector(`title`);
@@ -42,7 +45,10 @@ test('should be able to open Renew member (process dues payment) for member', as
 });
 
 test('should be able to open Process donation for life member', async t => {
-  const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
+  const memberService = new MemberService(t);
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
+
+  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
 
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
@@ -68,7 +74,7 @@ test('should be able to Process dues payment for member', async t => {
   const memberService = new MemberService(t);
 
   const title = Selector(`title`);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: "T" });
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
   console.log(`added new member document with id: ${memberId}`)
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const mmbSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--mmb');
@@ -107,8 +113,11 @@ test('should be able to Process dues payment for member', async t => {
 
 test('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
-  const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
+  const memberService = new MemberService(t);
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
+  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
   console.log(`added new member document with id: ${memberId}`)
+  // return;
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const mmbSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--mmb');
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
@@ -149,9 +158,9 @@ test('should be able find processed dues payment for member on remits page', asy
   const enteredRemitDues = '10';
 
   const memberService = new MemberService(t);
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
 
   const title = Selector(`title`);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: "T" });
   console.log(`added new member document with id: ${memberId}`)
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const mmbSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--mmb');
@@ -213,7 +222,9 @@ test('should be able find processed dues payment for member on remits page', asy
 
 test('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
-  const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
+  const memberService = new MemberService(t);
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
+  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
 
   console.log(`found life member document with id: ${memberId}`)
   const enteredRemitDate = '2023-09-13';

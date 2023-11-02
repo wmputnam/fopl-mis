@@ -1,12 +1,12 @@
-import AddMemberInterface from "../interfaces/add.member.inferface";
+import {AddMemberInterface,MemberNoteInterface} from "../interfaces/add.member.inferface";
 
 export default class MemberService {
-  
+
   t: TestController;
-  
+
   addNewMemberViaApi: (newMember: AddMemberInterface) => Promise<string>;
 
-  
+
   constructor(t: TestController) {
     this.t = t;
 
@@ -18,8 +18,8 @@ export default class MemberService {
       const resp = await t.request.post({
         url: url,
         body: {
-          firstName: newMember.firstName,
-          lastName: newMember.lastName
+          isActive: true,
+          ...newMember
         }
       });
       if (resp.status && resp.status === 200) {

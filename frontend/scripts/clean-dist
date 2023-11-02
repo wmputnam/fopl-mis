@@ -7,10 +7,14 @@ searchString="fullstack/frontend"
 began=${currentDir%$searchString*}
 rest=${currentDir#*$searchString}
 dodo=${currentDir/$searchString/DODO}
-if [[ "${rest}" == "" ]] && [[ "${dodo}" == "${began}DODO" ]]; then
-  cd dist
-  rm -rfRv ./*
-  
+if [[ "${rest}" == "" ]] && [[ "${dodo}" == "${began}DODO" ]] ; then
+  if [[ -d dist ]]; then
+    echo cd dist
+    echo rm -rfRv ./*
+  else
+    echo "no dist folder in ${currentDir}"
+    mkdir dist
+  fi
 else
   echo "please run from root dir fullstack/frontend"
   exit -1
