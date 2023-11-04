@@ -174,23 +174,20 @@ export default function App({ testMode }: AppProps): JSX.Element {
       console.log("in the lost entry -- expected in test mode")
       component = <>
         <h1 id="lost">Are we lost?<br />Welcome to the playground</h1 >
-        <PostMailStatusDropdown
-          className='post-mail--status'
-          defaultValue='Valid'
-          id='post-mail--status'
-        />
         <br />
-        <EmailStatusDropdown
-          className='email-mail--status'
-          defaultValue='unchecked'
-          id='email-status'
-        />
-        <br />
-        <VolunteerRoleMultiselect />
-        <br />
-        < StateDropdown
-          className='us-states--dropdown'
-          stateName='California' />
+        <div
+          className='volunteer-roles--container'>
+
+          <label
+            htmlFor="volunteer-roles">Volunteer roles</label>
+          <VolunteerRoleMultiselect
+            className="volunteer-roles"
+            id="volunteer-roles"
+            handleChange={(e: any) => { console.log(`app got back: ${JSON.stringify(e)}`) }}
+            defaultValue={["book-store", "other--nonsense"]}
+            isDisabled={true}
+          />
+        </div>
         <br />
         <CancelBtn
           setAppState={setAppState}

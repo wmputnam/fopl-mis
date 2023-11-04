@@ -10,6 +10,7 @@ import MemberRemitsPageService from '../../helpers/services/member.remits.page.s
 function randomString() {
   return "T" + Math.floor(Math.random() * 99999999).toString()
 }
+
 fixture`Member dues payment process flows`
   .page`${userVariables.baseUrl}`
   .beforeEach(async t => {

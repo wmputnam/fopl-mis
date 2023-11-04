@@ -23,6 +23,9 @@ const getFields = () => [
   { field: 'paidThrough', isReadOnly: true },
 ]
 
+function randomString() {
+  return "T" + Math.floor(Math.random() * 99999999).toString()
+}
 
 fixture`Member edit process flows`
   .page`${userVariables.baseUrl}`
@@ -36,7 +39,7 @@ fixture`Member edit process flows`
 test('should be able to open Edit member to view member', async t => {
 
   const memberService = new MemberService(t);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: "T" });
+  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
 
 
   const title = Selector(`title`);

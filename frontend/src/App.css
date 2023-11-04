@@ -453,10 +453,38 @@ a {
   margin: 12px 0 0 0;
 }
 
-.member-form--voulunteer-preferences {
+.member-form--volunteer-preferences {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+div[class~='volunteer-roles'] {
+  width: 100%;
+  margin: 0;
+  padding: .3em 1em 1em 1em;
+  /* border: 1px dotted red; */
+  /* background-color: #ebf4f0; */
+}
+
+div[class~='volunteer-roles'] div[class*='control'] {
+  background-color: #ebf4f0;
+    border-radius: 1.009em;
+      line-height: 1.2em;
+      font-size: 1.2em;
+}
+.volunteer-roles--container {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+}
+
+.volunteer-roles--container label {
+  font-weight: 200;
+  font-size: 1.05em;
+  margin: 0;
+  padding: 0;
+  padding-top: .5em;
 }
 
 .member-form--volunteer-preferences li {
@@ -555,9 +583,10 @@ a {
 
 .list-search-container {
   /* border: 1px dashed red; */
-    display: flex;
-      flex-direction: column;
-      align-items: center;;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ;
 }
 
 .fm-dd {
@@ -796,7 +825,7 @@ input[type='email'] {
 .list-search--search-btn {
   padding: .2em .3em;
   margin: 0 0 0 0;
-  max-width:100px;
+  max-width: 100px;
 }
 
 .list-search--input {

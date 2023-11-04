@@ -60,6 +60,9 @@ export class MemberService {
           if (newMember.volunteerPreferences === undefined) {
             newMember.volunteerPreferences = Array<Volunteer>();
           }
+          if (newMember.volunteerRoles == undefined) {
+            newMember.volunteerRoles = new Map<String, Volunteer>();
+          }
           const vObj: Volunteer | string | undefined = loadedIMemberData.volunteerPreferences?.[i];
           if (vObj !== undefined) {
             if (typeof vObj === 'string') {
@@ -67,8 +70,10 @@ export class MemberService {
                 role: loadedIMemberData.volunteerPreferences?.[i] as unknown as string,
               } as Volunteer;
               newMember["volunteerPreferences"][i] = newVolObj
+              newMember.volunteerRoles.set(newVolObj.role, newVolObj)
             } else if (typeof vObj === 'object') {
               newMember["volunteerPreferences"][i] = vObj;
+              newMember.volunteerRoles.set(vObj.role, vObj)
             }
           }
         }

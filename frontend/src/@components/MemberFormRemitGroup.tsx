@@ -32,7 +32,7 @@ export const MemberFormRemitGroup = ({
 }: FormRemitComponentGroupI) => {
 
   const handleRemitDateChange = (e: any) => {
-    if (e.target.id === "money-date") {
+    if (e.target.id === "money-date" && e.target.value !== "") {
       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _remitDate: new Date(e.target.value) } as Partial<Member>)));
     }
   }

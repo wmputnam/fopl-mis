@@ -150,7 +150,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
         if (!memberObj.volunteerPreferences) {
           memberObj.volunteerPreferences = Array<Volunteer>();
         }
-        memberObj.volunteerPreferences.push({ role: 'NEW' })
+        // memberObj.volunteerPreferences.push({ role: 'NEW' })
       }
       //  memberObj object is not quite ready for commit -- postUnjournalledRemits makes final changes
       //  - putting entered remits into the remittances array
@@ -175,8 +175,8 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
                 viewState: returnToViewState
                   ? returnToViewState
                   : MemberViewStates.list,
-                  fromViewState: [...newFromViewState],
-                  memberId: ""
+                fromViewState: [...newFromViewState],
+                memberId: ""
               }));
             } else {
               let errArr = new Array<FormError>();
@@ -205,14 +205,15 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
       memberObj,
       setMemberObj
     });
+    const volIsDisabled = !([MemberViewStates.new, MemberViewStates.renew].includes(mode));
     const formMmbGroupComponent = MemberFormMmbGroup(memberObj, setMemberObj, onRenderCallback);
-    const formVolGroupComponent = MemberFormVolGroup(memberObj, setMemberObj, onRenderCallback);
+    const formVolGroupComponent = MemberFormVolGroup(memberObj, volIsDisabled, setMemberObj, onRenderCallback);
     const pageComponents = (
       <>
         <form className="member-form" data-testid="member-form">
           {formBaseGroupComponent}
           {([MemberViewStates.new, MemberViewStates.renew].includes(mode)) && formMoneyGroupComponent}
-          {mode === MemberViewStates.new && formVolGroupComponent}
+          {formVolGroupComponent}
           {mode !== MemberViewStates.new && formMmbGroupComponent}
           <div><br></br></div>
           <div className="member-form--controls" data-testid="member-form--controls">
