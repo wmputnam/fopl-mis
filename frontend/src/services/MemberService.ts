@@ -55,19 +55,19 @@ export class MemberService {
       } else if (isPropDefined(loadedIMemberData, "zipmerge")) {
         newMember["postalCode"] = loadedIMemberData["zipmerge"]
       };
-      if (isPropDefined(loadedIMemberData, "volunteerPreferences")) {
-        for (let i = 0; i < (loadedIMemberData?.volunteerPreferences ? loadedIMemberData?.volunteerPreferences?.length : 0); i++) {
+      if (isPropDefined(loadedIMemberData, "volunteer")) {
+        for (let i = 0; i < (loadedIMemberData?.volunteer ? loadedIMemberData?.volunteer?.length : 0); i++) {
           if (newMember.volunteerPreferences === undefined) {
             newMember.volunteerPreferences = Array<Volunteer>();
           }
-          if (newMember.volunteerRoles == undefined) {
+          if (newMember.volunteerRoles === undefined) {
             newMember.volunteerRoles = new Map<String, Volunteer>();
           }
-          const vObj: Volunteer | string | undefined = loadedIMemberData.volunteerPreferences?.[i];
+          const vObj: Volunteer | string | undefined = loadedIMemberData.volunteer?.[i];
           if (vObj !== undefined) {
             if (typeof vObj === 'string') {
               let newVolObj: Volunteer = {
-                role: loadedIMemberData.volunteerPreferences?.[i] as unknown as string,
+                role: loadedIMemberData.volunteer?.[i] as unknown as string,
               } as Volunteer;
               newMember["volunteerPreferences"][i] = newVolObj
               newMember.volunteerRoles.set(newVolObj.role, newVolObj)

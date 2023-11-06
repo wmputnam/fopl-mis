@@ -2,6 +2,10 @@ export interface MemberNoteInterface {
   date?: string;
   note?: string;
 }
+export interface Volunteer {
+  role?: string;
+  lastWorkDate?: Date;
+}
 export interface AddMemberInterface {
   firstName: string;
   lastName: string;
@@ -21,6 +25,7 @@ export interface AddMemberInterface {
     }[],
   };
   notes?: MemberNoteInterface[];
+  volunteer?:Volunteer[];
 }
 
 export default {};

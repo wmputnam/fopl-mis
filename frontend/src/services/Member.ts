@@ -589,7 +589,7 @@ export class Member {
       return m;
     } else {
       const m: Member = new Member();
-      m.city = 'Petaluma';
+      m.city = 'PETALUMA';
       m.state = 'CA';
       m.postalCode = '94952-'
       m.remitDate = new Date();
@@ -620,7 +620,7 @@ export class Member {
       Member._isDefined(imember, "city") && (member.city = imember.city);
       Member._isDefined(imember, "state") && (member.state = imember.state);
       Member._isDefined(imember, "postalCode") && (member.postalCode = imember.postalCode);
-      Member._isDefined(imember, "volunteerPreferences") && (member.volunteerPreferences = imember.volunteerPreferences);
+      Member._isDefined(imember, "volunteer") && (member.volunteerPreferences = imember.volunteer);
       if (member.volunteerPreferences) { member.volunteerRoles = member.getVolRolesFromVolPrefs();}
       Member._isDefined(imember, "mmb") && (member.mmb = imember.mmb);
       Member._isDefined(imember, "paidThrough") && (member.paidThrough = imember.paidThrough);
@@ -655,7 +655,7 @@ export class Member {
     if (this.city) { imember["city"] = this.city; }
     if (this.state) { imember["state"] = this.state; }
     if (this.postalCode) { imember["postalCode"] = this.postalCode; }
-    if (this.volunteerRoles) { imember["volunteerPreferences"] = this.volunteerPreferences; }
+    if (this.volunteerRoles) { imember["volunteer"] = this.volunteerPreferences; }
     if (this.mmb) { imember["mmb"] = this.mmb; }
     if (this.paidThrough) { imember["paidThrough"] = this.paidThrough; }
     if (this.joined) { imember["joined"] = this.joined; }

@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 
 const fn = () => `${__filename.split('/').pop()}`;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formatAmountTestData = () => {
   return [
     { amount: "5", expectedResult: { wholePart: "5.00", leadingSpaces: "      " } },

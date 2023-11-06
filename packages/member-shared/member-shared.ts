@@ -10,7 +10,7 @@ export interface IMember extends IAddress,IStatus {
   lastName: string;
   email?: string;
   phone?: string;
-  volunteerPreferences?: Volunteer[];
+  volunteer?: Volunteer[];
   mmb?: string;
   paidThrough?: Date;
   joined?: Date;

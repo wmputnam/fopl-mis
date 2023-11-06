@@ -38,10 +38,13 @@ fixture`Member edit process flows`
 // Tests
 test('should be able to open Edit member to view member', async t => {
 
+  const memberMmb = 'F24';
+
   const memberService = new MemberService(t);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
-
-
+  const volunteerRoles = [{ 'role': 'book-sale' }]
+  const memberId = await memberService.addNewMemberViaApi(
+    { firstName: "Jimmy", lastName: randomString(), mmb: memberMmb, volunteer: volunteerRoles });
+  t.fixtureCtx.memberId = memberId;
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');

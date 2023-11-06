@@ -12,7 +12,7 @@ import mongooseService from "../common/services/mongoose.service";
 
 import shortid from "shortid";
 import debug from "debug";
-import mongoose, { Mongoose, Schema, SortOrder,} from "mongoose";
+import mongoose, { Mongoose, Schema, SortOrder, } from "mongoose";
 
 const log: debug.IDebugger = debug(`app:members-dao`);
 
@@ -60,7 +60,7 @@ class MembersDao {
     city: String,
     state: String,
     postalCode: String, //{ type: String, alias: "zipmerge" },
-    volunteerPreferences: { type: [this.volunteeerSchema], alias: "volunteer" },
+    volunteer: { type: [this.volunteeerSchema] },
     mmb: String,                     // TODO make this a calculated value
     paidThrough: Date, //{ type: Date, alias: "paid thru" },
     joined: Date,
