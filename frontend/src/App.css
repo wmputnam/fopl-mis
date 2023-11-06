@@ -771,7 +771,7 @@ input[type='email'] {
 }
 
 .post-mail--status {
-  border: 3px dotted dodgerblue;
+  /* border: 3px dotted dodgerblue; */
   width: 10em;
   color: #021335;
   background-color: #efefef;
@@ -786,7 +786,7 @@ input[type='email'] {
 .member--email-status--input div[class*='control'],
 .member--newsletter-status--input div[class*='control'],
 .member--state div[class*='control'] {
-  border: 3px dotted dodgerblue;
+  /* border: 3px dotted dodgerblue; */
   width: 10em;
   padding: 0;
   margin: 0;
@@ -822,9 +822,9 @@ input[type='email'] {
   margin: 0;
 }
 
-.list-search--search-btn {
+.list-search--search-btn, .new-member-report-btn {
   padding: .2em .3em;
-  margin: 0 0 0 0;
+  margin: .2em 0 0 0;
   max-width: 100px;
 }
 

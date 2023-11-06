@@ -1,5 +1,6 @@
 import React from "react";
 import ListSearch from "./ListSearch";
+import {NewMemberReport} from "./NewMemberReport";
 
 export interface AppHeaderProps {
   messages: string[];
@@ -45,6 +46,7 @@ const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }
           {showListSearch && <ListSearch 
             getSearchFilter={getListFilter}
             updateSearchFilter={updateListFilter} />}
+          {<NewMemberReport />}
         </div>
       </div>
 

@@ -30,6 +30,24 @@ class MembersController {
     res.status(200).send({ data: members, page: page, limit: limit, count: count });
   }
 
+  async listNewMembersV1(req: express.Request, res: express.Response) {
+    const limit = (req.query.limit && !Number.isNaN(req.query.limit))
+      ? Number(req.query.limit) : 100;
+    const page = (req.query.page && !Number.isNaN(req.query.page))
+      ? (Number(req.query.page) - 1) : 0;
+    const filter: Object = req.query.filter
+      ? MembersController.createFilterObject(req.query.filter as string)
+      : { isNewMember: true };
+    // req.query.filter ? JSON.parse(req.query.filter as string) : "";
+    const sort: string = req.query.sort !== undefined && req.query.sort !== ""
+      ? MembersController.createSortObject(req.query.sort as string) : "lastName firstName";
+    log(`listMembersV1 - limit: ${limit}, page: ${page}, filter:${JSON.stringify(filter)}, sort:${JSON.stringify(sort)}`)
+
+    const count = await membersService.countV1(filter);
+    const members = await membersService.listV1(limit, page, sort, filter);
+    res.status(200).send({ data: members, page: page, limit: limit, count: count });
+  }
+
   async getMemberById(req: express.Request, res: express.Response) {
     log(`getMemberByID(${req.body.id})`)
     const member = await membersService.getMemberById(req.body.id);

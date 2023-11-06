@@ -39,6 +39,8 @@ export class MembersRoutes extends CommonRoutesConfig {
         membersController.createMember
       );
 
+    this.app.route('/v1/reports/members/new')
+      .get(membersController.listNewMembersV1)
 
     this.app.param('memberId', membersMiddleware.extractMemberId);
 
