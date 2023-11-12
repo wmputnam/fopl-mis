@@ -4,9 +4,4 @@ export interface IAddress {
   city?: string;
   state?: string;
   postalCode?: string;
-  zip?: string;         // TODO remove after migration
-  plus4?: string;         // TODO remove after migration
-  zipmerge?: string;         // TODO remove after migration
-
-
 }

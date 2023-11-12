@@ -11,7 +11,7 @@ import MemberList from './@components/MemberList';
 import NewMember from './@components/NewMember';
 import RenewMember from './@components/RenewMember';
 import { MemberViewStates } from './@interfaces/enums';
-import AppHeader from './@components/AppHeader';
+import { AppHeader } from './@components/AppHeader';
 import MemberFormNotes from './@components/MemberFormNotes';
 import MemberFormMoney from './@components/MemberFormMoney';
 import { MemberService } from './services/MemberService';

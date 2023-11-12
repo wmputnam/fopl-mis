@@ -5,23 +5,14 @@ import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 import { MemberService } from "../services/MemberService";
 import { oldMemberStateToNew } from "./MemberFormBase";
+import { stringForDate } from "./helpers/DateHelper"
 export interface FormRemitComponentGroupI {
   onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void;
   memberObj: Member | undefined;
   setMemberObj: React.Dispatch<React.SetStateAction<Member>>;
 }
 const stringForRemitDate = (dt: Date | string | undefined) => {
-  if (dt) {
-    if (typeof dt === 'string') {
-      return dt.substring(0, 10);
-    } else if (typeof dt === 'object' && dt instanceof Date) {
-      return dt.toISOString().substring(0, 10);
-    } else {
-      return "";
-    }
-  } else {
-    return ""
-  };
+  return stringForDate(dt);
 };
 
 

@@ -1,4 +1,3 @@
-// most people refer to this as CRUD -- by I find CURD easier to explain to newbees
 export interface CRUD {
   list: (limit:number,page:number) =>Promise<any>;
   create: (resource:any) => Promise<any>;

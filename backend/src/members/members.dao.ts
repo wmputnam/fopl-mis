@@ -7,17 +7,13 @@ import { Volunteer } from "packages/Volunteer";
 import { Notes } from "packages/Notes";
 import { Names } from "packages/Names";
 import { IStatus } from "packages/IStatus";
-
 import mongooseService from "../common/services/mongoose.service";
-
-import shortid from "shortid";
 import debug from "debug";
 import mongoose, { Mongoose, Schema, SortOrder, } from "mongoose";
 
 const log: debug.IDebugger = debug(`app:members-dao`);
 
 class MembersDao {
-  // members: Array<CreateMemberDto> = [];
   Schema = mongooseService.getMongoose().Schema;
 
   remittanceSchema = new this.Schema<Remittance>({
@@ -59,13 +55,13 @@ class MembersDao {
     unit: String,
     city: String,
     state: String,
-    postalCode: String, //{ type: String, alias: "zipmerge" },
+    postalCode: String,
     volunteer: { type: [this.volunteeerSchema] },
     mmb: String,                     // TODO make this a calculated value
-    paidThrough: Date, //{ type: Date, alias: "paid thru" },
+    paidThrough: Date, 
     joined: Date,
-    lastUpdated: Date, //{ type: Date, alias: "updated" },
-    remittances: { type: [this.remittanceSchema] }, //, alias: "payment history" },
+    lastUpdated: Date, 
+    remittances: { type: [this.remittanceSchema] }, 
     notes: { type: [this.notesSchema] },
     isActive: Boolean,
     isNewMember: Boolean,
@@ -73,8 +69,6 @@ class MembersDao {
     validEmail: String,  // 'verified' | ' bounced' | 'unchecked' | 'none'
     newsletterType: String, // newsletter: 'email' | 'post' | 'none';
     mem: String,                        // TODO remove after migration
-    zip: String,                        // TODO remove after migration
-    plus4: String,                      // TODO remove after migration
   }, { id: false, collation: this.collation })
 
   collectionName: string;
@@ -88,7 +82,6 @@ class MembersDao {
 
   async addMember(memberFields: CreateMemberDto) {
     const updateDate = new Date();
-    // const memberId = shortid.generate();
     let memberId;
     log(JSON.stringify(memberFields));
     const member = new this.Member({
@@ -99,7 +92,6 @@ class MembersDao {
     try {
       log(`member being saved: ${JSON.stringify(member)}`);
       await member.save();
-      // const newMember = member.findOne();
       memberId = member._id;
 
     } catch (error) {
@@ -108,7 +100,6 @@ class MembersDao {
     }
     log(`saved member had id : ${memberId}`)
     return memberId;
-    //   this.members.push(member);
   }
 
   async getMembers(limit = 25, page = 0) {
@@ -126,8 +117,7 @@ class MembersDao {
     filter: mongoose.FilterQuery<IMember> = {}
   ) {
     log(`getMembersV1 - limit: ${limit}, page: ${page}, sort: ${sort}`)
-    //   return this.members;
-
+    
     const result: IMember[] = await this.Member.find(filter)
       .sort(sort)
       .limit(limit)
@@ -141,7 +131,6 @@ class MembersDao {
     filter: mongoose.FilterQuery<IMember> = {}
   ) {
     log(`getMembersCountV1 - `)
-    //   return this.members;
 
     const result: number = await this.Member.find(filter)
       .count();
@@ -150,10 +139,9 @@ class MembersDao {
   }
 
   async getMemberById(memberId: string) {
-    log(`getMemberById(${memberId})`)
-    //   return this.members.find((member:{id:string}) => member.id == memberId)
+    // log(`getMemberById(${memberId})`)
     const result = await this.Member.findById(memberId).exec();
-    log(`result:\n${result}`);
+    // log(`result:\n${result}`);
     return result;
   }
 
@@ -166,7 +154,6 @@ class MembersDao {
     const existingMember = await this.Member.findOneAndUpdate(
       { _id: memberId },
       { ...memberFields, lastUpdated: updateDate },
-      // { $set: memberFields },
       { new: true }
     )
       .exec().then((reslt: any) => log(`updatebyuserid result: ${JSON.stringify(reslt)}`))

@@ -6,7 +6,7 @@
   "types": "member-shared.d.ts",
   "scripts": {
     "build": "tsc -d",
-    "lint": "tsc --no-emit"
+    "lint": "tsc -noEmit"
   },
   "keywords": [],
   "author": "",

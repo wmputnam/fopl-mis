@@ -16,6 +16,7 @@ export class MembersRoutes extends CommonRoutesConfig {
   }
   configureRoutes(): express.Application {
 
+    /* jscpd:ignore-start */
     this.app.route(`/members`)
       .get(membersController.listMembers)
       .post(
@@ -27,6 +28,9 @@ export class MembersRoutes extends CommonRoutesConfig {
         membersMiddleware.validateSameEmailDoesntExist,
         membersController.createMember
       );
+    /* jscpd:ignore-end */
+
+    /* jscpd:ignore-start */
     this.app.route(`/v1/members`)
       .get(membersController.listMembersV1)
       .post(
@@ -38,6 +42,7 @@ export class MembersRoutes extends CommonRoutesConfig {
         membersMiddleware.validateSameEmailDoesntExist,
         membersController.createMember
       );
+    /* jscpd:ignore-end */
 
     this.app.route('/v1/reports/members/new')
       .get(membersController.listNewMembersV1)
@@ -56,13 +61,10 @@ export class MembersRoutes extends CommonRoutesConfig {
       body("lastName", "lastname cannot be empty").isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersMiddleware.validateMemberExists,
-      // membersMiddleware.validateSameEmailBelongToSameMember,
       membersController.put
     ]);
 
     this.app.patch(`/members/:memberId`, [
-      // body('firstName', "firstname cannot be empty").isString().isLength({ min: 1 }),
-      // body('lastName', "lastname cannot be empty").isString().isLength({ min: 1 }),
       bodyValidationMiddleware.verifyBodyFieldsErrors,
       membersController.patch
     ]);

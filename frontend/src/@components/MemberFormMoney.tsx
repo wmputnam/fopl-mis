@@ -2,7 +2,7 @@
 import React, { Profiler } from "react"
 import useAxios from "axios-hooks";
 import { AppState, onRenderCallback } from "../App";
-import CancelBtn from "./CancelBtn";
+import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services/AppConfig";
 import { IMember } from "packages";
 import { Remittance } from "packages/Remittance";
@@ -52,6 +52,8 @@ const compareRemits = (a: Remittance, b: Remittance): number => {
 }
 
 const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) => {
+
+  // jscpd:ignore-start
   const memberId = getAppState().memberId;
 
   const LoadFromDb = (memberId: string): Array<any> => {
@@ -59,17 +61,17 @@ const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) =>
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
     );
   }
-
+  
   let someData: Array<any> | undefined;
-
+  
   if (memberId) {
     someData = LoadFromDb(memberId);
   } else {
     someData = undefined;
   }
-
+  
   const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
-  console.log(`fe-formbase\n    ${JSON.stringify(memberData)}`)
+  // jscpd:ignore-end
 
   const remitArr: Remittance[] | undefined = memberData && memberData.remittances ? memberData.remittances : undefined;
 

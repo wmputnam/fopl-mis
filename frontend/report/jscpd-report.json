@@ -1,0 +1,2097 @@
+{
+  "statistics": {
+    "detectionDate": "2023-11-09T16:25:13.572Z",
+    "formats": {
+      "typescript": {
+        "sources": {
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/dao/JSON/MemberDataJSON.ts": {
+            "lines": 21,
+            "tokens": 172,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/DataLoader.ts": {
+            "lines": 32,
+            "tokens": 286,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/DataLoader.test.ts": {
+            "lines": 54,
+            "tokens": 501,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/UspsWebTools.ts": {
+            "lines": 29,
+            "tokens": 274,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/Status.ts": {
+            "lines": 31,
+            "tokens": 187,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/MemberService.ts": {
+            "lines": 610,
+            "tokens": 7072,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 10,
+            "duplicatedTokens": 162,
+            "percentage": 1.64,
+            "percentageTokens": 2.29,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/MemberDocumentService.ts": {
+            "lines": 17,
+            "tokens": 93,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/Member.ts": {
+            "lines": 708,
+            "tokens": 7910,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/Member.test.ts": {
+            "lines": 782,
+            "tokens": 9142,
+            "sources": 1,
+            "clones": 8,
+            "duplicatedLines": 106,
+            "duplicatedTokens": 1654,
+            "percentage": 13.55,
+            "percentageTokens": 18.09,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/AppConfig.ts": {
+            "lines": 44,
+            "tokens": 380,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/AppConfig.test.ts": {
+            "lines": 19,
+            "tokens": 170,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/reducers/members.reducers.ts": {
+            "lines": 176,
+            "tokens": 1761,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/reducers/members.reducers.test.ts": {
+            "lines": 269,
+            "tokens": 2177,
+            "sources": 1,
+            "clones": 8,
+            "duplicatedLines": 82,
+            "duplicatedTokens": 622,
+            "percentage": 30.48,
+            "percentageTokens": 28.57,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@interfaces/enums.ts": {
+            "lines": 32,
+            "tokens": 240,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@interfaces/SaveResponse.ts": {
+            "lines": 3,
+            "tokens": 23,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@interfaces/HttpResponse.ts": {
+            "lines": 5,
+            "tokens": 36,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@interfaces/DuesRates.ts": {
+            "lines": 6,
+            "tokens": 47,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/VolunteerRoleMultiselect.test.ts": {
+            "lines": 59,
+            "tokens": 996,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 541,
+            "percentage": 35.59,
+            "percentageTokens": 54.32,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ReportLoader.ts": {
+            "lines": 37,
+            "tokens": 296,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MoneyListRow.test.ts": {
+            "lines": 50,
+            "tokens": 881,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 541,
+            "percentage": 42,
+            "percentageTokens": 61.41,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DataUpdater.ts": {
+            "lines": 68,
+            "tokens": 652,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DataUpdater.test.ts": {
+            "lines": 139,
+            "tokens": 1389,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 26,
+            "duplicatedTokens": 268,
+            "percentage": 18.71,
+            "percentageTokens": 19.29,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/setupTests.ts": {
+            "lines": 14,
+            "tokens": 32,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/reportWebVitals.ts": {
+            "lines": 14,
+            "tokens": 133,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/react-number-input.d.ts": {
+            "lines": 52,
+            "tokens": 111,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 3271,
+          "tokens": 34961,
+          "sources": 25,
+          "clones": 11,
+          "duplicatedLines": 133,
+          "duplicatedTokens": 1894,
+          "percentage": 4.07,
+          "percentageTokens": 5.42,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "javascript": {
+        "sources": {
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/RefreshForm.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/MemberFormNav2Base.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/EditMemberAddress.tsx": {
+            "lines": 1,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/BackToMemberBtn.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/VolunteerRoleMultiselect.tsx": {
+            "lines": 6,
+            "tokens": 39,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/StateDropdown.tsx": {
+            "lines": 4,
+            "tokens": 27,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/SaveBtn.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/RenewMember.tsx": {
+            "lines": 3,
+            "tokens": 24,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/PostMailStatusDropdown.tsx": {
+            "lines": 4,
+            "tokens": 27,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewsletterTypeDropdown.tsx": {
+            "lines": 4,
+            "tokens": 27,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewMemberReport.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewMember.tsx": {
+            "lines": 1,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ModalFM.tsx": {
+            "lines": 15,
+            "tokens": 112,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListRowMenu.tsx": {
+            "lines": 15,
+            "tokens": 447,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListRow.tsx": {
+            "lines": 20,
+            "tokens": 188,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListHeader.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberList.tsx": {
+            "lines": 19,
+            "tokens": 163,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormVolGroup.tsx": {
+            "lines": 0,
+            "tokens": 7,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormRemitGroup.tsx": {
+            "lines": 18,
+            "tokens": 303,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNotes.tsx": {
+            "lines": 16,
+            "tokens": 153,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNav2Notes.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNav2Money.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormMoney.tsx": {
+            "lines": 15,
+            "tokens": 112,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormMmbGroup.tsx": {
+            "lines": 122,
+            "tokens": 811,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormHeader.tsx": {
+            "lines": 5,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormBaseGroup.tsx": {
+            "lines": 184,
+            "tokens": 1532,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormBase.tsx": {
+            "lines": 4,
+            "tokens": 21,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ListSearch.tsx": {
+            "lines": 7,
+            "tokens": 59,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ListNav.tsx": {
+            "lines": 10,
+            "tokens": 92,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/EmailStatusDropdown.tsx": {
+            "lines": 5,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/EditMember.tsx": {
+            "lines": 5,
+            "tokens": 27,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropMember.tsx": {
+            "lines": 3,
+            "tokens": 39,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropDownItem.tsx": {
+            "lines": 1,
+            "tokens": 11,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropDown.tsx": {
+            "lines": 8,
+            "tokens": 71,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/CancelBtn.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/AppHeader.tsx": {
+            "lines": 30,
+            "tokens": 316,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/AppHeader._test_.tsx": {
+            "lines": 10,
+            "tokens": 134,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/App.tsx": {
+            "lines": 109,
+            "tokens": 710,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/App.test-foo.tsx": {
+            "lines": 11,
+            "tokens": 97,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 655,
+          "tokens": 5660,
+          "sources": 39,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "tsx": {
+        "sources": {
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/RefreshForm.tsx": {
+            "lines": 16,
+            "tokens": 102,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/MemberFormNav2Base.tsx": {
+            "lines": 24,
+            "tokens": 179,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/Kabob.tsx": {
+            "lines": 7,
+            "tokens": 64,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/EditMemberAddress.tsx": {
+            "lines": 13,
+            "tokens": 113,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/noLongerUsed/BackToMemberBtn.tsx": {
+            "lines": 21,
+            "tokens": 189,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/services/MemberRowData.tsx": {
+            "lines": 15,
+            "tokens": 246,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/models/Person.tsx": {
+            "lines": 10,
+            "tokens": 73,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/models/Membership.tsx": {
+            "lines": 3,
+            "tokens": 24,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/models/Contacts.tsx": {
+            "lines": 3,
+            "tokens": 24,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/models/Address.tsx": {
+            "lines": 6,
+            "tokens": 41,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@interfaces/MemberProps.tsx": {
+            "lines": 79,
+            "tokens": 621,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/VolunteerRoleMultiselect.tsx": {
+            "lines": 231,
+            "tokens": 2027,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/StateDropdown.tsx": {
+            "lines": 125,
+            "tokens": 1589,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/SaveBtn.tsx": {
+            "lines": 27,
+            "tokens": 167,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/RenewMember.tsx": {
+            "lines": 23,
+            "tokens": 221,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/PostMailStatusDropdown.tsx": {
+            "lines": 59,
+            "tokens": 592,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 46,
+            "duplicatedTokens": 539,
+            "percentage": 77.97,
+            "percentageTokens": 91.05,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NotesListRow.tsx": {
+            "lines": 27,
+            "tokens": 471,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NotesListHeader.tsx": {
+            "lines": 12,
+            "tokens": 108,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewsletterTypeDropdown.tsx": {
+            "lines": 57,
+            "tokens": 588,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 37,
+            "duplicatedTokens": 453,
+            "percentage": 64.91,
+            "percentageTokens": 77.04,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewMemberReport.tsx": {
+            "lines": 63,
+            "tokens": 862,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/NewMember.tsx": {
+            "lines": 20,
+            "tokens": 155,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MoneyListRow.tsx": {
+            "lines": 90,
+            "tokens": 1163,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MoneyListHeader.tsx": {
+            "lines": 13,
+            "tokens": 130,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ModalFM.tsx": {
+            "lines": 94,
+            "tokens": 609,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListRowMenu.tsx": {
+            "lines": 182,
+            "tokens": 1874,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListRow.tsx": {
+            "lines": 64,
+            "tokens": 468,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberListHeader.tsx": {
+            "lines": 50,
+            "tokens": 359,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberList.tsx": {
+            "lines": 87,
+            "tokens": 747,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormVolGroup.tsx": {
+            "lines": 365,
+            "tokens": 877,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormRemitGroup.tsx": {
+            "lines": 83,
+            "tokens": 1050,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 144,
+            "percentage": 16.87,
+            "percentageTokens": 13.71,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNotes.tsx": {
+            "lines": 71,
+            "tokens": 701,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 18,
+            "duplicatedTokens": 197,
+            "percentage": 25.35,
+            "percentageTokens": 28.1,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNav2Notes.tsx": {
+            "lines": 29,
+            "tokens": 191,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 82,
+            "percentage": 24.14,
+            "percentageTokens": 42.93,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormNav2Money.tsx": {
+            "lines": 29,
+            "tokens": 190,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 7,
+            "duplicatedTokens": 82,
+            "percentage": 24.14,
+            "percentageTokens": 43.16,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormMoney.tsx": {
+            "lines": 112,
+            "tokens": 1104,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 18,
+            "duplicatedTokens": 197,
+            "percentage": 16.07,
+            "percentageTokens": 17.84,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormMmbGroup.tsx": {
+            "lines": 209,
+            "tokens": 1704,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 144,
+            "percentage": 6.7,
+            "percentageTokens": 8.45,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormHeader.tsx": {
+            "lines": 33,
+            "tokens": 274,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormBaseGroup.tsx": {
+            "lines": 263,
+            "tokens": 2542,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/MemberFormBase.tsx": {
+            "lines": 237,
+            "tokens": 2557,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ListSearch.tsx": {
+            "lines": 65,
+            "tokens": 436,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/ListNav.tsx": {
+            "lines": 40,
+            "tokens": 308,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/EmailStatusDropdown.tsx": {
+            "lines": 71,
+            "tokens": 631,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 25,
+            "duplicatedTokens": 308,
+            "percentage": 35.21,
+            "percentageTokens": 48.81,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/EditMember.tsx": {
+            "lines": 27,
+            "tokens": 173,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropMember.tsx": {
+            "lines": 39,
+            "tokens": 323,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropDownItem.tsx": {
+            "lines": 32,
+            "tokens": 271,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/DropDown.tsx": {
+            "lines": 40,
+            "tokens": 308,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/CancelBtn.tsx": {
+            "lines": 27,
+            "tokens": 189,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/AppHeader.tsx": {
+            "lines": 57,
+            "tokens": 531,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/@components/AppHeader._test_.tsx": {
+            "lines": 48,
+            "tokens": 374,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/index.tsx": {
+            "lines": 20,
+            "tokens": 110,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/App.tsx": {
+            "lines": 245,
+            "tokens": 1896,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "/Users/williamputnam/localSrc/fullstack/frontend/src/App.test-foo.tsx": {
+            "lines": 46,
+            "tokens": 333,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 3609,
+          "tokens": 30879,
+          "sources": 51,
+          "clones": 7,
+          "duplicatedLines": 93,
+          "duplicatedTokens": 1073,
+          "percentage": 2.58,
+          "percentageTokens": 3.47,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 7535,
+      "tokens": 71500,
+      "sources": 115,
+      "clones": 18,
+      "duplicatedLines": 226,
+      "duplicatedTokens": 2967,
+      "percentage": 3,
+      "percentageTokens": 4.15,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "typescript",
+      "lines": 6,
+      "fragment": "= (memberObj: Member) => {\n    if (memberObj) {\n      const memberOutObj: Member | undefined = memberObj.deepClone();\n      if (memberOutObj) {\n        if (memberObj.status) {\n          memberOutObj.status = { ...memberObj.status, isActive: false",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/services/MemberService.ts",
+        "start": 556,
+        "end": 561,
+        "startLoc": {
+          "line": 556,
+          "column": 2,
+          "position": 6458
+        },
+        "endLoc": {
+          "line": 561,
+          "column": 6,
+          "position": 6539
+        }
+      },
+      "secondFile": {
+        "name": "src/services/MemberService.ts",
+        "start": 490,
+        "end": 495,
+        "startLoc": {
+          "line": 490,
+          "column": 2,
+          "position": 5784
+        },
+        "endLoc": {
+          "line": 495,
+          "column": 5,
+          "position": 5865
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "= (): Member => {\n  const member = Member.create(shortid());\n  member.firstName = \"Oliver\";\n  member.lastName = \"North\";\n  member.address = \"500 W Baker Ave\";\n  member.unit = \"Ste 3\";\n  member.city = \"Arlington\";\n  member.state = \"VA\";\n  member.postalCode = \"10200-2325\";\n  member.email = \"test@test.it\";\n  member.phone = \"707-555-1212 x432\"\n  member",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 47,
+        "end": 58,
+        "startLoc": {
+          "line": 47,
+          "column": 2,
+          "position": 563
+        },
+        "endLoc": {
+          "line": 58,
+          "column": 7,
+          "position": 682
+        }
+      },
+      "secondFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 19,
+        "end": 29,
+        "startLoc": {
+          "line": 19,
+          "column": 2,
+          "position": 166
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 2,
+          "position": 283
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "member.volunteerPreferences = [{ role: \"SALE\" }, { role: \"LUMACON\", lastWorkDate: new Date(\"2023-01-28\") }];\n  member.mmb = \"VOL\";\n  member.paidThrough = new Date(\"2020-04-01\");\n  member.joined = new Date(\"1990-01-01\");\n  member.remittances = [{ date: new Date(\"1990-01-01\"), amount: \"2\", memo: \"dues\" }];\n  member.notes = [{ date: new Date(), note: \"this is a test\" }];\n  member.dataEntryErrors = [\n    { target: \"first-name\"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 58,
+        "end": 65,
+        "startLoc": {
+          "line": 58,
+          "column": 3,
+          "position": 682
+        },
+        "endLoc": {
+          "line": 65,
+          "column": 13,
+          "position": 841
+        }
+      },
+      "secondFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 36,
+        "end": 42,
+        "startLoc": {
+          "line": 36,
+          "column": 3,
+          "position": 360
+        },
+        "endLoc": {
+          "line": 42,
+          "column": 7,
+          "position": 517
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 19,
+      "fragment": "= (): Member => {\n  const member = Member.create(shortid());\n  member.firstName = \"Oliver\";\n  member.lastName = \"North\";\n  member.address = \"500 W Baker Ave\";\n  member.unit = \"Ste 3\";\n  member.city = \"Arlington\";\n  member.state = \"VA\";\n  member.postalCode = \"10200-2325\";\n  member.email = \"test@test.it\";\n  member.phone = \"707-555-1212 x432\"\n  member.volunteerPreferences = [{ role: \"SALE\" }, { role: \"LUMACON\", lastWorkDate: new Date(\"2023-01-28\") }];\n  member.mmb = \"VOL\";\n  member.paidThrough = new Date(\"2020-04-01\");\n  member.joined = new Date(\"1990-01-01\");\n  member.remittances = [{ date: new Date(\"1990-01-01\"), amount: \"2\", memo: \"dues\" }];\n  member.notes = [{ date: new Date(), note: \"this is a test\" }];\n  member.dataEntryErrors = [\n    { target: \"last-name\"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 74,
+        "end": 92,
+        "startLoc": {
+          "line": 74,
+          "column": 2,
+          "position": 959
+        },
+        "endLoc": {
+          "line": 92,
+          "column": 12,
+          "position": 1237
+        }
+      },
+      "secondFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 19,
+        "end": 42,
+        "startLoc": {
+          "line": 19,
+          "column": 2,
+          "position": 166
+        },
+        "endLoc": {
+          "line": 42,
+          "column": 7,
+          "position": 517
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 18,
+      "fragment": "= (): Member => {\n  const member = Member.create(shortid());\n  member.firstName = \"Oliver\";\n  member.lastName = \"North\";\n  member.address = \"500 W Baker Ave\";\n  member.unit = \"Ste 3\";\n  member.city = \"Arlington\";\n  member.state = \"VA\";\n  member.postalCode = \"10200-2325\";\n  member.email = \"test@test.it\";\n  member.phone = \"707-555-1212 x432\"\n  member.volunteerPreferences = [{ role: \"SALE\" }, { role: \"LUMACON\", lastWorkDate: new Date(\"2023-01-28\") }];\n  member.mmb = \"VOL\";\n  member.paidThrough = new Date(\"2020-04-01\");\n  member.joined = new Date(\"1990-01-01\");\n  member.remittances = [{ date: new Date(\"1990-01-01\"), amount: \"2\", memo: \"dues\" }];\n  member.notes = [{ date: new Date(), note: \"this is a test\" }];\n  member.dataEntryErrors = []",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 98,
+        "end": 115,
+        "startLoc": {
+          "line": 98,
+          "column": 2,
+          "position": 1286
+        },
+        "endLoc": {
+          "line": 115,
+          "column": 2,
+          "position": 1557
+        }
+      },
+      "secondFile": {
+        "name": "src/services/Member.test.ts",
+        "start": 19,
+        "end": 42,
+        "startLoc": {
+          "line": 19,
+          "column": 2,
+          "position": 166
+        },
+        "endLoc": {
+          "line": 42,
+          "column": 2,
+          "position": 512
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": ": new Date(),\n      firstName: 'Billy',\n      lastName: 'Budd'\n    });\n    // console.log(`***${result}***`)\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(result).to.be.a('string');\n    expect(result.length).to.be.equal(10);\n  });\n\n  it('should return first 10 chars of provided date string when joined is a string'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 152,
+        "end": 162,
+        "startLoc": {
+          "line": 152,
+          "column": 7,
+          "position": 1218
+        },
+        "endLoc": {
+          "line": 162,
+          "column": 79,
+          "position": 1294
+        }
+      },
+      "secondFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 112,
+        "end": 122,
+        "startLoc": {
+          "line": 112,
+          "column": 12,
+          "position": 907
+        },
+        "endLoc": {
+          "line": 122,
+          "column": 130,
+          "position": 983
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": ": '2023-04-01T13:31:22.999Z' as unknown as Date,\n      firstName: 'Billy',\n      lastName: 'Budd'\n    });\n    // console.log(`***${result}***`)\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(result).to.be.a('string');\n    expect(result.length).to.be.equal(10);\n  });\n\n});\n\n// reduceLastUpdatedForMemberList",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 164,
+        "end": 176,
+        "startLoc": {
+          "line": 164,
+          "column": 7,
+          "position": 1319
+        },
+        "endLoc": {
+          "line": 176,
+          "column": 34,
+          "position": 1401
+        }
+      },
+      "secondFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 124,
+        "end": 136,
+        "startLoc": {
+          "line": 124,
+          "column": 12,
+          "position": 1008
+        },
+        "endLoc": {
+          "line": 136,
+          "column": 28,
+          "position": 1090
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": ": new Date(),\n      firstName: 'Billy',\n      lastName: 'Budd'\n    });\n    // console.log(`***${result}***`)\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(result).to.be.a('string');\n    expect(result.length).to.be.equal(10);\n  });\n\n  it('should return first 10 chars of provided date string when lastUpdated is a string'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 192,
+        "end": 202,
+        "startLoc": {
+          "line": 192,
+          "column": 12,
+          "position": 1529
+        },
+        "endLoc": {
+          "line": 202,
+          "column": 84,
+          "position": 1605
+        }
+      },
+      "secondFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 112,
+        "end": 122,
+        "startLoc": {
+          "line": 112,
+          "column": 12,
+          "position": 907
+        },
+        "endLoc": {
+          "line": 122,
+          "column": 130,
+          "position": 983
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 10,
+      "fragment": ": '2023-04-01T13:31:22.999Z' as unknown as Date,\n      firstName: 'Billy',\n      lastName: 'Budd'\n    });\n    // console.log(`***${result}***`)\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(result).to.be.a('string');\n    expect(result.length).to.be.equal(10);\n  });\n  //reducePhoneForMemberList",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 204,
+        "end": 213,
+        "startLoc": {
+          "line": 204,
+          "column": 12,
+          "position": 1630
+        },
+        "endLoc": {
+          "line": 213,
+          "column": 27,
+          "position": 1707
+        }
+      },
+      "secondFile": {
+        "name": "src/reducers/members.reducers.test.ts",
+        "start": 124,
+        "end": 134,
+        "startLoc": {
+          "line": 124,
+          "column": 12,
+          "position": 1008
+        },
+        "endLoc": {
+          "line": 134,
+          "column": 2,
+          "position": 1085
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "]\nconst getOptionByLabel = (label: string): SelectOption => {\n  let result = null as unknown as SelectOption;\n\n  if (label) {\n    for (let i = 0; i < options.length; i++) {\n      if (options[i].label.toLowerCase() === label.toLowerCase()) {\n        console.log(` getOptionByLabel: got \"${label}\" returning ${JSON.stringify(options[i])} `)\n        return options[i];\n      }\n    }\n  }\n  return result;\n}\n\n\nexport function NewsletterTypeDropdown",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/NewsletterTypeDropdown.tsx",
+        "start": 12,
+        "end": 28,
+        "startLoc": {
+          "line": 12,
+          "column": 1,
+          "position": 114
+        },
+        "endLoc": {
+          "line": 28,
+          "column": 23,
+          "position": 274
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/PostMailStatusDropdown.tsx",
+        "start": 13,
+        "end": 28,
+        "startLoc": {
+          "line": 13,
+          "column": 1,
+          "position": 116
+        },
+        "endLoc": {
+          "line": 28,
+          "column": 23,
+          "position": 275
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": ";\n\n  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);\n  console.log(`props keys: ${Object.keys(props)}`)\n\n  const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {\n    setSelectedOption(option as SelectOption);\n  }\n\n  React.useEffect(() => {\n    if (props.handleChange && typeof props.handleChange === 'function') {\n      props.handleChange({ target: { id: id, value: selectedOption.value } })\n    }\n    // eslint-disable-next-line react-hooks/exhaustive-deps",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/NewsletterTypeDropdown.tsx",
+        "start": 32,
+        "end": 45,
+        "startLoc": {
+          "line": 32,
+          "column": 18,
+          "position": 348
+        },
+        "endLoc": {
+          "line": 45,
+          "column": 56,
+          "position": 530
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/PostMailStatusDropdown.tsx",
+        "start": 32,
+        "end": 47,
+        "startLoc": {
+          "line": 32,
+          "column": 20,
+          "position": 349
+        },
+        "endLoc": {
+          "line": 47,
+          "column": 2,
+          "position": 534
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 22,
+      "fragment": "const formatAmountTestData = () => {\n    return [\n        { amount: \"5\", expectedResult: { wholePart: \"5.00\", leadingSpaces: \"      \" } },\n        { amount: \"5.00\", expectedResult: { wholePart: \"5.00\", leadingSpaces: \"      \" } },\n        { amount: \"5.25\", expectedResult: { wholePart: \"5.25\", leadingSpaces: \"      \" } },\n        { amount: \"50\", expectedResult: { wholePart: \"50.00\", leadingSpaces: \"     \" } },\n        { amount: \"100\", expectedResult: { wholePart: \"100.00\", leadingSpaces: \"    \" } },\n        { amount: \"5000\", expectedResult: { wholePart: \"5,000.00\", leadingSpaces: \"  \" } },\n        { amount: \"999999\", expectedResult: { wholePart: \"999,999.00\", leadingSpaces: \"\" } },\n        { amount: \"9999999\", expectedResult: { wholePart: \"9999999.00\", leadingSpaces: \"\" } },\n        { amount: \"$5\", expectedResult: { wholePart: \"5.00\", leadingSpaces: \"      \" } },\n        { amount: \"$5.00\", expectedResult: { wholePart: \"5.00\", leadingSpaces: \"      \" } },\n        { amount: \"$5.25\", expectedResult: { wholePart: \"5.25\", leadingSpaces: \"      \" } },\n        { amount: \"$50\", expectedResult: { wholePart: \"50.00\", leadingSpaces: \"     \" } },\n        { amount: \"$100\", expectedResult: { wholePart: \"100.00\", leadingSpaces: \"    \" } },\n        { amount: \"$5000\", expectedResult: { wholePart: \"5,000.00\", leadingSpaces: \"  \" } },\n        { amount: \"$999999\", expectedResult: { wholePart: \"999,999.00\", leadingSpaces: \"\" } },\n        { amount: \"$9999999\", expectedResult: { wholePart: \"9999999.00\", leadingSpaces: \"\" } },\n        { amount: \"george\", expectedResult: { wholePart: \"george\", leadingSpaces: \"\" } },\n    ]\n}\ndescribe(`${fn()}: Remits list row formatAmount`",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/MoneyListRow.test.ts",
+        "start": 11,
+        "end": 32,
+        "startLoc": {
+          "line": 11,
+          "column": 1,
+          "position": 102
+        },
+        "endLoc": {
+          "line": 32,
+          "column": 32,
+          "position": 643
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/VolunteerRoleMultiselect.test.ts",
+        "start": 12,
+        "end": 33,
+        "startLoc": {
+          "line": 12,
+          "column": 1,
+          "position": 104
+        },
+        "endLoc": {
+          "line": 33,
+          "column": 26,
+          "position": 645
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 8,
+      "fragment": "({ setAppState, getAppState }: FrontendProps): any {\n\n    function updViewState() {\n        const newFromViewState = getAppState().fromViewState;\n        newFromViewState.push(getAppState().viewState);\n        setAppState((oldState: any) => ({\n            ...oldState,\n            viewState: MemberViewStates.money",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/MemberFormNav2Money.tsx",
+        "start": 9,
+        "end": 16,
+        "startLoc": {
+          "line": 9,
+          "column": 20,
+          "position": 46
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 6,
+          "position": 128
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/MemberFormNav2Notes.tsx",
+        "start": 9,
+        "end": 16,
+        "startLoc": {
+          "line": 9,
+          "column": 20,
+          "position": 46
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 6,
+          "position": 128
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 19,
+      "fragment": "=> {\n  const memberId = getAppState().memberId;\n\n  const LoadFromDb = (memberId: string): Array<any> => {\n    return useAxios<IMember>(\n      { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }\n    );\n  }\n\n  let someData: Array<any> | undefined;\n\n  if (memberId) {\n    someData = LoadFromDb(memberId);\n  } else {\n    someData = undefined;\n  }\n\n  const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;\n  console",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/MemberFormMoney.tsx",
+        "start": 54,
+        "end": 72,
+        "startLoc": {
+          "line": 54,
+          "column": 2,
+          "position": 564
+        },
+        "endLoc": {
+          "line": 72,
+          "column": 8,
+          "position": 761
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/MemberFormNotes.tsx",
+        "start": 17,
+        "end": 34,
+        "startLoc": {
+          "line": 17,
+          "column": 2,
+          "position": 178
+        },
+        "endLoc": {
+          "line": 34,
+          "column": 6,
+          "position": 374
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 15,
+      "fragment": "= (dt: Date | string | undefined) => {\n  if (dt) {\n    if (typeof dt === 'string') {\n      return dt.substring(0, 10);\n    } else if (typeof dt === 'object' && dt instanceof Date) {\n      return dt.toISOString().substring(0, 10);\n    } else {\n      return \"\";\n    }\n  } else {\n    return \"\"\n  };\n};\n\nexport const MemberFormMmbGroup",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/MemberFormMmbGroup.tsx",
+        "start": 12,
+        "end": 26,
+        "startLoc": {
+          "line": 12,
+          "column": 2,
+          "position": 113
+        },
+        "endLoc": {
+          "line": 26,
+          "column": 19,
+          "position": 257
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/MemberFormRemitGroup.tsx",
+        "start": 13,
+        "end": 28,
+        "startLoc": {
+          "line": 13,
+          "column": 2,
+          "position": 145
+        },
+        "endLoc": {
+          "line": 28,
+          "column": 21,
+          "position": 290
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": "}\n]\nconst getOptionByLabel = (label: string): SelectOption => {\n  let result = null as unknown as SelectOption;\n\n  if (label) {\n    for (let i = 0; i < options.length; i++) {\n      if (options[i].label.toLowerCase() === label.toLowerCase()) {\n        console.log(`email status getOptionByLabel: got \"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/EmailStatusDropdown.tsx",
+        "start": 12,
+        "end": 20,
+        "startLoc": {
+          "line": 12,
+          "column": 2,
+          "position": 129
+        },
+        "endLoc": {
+          "line": 20,
+          "column": 38,
+          "position": 240
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/NewsletterTypeDropdown.tsx",
+        "start": 11,
+        "end": 20,
+        "startLoc": {
+          "line": 11,
+          "column": 2,
+          "position": 112
+        },
+        "endLoc": {
+          "line": 20,
+          "column": 26,
+          "position": 225
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 18,
+      "fragment": ";\n\n  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);\n  console.log(`props keys: ${Object.keys(props)}`)\n\n  const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {\n    setSelectedOption(option as SelectOption);\n  }\n\n  React.useEffect(() => {\n    if (props.handleChange && typeof props.handleChange === 'function') {\n      props.handleChange({ target: { id: id, value: selectedOption.value } })\n    }\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [selectedOption]);\n\n\n  // React.useEffect(() => {",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/EmailStatusDropdown.tsx",
+        "start": 37,
+        "end": 54,
+        "startLoc": {
+          "line": 37,
+          "column": 15,
+          "position": 367
+        },
+        "endLoc": {
+          "line": 54,
+          "column": 27,
+          "position": 564
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/PostMailStatusDropdown.tsx",
+        "start": 32,
+        "end": 49,
+        "startLoc": {
+          "line": 32,
+          "column": 20,
+          "position": 349
+        },
+        "endLoc": {
+          "line": 49,
+          "column": 7,
+          "position": 545
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 14,
+      "fragment": ");\n    // console.log(JSON.stringify(res));\n    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug\n    const id = body.id;\n    expect(res.req.method).to.be.equal('POST');\n    expect(res.status).to.be.equal(200);\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(id).not.to.be.undefined;\n    // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n    expect(id).not.to.be.null;\n    expect(id).to.a('string');\n  });\n\n  it('should POST \"LM\" member data that is same when retrieved'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/@components/DataUpdater.test.ts",
+        "start": 91,
+        "end": 104,
+        "startLoc": {
+          "line": 91,
+          "column": 12,
+          "position": 803
+        },
+        "endLoc": {
+          "line": 104,
+          "column": 59,
+          "position": 937
+        }
+      },
+      "secondFile": {
+        "name": "src/@components/DataUpdater.test.ts",
+        "start": 76,
+        "end": 89,
+        "startLoc": {
+          "line": 76,
+          "column": 3,
+          "position": 628
+        },
+        "endLoc": {
+          "line": 89,
+          "column": 67,
+          "position": 762
+        }
+      }
+    }
+  ]
+}

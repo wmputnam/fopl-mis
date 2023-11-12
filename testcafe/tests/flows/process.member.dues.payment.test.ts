@@ -1,10 +1,8 @@
 import { Selector } from 'testcafe';
+// @ts-ignore
 import { userVariables } from '../../.testcaferc';
 import MemberFormPage from '../../page-objects/member.form.page';
-import MemberListPage from '../../page-objects/member.list';
 import MemberService from '../../helpers/services/members.service';
-import MemberListPageService from '../../helpers/services/member.list.page.service';
-import MemberRemitPage from '../../page-objects/member.remit.page';
 import MemberRemitsPageService from '../../helpers/services/member.remits.page.service';
 
 function randomString() {
@@ -49,8 +47,6 @@ test('should be able to open Process donation for life member', async t => {
   const memberService = new MemberService(t);
   const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
 
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
-
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
@@ -75,7 +71,11 @@ test('should be able to Process dues payment for member', async t => {
   const memberService = new MemberService(t);
 
   const title = Selector(`title`);
-  const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString() });
+  const memberId = await memberService.addNewMemberViaApi({
+    firstName: "Jimmy",
+    lastName: randomString(),
+
+  });
   console.log(`added new member document with id: ${memberId}`)
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const mmbSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--mmb');
@@ -101,8 +101,8 @@ test('should be able to Process dues payment for member', async t => {
   await t
     .typeText(MemberFormPage.remitDate, '2023-09-13')
     .typeText(MemberFormPage.remitDues, '10')
-    .click(MemberFormPage.saveBtn);
-
+    .click(MemberFormPage.saveBtn)
+    ;
   await t
     .wait(250)
     .eval(() => location.reload());
@@ -116,9 +116,7 @@ test('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
   const memberService = new MemberService(t);
   const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
   console.log(`added new member document with id: ${memberId}`)
-  // return;
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const mmbSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--mmb');
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
@@ -168,7 +166,6 @@ test('should be able find processed dues payment for member on remits page', asy
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
   const visibleRenewMenuItem = Selector('div').withAttribute(`data-testid`, "member-row--menu-renewal")
     .withAttribute('member-id', memberId);
-  //const visibleRemitMenuItem = toolsSelector.child('div.member-row--menu-money');
   const visibleRemitMenuItem = Selector(`div[data-id="${memberId}"] div[data-testid="member-row--tools"] div.member-row--menu-money`);
   const sillyHeader = Selector('h1');
   const sillierHeader = Selector('h3');
@@ -225,9 +222,7 @@ test('should be able to Process donation payment for member', async t => {
   const title = Selector(`title`);
   const memberService = new MemberService(t);
   const memberId = await memberService.addNewMemberViaApi({ firstName: "Jimmy", lastName: randomString(), mmb: "LM" });
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: 'LM' });
 
-  console.log(`found life member document with id: ${memberId}`)
   const enteredRemitDate = '2023-09-13';
   const enteredRemitDonation = '10';
 
@@ -236,7 +231,6 @@ test('should be able to Process donation payment for member', async t => {
   const toolsSelector = rowSelector.child('div').withAttribute(`data-testid`, 'member-row--tools');
   const visibleRenewMenuItem = Selector('div').withAttribute(`data-testid`, "member-row--menu-renewal")
     .withAttribute('member-id', memberId);
-  //const visibleRemitMenuItem = toolsSelector.child('div.member-row--menu-money');
   const visibleRemitMenuItem = Selector(`div[data-id="${memberId}"] div[data-testid="member-row--tools"] div.member-row--menu-money`);
   const sillyHeader = Selector('h1');
   const sillierHeader = Selector('h3');

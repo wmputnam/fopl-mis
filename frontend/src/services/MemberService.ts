@@ -52,8 +52,6 @@ export class MemberService {
       if (isPropDefined(loadedIMemberData, "state")) newMember["state"] = loadedIMemberData["state"];
       if (isPropDefined(loadedIMemberData, "postalCode") && loadedIMemberData["postalCode"]?.length === 10) {
         newMember["postalCode"] = loadedIMemberData["postalCode"]
-      } else if (isPropDefined(loadedIMemberData, "zipmerge")) {
-        newMember["postalCode"] = loadedIMemberData["zipmerge"]
       };
       if (isPropDefined(loadedIMemberData, "volunteer")) {
         for (let i = 0; i < (loadedIMemberData?.volunteer ? loadedIMemberData?.volunteer?.length : 0); i++) {
@@ -488,14 +486,22 @@ export class MemberService {
   }
 
   static setMemberStatusToActive = (memberObj: Member) => {
+    return this.changeIsActive(memberObj, true);
+  }
+
+  static changeMemberStatusToInactive = (memberObj: Member) => {
+    return this.changeIsActive(memberObj, false);
+  }
+
+  static changeIsActive = (memberObj: Member, nextState: boolean) => {
     if (memberObj) {
       const memberOutObj: Member | undefined = memberObj.deepClone();
       if (memberOutObj) {
         if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, isActive: true }
+          memberOutObj.status = { ...memberObj.status, isActive: nextState }
         } else {
           memberOutObj.status = new Status();
-          memberOutObj.status.isActive = true;
+          memberOutObj.status.isActive = nextState;
         }
         return memberOutObj;
       }
@@ -546,22 +552,6 @@ export class MemberService {
         } else {
           memberOutObj.status = new Status();
           memberOutObj.status.newsletterType = newStatus;
-        }
-        return memberOutObj;
-      }
-    }
-    return memberObj;
-  }
-
-  static changeMemberStatusToInactive = (memberObj: Member) => {
-    if (memberObj) {
-      const memberOutObj: Member | undefined = memberObj.deepClone();
-      if (memberOutObj) {
-        if (memberObj.status) {
-          memberOutObj.status = { ...memberObj.status, isActive: false }
-        } else {
-          memberOutObj.status = new Status();
-          memberOutObj.status.isActive = false;
         }
         return memberOutObj;
       }

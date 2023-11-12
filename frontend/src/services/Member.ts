@@ -107,90 +107,24 @@ export class Member {
   _volunteerPreferences: Volunteer[] | undefined = [];
 
   public get volunteerPreferences(): Volunteer[] | undefined {
-    // consolidate flattened prefs into the desired array
     const newVolArr = Array<Volunteer>();
 
-    if (this._volunteerRoles && typeof this._volunteerRoles === 'object' && this._volunteerRoles instanceof Map){
+    if (this._volunteerRoles && typeof this._volunteerRoles === 'object' && this._volunteerRoles instanceof Map) {
       const volEntries = this._volunteerRoles.values();
-      for ( const entry of volEntries){
+      for (const entry of volEntries) {
         newVolArr.push(entry);
       }
     }
-    // // volunteer-preference--book-sale
-    // if (this._volunteerPreferenceBookSale) {
-    //   newVolArr.push({ role: "Book sale" } as Volunteer);
-    // }
-    // // volunteer-preference--book-store
-    // if (this._volunteerPreferenceBookStore) {
-    //   newVolArr.push({ role: "Book store" } as Volunteer);
-    // }
-    // // volunteer-preference--hospitality
-    // if (this._volunteerPreferenceHospitality) {
-    //   newVolArr.push({ role: "Hospitality" } as Volunteer);
-    // }
-    // // volunteer-preference--newsletter
-    // if (this._volunteerPreferenceNewsletter) {
-    //   newVolArr.push({ role: "Newsletter" } as Volunteer);
-    // }
-    // // volunteer-preference--publicity
-    // if (this._volunteerPreferencePublicity) {
-    //   newVolArr.push({ role: "Publicity" } as Volunteer);
-    // }
-    // // volunteer-preference--schedule-volunteers
-    // if (this._volunteerPreferenceScheduleVolunteers) {
-    //   newVolArr.push({ role: "Schedule volunteers" } as Volunteer);
-    // }
-    // // volunteer-preference--sort-books
-    // if (this._volunteerPreferenceSortBooks) {
-    //   newVolArr.push({ role: "Sort books" } as Volunteer);
-    // }
-    // // volunteer-preference--fund-raising
-    // if (this._volunteerPreferenceFundRaising) {
-    //   newVolArr.push({ role: "Fund raising" } as Volunteer);
-    // }
-    // // volunteer-preference--lumacon
-    // if (this._volunteerPreferenceLumacon) {
-    //   newVolArr.push({ role: "LUMACON" } as Volunteer);
-    // }
-    // // volunteer-preference--mend-books
-    // if (this._volunteerPreferenceMendBooks) {
-    //   newVolArr.push({ role: "Mend books" } as Volunteer);
-    // }
-    // // volunteer-preference--pick-up-donations
-    // if (this._volunteerPreferencePickUpDonations) {
-    //   newVolArr.push({ role: "Pick up donations" } as Volunteer);
-    // }
-    // // volunteer-preference--price-books
-    // if (this._volunteerPreferencePriceBooks) {
-    //   newVolArr.push({ role: "Pricing" } as Volunteer);
-    // }
-    // // volunteer-preference--set-up-for-sales
-    // if (this._volunteerPreferenceSetUpForSales) {
-    //   newVolArr.push({ role: "Set up" } as Volunteer);
-    // }
-    // // volunteer-preference--sales-signage
-    // if (this._volunteerPreferenceSalesSignage) {
-    //   newVolArr.push({ role: "Signage" } as Volunteer);
-    // }
-    // // volunteer-preference--stock-book-store
-    // if (this._volunteerPreferenceStockBookStore) {
-    //   newVolArr.push({ role: "Stock bookstore" } as Volunteer);
-    // }
-    // // volunteer-preference--other
-    // if (this._volunteerPreferenceOther) {
-    //   newVolArr.push({ role: this._volunteerPreferenceOther } as Volunteer);
-    // }
-    // this._volunteerPreferences = newVolArr;
     return this._volunteerPreferences;
   }
-  
-  public getVolRolesFromVolPrefs(){
-    const newRolesMap = new Map<String,Volunteer>();
-    if (this._volunteerPreferences 
-      && (typeof this._volunteerPreferences === 'object' 
-      && (this._volunteerPreferences instanceof Array)) ) {
 
-      for (let i = 0; i < this._volunteerPreferences.length; i++){
+  public getVolRolesFromVolPrefs() {
+    const newRolesMap = new Map<String, Volunteer>();
+    if (this._volunteerPreferences
+      && (typeof this._volunteerPreferences === 'object'
+        && (this._volunteerPreferences instanceof Array))) {
+
+      for (let i = 0; i < this._volunteerPreferences.length; i++) {
         newRolesMap.set(this._volunteerPreferences[i].role, this._volunteerPreferences[i])
       }
     }
@@ -207,7 +141,7 @@ export class Member {
     }
   }
 
-  _volunteerRoles?: Map<String,Volunteer>;
+  _volunteerRoles?: Map<String, Volunteer>;
 
   public set volunteerRoles(values: Map<String, Volunteer>) {
     if (this._volunteerRoles
@@ -215,33 +149,33 @@ export class Member {
       && this._volunteerRoles instanceof Map) {
       this._volunteerRoles?.clear();
     } else {
-      this._volunteerRoles = new Map<String,Volunteer>();
+      this._volunteerRoles = new Map<String, Volunteer>();
     }
     for (const v of values) {
-      this._volunteerRoles?.set(v[0],v[1]);
+      this._volunteerRoles?.set(v[0], v[1]);
     }
   }
 
-  public get volunteerRoles(): Map<String,Volunteer> {
+  public get volunteerRoles(): Map<String, Volunteer> {
     if (this._volunteerRoles
       && typeof this._volunteerRoles === 'object'
       && this._volunteerRoles instanceof Map) {
       return this._volunteerRoles;
     } else {
-      this._volunteerRoles = new Map<String,Volunteer>(); 
+      this._volunteerRoles = new Map<String, Volunteer>();
       return this._volunteerRoles;
     }
   }
 
-  public hasRole = (role:String) => {
+  public hasRole = (role: String) => {
     return this._volunteerRoles?.has(role);
   }
 
-  public addVolunteerRole(volunteer:Volunteer) {
-    return this._volunteerRoles?.set(volunteer.role,volunteer);
+  public addVolunteerRole(volunteer: Volunteer) {
+    return this._volunteerRoles?.set(volunteer.role, volunteer);
   }
 
-  public getVolunteerRole(role:String){
+  public getVolunteerRole(role: String) {
     return this._volunteerRoles?.get(role);
   }
 
@@ -259,7 +193,7 @@ export class Member {
   public set paidThrough(value: Date | undefined) {
     this._paidThrough = value;
   }
-  _hasPaidThroughDate() {  // TODO fix me
+  _hasPaidThroughDate() {
     return this._paidThrough !== undefined && this.paidThrough?.getDate !== undefined;
   }
   _joined: Date | undefined = undefined;
@@ -343,140 +277,12 @@ export class Member {
       }
     }
   }
-  // volunteer-preference--book-sale
-  _volunteerPreferenceBookSale: boolean | undefined = undefined;
-  public get volunteerPreferenceBookSale(): boolean | undefined {
-    return this._volunteerPreferenceBookSale ? this._volunteerPreferenceBookSale : false;
-  }
-  public set volunteerPreferenceBookSale(value: boolean | undefined) {
-    this._volunteerPreferenceBookSale = value;
-  }
-  // volunteer-preference--book-store
-  _volunteerPreferenceBookStore: boolean | undefined = undefined;
-  public get volunteerPreferenceBookStore(): boolean | undefined {
-    return this._volunteerPreferenceBookStore ? this._volunteerPreferenceBookStore : false;
-  }
-  public set volunteerPreferenceBookStore(value: boolean | undefined) {
-    this._volunteerPreferenceBookStore = value;
-  }
-  // volunteer-preference--hospitality
-  _volunteerPreferenceHospitality: boolean | undefined = undefined;
-  public get volunteerPreferenceHospitality(): boolean | undefined {
-    return this._volunteerPreferenceHospitality ? this._volunteerPreferenceHospitality : false;
-  }
-  public set volunteerPreferenceHospitality(value: boolean | undefined) {
-    this._volunteerPreferenceHospitality = value;
-  }
-  // volunteer-preference--newsletter
-  _volunteerPreferenceNewsletter: boolean | undefined = undefined;
-  public get volunteerPreferenceNewsletter(): boolean | undefined {
-    return this._volunteerPreferenceNewsletter ? this._volunteerPreferenceNewsletter : false;
-  }
-  public set volunteerPreferenceNewsletter(value: boolean | undefined) {
-    this._volunteerPreferenceNewsletter = value;
-  }
-  // volunteer-preference--publicity
-  _volunteerPreferencePublicity: boolean | undefined = undefined;
-  public get volunteerPreferencePublicity(): boolean | undefined {
-    return this._volunteerPreferencePublicity ? this._volunteerPreferencePublicity : false;
-  }
-  public set volunteerPreferencePublicity(value: boolean | undefined) {
-    this._volunteerPreferencePublicity = value;
-  }
-  // volunteer-preference--schedule-volunteers
-  _volunteerPreferenceScheduleVolunteers: boolean | undefined = undefined;
-  public get volunteerPreferenceScheduleVolunteers(): boolean | undefined {
-    return this._volunteerPreferenceScheduleVolunteers ? this._volunteerPreferenceScheduleVolunteers : false;
-  }
-  public set volunteerPreferenceScheduleVolunteers(value: boolean | undefined) {
-    this._volunteerPreferenceScheduleVolunteers = value;
-  }
-  // volunteer-preference--sort-books
-  _volunteerPreferenceSortBooks: boolean | undefined = undefined;
-  public get volunteerPreferenceSortBooks(): boolean | undefined {
-    return this._volunteerPreferenceSortBooks ? this._volunteerPreferenceSortBooks : false;
-  }
-  public set volunteerPreferenceSortBooks(value: boolean | undefined) {
-    this._volunteerPreferenceSortBooks = value;
-  }
-  // volunteer-preference--fund-raising
-  _volunteerPreferenceFundRaising: boolean | undefined = undefined;
-  public get volunteerPreferenceFundRaising(): boolean | undefined {
-    return this._volunteerPreferenceFundRaising ? this._volunteerPreferenceFundRaising : false;
-  }
-  public set volunteerPreferenceFundRaising(value: boolean | undefined) {
-    this._volunteerPreferenceFundRaising = value;
-  }
-  // volunteer-preference--lumacon
-  _volunteerPreferenceLumacon: boolean | undefined = undefined;
-  public get volunteerPreferenceLumacon(): boolean | undefined {
-    return this._volunteerPreferenceLumacon ? this._volunteerPreferenceLumacon : false;
-  }
-  public set volunteerPreferenceLumacon(value: boolean | undefined) {
-    this._volunteerPreferenceLumacon = value;
-  }
-  // volunteer-preference--mend-books
-  _volunteerPreferenceMendBooks: boolean | undefined = undefined;
-  public get volunteerPreferenceMendBooks(): boolean | undefined {
-    return this._volunteerPreferenceMendBooks ? this._volunteerPreferenceMendBooks : false;
-  }
-  public set volunteerPreferenceMendBooks(value: boolean | undefined) {
-    this._volunteerPreferenceMendBooks = value;
-  }
-  // volunteer-preference--pick-up-donations
-  _volunteerPreferencePickUpDonations: boolean | undefined = undefined;
-  public get volunteerPreferencePickUpDonations(): boolean | undefined {
-    return this._volunteerPreferencePickUpDonations ? this._volunteerPreferencePickUpDonations : false;
-  }
-  public set volunteerPreferencePickUpDonations(value: boolean | undefined) {
-    this._volunteerPreferencePickUpDonations = value;
-  }
-  // volunteer-preference--price-books
-  _volunteerPreferencePriceBooks: boolean | undefined = undefined;
-  public get volunteerPreferencePriceBooks(): boolean | undefined {
-    return this._volunteerPreferencePriceBooks ? this._volunteerPreferencePriceBooks : false;
-  }
-  public set volunteerPreferencePriceBooks(value: boolean | undefined) {
-    this._volunteerPreferencePriceBooks = value;
-  }
-  // volunteer-preference--set-up-for-sales
-  _volunteerPreferenceSetUpForSales: boolean | undefined = undefined;
-  public get volunteerPreferenceSetUpForSales(): boolean | undefined {
-    return this._volunteerPreferenceSetUpForSales ? this._volunteerPreferenceSetUpForSales : false;
-  }
-  public set volunteerPreferenceSetUpForSales(value: boolean | undefined) {
-    this._volunteerPreferenceSetUpForSales = value;
-  }
-  // volunteer-preference--sales-signage
-  _volunteerPreferenceSalesSignage: boolean | undefined = undefined;
-  public get volunteerPreferenceSalesSignage(): boolean | undefined {
-    return this._volunteerPreferenceSalesSignage ? this._volunteerPreferenceSalesSignage : false;
-  }
-  public set volunteerPreferenceSalesSignage(value: boolean | undefined) {
-    this._volunteerPreferenceSalesSignage = value;
-  }
-  // volunteer-preference--stock-book-store
-  _volunteerPreferenceStockBookStore: boolean | undefined = undefined;
-  public get volunteerPreferenceStockBookStore(): boolean | undefined {
-    return this._volunteerPreferenceStockBookStore ? this._volunteerPreferenceStockBookStore : false;
-  }
-  public set volunteerPreferenceStockBookStore(value: boolean | undefined) {
-    this._volunteerPreferenceStockBookStore = value;
-  }
-  // volunteer-preference--other
-  _volunteerPreferenceOther: string | undefined = undefined;
-  public get volunteerPreferenceOther(): string | undefined {
-    return this._volunteerPreferenceOther ? this._volunteerPreferenceOther : "";
-  }
-  public set volunteerPreferenceOther(value: string | undefined) {
-    this._volunteerPreferenceOther = value;
-  }
 
-  /*
-  target: string,
-  message: string,
-  level: "error" | "warn" | "info"
-  */
+  /**
+    * target: string,
+   * message: string,
+   * level: "error" | "warn" | "info"
+   */
   _dataEntryErrors: Array<FormError> = [];
   set dataEntryErrors(value: any) {
     console.log(value);
@@ -621,7 +427,7 @@ export class Member {
       Member._isDefined(imember, "state") && (member.state = imember.state);
       Member._isDefined(imember, "postalCode") && (member.postalCode = imember.postalCode);
       Member._isDefined(imember, "volunteer") && (member.volunteerPreferences = imember.volunteer);
-      if (member.volunteerPreferences) { member.volunteerRoles = member.getVolRolesFromVolPrefs();}
+      if (member.volunteerPreferences) { member.volunteerRoles = member.getVolRolesFromVolPrefs(); }
       Member._isDefined(imember, "mmb") && (member.mmb = imember.mmb);
       Member._isDefined(imember, "paidThrough") && (member.paidThrough = imember.paidThrough);
       Member._isDefined(imember, "joined") && (member.joined = imember.joined);

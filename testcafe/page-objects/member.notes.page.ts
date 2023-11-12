@@ -1,5 +1,4 @@
 import { Selector } from 'testcafe';
-// import { xpathSelector } from '../helpers/utilities/xpath-selector';
 
 export default class MemberNotesPage {
   static dateHeader = Selector(`.notes-row--date`);

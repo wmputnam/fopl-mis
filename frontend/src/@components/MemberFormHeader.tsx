@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
 import { FrontendProps } from "../@interfaces/MemberProps";
-import CancelBtn from "./CancelBtn";
 // import RefreshForm from "./RefreshForm";
 import MemberFormNav2Money from "./MemberFormNav2Money";
 import MemberFormNav2Notes from "./MemberFormNav2Notes";

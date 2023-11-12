@@ -2,12 +2,9 @@ import React from "react";
 import { FrontendProps } from "../@interfaces/MemberProps";
 import { MemberViewStates } from "../@interfaces/enums";
 
-// export interface MemberToolProps {
-//     setViewState:(a:string) => void;
-//   }
+export function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
 
-function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
-
+    // jscpd:ignore-start
     function updViewState() {
         const newFromViewState = getAppState().fromViewState;
         newFromViewState.push(getAppState().viewState);
@@ -17,6 +14,7 @@ function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
             fromViewState: newFromViewState
         }));
     }
+    // jscpd:ignore-end
 
     return (
         <button
@@ -26,5 +24,5 @@ function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
         >Remittances</button>
     )
 }
-
-export default MemberFormNav2Money
+const memberFormNav2Money = MemberFormNav2Money;
+export default memberFormNav2Money

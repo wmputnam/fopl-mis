@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 import { userVariables } from '../../.testcaferc';
 import MemberFormPage from '../../page-objects/member.form.page';
-import MemberListPage from '../../page-objects/member.list';
+import MemberListPage from '../../page-objects/member.list.page';
 import MemberService from '../../helpers/services/members.service';
 import MemberListPageService from '../../helpers/services/member.list.page.service';
 import MemberRemitPage from '../../page-objects/member.remit.page';
@@ -94,7 +94,6 @@ getFields().forEach(data => {
         .click(visibleEditMenuItem)
         .wait(500);
 
-      // const expectReadOnly = data.isReadOnly;
       const readOnlyAttr = await fieldSelector.getAttribute('readonly');
       if (data.isReadOnly) {
         await t.expect(readOnlyAttr === "").ok();

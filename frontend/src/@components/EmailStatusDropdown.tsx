@@ -1,44 +1,23 @@
 import React from "react";
 import Select, { SingleValue, ActionMeta } from "react-select";
+import {SelectOption,getOptionByLabel} from "./helpers/SelectOptionHelper"
 
-interface SelectOption {
-  label: string;
-  value: string;
-}
 const options: SelectOption[] = [
   { label: "Unchecked", value: "unchecked" },
   { label: "Bounced", value: "bounced" },
   { label: "None", value: "none" },
   { label: "Verified", value: "verified" }
 ]
-const getOptionByLabel = (label: string): SelectOption => {
-  let result = null as unknown as SelectOption;
-
-  if (label) {
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].label.toLowerCase() === label.toLowerCase()) {
-        console.log(`email status getOptionByLabel: got "${label}" returning ${JSON.stringify(options[i])} `)
-        return options[i];
-      }
-    }
-  }
-  return result;
-}
-
 
 export function EmailStatusDropdown(props: any) {
-  /*
-            className='email-mail--status'
-          defaultValue='unchecked'
-          id='email-status'
-*/
+
   const id = props.id && props.id !== "" ? props.id : 'email--status';
 
   const className = props.className && props.className !== "" ? props.className : 'email-status';
 
-  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);
-  console.log(`props keys: ${Object.keys(props)}`)
+  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(options,props.defaultValue) as unknown as SelectOption);
 
+  // jscpd:ignore-start
   const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {
     setSelectedOption(option as SelectOption);
   }
@@ -49,15 +28,7 @@ export function EmailStatusDropdown(props: any) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
-
-
-  // React.useEffect(() => {
-  //   setMemberObj(MemberService.createMemberFromLoad(data as unknown as IMember, mode));
-  // }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   , [haveData]);
-
-
+  //jscpd:ignore-end
 
   return (
     <Select

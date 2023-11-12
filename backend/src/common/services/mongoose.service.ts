@@ -29,13 +29,14 @@ class MongooseService {
     const envDbConfig = process.env.FOPLMIS_DB;
     if (envDbConfig !== undefined && envDbConfig !== null && envDbConfig !== "") {
       const dbConfigParts = envDbConfig.split("/");
-      // validate dbConfigParts
-      // expecting env value to be scheme://somehost:someport/somepath
-      // [0] to be in form scheme: as in mongodb:
-      // [1] to be empty string due to //
-      // [2] to be in the form somehost:someport as in localhost:27017
-      // [3] to be in the form somepath as in api-db
-      // TODO make allowances for the route to the servive to be longer
+      /** validate dbConfigParts
+       * expecting env value to be scheme://somehost:someport/somepath
+       * [0] to be in form scheme: as in mongodb:
+       * [1] to be empty string due to //
+       * [2] to be in the form somehost:someport as in localhost:27017
+       * [3] to be in the form somepath as in api-db
+       * TODO make allowances for the route to the servive to be longer
+       */
       if (dbConfigParts.length === 4) {
         const schemeRegex = new RegExp(/[a-z]+:/);
         const hostPortRegex = new RegExp(/[a-zA-z0-9.~_-]+:\d+/);
@@ -68,7 +69,6 @@ class MongooseService {
     }
 
     log(`envDbConfig: ${envDbConfig}, scheme: ${this.dbServerScheme}, host:${this.dbServerHost}, port: ${this.dbServerPort}, path: ${this.dbDatabase}`)
-    // process.exit()
     this.connectWithRetry();
   }
 

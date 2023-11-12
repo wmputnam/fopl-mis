@@ -1,0 +1,409 @@
+Clone found (typescript):
+ - [1m[32msrc/services/MemberService.ts[39m[22m [556:2 - 561:6] (5 lines, 81 tokens)
+   [1m[32msrc/services/MemberService.ts[39m[22m [490:2 - 495:5]
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [47:2 - 58:7] (11 lines, 119 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 29:2]
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [58:3 - 65:13] (7 lines, 159 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [36:3 - 42:7]
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [74:2 - 92:12] (18 lines, 278 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 42:7]
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [98:2 - 115:2] (17 lines, 271 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 42:2]
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [152:7 - 162:79] (10 lines, 76 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [112:12 - 122:130]
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [164:7 - 176:34] (12 lines, 82 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [124:12 - 136:28]
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [192:12 - 202:84] (10 lines, 76 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [112:12 - 122:130]
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [204:12 - 213:27] (9 lines, 77 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [124:12 - 134:2]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [12:1 - 28:23] (16 lines, 160 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [13:1 - 28:23]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [32:18 - 45:56] (13 lines, 182 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [32:20 - 47:2]
+
+Clone found (typescript):
+ - [1m[32msrc/@components/MoneyListRow.test.ts[39m[22m [11:1 - 32:32] (21 lines, 541 tokens)
+   [1m[32msrc/@components/VolunteerRoleMultiselect.test.ts[39m[22m [12:1 - 33:26]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormNav2Money.tsx[39m[22m [9:20 - 16:6] (7 lines, 82 tokens)
+   [1m[32msrc/@components/MemberFormNav2Notes.tsx[39m[22m [9:20 - 16:6]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormMoney.tsx[39m[22m [54:2 - 72:8] (18 lines, 197 tokens)
+   [1m[32msrc/@components/MemberFormNotes.tsx[39m[22m [17:2 - 34:6]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormMmbGroup.tsx[39m[22m [12:2 - 26:19] (14 lines, 144 tokens)
+   [1m[32msrc/@components/MemberFormRemitGroup.tsx[39m[22m [13:2 - 28:21]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/EmailStatusDropdown.tsx[39m[22m [12:2 - 20:38] (8 lines, 111 tokens)
+   [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [11:2 - 20:26]
+
+Clone found (tsx):
+ - [1m[32msrc/@components/EmailStatusDropdown.tsx[39m[22m [37:15 - 54:27] (17 lines, 197 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [32:20 - 49:7]
+
+Clone found (typescript):
+ - [1m[32msrc/@components/DataUpdater.test.ts[39m[22m [91:12 - 104:59] (13 lines, 134 tokens)
+   [1m[32msrc/@components/DataUpdater.test.ts[39m[22m [76:3 - 89:67]
+
+[32mJSON report saved to report/jscpd-report.json[39m
+Clone found (typescript):
+ - [1m[32msrc/services/MemberService.ts[39m[22m [556:2 - 561:6] (5 lines, 81 tokens)
+   [1m[32msrc/services/MemberService.ts[39m[22m [490:2 - 495:5]
+
+ 556 [90m│[39m 490 [90m│[39m [90m= (memberObj: Member) => {[39m                                             
+ 557 [90m│[39m 491 [90m│[39m [90m    if (memberObj) {[39m                                                   
+ 558 [90m│[39m 492 [90m│[39m [90m      const memberOutObj: Member | undefined = memberObj.deepClone();[39m  
+ 559 [90m│[39m 493 [90m│[39m [90m      if (memberOutObj) {[39m                                              
+ 560 [90m│[39m 494 [90m│[39m [90m        if (memberObj.status) {[39m                                        
+ 561 [90m│[39m 495 [90m│[39m [90m          memberOutObj.status = { ...memberObj.status, isActive: false[39m 
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [47:2 - 58:7] (11 lines, 119 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 29:2]
+
+ 47 [90m│[39m 19 [90m│[39m [90m= (): Member => {[39m                          
+ 48 [90m│[39m 20 [90m│[39m [90m  const member = Member.create(shortid());[39m 
+ 49 [90m│[39m 21 [90m│[39m [90m  member.firstName = "Oliver";[39m             
+ 50 [90m│[39m 22 [90m│[39m [90m  member.lastName = "North";[39m               
+ 51 [90m│[39m 23 [90m│[39m [90m  member.address = "500 W Baker Ave";[39m      
+ 52 [90m│[39m 24 [90m│[39m [90m  member.unit = "Ste 3";[39m                   
+ 53 [90m│[39m 25 [90m│[39m [90m  member.city = "Arlington";[39m               
+ 54 [90m│[39m 26 [90m│[39m [90m  member.state = "VA";[39m                     
+ 55 [90m│[39m 27 [90m│[39m [90m  member.postalCode = "10200-2325";[39m        
+ 56 [90m│[39m 28 [90m│[39m [90m  member.email = "test@test.it";[39m           
+ 57 [90m│[39m 29 [90m│[39m [90m  member.phone = "707-555-1212 x432"[39m       
+ 58 [90m│[39m 30 [90m│[39m [90m  member[39m                                   
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [58:3 - 65:13] (7 lines, 159 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [36:3 - 42:7]
+
+ 58 [90m│[39m 36 [90m│[39m [90mmember.volunteerPreferences = [{ role: "SALE" }, { role: "LUMACON", lastWorkDate: new Date("2023-01-28") }];[39m 
+ 59 [90m│[39m 37 [90m│[39m [90m  member.mmb = "VOL";[39m                                                                                        
+ 60 [90m│[39m 38 [90m│[39m [90m  member.paidThrough = new Date("2020-04-01");[39m                                                               
+ 61 [90m│[39m 39 [90m│[39m [90m  member.joined = new Date("1990-01-01");[39m                                                                    
+ 62 [90m│[39m 40 [90m│[39m [90m  member.remittances = [{ date: new Date("1990-01-01"), amount: "2", memo: "dues" }];[39m                        
+ 63 [90m│[39m 41 [90m│[39m [90m  member.notes = [{ date: new Date(), note: "this is a test" }];[39m                                             
+ 64 [90m│[39m 42 [90m│[39m [90m  member.dataEntryErrors = [[39m                                                                                 
+ 65 [90m│[39m 43 [90m│[39m [90m    { target: "first-name"[39m                                                                                   
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [74:2 - 92:12] (18 lines, 278 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 42:7]
+
+ 74 [90m│[39m 19 [90m│[39m [90m= (): Member => {[39m                                                                                              
+ 75 [90m│[39m 20 [90m│[39m [90m  const member = Member.create(shortid());[39m                                                                     
+ 76 [90m│[39m 21 [90m│[39m [90m  member.firstName = "Oliver";[39m                                                                                 
+ 77 [90m│[39m 22 [90m│[39m [90m  member.lastName = "North";[39m                                                                                   
+ 78 [90m│[39m 23 [90m│[39m [90m  member.address = "500 W Baker Ave";[39m                                                                          
+ 79 [90m│[39m 24 [90m│[39m [90m  member.unit = "Ste 3";[39m                                                                                       
+ 80 [90m│[39m 25 [90m│[39m [90m  member.city = "Arlington";[39m                                                                                   
+ 81 [90m│[39m 26 [90m│[39m [90m  member.state = "VA";[39m                                                                                         
+ 82 [90m│[39m 27 [90m│[39m [90m  member.postalCode = "10200-2325";[39m                                                                            
+ 83 [90m│[39m 28 [90m│[39m [90m  member.email = "test@test.it";[39m                                                                               
+ 84 [90m│[39m 29 [90m│[39m [90m  member.phone = "707-555-1212 x432"[39m                                                                           
+ 85 [90m│[39m 30 [90m│[39m [90m  member.volunteerPreferences = [{ role: "SALE" }, { role: "LUMACON", lastWorkDate: new Date("2023-01-28") }];[39m 
+ 86 [90m│[39m 31 [90m│[39m [90m  member.mmb = "VOL";[39m                                                                                          
+ 87 [90m│[39m 32 [90m│[39m [90m  member.paidThrough = new Date("2020-04-01");[39m                                                                 
+ 88 [90m│[39m 33 [90m│[39m [90m  member.joined = new Date("1990-01-01");[39m                                                                      
+ 89 [90m│[39m 34 [90m│[39m [90m  member.remittances = [{ date: new Date("1990-01-01"), amount: "2", memo: "dues" }];[39m                          
+ 90 [90m│[39m 35 [90m│[39m [90m  member.notes = [{ date: new Date(), note: "this is a test" }];[39m                                               
+ 91 [90m│[39m 36 [90m│[39m [90m  member.dataEntryErrors = [[39m                                                                                   
+ 92 [90m│[39m 37 [90m│[39m [90m    { target: "last-name"[39m                                                                                      
+
+Clone found (typescript):
+ - [1m[32msrc/services/Member.test.ts[39m[22m [98:2 - 115:2] (17 lines, 271 tokens)
+   [1m[32msrc/services/Member.test.ts[39m[22m [19:2 - 42:2]
+
+ 98  [90m│[39m 19 [90m│[39m [90m= (): Member => {[39m                                                                                              
+ 99  [90m│[39m 20 [90m│[39m [90m  const member = Member.create(shortid());[39m                                                                     
+ 100 [90m│[39m 21 [90m│[39m [90m  member.firstName = "Oliver";[39m                                                                                 
+ 101 [90m│[39m 22 [90m│[39m [90m  member.lastName = "North";[39m                                                                                   
+ 102 [90m│[39m 23 [90m│[39m [90m  member.address = "500 W Baker Ave";[39m                                                                          
+ 103 [90m│[39m 24 [90m│[39m [90m  member.unit = "Ste 3";[39m                                                                                       
+ 104 [90m│[39m 25 [90m│[39m [90m  member.city = "Arlington";[39m                                                                                   
+ 105 [90m│[39m 26 [90m│[39m [90m  member.state = "VA";[39m                                                                                         
+ 106 [90m│[39m 27 [90m│[39m [90m  member.postalCode = "10200-2325";[39m                                                                            
+ 107 [90m│[39m 28 [90m│[39m [90m  member.email = "test@test.it";[39m                                                                               
+ 108 [90m│[39m 29 [90m│[39m [90m  member.phone = "707-555-1212 x432"[39m                                                                           
+ 109 [90m│[39m 30 [90m│[39m [90m  member.volunteerPreferences = [{ role: "SALE" }, { role: "LUMACON", lastWorkDate: new Date("2023-01-28") }];[39m 
+ 110 [90m│[39m 31 [90m│[39m [90m  member.mmb = "VOL";[39m                                                                                          
+ 111 [90m│[39m 32 [90m│[39m [90m  member.paidThrough = new Date("2020-04-01");[39m                                                                 
+ 112 [90m│[39m 33 [90m│[39m [90m  member.joined = new Date("1990-01-01");[39m                                                                      
+ 113 [90m│[39m 34 [90m│[39m [90m  member.remittances = [{ date: new Date("1990-01-01"), amount: "2", memo: "dues" }];[39m                          
+ 114 [90m│[39m 35 [90m│[39m [90m  member.notes = [{ date: new Date(), note: "this is a test" }];[39m                                               
+ 115 [90m│[39m 36 [90m│[39m [90m  member.dataEntryErrors = [][39m                                                                                  
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [152:7 - 162:79] (10 lines, 76 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [112:12 - 122:130]
+
+ 152 [90m│[39m 112 [90m│[39m [90m: new Date(),[39m                                                                       
+ 153 [90m│[39m 113 [90m│[39m [90m      firstName: 'Billy',[39m                                                           
+ 154 [90m│[39m 114 [90m│[39m [90m      lastName: 'Budd'[39m                                                              
+ 155 [90m│[39m 115 [90m│[39m [90m    });[39m                                                                             
+ 156 [90m│[39m 116 [90m│[39m [90m    // console.log(`***${result}***`)[39m                                               
+ 157 [90m│[39m 117 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m            
+ 158 [90m│[39m 118 [90m│[39m [90m    expect(result).to.be.a('string');[39m                                               
+ 159 [90m│[39m 119 [90m│[39m [90m    expect(result.length).to.be.equal(10);[39m                                          
+ 160 [90m│[39m 120 [90m│[39m [90m  });[39m                                                                               
+ 161 [90m│[39m 121 [90m│[39m                                                                                     
+ 162 [90m│[39m 122 [90m│[39m [90m  it('should return first 10 chars of provided date string when joined is a string'[39m 
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [164:7 - 176:34] (12 lines, 82 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [124:12 - 136:28]
+
+ 164 [90m│[39m 124 [90m│[39m [90m: '2023-04-01T13:31:22.999Z' as unknown as Date,[39m                         
+ 165 [90m│[39m 125 [90m│[39m [90m      firstName: 'Billy',[39m                                                
+ 166 [90m│[39m 126 [90m│[39m [90m      lastName: 'Budd'[39m                                                   
+ 167 [90m│[39m 127 [90m│[39m [90m    });[39m                                                                  
+ 168 [90m│[39m 128 [90m│[39m [90m    // console.log(`***${result}***`)[39m                                    
+ 169 [90m│[39m 129 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m 
+ 170 [90m│[39m 130 [90m│[39m [90m    expect(result).to.be.a('string');[39m                                    
+ 171 [90m│[39m 131 [90m│[39m [90m    expect(result.length).to.be.equal(10);[39m                               
+ 172 [90m│[39m 132 [90m│[39m [90m  });[39m                                                                    
+ 173 [90m│[39m 133 [90m│[39m                                                                          
+ 174 [90m│[39m 134 [90m│[39m [90m});[39m                                                                      
+ 175 [90m│[39m 135 [90m│[39m                                                                          
+ 176 [90m│[39m 136 [90m│[39m [90m// reduceLastUpdatedForMemberList[39m                                        
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [192:12 - 202:84] (10 lines, 76 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [112:12 - 122:130]
+
+ 192 [90m│[39m 112 [90m│[39m [90m: new Date(),[39m                                                                            
+ 193 [90m│[39m 113 [90m│[39m [90m      firstName: 'Billy',[39m                                                                
+ 194 [90m│[39m 114 [90m│[39m [90m      lastName: 'Budd'[39m                                                                   
+ 195 [90m│[39m 115 [90m│[39m [90m    });[39m                                                                                  
+ 196 [90m│[39m 116 [90m│[39m [90m    // console.log(`***${result}***`)[39m                                                    
+ 197 [90m│[39m 117 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m                 
+ 198 [90m│[39m 118 [90m│[39m [90m    expect(result).to.be.a('string');[39m                                                    
+ 199 [90m│[39m 119 [90m│[39m [90m    expect(result.length).to.be.equal(10);[39m                                               
+ 200 [90m│[39m 120 [90m│[39m [90m  });[39m                                                                                    
+ 201 [90m│[39m 121 [90m│[39m                                                                                          
+ 202 [90m│[39m 122 [90m│[39m [90m  it('should return first 10 chars of provided date string when lastUpdated is a string'[39m 
+
+Clone found (typescript):
+ - [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [204:12 - 213:27] (9 lines, 77 tokens)
+   [1m[32msrc/reducers/members.reducers.test.ts[39m[22m [124:12 - 134:2]
+
+ 204 [90m│[39m 124 [90m│[39m [90m: '2023-04-01T13:31:22.999Z' as unknown as Date,[39m                         
+ 205 [90m│[39m 125 [90m│[39m [90m      firstName: 'Billy',[39m                                                
+ 206 [90m│[39m 126 [90m│[39m [90m      lastName: 'Budd'[39m                                                   
+ 207 [90m│[39m 127 [90m│[39m [90m    });[39m                                                                  
+ 208 [90m│[39m 128 [90m│[39m [90m    // console.log(`***${result}***`)[39m                                    
+ 209 [90m│[39m 129 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m 
+ 210 [90m│[39m 130 [90m│[39m [90m    expect(result).to.be.a('string');[39m                                    
+ 211 [90m│[39m 131 [90m│[39m [90m    expect(result.length).to.be.equal(10);[39m                               
+ 212 [90m│[39m 132 [90m│[39m [90m  });[39m                                                                    
+ 213 [90m│[39m 133 [90m│[39m [90m  //reducePhoneForMemberList[39m                                             
+
+Clone found (tsx):
+ - [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [12:1 - 28:23] (16 lines, 160 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [13:1 - 28:23]
+
+ 12 [90m│[39m 13 [90m│[39m [90m][39m                                                                                                 
+ 13 [90m│[39m 14 [90m│[39m [90mconst getOptionByLabel = (label: string): SelectOption => {[39m                                       
+ 14 [90m│[39m 15 [90m│[39m [90m  let result = null as unknown as SelectOption;[39m                                                   
+ 15 [90m│[39m 16 [90m│[39m                                                                                                   
+ 16 [90m│[39m 17 [90m│[39m [90m  if (label) {[39m                                                                                    
+ 17 [90m│[39m 18 [90m│[39m [90m    for (let i = 0; i < options.length; i++) {[39m                                                    
+ 18 [90m│[39m 19 [90m│[39m [90m      if (options[i].label.toLowerCase() === label.toLowerCase()) {[39m                               
+ 19 [90m│[39m 20 [90m│[39m [90m        console.log(` getOptionByLabel: got "${label}" returning ${JSON.stringify(options[i])} `)[39m 
+ 20 [90m│[39m 21 [90m│[39m [90m        return options[i];[39m                                                                        
+ 21 [90m│[39m 22 [90m│[39m [90m      }[39m                                                                                           
+ 22 [90m│[39m 23 [90m│[39m [90m    }[39m                                                                                             
+ 23 [90m│[39m 24 [90m│[39m [90m  }[39m                                                                                               
+ 24 [90m│[39m 25 [90m│[39m [90m  return result;[39m                                                                                  
+ 25 [90m│[39m 26 [90m│[39m [90m}[39m                                                                                                 
+ 26 [90m│[39m 27 [90m│[39m                                                                                                   
+ 27 [90m│[39m 28 [90m│[39m                                                                                                   
+ 28 [90m│[39m 29 [90m│[39m [90mexport function NewsletterTypeDropdown[39m                                                            
+
+Clone found (tsx):
+ - [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [32:18 - 45:56] (13 lines, 182 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [32:20 - 47:2]
+
+ 32 [90m│[39m 32 [90m│[39m [90m;[39m                                                                                                                                            
+ 33 [90m│[39m 33 [90m│[39m                                                                                                                                              
+ 34 [90m│[39m 34 [90m│[39m [90m  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);[39m 
+ 35 [90m│[39m 35 [90m│[39m [90m  console.log(`props keys: ${Object.keys(props)}`)[39m                                                                                           
+ 36 [90m│[39m 36 [90m│[39m                                                                                                                                              
+ 37 [90m│[39m 37 [90m│[39m [90m  const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {[39m                 
+ 38 [90m│[39m 38 [90m│[39m [90m    setSelectedOption(option as SelectOption);[39m                                                                                               
+ 39 [90m│[39m 39 [90m│[39m [90m  }[39m                                                                                                                                          
+ 40 [90m│[39m 40 [90m│[39m                                                                                                                                              
+ 41 [90m│[39m 41 [90m│[39m [90m  React.useEffect(() => {[39m                                                                                                                    
+ 42 [90m│[39m 42 [90m│[39m [90m    if (props.handleChange && typeof props.handleChange === 'function') {[39m                                                                    
+ 43 [90m│[39m 43 [90m│[39m [90m      props.handleChange({ target: { id: id, value: selectedOption.value } })[39m                                                                
+ 44 [90m│[39m 44 [90m│[39m [90m    }[39m                                                                                                                                        
+ 45 [90m│[39m 45 [90m│[39m [90m    // eslint-disable-next-line react-hooks/exhaustive-deps[39m                                                                                  
+
+Clone found (typescript):
+ - [1m[32msrc/@components/MoneyListRow.test.ts[39m[22m [11:1 - 32:32] (21 lines, 541 tokens)
+   [1m[32msrc/@components/VolunteerRoleMultiselect.test.ts[39m[22m [12:1 - 33:26]
+
+ 11 [90m│[39m 12 [90m│[39m [90mconst formatAmountTestData = () => {[39m                                                            
+ 12 [90m│[39m 13 [90m│[39m [90m    return [[39m                                                                                    
+ 13 [90m│[39m 14 [90m│[39m [90m        { amount: "5", expectedResult: { wholePart: "5.00", leadingSpaces: "      " } },[39m        
+ 14 [90m│[39m 15 [90m│[39m [90m        { amount: "5.00", expectedResult: { wholePart: "5.00", leadingSpaces: "      " } },[39m     
+ 15 [90m│[39m 16 [90m│[39m [90m        { amount: "5.25", expectedResult: { wholePart: "5.25", leadingSpaces: "      " } },[39m     
+ 16 [90m│[39m 17 [90m│[39m [90m        { amount: "50", expectedResult: { wholePart: "50.00", leadingSpaces: "     " } },[39m       
+ 17 [90m│[39m 18 [90m│[39m [90m        { amount: "100", expectedResult: { wholePart: "100.00", leadingSpaces: "    " } },[39m      
+ 18 [90m│[39m 19 [90m│[39m [90m        { amount: "5000", expectedResult: { wholePart: "5,000.00", leadingSpaces: "  " } },[39m     
+ 19 [90m│[39m 20 [90m│[39m [90m        { amount: "999999", expectedResult: { wholePart: "999,999.00", leadingSpaces: "" } },[39m   
+ 20 [90m│[39m 21 [90m│[39m [90m        { amount: "9999999", expectedResult: { wholePart: "9999999.00", leadingSpaces: "" } },[39m  
+ 21 [90m│[39m 22 [90m│[39m [90m        { amount: "$5", expectedResult: { wholePart: "5.00", leadingSpaces: "      " } },[39m       
+ 22 [90m│[39m 23 [90m│[39m [90m        { amount: "$5.00", expectedResult: { wholePart: "5.00", leadingSpaces: "      " } },[39m    
+ 23 [90m│[39m 24 [90m│[39m [90m        { amount: "$5.25", expectedResult: { wholePart: "5.25", leadingSpaces: "      " } },[39m    
+ 24 [90m│[39m 25 [90m│[39m [90m        { amount: "$50", expectedResult: { wholePart: "50.00", leadingSpaces: "     " } },[39m      
+ 25 [90m│[39m 26 [90m│[39m [90m        { amount: "$100", expectedResult: { wholePart: "100.00", leadingSpaces: "    " } },[39m     
+ 26 [90m│[39m 27 [90m│[39m [90m        { amount: "$5000", expectedResult: { wholePart: "5,000.00", leadingSpaces: "  " } },[39m    
+ 27 [90m│[39m 28 [90m│[39m [90m        { amount: "$999999", expectedResult: { wholePart: "999,999.00", leadingSpaces: "" } },[39m  
+ 28 [90m│[39m 29 [90m│[39m [90m        { amount: "$9999999", expectedResult: { wholePart: "9999999.00", leadingSpaces: "" } },[39m 
+ 29 [90m│[39m 30 [90m│[39m [90m        { amount: "george", expectedResult: { wholePart: "george", leadingSpaces: "" } },[39m       
+ 30 [90m│[39m 31 [90m│[39m [90m    ][39m                                                                                           
+ 31 [90m│[39m 32 [90m│[39m [90m}[39m                                                                                               
+ 32 [90m│[39m 33 [90m│[39m [90mdescribe(`${fn()}: Remits list row formatAmount`[39m                                                
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormNav2Money.tsx[39m[22m [9:20 - 16:6] (7 lines, 82 tokens)
+   [1m[32msrc/@components/MemberFormNav2Notes.tsx[39m[22m [9:20 - 16:6]
+
+ 9  [90m│[39m 9  [90m│[39m [90m({ setAppState, getAppState }: FrontendProps): any {[39m          
+ 10 [90m│[39m 10 [90m│[39m                                                               
+ 11 [90m│[39m 11 [90m│[39m [90m    function updViewState() {[39m                                 
+ 12 [90m│[39m 12 [90m│[39m [90m        const newFromViewState = getAppState().fromViewState;[39m 
+ 13 [90m│[39m 13 [90m│[39m [90m        newFromViewState.push(getAppState().viewState);[39m       
+ 14 [90m│[39m 14 [90m│[39m [90m        setAppState((oldState: any) => ({[39m                     
+ 15 [90m│[39m 15 [90m│[39m [90m            ...oldState,[39m                                      
+ 16 [90m│[39m 16 [90m│[39m [90m            viewState: MemberViewStates.money[39m                 
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormMoney.tsx[39m[22m [54:2 - 72:8] (18 lines, 197 tokens)
+   [1m[32msrc/@components/MemberFormNotes.tsx[39m[22m [17:2 - 34:6]
+
+ 54 [90m│[39m 17 [90m│[39m [90m=> {[39m                                                                                                
+ 55 [90m│[39m 18 [90m│[39m [90m  const memberId = getAppState().memberId;[39m                                                          
+ 56 [90m│[39m 19 [90m│[39m                                                                                                     
+ 57 [90m│[39m 20 [90m│[39m [90m  const LoadFromDb = (memberId: string): Array<any> => {[39m                                            
+ 58 [90m│[39m 21 [90m│[39m [90m    return useAxios<IMember>([39m                                                                       
+ 59 [90m│[39m 22 [90m│[39m [90m      { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }[39m  
+ 60 [90m│[39m 23 [90m│[39m [90m    );[39m                                                                                              
+ 61 [90m│[39m 24 [90m│[39m [90m  }[39m                                                                                                 
+ 62 [90m│[39m 25 [90m│[39m                                                                                                     
+ 63 [90m│[39m 26 [90m│[39m [90m  let someData: Array<any> | undefined;[39m                                                             
+ 64 [90m│[39m 27 [90m│[39m                                                                                                     
+ 65 [90m│[39m 28 [90m│[39m [90m  if (memberId) {[39m                                                                                   
+ 66 [90m│[39m 29 [90m│[39m [90m    someData = LoadFromDb(memberId);[39m                                                                
+ 67 [90m│[39m 30 [90m│[39m [90m  } else {[39m                                                                                          
+ 68 [90m│[39m 31 [90m│[39m [90m    someData = undefined;[39m                                                                           
+ 69 [90m│[39m 32 [90m│[39m [90m  }[39m                                                                                                 
+ 70 [90m│[39m 33 [90m│[39m                                                                                                     
+ 71 [90m│[39m 34 [90m│[39m [90m  const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;[39m 
+ 72 [90m│[39m 35 [90m│[39m [90m  console[39m                                                                                           
+
+Clone found (tsx):
+ - [1m[32msrc/@components/MemberFormMmbGroup.tsx[39m[22m [12:2 - 26:19] (14 lines, 144 tokens)
+   [1m[32msrc/@components/MemberFormRemitGroup.tsx[39m[22m [13:2 - 28:21]
+
+ 12 [90m│[39m 13 [90m│[39m [90m= (dt: Date | string | undefined) => {[39m                         
+ 13 [90m│[39m 14 [90m│[39m [90m  if (dt) {[39m                                                    
+ 14 [90m│[39m 15 [90m│[39m [90m    if (typeof dt === 'string') {[39m                              
+ 15 [90m│[39m 16 [90m│[39m [90m      return dt.substring(0, 10);[39m                              
+ 16 [90m│[39m 17 [90m│[39m [90m    } else if (typeof dt === 'object' && dt instanceof Date) {[39m 
+ 17 [90m│[39m 18 [90m│[39m [90m      return dt.toISOString().substring(0, 10);[39m                
+ 18 [90m│[39m 19 [90m│[39m [90m    } else {[39m                                                   
+ 19 [90m│[39m 20 [90m│[39m [90m      return "";[39m                                               
+ 20 [90m│[39m 21 [90m│[39m [90m    }[39m                                                          
+ 21 [90m│[39m 22 [90m│[39m [90m  } else {[39m                                                     
+ 22 [90m│[39m 23 [90m│[39m [90m    return ""[39m                                                  
+ 23 [90m│[39m 24 [90m│[39m [90m  };[39m                                                           
+ 24 [90m│[39m 25 [90m│[39m [90m};[39m                                                             
+ 25 [90m│[39m 26 [90m│[39m                                                                
+ 26 [90m│[39m 27 [90m│[39m [90mexport const MemberFormMmbGroup[39m                                
+
+Clone found (tsx):
+ - [1m[32msrc/@components/EmailStatusDropdown.tsx[39m[22m [12:2 - 20:38] (8 lines, 111 tokens)
+   [1m[32msrc/@components/NewsletterTypeDropdown.tsx[39m[22m [11:2 - 20:26]
+
+ 12 [90m│[39m 11 [90m│[39m [90m}[39m                                                                   
+ 13 [90m│[39m 12 [90m│[39m [90m][39m                                                                   
+ 14 [90m│[39m 13 [90m│[39m [90mconst getOptionByLabel = (label: string): SelectOption => {[39m         
+ 15 [90m│[39m 14 [90m│[39m [90m  let result = null as unknown as SelectOption;[39m                     
+ 16 [90m│[39m 15 [90m│[39m                                                                     
+ 17 [90m│[39m 16 [90m│[39m [90m  if (label) {[39m                                                      
+ 18 [90m│[39m 17 [90m│[39m [90m    for (let i = 0; i < options.length; i++) {[39m                      
+ 19 [90m│[39m 18 [90m│[39m [90m      if (options[i].label.toLowerCase() === label.toLowerCase()) {[39m 
+ 20 [90m│[39m 19 [90m│[39m [90m        console.log(`email status getOptionByLabel: got "[39m           
+
+Clone found (tsx):
+ - [1m[32msrc/@components/EmailStatusDropdown.tsx[39m[22m [37:15 - 54:27] (17 lines, 197 tokens)
+   [1m[32msrc/@components/PostMailStatusDropdown.tsx[39m[22m [32:20 - 49:7]
+
+ 37 [90m│[39m 32 [90m│[39m [90m;[39m                                                                                                                                            
+ 38 [90m│[39m 33 [90m│[39m                                                                                                                                              
+ 39 [90m│[39m 34 [90m│[39m [90m  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);[39m 
+ 40 [90m│[39m 35 [90m│[39m [90m  console.log(`props keys: ${Object.keys(props)}`)[39m                                                                                           
+ 41 [90m│[39m 36 [90m│[39m                                                                                                                                              
+ 42 [90m│[39m 37 [90m│[39m [90m  const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {[39m                 
+ 43 [90m│[39m 38 [90m│[39m [90m    setSelectedOption(option as SelectOption);[39m                                                                                               
+ 44 [90m│[39m 39 [90m│[39m [90m  }[39m                                                                                                                                          
+ 45 [90m│[39m 40 [90m│[39m                                                                                                                                              
+ 46 [90m│[39m 41 [90m│[39m [90m  React.useEffect(() => {[39m                                                                                                                    
+ 47 [90m│[39m 42 [90m│[39m [90m    if (props.handleChange && typeof props.handleChange === 'function') {[39m                                                                    
+ 48 [90m│[39m 43 [90m│[39m [90m      props.handleChange({ target: { id: id, value: selectedOption.value } })[39m                                                                
+ 49 [90m│[39m 44 [90m│[39m [90m    }[39m                                                                                                                                        
+ 50 [90m│[39m 45 [90m│[39m [90m    // eslint-disable-next-line react-hooks/exhaustive-deps[39m                                                                                  
+ 51 [90m│[39m 46 [90m│[39m [90m  }, [selectedOption]);[39m                                                                                                                      
+ 52 [90m│[39m 47 [90m│[39m                                                                                                                                              
+ 53 [90m│[39m 48 [90m│[39m                                                                                                                                              
+ 54 [90m│[39m 49 [90m│[39m [90m  // React.useEffect(() => {[39m                                                                                                                 
+
+Clone found (typescript):
+ - [1m[32msrc/@components/DataUpdater.test.ts[39m[22m [91:12 - 104:59] (13 lines, 134 tokens)
+   [1m[32msrc/@components/DataUpdater.test.ts[39m[22m [76:3 - 89:67]
+
+ 91  [90m│[39m 76 [90m│[39m [90m);[39m                                                                                                 
+ 92  [90m│[39m 77 [90m│[39m [90m    // console.log(JSON.stringify(res));[39m                                                           
+ 93  [90m│[39m 78 [90m│[39m [90m    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug[39m 
+ 94  [90m│[39m 79 [90m│[39m [90m    const id = body.id;[39m                                                                            
+ 95  [90m│[39m 80 [90m│[39m [90m    expect(res.req.method).to.be.equal('POST');[39m                                                    
+ 96  [90m│[39m 81 [90m│[39m [90m    expect(res.status).to.be.equal(200);[39m                                                           
+ 97  [90m│[39m 82 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m                           
+ 98  [90m│[39m 83 [90m│[39m [90m    expect(id).not.to.be.undefined;[39m                                                                
+ 99  [90m│[39m 84 [90m│[39m [90m    // eslint-disable-next-line @typescript-eslint/no-unused-expressions[39m                           
+ 100 [90m│[39m 85 [90m│[39m [90m    expect(id).not.to.be.null;[39m                                                                     
+ 101 [90m│[39m 86 [90m│[39m [90m    expect(id).to.a('string');[39m                                                                     
+ 102 [90m│[39m 87 [90m│[39m [90m  });[39m                                                                                              
+ 103 [90m│[39m 88 [90m│[39m                                                                                                    
+ 104 [90m│[39m 89 [90m│[39m [90m  it('should POST "LM" member data that is same when retrieved'[39m                                    
+
+[90mFound 18 clones.[39m
+[3m[90mDetection time:[39m[23m: 1.056s

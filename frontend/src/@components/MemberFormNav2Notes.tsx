@@ -2,12 +2,9 @@ import React from "react";
 import { FrontendProps } from "../@interfaces/MemberProps";
 import { MemberViewStates } from "../@interfaces/enums";
 
-// export interface MemberToolProps {
-//     setViewState:(a:string) => void;
-//   }
+export function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
 
-function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
-
+    // jscpd:ignore-start
     function updViewState() {
         const newFromViewState = getAppState().fromViewState;
         newFromViewState.push(getAppState().viewState);
@@ -17,6 +14,7 @@ function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
             fromViewState: newFromViewState
         }));
     }
+    // jscpd:ignore-end
 
     return (
         <button
@@ -27,4 +25,6 @@ function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
     )
 }
 
-export default MemberFormNav2Notes
+const memberFormNav2Notes = MemberFormNav2Notes
+
+export default memberFormNav2Notes

@@ -10,15 +10,16 @@ interface ParsedPhone {
 class MembersReducers {
   static reduceMemberFullName(m: Partial<IMember>): string {
     let fullname = "";
-    // precedence rule for this (poorly designed) interface
-    // if there is a names:Array<{lastName:string,firstName:string}>
-    // then return the fullnames:Array<string> = names.map( item => item.firstName + " "+ item.lastName)
-    //                 fullname = fullnames.join(" & ")
-    // else if there are lastName and firstName properties
-    // then fullname = m.firstName + " " + m.lastName
-    // else if there is a name property
-    // then fullname = name
-    // else fullname = ""
+    /** precedence rule for this (poorly designed) interface
+     * if there is a names:Array<{lastName:string,firstName:string}>
+     * then return the fullnames:Array<string> = names.map( item => item.firstName + " "+ item.lastName)
+     *                 fullname = fullnames.join(" & ")
+     * else if there are lastName and firstName properties
+     * then fullname = m.firstName + " " + m.lastName
+     * else if there is a name property
+     * then fullname = name
+     * else fullname = ""
+     */
     if (m.hasOwnProperty("names") && m?.names && m.names?.length > 0) {
       const fullnames: Array<string> = m?.names?.map(item => item?.firstName + " " + item?.lastName) as Array<string>;
       fullname = fullnames.join(" & ");
@@ -113,12 +114,13 @@ class MembersReducers {
     let displayPhone = "undefined";
     if (m?.phone !== undefined) {
       displayPhone = "";
-      // phone number coding:
-      //   exit code for US +1 or 011
-      //   country code (US is 1)
-      //   NA area code
-      //   NA prefix
-      //   NA line
+      /**  phone number coding:
+       *   exit code for US +1 or 011
+       *   country code (US is 1)
+       *   NA area code
+       *   NA prefix
+       *   NA line
+       */
       const parsedPhone = MembersReducers.parsePhone(m.phone);
       console.log(`itu code: ${parsedPhone.ituCode}, ac:${parsedPhone.naAreaCode}, pre:${parsedPhone.naPrefix}, line:${parsedPhone.naLine}, oth:${parsedPhone.phOther}`)
       if (parsedPhone.ituCode) {

@@ -3,7 +3,7 @@ import React, { Profiler } from "react"
 import NotesListRow from "./NotesListRow";
 import { Notes } from "packages/Notes";
 import NotesListHeader from "./NotesListHeader";
-import CancelBtn from "./CancelBtn";
+import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services/AppConfig";
 import { AppState, onRenderCallback } from "../App";
 import { IMember } from "packages/member-shared";
@@ -16,12 +16,15 @@ export interface MemberFormNotesProps {
 
 const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
 
+  // jscpd:ignore-start
   const memberId = getAppState().memberId;
+
   const LoadFromDb = (memberId: string): Array<any> => {
     return useAxios<IMember>(
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
     );
   }
+
   let someData: Array<any> | undefined;
   if (memberId) {
     someData = LoadFromDb(memberId);
@@ -30,6 +33,7 @@ const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JS
   }
 
   const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
+  // jscpd:ignore-end
 
   const notesArr: Notes[] | undefined = memberData && memberData.notes ? memberData.notes as Notes[] : undefined;
 

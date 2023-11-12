@@ -1,29 +1,10 @@
 import { Selector } from 'testcafe';
+// @ts-ignore
 import { userVariables } from '../../.testcaferc';
-import MemberFormPage from '../../page-objects/member.form.page';
-import MemberListPage from '../../page-objects/member.list';
 import MemberService from '../../helpers/services/members.service';
-import MemberListPageService from '../../helpers/services/member.list.page.service';
-import MemberRemitPage from '../../page-objects/member.remit.page';
-import MemberRemitsPageService from '../../helpers/services/member.remits.page.service';
 import MemberNotesPage from '../../page-objects/member.notes.page';
 import { AddMemberInterface, MemberNoteInterface } from '../../helpers/interfaces/add.member.inferface';
 
-// const getFields = () => [
-//   { field: 'firstName', isReadOnly: false },
-//   { field: 'lastName', isReadOnly: false },
-//   { field: 'address', isReadOnly: false },
-//   { field: 'unit', isReadOnly: false },
-//   { field: 'city', isReadOnly: false },
-//   { field: 'state', isReadOnly: false },
-//   { field: 'postalCode', isReadOnly: false },
-//   { field: 'phone', isReadOnly: false },
-//   { field: 'email', isReadOnly: false },
-//   { field: 'mmb', isReadOnly: true },
-//   { field: 'joined', isReadOnly: true },
-//   { field: 'lastUpdated', isReadOnly: true },
-//   { field: 'paidThrough', isReadOnly: true },
-// ]
 function randomString() {
   return "T" + Math.floor(Math.random() * 99999999).toString()
 }
@@ -51,12 +32,11 @@ test('should be able to open View notes from member list', async t => {
 
   const memberId = await memberService.addNewMemberViaApi(mem);
 
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: memberMmb });
 
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
   const toolsSelector = rowSelector.find('div').withAttribute(`data-testid`, 'member-row--tools');
-  const visibleNotesMenuItem = rowSelector.find('div').withAttribute(`data-testid`, "member-row--menu-notes");//withAttribute('member-id', memberId);
+  const visibleNotesMenuItem = rowSelector.find('div').withAttribute(`data-testid`, "member-row--menu-notes");
   const sillyHeader = Selector('h3');
 
   await t
@@ -86,7 +66,6 @@ test('should be able to open View notes from member list', async t => {
     };
 
     const memberId = await memberService.addNewMemberViaApi(mem);
-    // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: memberMmb });
 
     const title = Selector(`title`);
     const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
@@ -127,7 +106,6 @@ test(`should display date and time under Date column for each note`, async t => 
   };
 
   const memberId = await memberService.addNewMemberViaApi(mem);
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: memberMmb });
 
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);
@@ -163,7 +141,6 @@ test(`should display note text under note column for each note`, async t => {
   };
 
   const memberId = await memberService.addNewMemberViaApi(mem);
-  // const memberId = await MemberListPageService.findMemberOnListPage(t, { mmb: memberMmb });
 
   const title = Selector(`title`);
   const rowSelector = Selector('div').withAttribute(`data-id`, memberId);

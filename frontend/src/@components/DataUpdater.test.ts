@@ -67,15 +67,16 @@ describe(`${fn()}: Save`, function () {
 
   before(async function () {
     request = supertest.agent(app);
-    const res = await request.get("/members?limit=1");  // TODO check ou this bug
+    const res = await request.get("/members?limit=1");
     testMemberId = res.body?.[0]?.['_id'];
   });
 
   it('should return successful POST result when member id is ""', async function () {
+    // jscpd:ignore-start
     const testPayload = getTestPostPayload();
     const res = await Save(getServerUrl(), testPayload, "");
-    // console.log(JSON.stringify(res));
-    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug
+    
+    const body = JSON.parse(res.text);  
     const id = body.id;
     expect(res.req.method).to.be.equal('POST');
     expect(res.status).to.be.equal(200);
@@ -84,13 +85,15 @@ describe(`${fn()}: Save`, function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(id).not.to.be.null;
     expect(id).to.a('string');
+    // jscpd:ignore-end
   });
 
   it('should return successful POST result when member is not supplied', async function () {
+    // jscpd:ignore-start
     const testPayload = getTestPostPayload();
     const res = await Save(getServerUrl(), testPayload);
-    // console.log(JSON.stringify(res));
-    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug
+    
+    const body = JSON.parse(res.text);
     const id = body.id;
     expect(res.req.method).to.be.equal('POST');
     expect(res.status).to.be.equal(200);
@@ -99,25 +102,26 @@ describe(`${fn()}: Save`, function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(id).not.to.be.null;
     expect(id).to.a('string');
+    // jscpd:ignore-end
   });
 
   it('should POST "LM" member data that is same when retrieved', async function () {
     const basePayload = getTestPostPayload();
     const testPayload = { ...basePayload, mmb: "LM" }
     const res = await Save(getServerUrl(), testPayload);
-    // console.log(JSON.stringify(res));
-    const body = JSON.parse(res.text);  // TODO this being text and not a JSON object may be a bug
+    
+    const body = JSON.parse(res.text); 
     const id = body.id;
     const
       getRes = await request.get(`/members/${id}`);
-    // testMemberId = getRes.body?.[0]?.['_id'];
+    
     console.log(`getRes: ${JSON.stringify(getRes.body)}`)
   });
 
   it('should return successful PUT result when member is supplied', async function () {
     const testPayload = getTestPutPayload();
     const res = await Save(getServerUrl(), testPayload, testMemberId);
-    // console.log(JSON.stringify(res));
+    
     expect(res.req.method).to.be.equal('PUT');
     expect(res.status).to.be.equal(204);
   });

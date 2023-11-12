@@ -1,6 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import React from "react";
-// import UseAxios from "axios-hooks";
 import request from "superagent";
 
 import { IMember } from "packages/member-shared";

@@ -1,4 +1,4 @@
-import {AddMemberInterface,MemberNoteInterface} from "../interfaces/add.member.inferface";
+import { AddMemberInterface, MemberNoteInterface } from "../interfaces/add.member.inferface";
 
 export default class MemberService {
 
@@ -13,8 +13,6 @@ export default class MemberService {
     this.addNewMemberViaApi = async (newMember: AddMemberInterface): Promise<string> => {
       const url = "http://localhost:3030/members";
 
-      // const promise = new Promise((resolve, reject) => {
-      // let rawData = '';
       const resp = await t.request.post({
         url: url,
         body: {
@@ -23,11 +21,13 @@ export default class MemberService {
         }
       });
       if (resp.status && resp.status === 200) {
-        if (resp.body && resp.body.id) {
-          return resp.body.id;
-        } else {
-          return `resp.body: ${JSON.stringify(resp.body)}`
+        if (resp.body) {
+          const bbody: any = resp.body as Object;
+          if (bbody.id && typeof bbody.id === 'string') {
+            return bbody["id"];
+          }
         }
+        return `resp.body: ${JSON.stringify(resp.body)}`
       } else {
         return `status: ${resp.status} -- ${resp.statusText}`;
       }

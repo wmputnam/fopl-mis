@@ -43,7 +43,6 @@ describe(`${fn()}: reduceAddressForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('100 Fairgrounds Dr Friends of the Library, Petaluma 95952');
   });
@@ -59,7 +58,6 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('---');
   });
@@ -70,7 +68,6 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('---');
   });
@@ -81,7 +78,6 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('---');
   });
@@ -92,7 +88,6 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('---');
   });
@@ -102,33 +97,35 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('undefined');
   });
 
   it('should return first 10 chars of ISO date when member mmb is not one of [LM,HLM,BEN,VOL] and paidThrough is a Date', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reducePaidThroughForMemberList({
       paidThrough: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
+
   });
 
   it('should return first 10 chars of provided date string when member mmb is not one of [LM,HLM,BEN,VOL] and paidThrough is a string', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reducePaidThroughForMemberList({
       paidThrough: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
   });
 
 });
@@ -137,38 +134,41 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
 describe(`${fn()}: reduceJoinedForMemberList`, function () {
 
   it('should return "undefined" when member joined is not provided', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceJoinedForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('undefined');
+    // jscpd:ignore-end
   });
 
   it('should return first 10 chars of ISO date when member joined is a Date', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceJoinedForMemberList({
       joined: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
   });
 
   it('should return first 10 chars of provided date string when joined is a string', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceJoinedForMemberList({
       joined: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
   });
 
 });
@@ -177,38 +177,42 @@ describe(`${fn()}: reduceJoinedForMemberList`, function () {
 describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
 
   it('should return "undefined" when member lastUpdated is not provided', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceLastUpdatedForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.equal('undefined');
+    // jscpd:ignore-end
   });
 
   it('should return first 10 chars of ISO date when member lastUpdated is a Date', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceLastUpdatedForMemberList({
       lastUpdated: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
+    
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
   });
 
   it('should return first 10 chars of provided date string when lastUpdated is a string', function () {
+    // jscpd:ignore-start
     const result = MembersReducers.reduceLastUpdatedForMemberList({
       lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
     });
-    // console.log(`***${result}***`)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result).to.be.a('string');
     expect(result.length).to.be.equal(10);
+    // jscpd:ignore-end
   });
   //reducePhoneForMemberList
   describe(`${fn()}: reducePhoneForMemberList`, function () {
@@ -260,9 +264,6 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
         lastName: 'Budd',
         phone: '011 23 555 1212'
       });
-      // console.log(`***${result}***`)
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      // expect(result).to.be.a('string');
       expect(result.length).to.be.equal('011 23 555 1212');
     });
 

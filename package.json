@@ -15,6 +15,7 @@
     "pnmp": "^1.0.4"
   },
   "devDependencies": {
-    "create-nightwatch": "3.0.2"
+    "create-nightwatch": "3.0.2",
+    "jscpd": "^3.5.10"
   }
 }

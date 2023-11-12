@@ -1,6 +1,7 @@
 export interface IStatus {
-    active?: boolean;
-    postMail?: boolean;
-    email?: boolean;
-    newsletter?: 'email' | 'post' | 'none';
+    isActive?: boolean;
+    validPostMail?: 'valid' | 'returned mail' | 'none';
+    validEmail?: 'verified' | 'bounced' | 'unchecked' | 'none';
+    newsletterType?: 'email' | 'post' | 'none';
+    isNewMember?: boolean;
 }

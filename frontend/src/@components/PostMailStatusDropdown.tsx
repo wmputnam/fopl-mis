@@ -1,38 +1,22 @@
 import React from "react";
 import Select, { SingleValue, ActionMeta } from "react-select";
+import {SelectOption, getOptionByLabel} from "./helpers/SelectOptionHelper"
 
-interface SelectOption {
-  label: string;
-  value: boolean;
-}
+//'valid' | 'returned mail' | 'none'
 const options: SelectOption[] = [
-  { label: "Valid", value: true },
-  { label: "Returned mail", value: false },
-  { label: "No address", value: false },
+  { label: "Valid", value: 'valid' },
+  { label: "Returned mail", value: 'returned mail' },
+  { label: "No address", value: 'none' },
 
 ]
-const getOptionByLabel = (label: string): SelectOption => {
-  let result = null as unknown as SelectOption;
-
-  if (label) {
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].label.toLowerCase() === label.toLowerCase()) {
-        console.log(` getOptionByLabel: got "${label}" returning ${JSON.stringify(options[i])} `)
-        return options[i];
-      }
-    }
-  }
-  return result;
-}
-
 export function PostMailStatusDropdown(props: any) {
 
   const id = props.id && props.id !== "" ? props.id : 'post-mail--status';
 
   const className = props.className && props.className !== "" ? props.className : 'post-mail--status';
 
-  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);
-  console.log(`props keys: ${Object.keys(props)}`)
+  // jscpd:ignore-start
+  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(options, props.defaultValue) as unknown as SelectOption);
 
   const onChange = (
     option: SingleValue<SelectOption> | null,
@@ -47,6 +31,7 @@ export function PostMailStatusDropdown(props: any) {
   },
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     [selectedOption]);
+  // jscpd:ignore-end
 
   return (
     <Select

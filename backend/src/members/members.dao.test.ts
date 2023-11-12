@@ -1,18 +1,33 @@
 import { expect } from "chai";
 import membersDao from "./members.dao";
 import { IMember } from "packages";
+import { TEST_OBJECT_ID_0 } from "packages/TestHelpers";
 import mongoose from "mongoose";
 
 const fn = () => `${__filename.split('/').pop()}`;
 
+const addNewRandomMember = async () => {
+  const randomizer = Date.now();
+  const testMemberId = await membersDao.addMember({
+    firstName: `f${randomizer} `,
+    lastName: `l${randomizer} `
+  });
+  return testMemberId;
+}
+function has_failed(it: Mocha.Context) {
+  var failed = false;
+  var tests = it?.test?.parent?.tests;
+  for (var i = 0, limit = tests?.length ? tests?.length : 0; !failed && i < limit; ++i)
+    failed = tests?.[i].state === "failed";
+  return failed;
+}
+
 describe(`${fn()}: addMember`, function () {
 
   it(`should return the new member id when creating a member`, async function () {
-    const randomizer = Date.now();
-    const memberId = await membersDao.addMember({
-      firstName: `f${randomizer}`,
-      lastName: `l${randomizer}`
-    });
+
+    const memberId = await addNewRandomMember();
+
     expect(memberId).not.to.be.undefined;
   });
 
@@ -52,7 +67,6 @@ describe(`${fn()}: getMembers`, function () {
 
 });
 
-const dorfId = "303030303030303030303030"
 describe(`${fn()}: getMemberById`, function () {
 
   let memberId: string;
@@ -78,7 +92,8 @@ describe(`${fn()}: getMemberById`, function () {
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(dorfId);
+    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0
+    );
     expect(member).to.be.null;
   });
 
@@ -88,20 +103,9 @@ describe(`${fn()}: updateUserById`, function () {
 
   let testMemberId: string;
   before(async function () {
-    const randomizer = Date.now();
-    testMemberId = await membersDao.addMember({
-      firstName: `f${randomizer} `,
-      lastName: `l${randomizer} `
-    });
+    const testMemberId = await addNewRandomMember();
   });
 
-  function has_failed(it: Mocha.Context) {
-    var failed = false;
-    var tests = it?.test?.parent?.tests;
-    for (var i = 0, limit = tests?.length ? tests?.length : 0; !failed && i < limit; ++i)
-      failed = tests?.[i].state === "failed";
-    return failed;
-  }
   after(async function () {
     if (!has_failed(this)) {
       await membersDao.removeMemberById(testMemberId);
@@ -120,7 +124,8 @@ describe(`${fn()}: updateUserById`, function () {
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.updateUserById(dorfId, { mmb: "VOL" });
+    const member = await membersDao.updateUserById(TEST_OBJECT_ID_0
+      , { mmb: "VOL" });
     expect(member).to.be.undefined;
   });
 
@@ -132,24 +137,10 @@ describe(`${fn()}: removeMemberById`, function () {
   let testMemberId: string;
 
   before(async function () {
-    const randomizer = Date.now();
-    testMemberId = await membersDao.addMember({
-      firstName: `f${randomizer} `,
-      lastName: `l${randomizer} `
-    });
+    const testMemberId = await addNewRandomMember();
   });
 
-  function has_failed(it: Mocha.Context) {
-    var failed = false;
-    var tests = it?.test?.parent?.tests;
-    for (var i = 0, limit = tests?.length ? tests?.length : 0; !failed && i < limit; ++i)
-      failed = tests?.[i].state === "failed";
-    return failed;
-  }
   after(async function () {
-    // if (!has_failed(this)) {
-    //   await membersDao.removeMemberById(testMemberId);
-    // }
   });
 
   it(`should delete document for member specified by memberId`, async function () {
@@ -158,7 +149,8 @@ describe(`${fn()}: removeMemberById`, function () {
     expect(result.deletedCount).to.equal(1);
   });
   it(`should return ??? when given memberid parameter that does not exist`, async function () {
-    const result = await membersDao.removeMemberById(dorfId);
+    const result = await membersDao.removeMemberById(TEST_OBJECT_ID_0
+    );
     expect(result.acknowledged).to.be.true;
     expect(result.deletedCount).to.equal(0);
   });
@@ -190,7 +182,8 @@ describe(`${fn()}: getMemberByEmail`, function () {
   });
 
   it(`should return null when given email parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(dorfId);
+    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0
+    );
     expect(member).to.be.null;
   });
 

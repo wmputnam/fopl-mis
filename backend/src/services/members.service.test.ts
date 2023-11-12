@@ -3,9 +3,11 @@ import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
 import membersService from "./members.service";
+import { TEST_OBJECT_ID_0 } from "packages/TestHelpers";
+
 
 const fn = () => `${__filename.split('/').pop()}`;
-const dorfId = "303030303030303030303030"
+
 describe(`${fn()}: getMemberById`, function () {
   let request: supertest.SuperAgentTest;
 
@@ -33,7 +35,8 @@ describe(`${fn()}: getMemberById`, function () {
 
 
   it(`should return null from db when given an invalid id`, async function () {
-    const member = await membersService.getMemberById(dorfId);
+    const member = await membersService.getMemberById(TEST_OBJECT_ID_0
+);
     expect(member).to.be.null;
   });
 })

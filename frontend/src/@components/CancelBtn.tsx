@@ -2,12 +2,11 @@ import React from "react";
 import { FrontendProps } from "../@interfaces/MemberProps";
 
 
-function CancelBtn({ getAppState, setAppState }: FrontendProps): any {
+export function CancelBtn({ getAppState, setAppState }: FrontendProps): any {
 
     function updViewState() {
         const newFromViewState = getAppState().fromViewState;
         const returnToViewState = newFromViewState.pop();
-        console.log(`cancel on ${getAppState().fromViewState} will return to ${returnToViewState.toString()}`);
         setAppState((oldState: any) => ({
             ...oldState,
             viewState: returnToViewState,
@@ -25,4 +24,5 @@ function CancelBtn({ getAppState, setAppState }: FrontendProps): any {
     )
 }
 
-export default CancelBtn
+const cancelBtn = CancelBtn;
+export default cancelBtn

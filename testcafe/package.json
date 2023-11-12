@@ -12,6 +12,7 @@
     "test:headless": "clear && testcafe chrome:headless"
   },
   "devDependencies": {
+    "@types/node": "^20.9.0",
     "testcafe": "*"
   }
 }

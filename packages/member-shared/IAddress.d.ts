@@ -6,4 +6,5 @@ export interface IAddress {
     postalCode?: string;
     zip?: string;
     plus4?: string;
+    zipmerge?: string;
 }

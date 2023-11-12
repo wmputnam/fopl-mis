@@ -1,29 +1,12 @@
 import React from "react";
 import Select, { SingleValue, ActionMeta } from "react-select";
+import { SelectOption, getOptionByLabel } from "./helpers/SelectOptionHelper"
 
-interface SelectOption {
-  label: string;
-  value: string;
-}
 const options: SelectOption[] = [
   { label: "None", value: "none" },
   { label: "Post", value: "post" },
   { label: "Email", value: "email" }
 ]
-const getOptionByLabel = (label: string): SelectOption => {
-  let result = null as unknown as SelectOption;
-
-  if (label) {
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].label.toLowerCase() === label.toLowerCase()) {
-        console.log(` getOptionByLabel: got "${label}" returning ${JSON.stringify(options[i])} `)
-        return options[i];
-      }
-    }
-  }
-  return result;
-}
-
 
 export function NewsletterTypeDropdown(props: any) {
 
@@ -31,8 +14,7 @@ export function NewsletterTypeDropdown(props: any) {
 
   const className = props.className && props.className !== "" ? props.className : 'newsletter-type';
 
-  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(props.defaultValue) as unknown as SelectOption);
-  console.log(`props keys: ${Object.keys(props)}`)
+  const [selectedOption, setSelectedOption] = React.useState<SelectOption>(getOptionByLabel(options,props.defaultValue) as unknown as SelectOption);
 
   const onChange = (option: SingleValue<SelectOption> | null, actionMeta: ActionMeta<SingleValue<SelectOption>> | null) => {
     setSelectedOption(option as SelectOption);

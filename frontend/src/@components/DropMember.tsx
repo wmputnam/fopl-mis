@@ -1,6 +1,6 @@
 import React from "react";
 import { MemberViewStates } from "../@interfaces/enums";
-import CancelBtn from "./CancelBtn";
+import { CancelBtn } from "./CancelBtn";
 import { AppState } from "../App";
 
 export interface DropMemberProps {

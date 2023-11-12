@@ -9,7 +9,7 @@ export interface AppHeaderProps {
   getListFilter: () => string;
 }
 
-const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }: AppHeaderProps) => {
+export const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }: AppHeaderProps) => {
 
   let messageElements;
   if (messages) {
@@ -46,7 +46,7 @@ const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }
           {showListSearch && <ListSearch 
             getSearchFilter={getListFilter}
             updateSearchFilter={updateListFilter} />}
-          {<NewMemberReport />}
+          {<NewMemberReport /> /* TODO make this a reports downdown menu*/}
         </div>
       </div>
 
@@ -54,4 +54,5 @@ const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }
   );
 }
 
-export default AppHeader;
+const appHeader = AppHeader;
+export default appHeader;
