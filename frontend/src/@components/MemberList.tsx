@@ -6,10 +6,10 @@ import { FrontendProps } from "../@interfaces/MemberProps";
 import MembersReducers from "../reducers/members.reducers";
 import useAxios from "axios-hooks";
 import { getServerUrl } from "../services/AppConfig";
-import { IMember } from "packages";
+import { IMemberDocument } from "../../../packages/member-document/";
 
 interface MemberListData {
-  data: IMember[]
+  data: IMemberDocument[]
 }
 
 const getMemberDataParams = (pageNumber: number, pageFilter: string) => {
@@ -21,7 +21,7 @@ const getMemberDataParams = (pageNumber: number, pageFilter: string) => {
     result = { ...result, filter: `lastName:${pageFilter.toUpperCase()}` }
   }
 
-return result;
+  return result;
 }
 
 

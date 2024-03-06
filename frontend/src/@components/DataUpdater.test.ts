@@ -6,7 +6,7 @@ import { getServerUrl } from "../services/AppConfig.js";
 import supertest from "supertest";
 import { fileURLToPath } from "url";
 import { Save } from "./DataUpdater.js";
-import { IMember } from "../../../packages/member-shared";
+import { IMemberDocument } from "../../../packages/member-document";
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -20,7 +20,7 @@ async function runDelay(time = 1000) {
   await delay(time);
 }
 
-const getTestPostPayload = (testMember: IMember | undefined = undefined) => {
+const getTestPostPayload = (testMember: IMemberDocument | undefined = undefined) => {
   runDelay(2000);
   const randomizer = Date.now();
 

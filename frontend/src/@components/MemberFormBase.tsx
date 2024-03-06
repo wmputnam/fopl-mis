@@ -8,7 +8,7 @@ import SaveBtn from "./SaveBtn";
 import { AppState, isEmptyObject, onRenderCallback } from "../App";
 import { EditProps } from "./EditMember";
 import { getServerUrl } from "../services/AppConfig";
-import { IMember } from "packages";
+import { IMemberDocument,IVolunteer } from "../../../packages/member-document/";
 import { Member } from "../services/Member";
 import { MemberViewStates } from "../@interfaces/enums";
 import { MemberFormBaseGroup } from "./MemberFormBaseGroup";
@@ -16,7 +16,7 @@ import { MemberFormMmbGroup } from "./MemberFormMmbGroup";
 import { MemberFormRemitGroup } from "./MemberFormRemitGroup";
 import { MemberFormVolGroup } from "./MemberFormVolGroup";
 import { MemberService } from "../services/MemberService";
-import { Volunteer } from "packages/Volunteer";
+// import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
 
 export interface FormError {
   target: string,
@@ -99,7 +99,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
   const memberId = getAppState().memberId;
   const mode = getAppState().viewState;
   console.log(`url: /members/${memberId}`);
-  const [{ data, error, loading }] = useAxios<IMember[]>(
+  const [{ data, error, loading }] = useAxios<IMemberDocument[]>(
     { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
   );
 
@@ -108,7 +108,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
   const [memberObj, setMemberObj] = React.useState<Member>({} as Member);
 
   React.useEffect(() => {
-    setMemberObj(MemberService.createMemberFromLoad(data as unknown as IMember, mode));
+    setMemberObj(MemberService.createMemberFromLoad(data as unknown as IMemberDocument, mode));
   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     , [haveData]);
@@ -148,7 +148,7 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
           memberObj.status.newsletterType = 'email';
         }
         if (!memberObj.volunteerPreferences) {
-          memberObj.volunteerPreferences = Array<Volunteer>();
+          memberObj.volunteerPreferences = Array<IVolunteer>();
         }
         // memberObj.volunteerPreferences.push({ role: 'NEW' })
       }

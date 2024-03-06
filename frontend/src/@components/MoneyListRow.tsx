@@ -1,5 +1,5 @@
 import React from "react";
-import { Remittance } from "packages/Remittance";
+import { IRemittance } from "../../../packages/member-document";
 
 function formatDate(d: Date): string {
     const yr: string = d.getFullYear().toString();
@@ -74,7 +74,7 @@ const formatAmount = (amount: string): { wholePart: string, leadingSpaces: strin
         };
     }
 }
-const RemittancesListRow = ({ date, amount, memo }: Remittance): any => {
+const RemittancesListRow = ({ date, amount, memo }: IRemittance): any => {
     const dateFormatted = formatDate(date);
     const { wholePart, leadingSpaces } = formatAmount(amount);
     const currencySymbol = '$ ';

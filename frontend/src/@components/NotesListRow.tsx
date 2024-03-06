@@ -1,5 +1,5 @@
 import React from "react";
-import { Notes } from "packages/Notes";
+import { INotes } from "../../../packages/member-document";
 
 function formatDate(d: Date): string {
     const yr: string = d.getFullYear().toString();
@@ -16,7 +16,7 @@ function formatDate(d: Date): string {
     return yr + "-" + mo + "-" + da + " " + hr + ":" + mi + ":" + se;
 }
 
-const NotesListRow = ({ date, note, }: Notes): any => {
+const NotesListRow = ({ date, note, }: INotes): any => {
     return (
         <div className="notes-row row" data-testid="notes-row" >
             <div className="notes-row--date col" data-testid="notes-row--date">{formatDate(date)} </div>

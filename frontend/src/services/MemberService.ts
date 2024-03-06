@@ -1,18 +1,24 @@
-import { IMember } from "packages/member-shared";
+import { IAddress, 
+  IMemberDocument,
+  INames,
+  INotes,
+  IRemittance,
+  IVolunteer 
+} from "../../../packages/member-document";
 import { Member } from "./Member"
 import IDuesRates from "../@interfaces/DuesRates";
-import { Remittance } from "packages/Remittance";
-import { Volunteer } from "packages/Volunteer";
-import { IAddress } from "packages/IAddress";
-import { Names } from "packages/Names";
-import { Notes } from "packages/Notes";
+// import { Remittance } from "../../../packages/member-document/dist/Remittance";
+// import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
+// import { IAddress } from "../../../packages/member-document/dist/IAddress";
+// import { Names } from "../../../packages/member-document/dist/Names";
+// import { Notes } from "../../../packages/member-document/dist/Notes";
 import { MemberViewStates } from "../@interfaces/enums";
 import { Status } from "../services/Status";
 import { SaveUpdate } from "../@components/DataUpdater";
 import { getServerUrl } from "./AppConfig";
 
 
-const isPropDefined = (imember: IMember, prop: string & keyof IMember) => imember?.[prop] !== undefined;
+const isPropDefined = (imember: IMemberDocument, prop: string & keyof IMemberDocument) => imember?.[prop] !== undefined;
 
 export interface MmbBundle {
   mmb: string;
@@ -20,7 +26,7 @@ export interface MmbBundle {
   joined?: Date;
 }
 export class MemberService {
-  public static createMemberFromLoad(loadedIMemberData: IMember, mode: MemberViewStates): Member {
+  public static createMemberFromLoad(loadedIMemberData: IMemberDocument, mode: MemberViewStates): Member {
     const newMember: Member = Member.create();
     if (mode === MemberViewStates.new) {
       if (!newMember.status) {
@@ -37,7 +43,7 @@ export class MemberService {
       if (isPropDefined(loadedIMemberData, "names")) {
         if (loadedIMemberData.names) {
           if (newMember.names === undefined) {
-            newMember.names = Array<Names>();
+            newMember.names = Array<INames>();
           }
           for (let i = 0; i < loadedIMemberData.names.length; i++) {
             newMember["names"][i] = loadedIMemberData.names[i];
@@ -56,17 +62,17 @@ export class MemberService {
       if (isPropDefined(loadedIMemberData, "volunteer")) {
         for (let i = 0; i < (loadedIMemberData?.volunteer ? loadedIMemberData?.volunteer?.length : 0); i++) {
           if (newMember.volunteerPreferences === undefined) {
-            newMember.volunteerPreferences = Array<Volunteer>();
+            newMember.volunteerPreferences = Array<IVolunteer>();
           }
           if (newMember.volunteerRoles === undefined) {
-            newMember.volunteerRoles = new Map<String, Volunteer>();
+            newMember.volunteerRoles = new Map<String, IVolunteer>();
           }
-          const vObj: Volunteer | string | undefined = loadedIMemberData.volunteer?.[i];
+          const vObj: IVolunteer | string | undefined = loadedIMemberData.volunteer?.[i];
           if (vObj !== undefined) {
             if (typeof vObj === 'string') {
-              let newVolObj: Volunteer = {
+              let newVolObj: IVolunteer = {
                 role: loadedIMemberData.volunteer?.[i] as unknown as string,
-              } as Volunteer;
+              } as IVolunteer;
               newMember["volunteerPreferences"][i] = newVolObj
               newMember.volunteerRoles.set(newVolObj.role, newVolObj)
             } else if (typeof vObj === 'object') {
@@ -82,7 +88,7 @@ export class MemberService {
       if (isPropDefined(loadedIMemberData, "lastUpdated")) newMember["lastUpdated"] = loadedIMemberData["lastUpdated"];
       if (isPropDefined(loadedIMemberData, "remittances")) {
         if (newMember.remittances === undefined) {
-          newMember.remittances = Array<Remittance>();
+          newMember.remittances = Array<IRemittance>();
         }
         for (let i = 0; i < (loadedIMemberData.remittances ? loadedIMemberData.remittances.length : 0); i++) {
           if (loadedIMemberData.remittances?.[i]) {
@@ -92,7 +98,7 @@ export class MemberService {
       }
       if (isPropDefined(loadedIMemberData, "notes")) {
         if (newMember.notes === undefined) {
-          newMember.notes = Array<Notes>();
+          newMember.notes = Array<INotes>();
         }
         for (let i = 0; i < (loadedIMemberData.notes ? loadedIMemberData.notes.length : 0); i++) {
           if (loadedIMemberData.notes?.[i]) {
@@ -295,17 +301,17 @@ export class MemberService {
     }
   }
 
-  public static getMostRecentDuesEntry = (_memberObj: Member): Remittance | undefined => {
+  public static getMostRecentDuesEntry = (_memberObj: Member): IRemittance | undefined => {
     if (_memberObj?.remittances !== undefined && _memberObj?.remittances.length !== undefined) {
       const duesEntries = _memberObj.remittances.filter(({ date, amount, memo }) => memo === "dues");
       const duesDateValues = duesEntries.map((e) => e.date.valueOf());
       const minDuesDateValue = Math.min(...duesDateValues);
       const MILLI_SEC_PER_DAY = 8.67e+7;
       const minDuesDate: Date = new Date(minDuesDateValue - MILLI_SEC_PER_DAY);
-      let result: Remittance = { date: minDuesDate, amount: "0", memo: "" } as Remittance;
+      let result: IRemittance = { date: minDuesDate, amount: "0", memo: "" } as IRemittance;
 
       for (let i = 0; i <= _memberObj.remittances.length; i++) {
-        let _remit: Remittance = _memberObj.remittances[i];
+        let _remit: IRemittance = _memberObj.remittances[i];
         if (_remit !== undefined && _remit.date !== undefined && _remit.memo !== undefined && _remit.memo === "dues" && _remit.amount !== undefined && parseFloat(_remit.amount) >= 0.0) {
           const _remitDate = new Date(_remit.date)
           if (_remitDate > result.date) {
@@ -381,7 +387,7 @@ export class MemberService {
     }
   }
 
-  static hasSameNames(refArr: Array<Names>, newArr: Array<Names>): boolean {
+  static hasSameNames(refArr: Array<INames>, newArr: Array<INames>): boolean {
     if (refArr.length !== newArr.length) {
       return false;
     } else {
@@ -394,7 +400,7 @@ export class MemberService {
     return true;
   }
 
-  static hasSameRemits(refArr: Array<Remittance>, newArr: Array<Remittance>): boolean {
+  static hasSameRemits(refArr: Array<IRemittance>, newArr: Array<IRemittance>): boolean {
     if (refArr.length !== newArr.length) {
       return false;
     } else {
@@ -407,7 +413,7 @@ export class MemberService {
     return true;
   }
 
-  static hasSameVolPrefs(refArr: Array<Volunteer>, newArr: Array<Volunteer>): boolean {
+  static hasSameVolPrefs(refArr: Array<IVolunteer>, newArr: Array<IVolunteer>): boolean {
     if (refArr.length !== newArr.length) {
       return false;
     } else {
@@ -420,7 +426,7 @@ export class MemberService {
     return true;
   }
 
-  static hasSameNotes(refArr: Array<Notes>, newArr: Array<Notes>): boolean {
+  static hasSameNotes(refArr: Array<INotes>, newArr: Array<INotes>): boolean {
     if (refArr.length !== newArr.length) {
       return false;
     } else {

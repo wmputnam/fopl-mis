@@ -1,12 +1,12 @@
 import { CreateMemberDto } from "./create.member.dto";
 import { PatchMemberDto } from "./patch.member.dto";
 import { PutMemberDto } from "./put.member.dto";
-import { IMember } from "packages/member-shared";
-import { Remittance } from "packages/Remittance";
-import { Volunteer } from "packages/Volunteer";
-import { Notes } from "packages/Notes";
-import { Names } from "packages/Names";
-import { IStatus } from "packages/IStatus";
+import { IAddress,IMemberDocument,INames,INotes,IRemittance,IStatus,IVolunteer } from "../../../packages/member-document/";
+// import { IRemittance } from "../../../packages/member-document/dist/Remittance";
+// import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
+// import { Notes } from "../../../packages/member-document/dist/Notes";
+// import { Names } from "../../../packages/member-document/dist/Names";
+// import { IStatus } from "../../../packages/member-document/dist/IStatus";
 import mongooseService from "../common/services/mongoose.service";
 import debug from "debug";
 import mongoose, { Mongoose, Schema, SortOrder, } from "mongoose";
@@ -16,23 +16,23 @@ const log: debug.IDebugger = debug(`app:members-dao`);
 class MembersDao {
   Schema = mongooseService.getMongoose().Schema;
 
-  remittanceSchema = new this.Schema<Remittance>({
+  remittanceSchema = new this.Schema<IRemittance>({
     date: Date,
     amount: String,
     memo: String,
   }, { _id: false });
 
-  volunteeerSchema = new this.Schema<Volunteer>({
+  volunteeerSchema = new this.Schema<IVolunteer>({
     role: String,
     lastWorkDate: Date,
   }, { _id: false });
 
-  notesSchema = new this.Schema<Notes>({
+  notesSchema = new this.Schema<INotes>({
     date: Date,
     note: String,
   }, { _id: false });
 
-  namesSchema = new this.Schema<Names>({
+  namesSchema = new this.Schema<INames>({
     firstName: String,
     lastName: String,
   }, { _id: false });
@@ -44,7 +44,7 @@ class MembersDao {
     caseFirst: 'off'
   };
 
-  memberSchema = new this.Schema<IMember>({
+  memberSchema = new this.Schema<IMemberDocument>({
     _id: { type: this.Schema.ObjectId },
     firstName: { type: String, required: true }, //, alias: "first name" },
     lastName: { type: String, required: true }, //, alias: "last name" },
@@ -58,10 +58,10 @@ class MembersDao {
     postalCode: String,
     volunteer: { type: [this.volunteeerSchema] },
     mmb: String,                     // TODO make this a calculated value
-    paidThrough: Date, 
+    paidThrough: Date,
     joined: Date,
-    lastUpdated: Date, 
-    remittances: { type: [this.remittanceSchema] }, 
+    lastUpdated: Date,
+    remittances: { type: [this.remittanceSchema] },
     notes: { type: [this.notesSchema] },
     isActive: Boolean,
     isNewMember: Boolean,
@@ -104,7 +104,7 @@ class MembersDao {
 
   async getMembers(limit = 25, page = 0) {
     log(`limit: ${limit}, page: ${page}`)
-    const result: IMember[] = await this.Member.find()
+    const result: IMemberDocument[] = await this.Member.find()
       .sort({ lastName: 1, firstName: 1, _id: 1 })
       .limit(limit)
       .skip(limit * page)
@@ -114,11 +114,11 @@ class MembersDao {
 
   async getMembersV1(limit = 25, page = 0,
     sort: string,
-    filter: mongoose.FilterQuery<IMember> = {}
+    filter: mongoose.FilterQuery<IMemberDocument> = {}
   ) {
     log(`getMembersV1 - limit: ${limit}, page: ${page}, sort: ${sort}`)
-    
-    const result: IMember[] = await this.Member.find(filter)
+
+    const result: IMemberDocument[] = await this.Member.find(filter)
       .sort(sort)
       .limit(limit)
       .skip(limit * page)
@@ -128,7 +128,7 @@ class MembersDao {
   }
 
   async getMembersCountV1(
-    filter: mongoose.FilterQuery<IMember> = {}
+    filter: mongoose.FilterQuery<IMemberDocument> = {}
   ) {
     log(`getMembersCountV1 - `)
 

@@ -1,9 +1,11 @@
-import { Names } from "packages/Names";
-import { Notes } from "packages/Notes";
-import { Remittance } from "packages/Remittance";
-import { IStatus } from "packages/IStatus";
-import { Volunteer } from "packages/Volunteer";
-import { IMember } from "packages/member-shared";
+import {
+  IMemberDocument,
+  INames,
+  INotes,
+  IRemittance,
+  IStatus,
+  IVolunteer
+} from "../../../packages/member-document";
 import { FormError } from "../@components/MemberFormBase";
 import Status from "./Status";
 
@@ -40,14 +42,14 @@ export class Member {
   public set lastName(value: string) {
     this._lastName = value;
   }
-  _names: Names[] | undefined = [];
-  public get names(): Names[] | undefined {
+  _names: INames[] | undefined = [];
+  public get names(): INames[] | undefined {
     return this._names;
   }
-  public set names(value: Names[] | undefined) {
+  public set names(value: INames[] | undefined) {
     if (value !== undefined) {
       if (this._names === undefined) {
-        this._names = Array<Names>();
+        this._names = Array<INames>();
       }
       for (let i = 0; i < value.length; i++)
         this._names.push(value[i]);
@@ -104,10 +106,10 @@ export class Member {
     this._postalCode = value;
   }
 
-  _volunteerPreferences: Volunteer[] | undefined = [];
+  _volunteerPreferences: IVolunteer[] | undefined = [];
 
-  public get volunteerPreferences(): Volunteer[] | undefined {
-    const newVolArr = Array<Volunteer>();
+  public get volunteerPreferences(): IVolunteer[] | undefined {
+    const newVolArr = Array<IVolunteer>();
 
     if (this._volunteerRoles && typeof this._volunteerRoles === 'object' && this._volunteerRoles instanceof Map) {
       const volEntries = this._volunteerRoles.values();
@@ -119,7 +121,7 @@ export class Member {
   }
 
   public getVolRolesFromVolPrefs() {
-    const newRolesMap = new Map<String, Volunteer>();
+    const newRolesMap = new Map<String, IVolunteer>();
     if (this._volunteerPreferences
       && (typeof this._volunteerPreferences === 'object'
         && (this._volunteerPreferences instanceof Array))) {
@@ -130,10 +132,10 @@ export class Member {
     }
     return newRolesMap;
   }
-  public set volunteerPreferences(value: Volunteer[] | undefined) {
+  public set volunteerPreferences(value: IVolunteer[] | undefined) {
     if (value !== undefined) {
       if (this._volunteerPreferences === undefined) {
-        this._volunteerPreferences = Array<Volunteer>();
+        this._volunteerPreferences = Array<IVolunteer>();
       }
       for (let i = 0; i < value.length; i++) {
         this._volunteerPreferences.push(value[i]);
@@ -141,28 +143,28 @@ export class Member {
     }
   }
 
-  _volunteerRoles?: Map<String, Volunteer>;
+  _volunteerRoles?: Map<String, IVolunteer>;
 
-  public set volunteerRoles(values: Map<String, Volunteer>) {
+  public set volunteerRoles(values: Map<String, IVolunteer>) {
     if (this._volunteerRoles
       && typeof this._volunteerRoles === 'object'
       && this._volunteerRoles instanceof Map) {
       this._volunteerRoles?.clear();
     } else {
-      this._volunteerRoles = new Map<String, Volunteer>();
+      this._volunteerRoles = new Map<String, IVolunteer>();
     }
     for (const v of values) {
       this._volunteerRoles?.set(v[0], v[1]);
     }
   }
 
-  public get volunteerRoles(): Map<String, Volunteer> {
+  public get volunteerRoles(): Map<String, IVolunteer> {
     if (this._volunteerRoles
       && typeof this._volunteerRoles === 'object'
       && this._volunteerRoles instanceof Map) {
       return this._volunteerRoles;
     } else {
-      this._volunteerRoles = new Map<String, Volunteer>();
+      this._volunteerRoles = new Map<String, IVolunteer>();
       return this._volunteerRoles;
     }
   }
@@ -171,11 +173,11 @@ export class Member {
     return this._volunteerRoles?.has(role);
   }
 
-  public addVolunteerRole(volunteer: Volunteer) {
+  public addIVolunteerRole(volunteer: IVolunteer) {
     return this._volunteerRoles?.set(volunteer.role, volunteer);
   }
 
-  public getVolunteerRole(role: String) {
+  public getIVolunteerRole(role: String) {
     return this._volunteerRoles?.get(role);
   }
 
@@ -213,14 +215,14 @@ export class Member {
   public set lastUpdated(value: Date | undefined) {
     this._lastUpdated = value;
   }
-  _remittances: Remittance[] | undefined = [];
-  public get remittances(): Remittance[] | undefined {
+  _remittances: IRemittance[] | undefined = [];
+  public get remittances(): IRemittance[] | undefined {
     return this._remittances;
   }
-  public set remittances(value: Remittance[] | undefined) {
+  public set remittances(value: IRemittance[] | undefined) {
     if (value !== undefined) {
       if (this._remittances === undefined) {
-        this._remittances = Array<Remittance>();
+        this._remittances = Array<IRemittance>();
       }
       for (let i = 0; i < value.length; i++) {
         this._remittances.push(value[i]);
@@ -263,14 +265,14 @@ export class Member {
   public set remitWarn(value: string | undefined) {
     this._remitWarn = value;
   }
-  _notes: Notes[] | undefined = [];
-  public get notes(): Notes[] | undefined {
+  _notes: INotes[] | undefined = [];
+  public get notes(): INotes[] | undefined {
     return this._notes;
   }
-  public set notes(value: Notes[] | undefined) {
+  public set notes(value: INotes[] | undefined) {
     if (value !== undefined) {
       if (this._notes === undefined) {
-        this._notes = Array<Notes>();
+        this._notes = Array<INotes>();
       }
       for (let i = 0; i < value.length; i++) {
         this._notes.push(value[i]);
@@ -409,9 +411,9 @@ export class Member {
     }
   }
 
-  private static _isDefined = (m: IMember, p: string & keyof IMember) => m?.[p] !== undefined;
+  private static _isDefined = (m: IMemberDocument, p: string & keyof IMemberDocument) => m?.[p] !== undefined;
 
-  public static createFromIMember(imember: IMember | undefined): Member | undefined {
+  public static createFromIMember(imember: IMemberDocument | undefined): Member | undefined {
     if (imember) {
       let id = Member._isDefined(imember, "_id") ? imember._id : "";
       const member = Member.create(id);
@@ -448,8 +450,8 @@ export class Member {
     }
   }
 
-  public toIMember(): IMember {
-    let imember: IMember = Object.create({});
+  public toIMember(): IMemberDocument {
+    let imember: IMemberDocument = Object.create({});
     if (this.id) { imember["_id"] = this.id; }
     if (this.firstName) { imember["firstName"] = this.firstName; }
     if (this.lastName) { imember["lastName"] = this.lastName; }
@@ -489,7 +491,7 @@ export class Member {
   }
 
   public deepClone(): Member | undefined {
-    const currImember: IMember = this.toIMember();
+    const currImember: IMemberDocument = this.toIMember();
     console.log(`this.id: ${this.id}, currImamber._id: ${currImember._id}`);
     let cloneMember: Member | undefined = currImember ? Member.createFromIMember(currImember) : undefined;
     if (cloneMember) {

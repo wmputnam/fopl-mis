@@ -4,8 +4,8 @@ import useAxios from "axios-hooks";
 import { AppState, onRenderCallback } from "../App";
 import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services/AppConfig";
-import { IMember } from "packages";
-import { Remittance } from "packages/Remittance";
+import { IMemberDocument,IRemittance } from "../../../packages/member-document/";
+// import { Remittance } from "../../../packages/member-document/dist/Remittance";
 import RemittancesListRow from "./MoneyListRow";
 import RemittancesListHeader from "./MoneyListHeader";
 
@@ -20,7 +20,7 @@ const DATE_OBJECT = '[object date]';
 
 const STRING_OBJECT = '[object string]';
 
-const compareRemits = (a: Remittance, b: Remittance): number => {
+const compareRemits = (a: IRemittance, b: IRemittance): number => {
   let result = 0;
   if (a && b) {
     let aDateValue = undefined;
@@ -57,23 +57,23 @@ const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) =>
   const memberId = getAppState().memberId;
 
   const LoadFromDb = (memberId: string): Array<any> => {
-    return useAxios<IMember>(
+    return useAxios<IMemberDocument>(
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
     );
   }
-  
+
   let someData: Array<any> | undefined;
-  
+
   if (memberId) {
     someData = LoadFromDb(memberId);
   } else {
     someData = undefined;
   }
-  
+
   const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
   // jscpd:ignore-end
 
-  const remitArr: Remittance[] | undefined = memberData && memberData.remittances ? memberData.remittances : undefined;
+  const remitArr: IRemittance[] | undefined = memberData && memberData.remittances ? memberData.remittances : undefined;
 
   let remittancesElements;
 

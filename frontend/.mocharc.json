@@ -8,5 +8,6 @@
   "node-options": [
     "experimental-specifier-resolution=node",
     "experimental-loader=ts-node/esm"
-  ]
+  ],
+  "exit": true
 }

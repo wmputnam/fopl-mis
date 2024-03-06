@@ -5,12 +5,12 @@ import { PutMemberDto } from "../members/put.member.dto";
 import { PatchMemberDto } from "../members/patch.member.dto";
 import { PatchMemberStatusDto } from "../members/patch.member.status.dto";
 import membersService from "./members.service";
-import { IMember } from "packages";
+import { IMemberDocument } from "../../../packages/member-document";
 
 class MemberServiceStatus {
 
   async updateMemberStatus(id: string, resource: PatchMemberStatusDto): Promise<any> {
-    const memberData: IMember | null = await membersService.getMemberById(id);
+    const memberData: IMemberDocument | null = await membersService.getMemberById(id);
     if (memberData) {
       if (resource.isActive) {
         if (resource.isActive !== undefined) {

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from "react"
 import NotesListRow from "./NotesListRow";
-import { Notes } from "packages/Notes";
+// import { Notes } from "../../../packages/member-document/dist/Notes";
 import NotesListHeader from "./NotesListHeader";
 import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services/AppConfig";
 import { AppState, onRenderCallback } from "../App";
-import { IMember } from "packages/member-shared";
+import { IMemberDocument, INotes } from "../../../packages/member-document";
 import useAxios from "axios-hooks";
 
 export interface MemberFormNotesProps {
@@ -20,7 +20,7 @@ const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JS
   const memberId = getAppState().memberId;
 
   const LoadFromDb = (memberId: string): Array<any> => {
-    return useAxios<IMember>(
+    return useAxios<IMemberDocument>(
       { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
     );
   }
@@ -35,7 +35,7 @@ const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JS
   const memberData = someData && someData?.[0] && someData[0]?.data ? someData[0].data : undefined;
   // jscpd:ignore-end
 
-  const notesArr: Notes[] | undefined = memberData && memberData.notes ? memberData.notes as Notes[] : undefined;
+  const notesArr: INotes[] | undefined = memberData && memberData.notes ? memberData.notes as INotes[] : undefined;
 
   let notesElements;
 

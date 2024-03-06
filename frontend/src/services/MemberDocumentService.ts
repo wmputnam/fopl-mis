@@ -1,6 +1,6 @@
-import { IStatus } from "packages/IStatus"
+import { IStatus } from "../../../packages/member-document"
 
-class MemberDocumentService {
+export class MemberDocumentService {
   foo = async () => { }
 
   updateMemberStatus = async (memberId: string, newStatus: IStatus) => {

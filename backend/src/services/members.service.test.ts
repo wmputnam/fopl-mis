@@ -3,7 +3,7 @@ import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
 import membersService from "./members.service";
-import { TEST_OBJECT_ID_0 } from "packages/TestHelpers";
+import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
 
 
 const fn = () => `${__filename.split('/').pop()}`;
@@ -35,8 +35,8 @@ describe(`${fn()}: getMemberById`, function () {
 
 
   it(`should return null from db when given an invalid id`, async function () {
-    const member = await membersService.getMemberById(TEST_OBJECT_ID_0
-);
+    const member = await membersService.getMemberById(TEST_OBJECT_ID_0()
+    );
     expect(member).to.be.null;
   });
 })

@@ -4,7 +4,7 @@ import { RenderCallBackI } from "../App";
 import { Member } from "../services/Member";
 import { oldMemberStateToNew } from "./MemberFormBase";
 import { VolunteerRoleMultiselect } from "./VolunteerRoleMultiselect";
-import { Volunteer } from "packages/Volunteer";
+import { IVolunteer } from "../../../packages/member-document";
 
 const getDefaultValuesFromIterator = (itr: any) => {
   const newArr = new Array<String>();
@@ -80,8 +80,8 @@ export const MemberFormVolGroup = (
   const handleVolunteerRoleChange = (e: any) => {
     if (e.target.id === "volunteer-roles") {
       if (e.target.value && (typeof e.target.value === 'object') && (e.target.value instanceof Array)) {
-        const newVolPrefs: Volunteer[] = e.target.value.map((v: string) => ({ role: v }));
-        const newVolRoles = new Map<String, Volunteer>();
+        const newVolPrefs: IVolunteer[] = e.target.value.map((v: string) => ({ role: v }));
+        const newVolRoles = new Map<String, IVolunteer>();
         newVolPrefs.forEach(element => {
           newVolRoles.set(element.role, element);
         });

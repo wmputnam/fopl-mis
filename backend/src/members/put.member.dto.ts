@@ -1,3 +1,3 @@
-import { IMember } from "packages/member-shared";
-export interface PutMemberDto extends IMember {
+import { IMemberDocument } from "../../../packages/member-document";
+export interface PutMemberDto extends IMemberDocument {
 }

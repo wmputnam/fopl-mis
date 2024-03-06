@@ -1,4 +1,4 @@
-import { IMember } from "packages";
+import { IMemberDocument } from "../../../packages/member-document";
 
 interface ParsedPhone {
   ituCode: string;
@@ -8,7 +8,7 @@ interface ParsedPhone {
   phOther: string;
 };
 class MembersReducers {
-  static reduceMemberFullName(m: Partial<IMember>): string {
+  static reduceMemberFullName(m: Partial<IMemberDocument>): string {
     let fullname = "";
     /** precedence rule for this (poorly designed) interface
      * if there is a names:Array<{lastName:string,firstName:string}>
@@ -29,7 +29,7 @@ class MembersReducers {
     return fullname;
   }
 
-  static reduceAddressForMemberList(m: Partial<IMember>): string {
+  static reduceAddressForMemberList(m: Partial<IMemberDocument>): string {
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
@@ -57,7 +57,7 @@ class MembersReducers {
     return reducer_address + reducer_unit + reducer_city + reducer_zip;
   }
 
-  static reducePaidThroughForMemberList(m: Partial<IMember>): string {
+  static reducePaidThroughForMemberList(m: Partial<IMemberDocument>): string {
     const lifeMembershipCodes = ["LM", "HLM", "BEN"];
     const volunteerCodes = ["VOL"];
     const allNopayCodes = lifeMembershipCodes.concat(volunteerCodes);
@@ -78,7 +78,7 @@ class MembersReducers {
     }
   }
 
-  static reduceJoinedForMemberList(m: Partial<IMember>): string {
+  static reduceJoinedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.joined !== undefined) {
       let computedType: string = ({}).toString.call(m.joined).toLowerCase();
       console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
@@ -94,7 +94,7 @@ class MembersReducers {
     }
   }
 
-  static reduceLastUpdatedForMemberList(m: Partial<IMember>): string {
+  static reduceLastUpdatedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.lastUpdated !== undefined) {
       let computedType: string = ({}).toString.call(m.lastUpdated).toLowerCase();
       console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);
@@ -110,7 +110,7 @@ class MembersReducers {
     }
   }
 
-  static reducePhoneForMemberList(m: Partial<IMember>): string {
+  static reducePhoneForMemberList(m: Partial<IMemberDocument>): string {
     let displayPhone = "undefined";
     if (m?.phone !== undefined) {
       displayPhone = "";

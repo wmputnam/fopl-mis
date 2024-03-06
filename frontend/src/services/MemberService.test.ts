@@ -4,17 +4,17 @@ import { describe, it } from "mocha";
 import { fileURLToPath } from "url";
 import { Member } from "./Member";
 import { MemberService } from "./MemberService";
-import { TEST_OBJECT_ID_1, compareMembers } from "packages/TestHelpers";
+import { TEST_OBJECT_ID_1, compareMembers } from "../services/TestHelpers";
 import { MemberViewStates } from "../@interfaces/enums";
-import { IMember } from "packages";
-import { Remittance } from "packages/Remittance";
-import { IAddress } from "packages/IAddress";
+import { IAddress,IMemberDocument,IRemittance } from "../../../packages/member-document";
+// import { Remittance } from "packages/Remittance";
+// import { IAddress } from "packages/IAddress";
 
 const getTestImember = () => ({
   lastName: "Wang",
   firstName: "Xiaowei",
-  _id: TEST_OBJECT_ID_1
-});
+  _id: TEST_OBJECT_ID_1()
+} as IMemberDocument);
 
 const getFm4TestData = () => {
   const testMember = Member.create();
@@ -63,7 +63,7 @@ const getTestMemberWithDamagedDuesEntry = (): Member => {
   return member;
 };
 
-const getTestMemberWithRemit = (remit: Remittance, priorPaidThru: string | null = null, joined: string | null = null): Member => {
+const getTestMemberWithRemit = (remit: IRemittance, priorPaidThru: string | null = null, joined: string | null = null): Member => {
   const member = getTestMemberWithoutDuesEntry();
   member.paidThrough = priorPaidThru === null ? undefined : new Date(priorPaidThru);
   member.joined = joined === null ? undefined : new Date(joined);
@@ -383,7 +383,7 @@ describe(`${fn()}: hasSameVolPrefs`, function () {
 describe(`${fn()}: postUnjournalledRemits`, function () {
   it('should return a Member object that is same as the one passed if there is no remit date on the passed Member', function () {
     const testMember = MemberService.postUnjournalledRemits(MemberService.createMemberFromLoad(
-      {} as IMember,
+      {} as IMemberDocument,
       MemberViewStates.new));
     
       const newMember = MemberService.postUnjournalledRemits(testMember);

@@ -1,4 +1,3 @@
-import { IMember } from "packages/member-shared"
-import { Remittance } from "packages/Remittance";
-export interface CreateMemberDto extends IMember{
+import { IMemberDocument } from "../../../packages/member-document";
+export interface CreateMemberDto extends IMemberDocument {
 }

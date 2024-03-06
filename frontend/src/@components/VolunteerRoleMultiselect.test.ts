@@ -10,26 +10,27 @@ const fn = () => `${__filename.split('/').pop()}`;
 
 describe(`${fn()}: resultingOptionsChange`, function () {
 
-  it.only(`should return old options when there is no update`, async function () {
+  it(`should return old options when there is no update`, async function () {
 
     const testResult = resultingOptionsChange([{ label: 'book sale', value: 'book-sale' }], [{ label: 'book sale', value: 'book-sale' }]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(testResult).not.to.be.null;
-    expect(testResult).to.an('object');
+    expect(typeof testResult).to.equal('object');
   });
-  it.only(`should return new options when there is an added option`, async function () {
+  it(`should return new options when there is an added option`, async function () {
 
     const testResult = resultingOptionsChange([{ label: 'book sale', value: 'book-sale' }], [{ label: 'book sale', value: 'book-sale' }, { label: 'Hospitality', value: 'hospitality' }]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(testResult).not.to.be.null;
-    expect(testResult).to.an('object');
+    expect(typeof testResult).to.equal('object');
   });
-  it.only(`should return new options when there is an removed option`, async function () {
+  it(`should return new options when there is an removed option`, async function () {
 
     const testResult = resultingOptionsChange([{ label: 'book sale', value: 'book-sale' }, { label: 'Hospitality', value: 'hospitality' }], [{ label: 'book sale', value: 'book-sale' }]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(testResult).not.to.be.null;
-    expect(testResult).to.an('object');
+    console.log(`testResult is ${typeof testResult}`)
+    expect(typeof testResult).to.equal('object');
   });
 
 });

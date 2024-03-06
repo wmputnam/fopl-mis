@@ -1,7 +1,7 @@
-import { Member } from "../../frontend/src/services/Member";
+import { Member } from "./Member";
 
-export const TEST_OBJECT_ID_0 = "303030303030303030303030";
-export const TEST_OBJECT_ID_1 = "303030303030303030303031";
+export const TEST_OBJECT_ID_0 = () => { return "303030303030303030303030"; };
+export const TEST_OBJECT_ID_1 = () => { return "303030303030303030303031"; }
 
 export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: boolean; messages: string[] } => {
   let isSame = true;
@@ -390,4 +390,4 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   return { same: isSame, messages: messages };
 }
 
-export default class TestHelpers{}
+export default class TestHelpers { }

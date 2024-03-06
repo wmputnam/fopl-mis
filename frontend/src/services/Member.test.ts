@@ -4,14 +4,15 @@ import { describe, it } from "mocha";
 import { fileURLToPath } from "url";
 import { Member } from "./Member";
 import Status from "./Status";
-import { TEST_OBJECT_ID_1,compareMembers } from "packages/TestHelpers"
+import { TEST_OBJECT_ID_1,compareMembers } from "./TestHelpers"
+import { IMemberDocument } from "../../../packages/member-document/dist";
 
 
 const getTestImember = () => ({
   lastName: "Wang",
   firstName: "Xiaowei",
-  _id: TEST_OBJECT_ID_1
-});
+  _id: TEST_OBJECT_ID_1()
+} as IMemberDocument);
 
 const __filename = fileURLToPath(import.meta.url);
 

@@ -342,7 +342,7 @@ importers:
 
   packages: {}
 
-  packages/member-shared: {}
+  packages/member-document: {}
 
 packages:
 

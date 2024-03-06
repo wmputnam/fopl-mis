@@ -1,4 +1,4 @@
-import { IMember } from "packages/member-shared";
+import { IMemberDocument } from "../../../packages/member-document";
 import { MemberViewStates } from "./enums";
 import { AppState } from "../App";
 
@@ -53,7 +53,7 @@ export type AppStateProps = {
   getAppState: () => any;
 }
 
-export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps, Partial<IMember> {
+export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps, Partial<IMemberDocument> {
   recordId: string;
   name: string;
   paidThroughString: string;

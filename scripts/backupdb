@@ -1,0 +1,5 @@
+#! /bin/bash
+
+TIMESTAMP=$(date +%y%m%dT%H%M%Z)
+
+mongodump --db=fopl --collection=members --out=/tmp/mongodb/${TIMESTAMP}/out mongodb://localhost:27017/fopl

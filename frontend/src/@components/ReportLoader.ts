@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import request from "superagent";
 
-import { IMember } from "packages/member-shared";
+import { IMemberDocument } from "../../../packages/member-document";
 
 
 export async function fetchReport(serverUrl: string, reportName: string): Promise<any> {
@@ -16,7 +16,7 @@ export async function fetchReport(serverUrl: string, reportName: string): Promis
       }
 
     default:
-      return {} as Promise<IMember[]>;
+      return {} as Promise<IMemberDocument[]>;
   }
 }
 

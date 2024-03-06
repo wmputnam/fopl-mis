@@ -8,7 +8,8 @@
     "start": "pnpm --stream -r start",
     "test": "pnpm --stream -r test",
     "test:dev": "pnpm --stream -r test:dev",
-    "start:dev": "scripts/start-db; pnpm --stream -r start:dev"
+    "start:dev": "scripts/start-db; pnpm --stream -r start:dev",
+    "backupdb": "pnpm --stream -r backupdb"
   },
   "dependencies": {
     "eslint-config-standard-with-typescript": "^39.1.0",

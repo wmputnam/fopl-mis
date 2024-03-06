@@ -37,6 +37,9 @@
     "src",
     "src/react-number-input.d.ts"
   ],
+  "exclude": [
+    "src/@components/noLongerUsed/*"
+  ],
   "baseUrl": "./src",
   "paths": {
     "@interfaces/*": [

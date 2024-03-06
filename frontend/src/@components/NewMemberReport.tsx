@@ -2,7 +2,7 @@
 import React from "react";
 import { fetchReport } from "./ReportLoader";
 import { getServerUrl } from "../services/AppConfig";
-import { Volunteer } from "packages/Volunteer";
+import { IVolunteer } from "../../../packages/member-document";
 
 // type SaveBtnProps = { updateCurrentMember: (x: any) => any }
 export function NewMemberReport(): any {
@@ -23,8 +23,8 @@ export function NewMemberReport(): any {
         const name = fn.concat(" ").concat(ln);
         const email = memberListRaw.body.data[i].email ? memberListRaw.body.data[i].email : "";
         const mmb = memberListRaw.body.data[i].mmb ? memberListRaw.body.data[i].mmb : "";
-        const volunteer: string = (memberListRaw.body.data[i].volunteer as Volunteer[])
-          .map((v: Volunteer) => v.role as string).join(",");
+        const volunteer: string = (memberListRaw.body.data[i].volunteer as IVolunteer[])
+          .map((v: IVolunteer) => v.role as string).join(",");
         const phone = memberListRaw.body.data[i].phone ? memberListRaw.body.data[i].phone : "";
         const joined = memberListRaw.body.data[i].joined ? (memberListRaw.body.data[i].joined as string).substring(0, 10) : "";
         const lastUpdated = memberListRaw.body.data[i].lastUpdated ? (memberListRaw.body.data[i].lastUpdated as string).substring(0, 10) : "";

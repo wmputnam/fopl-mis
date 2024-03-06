@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import membersDao from "./members.dao";
-import { IMember } from "packages";
-import { TEST_OBJECT_ID_0 } from "packages/TestHelpers";
 import mongoose from "mongoose";
+import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
+import { resolve } from "path";
 
 const fn = () => `${__filename.split('/').pop()}`;
 
@@ -92,8 +92,7 @@ describe(`${fn()}: getMemberById`, function () {
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0
-    );
+    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0());
     expect(member).to.be.null;
   });
 
@@ -124,7 +123,7 @@ describe(`${fn()}: updateUserById`, function () {
   });
 
   it(`should return null when given memberid parameter that does not exist`, async function () {
-    const member = await membersDao.updateUserById(TEST_OBJECT_ID_0
+    const member = await membersDao.updateUserById((TEST_OBJECT_ID_0())
       , { mmb: "VOL" });
     expect(member).to.be.undefined;
   });
@@ -137,10 +136,11 @@ describe(`${fn()}: removeMemberById`, function () {
   let testMemberId: string;
 
   before(async function () {
-    const testMemberId = await addNewRandomMember();
+    testMemberId = await addNewRandomMember();
   });
 
   after(async function () {
+    resolve();
   });
 
   it(`should delete document for member specified by memberId`, async function () {
@@ -149,7 +149,7 @@ describe(`${fn()}: removeMemberById`, function () {
     expect(result.deletedCount).to.equal(1);
   });
   it(`should return ??? when given memberid parameter that does not exist`, async function () {
-    const result = await membersDao.removeMemberById(TEST_OBJECT_ID_0
+    const result = await membersDao.removeMemberById(TEST_OBJECT_ID_0()
     );
     expect(result.acknowledged).to.be.true;
     expect(result.deletedCount).to.equal(0);
@@ -182,7 +182,7 @@ describe(`${fn()}: getMemberByEmail`, function () {
   });
 
   it(`should return null when given email parameter that does not exist`, async function () {
-    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0
+    const member = await membersDao.getMemberById(TEST_OBJECT_ID_0()
     );
     expect(member).to.be.null;
   });

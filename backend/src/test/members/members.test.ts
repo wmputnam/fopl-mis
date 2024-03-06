@@ -2,7 +2,7 @@ import app from "../../app";
 import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
-import { TEST_OBJECT_ID_0 } from "packages/TestHelpers";
+import { TEST_OBJECT_ID_0 } from "../../../../frontend/src/services/TestHelpers";
 
 
 const log: debug.IDebugger = debug('app:test-members');
@@ -37,9 +37,10 @@ describe(`${fn()}: members GET`, function () {
     testMemberId = res.body.id;
   });
 
-  after(function (done) {
+  after(async function (done) {
     done();
-  })
+  });
+
 
   it("should allow a GET to /members", async function () {
     const res = await request.get("/members").send();
@@ -60,14 +61,14 @@ describe(`${fn()}: members GET`, function () {
   });
 
   it(`should return error from GET for a member by Id /members/:memberId when memberId is not found`, async function () {
-    const res = await request.get(`/members/${TEST_OBJECT_ID_0
-}`).send();
+    const res = await request.get(`/members/${TEST_OBJECT_ID_0()
+      }`).send();
 
     expect(res.status).to.equal(404);
     expect(res.body.error).to.be.an('array');
     expect(res.body.error.length).to.equal(1);
-    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0
-}" not found -- memberId`);
+    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0()
+      }" not found -- memberId`);
   });
 });
 
@@ -223,18 +224,18 @@ describe(`${fn()}: member PUT`, function () {
   });
 
   it(`should return error PUT for a member by Id /members/:memberId when not present`, async function () {
-    log(`testing PUT members/${TEST_OBJECT_ID_0
-}`);
+    log(`testing PUT members/${TEST_OBJECT_ID_0()
+      }`);
     const patchBody = {
       ...testMemberBody,
       firstName: newFirstName,
       lastName: newLastName
     }
-    const res = await request.put(`/members/${TEST_OBJECT_ID_0
-}`).send(patchBody);
+    const res = await request.put(`/members/${TEST_OBJECT_ID_0()
+      }`).send(patchBody);
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0
-}" not found -- memberId`);
+    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0()
+      }" not found -- memberId`);
     expect(res.body).to.be.an('object');
   });
 
@@ -290,7 +291,6 @@ describe(`${fn()}: member PATCH`, function () {
     request = supertest.agent(app);
     const res = await request.post("/members").send(testMemberBody);
     testMemberId = res.body.id;
-
   });
 
   after(function (done) {
@@ -312,18 +312,18 @@ describe(`${fn()}: member PATCH`, function () {
   });
 
   it(`should return error from PATCH member not found`, async function () {
-    log(`testing PATCH members/${TEST_OBJECT_ID_0
-}`);
+    log(`testing PATCH members/${TEST_OBJECT_ID_0()
+      }`);
     const patchBody = {
       ...testMemberBody,
       firstName: newFirstName2
     }
-    const res = await request.patch(`/members/${TEST_OBJECT_ID_0
-}`).send(patchBody);
+    const res = await request.patch(`/members/${TEST_OBJECT_ID_0()
+      }`).send(patchBody);
 
     expect(res.status).to.equal(404);
-    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0
-}" not found -- memberId`);
+    expect(res.body.error).to.contain(`Member "${TEST_OBJECT_ID_0()
+      }" not found -- memberId`);
     expect(res.body).to.be.an('object');
 
   });
@@ -350,7 +350,6 @@ describe(`${fn()}: member DELETE`, function () {
     request = supertest.agent(app);
     const res = await request.post("/members").send(testMemberBody);
     testMemberId = res.body.id;
-
   });
 
   after(function (done) {
@@ -365,10 +364,10 @@ describe(`${fn()}: member DELETE`, function () {
   });
 
   it("should return error for DELETE of non-existing member", async function () {
-    const expectedError = `Member "${TEST_OBJECT_ID_0
-}" not found -- memberId`
-    const res = await request.delete(`/members/${TEST_OBJECT_ID_0
-}`);
+    const expectedError = `Member "${TEST_OBJECT_ID_0()
+      }" not found -- memberId`
+    const res = await request.delete(`/members/${TEST_OBJECT_ID_0()
+      }`);
 
     expect(res.status).to.equal(404);
     expect(res.body.error).to.contain(expectedError);

@@ -1,4 +1,3 @@
-import { IMember } from "packages";
-import { IStatus } from "packages/IStatus";
+import { IMemberDocument } from "../../../packages/member-document";
 
-export interface PatchMemberStatusDto extends Partial<IMember> {}
+export interface PatchMemberStatusDto extends Partial<IMemberDocument> { }

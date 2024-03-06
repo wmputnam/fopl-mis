@@ -1,4 +1,4 @@
-import { IStatus } from "packages/IStatus";
+import { IStatus } from "../../../packages/member-document";
 
 export class Status implements IStatus {
   /*
