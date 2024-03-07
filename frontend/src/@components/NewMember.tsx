@@ -1,6 +1,5 @@
 import React from "react";
-import MemberFormBase from "./MemberFormBase";
-// import { MemberViewStates } from "../@interfaces/enums";
+import {MemberFormBase} from "./MemberFormBase";
 import { AppState } from "../App";
 
 export interface NewMemberProps {
@@ -8,7 +7,7 @@ export interface NewMemberProps {
     getAppState: () => any;
 }
 
-const NewMember = ({ getAppState, setAppState }: NewMemberProps) => {
+export const NewMember = ({ getAppState, setAppState }: NewMemberProps) => {
     return (<>
         <h1>On the NewMember view now</h1>
         <MemberFormBase

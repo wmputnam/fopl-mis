@@ -1,14 +1,14 @@
 import express from "express";
-import membersService from "../services/members.service";
+import {membersService} from "../services";
 import debug from "debug";
-import { RestErrorBody } from "../common/interface/RestErrorBody";
+import { type RestErrorBody } from "../common";
 
 const log: debug.IDebugger = debug('app:members-controller');
 
 const DEFAULT_LIST_LIMIT = 100;
 const LIST_FIRST_PAGE = 0
 
-class MembersController {
+export class MembersController {
 
   static listQueryParams(req: express.Request, defaultFilterObj: Object = {}): { limit: number, page: number, filter: Object, sort: string } {
     const limit = (req.query.limit && !Number.isNaN(req.query.limit))
@@ -145,4 +145,3 @@ class MembersController {
   }
 }
 
-export default new MembersController();

@@ -6,7 +6,7 @@ export interface ListNavProps {
   totalSize: number;
   gotoPage: (x: number) => void;
 }
-const ListNav = ({ pageNumber, pageSize, totalSize, gotoPage }: ListNavProps) => {
+export const ListNav = ({ pageNumber, pageSize, totalSize, gotoPage }: ListNavProps) => {
   const lastPage = Math.ceil(totalSize / pageSize);
   function handleNext() {
     gotoPage(pageNumber + 1)
@@ -37,5 +37,3 @@ const ListNav = ({ pageNumber, pageSize, totalSize, gotoPage }: ListNavProps) =>
     </>
   );
 }
-
-export default ListNav;

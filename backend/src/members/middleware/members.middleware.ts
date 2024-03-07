@@ -1,11 +1,11 @@
 import express from "express";
-import membersService from "../../services/members.service";
+import {membersService} from "../../services";
 import debug from "debug";
-import { RestErrorBody } from "../../common/interface/RestErrorBody";
+import { RestErrorBody } from "../../common";
 
 const log: debug.IDebugger = debug('app:members-middleware');
 
-class MembersMiddleware {
+export class MembersMiddleware {
   async validateSameEmailDoesntExist(
     req: express.Request,
     res: express.Response,
@@ -81,4 +81,4 @@ class MembersMiddleware {
 
 }
 
-export default new MembersMiddleware();
+

@@ -2,10 +2,10 @@
 import React from "react";
 import MemberListRow from "./MemberListRow";
 import MemberListHeader from "./MemberListHeader"
-import { FrontendProps } from "../@interfaces/MemberProps";
-import MembersReducers from "../reducers/members.reducers";
+import { type FrontendProps } from "../@interfaces";
+import { MembersListRowFormatter } from "../formatters";
 import useAxios from "axios-hooks";
-import { getServerUrl } from "../services/AppConfig";
+import { getServerUrl } from "../services";
 import { IMemberDocument } from "../../../packages/member-document/";
 
 interface MemberListData {
@@ -26,7 +26,7 @@ const getMemberDataParams = (pageNumber: number, pageFilter: string) => {
 
 
 
-const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
+export const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
 
   const [pageNumber, setPageNumber] = React.useState<number>(0);
   // const [pageFilter,setPageFilter] = React.useState<string>("");
@@ -56,11 +56,11 @@ const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
         <MemberListRow
           key={m._id}
           recordId={m?._id ? m._id : ""}
-          name={MembersReducers.reduceMemberFullName(m)}
-          address={MembersReducers.reduceAddressForMemberList(m)}
-          phone={m.phone !== undefined ? MembersReducers.reducePhoneForMemberList(m) : ""}
+          name={MembersListRowFormatter.getMemberFullNameForListRow(m)}
+          address={MembersListRowFormatter.getAddressForMemberList(m)}
+          phone={m.phone !== undefined ? MembersListRowFormatter.reducePhoneForMemberList(m) : ""}
           email={m.email !== undefined ? m.email : ""}
-          paidThrough={MembersReducers.reducePaidThroughForMemberList(m)}
+          paidThrough={MembersListRowFormatter.reducePaidThroughForMemberList(m)}
           mmb={m.mmb ? m.mmb : "VOL"}
           getAppState={getAppState}
           setAppState={setAppState}

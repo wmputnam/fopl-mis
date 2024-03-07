@@ -3,8 +3,8 @@ import React, { Profiler } from "react"
 import useAxios from "axios-hooks";
 import { AppState, onRenderCallback } from "../App";
 import { CancelBtn } from "./CancelBtn";
-import { getServerUrl } from "../services/AppConfig";
-import { IMemberDocument,IRemittance } from "../../../packages/member-document/";
+import { getServerUrl } from "../services";
+import { IMemberDocument, IRemittance } from "../../../packages/member-document/";
 // import { Remittance } from "../../../packages/member-document/dist/Remittance";
 import RemittancesListRow from "./MoneyListRow";
 import RemittancesListHeader from "./MoneyListHeader";
@@ -51,7 +51,7 @@ const compareRemits = (a: IRemittance, b: IRemittance): number => {
   // TODO then memo ===> dues, then, donation, then other memos alpha ASC TODO
 }
 
-const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) => {
+export const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) => {
 
   // jscpd:ignore-start
   const memberId = getAppState().memberId;
@@ -111,5 +111,3 @@ const MemberFormMoney = ({ getAppState, setAppState }: MemberFormRemitsProps) =>
     );
   }
 }
-
-export default MemberFormMoney;

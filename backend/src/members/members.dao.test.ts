@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import membersDao from "./members.dao";
+import {membersDao} from "../members";
 import mongoose from "mongoose";
 import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
 import { resolve } from "path";

@@ -5,7 +5,7 @@ export interface ListSearchProps {
   getSearchFilter: () => string
 }
 
-const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) => {
+export const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) => {
   const [searchVisible, setSearchVisible] = React.useState<boolean>(false);
   const [searchFilterText, setSearchFilterText] = React.useState<string>("");
 
@@ -55,7 +55,6 @@ const ListSearch = ({ getSearchFilter, updateSearchFilter }: ListSearchProps) =>
   );
 }
 
-export default ListSearch;
 
 /*
   function handleAddressChange(e: any) {

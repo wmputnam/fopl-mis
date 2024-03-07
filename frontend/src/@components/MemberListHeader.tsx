@@ -1,10 +1,9 @@
 import React from "react";
-import { FrontendProps } from "../@interfaces/MemberProps";
-import { MemberViewStates } from "../@interfaces/enums";
+import { type FrontendProps , MemberViewStates } from "../@interfaces";
 
 
 
-const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) => {
+export const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) => {
 
     const handleNewClick = (): any => {
         console.log(`new member`);

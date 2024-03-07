@@ -1,5 +1,5 @@
 import React from "react";
-import { FrontendProps } from "../@interfaces/MemberProps";
+import { type FrontendProps } from "../@interfaces";
 
 
 export function CancelBtn({ getAppState, setAppState }: FrontendProps): any {

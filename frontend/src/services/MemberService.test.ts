@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { Member } from "./Member";
 import { MemberService } from "./MemberService";
 import { TEST_OBJECT_ID_1, compareMembers } from "../services/TestHelpers";
-import { MemberViewStates } from "../@interfaces/enums";
+import { MemberViewStates } from "../@interfaces";
 import { IAddress,IMemberDocument,IRemittance } from "../../../packages/member-document";
 // import { Remittance } from "packages/Remittance";
 // import { IAddress } from "packages/IAddress";

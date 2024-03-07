@@ -4,7 +4,7 @@ import NotesListRow from "./NotesListRow";
 // import { Notes } from "../../../packages/member-document/dist/Notes";
 import NotesListHeader from "./NotesListHeader";
 import { CancelBtn } from "./CancelBtn";
-import { getServerUrl } from "../services/AppConfig";
+import { getServerUrl } from "../services";
 import { AppState, onRenderCallback } from "../App";
 import { IMemberDocument, INotes } from "../../../packages/member-document";
 import useAxios from "axios-hooks";
@@ -14,7 +14,7 @@ export interface MemberFormNotesProps {
   getAppState: () => any;
 }
 
-const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
+export const MemberFormNotes = ({ getAppState, setAppState }: MemberFormNotesProps): JSX.Element => {
 
   // jscpd:ignore-start
   const memberId = getAppState().memberId;

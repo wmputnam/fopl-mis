@@ -1,7 +1,7 @@
 //http://localhost:3030/v1/reports/members/new
 import React from "react";
 import { fetchReport } from "./ReportLoader";
-import { getServerUrl } from "../services/AppConfig";
+import { getServerUrl } from "../services";
 import { IVolunteer } from "../../../packages/member-document";
 
 // type SaveBtnProps = { updateCurrentMember: (x: any) => any }

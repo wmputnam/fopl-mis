@@ -1,22 +1,7 @@
 import React from "react";
-import MemberListRowMenu from "./MemberListRowMenu";
+import { MemberListRowMenu } from "./MemberListRowMenu";
 import { AppState } from "../App";
-// import { AllMemberProps, FrontendProps } from "../@interfaces/MemberProps";
 
-// export interface MemberProps {
-//     memberId:string;
-//     name:string;
-//     address:string;
-//     phone:string;
-//     email:string;
-//     paidThrough:string;
-//     mmb:string;
-//     setViewState:(values:any) => undefined;
-//     updateCurrent:(values:any) => undefined;
-//   }
-// function handleHover(){
-
-// }
 export type MemberListRowProps = {
     recordId: string;
     name: string;
@@ -28,11 +13,11 @@ export type MemberListRowProps = {
     getAppState: () => any;
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
-const nop = (e:any) => {
+const nop = (e: any) => {
     e.preventDefault();
     console.log(`context menu invoked`);
 };
-const MemberListRow = ({ recordId, name, address, phone, email, paidThrough, mmb, getAppState, setAppState }: MemberListRowProps): any => {
+export const MemberListRow = ({ recordId, name, address, phone, email, paidThrough, mmb, getAppState, setAppState }: MemberListRowProps): any => {
     return (
         <div className="member-row row"
             data-testid="member-row"

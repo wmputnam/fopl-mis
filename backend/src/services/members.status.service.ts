@@ -1,10 +1,11 @@
-import membersDao from "../members/members.dao";
-import { CRUD } from "../common/interface/crud.interface";
-import { CreateMemberDto } from "../members/create.member.dto";
-import { PutMemberDto } from "../members/put.member.dto";
-import { PatchMemberDto } from "../members/patch.member.dto";
-import { PatchMemberStatusDto } from "../members/patch.member.status.dto";
-import membersService from "./members.service";
+import {
+  membersDao,
+  CreateMemberDto,
+  PutMemberDto,
+  PatchMemberDto,
+  PatchMemberStatusDto
+} from "../members";
+import { membersService } from "../services";
 import { IMemberDocument } from "../../../packages/member-document";
 
 class MemberServiceStatus {

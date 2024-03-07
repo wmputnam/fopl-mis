@@ -1,12 +1,7 @@
 import React from "react";
-// import { FrontendProps } from "../@interfaces/MemberProps";
 
-// export interface MemberToolProps {
-//     setViewState:(a:string) => void;
-//   }
-
-type SaveBtnProps = {updateCurrentMember: (x:any)=>any}
-function SaveBtn({ updateCurrentMember }: SaveBtnProps):any  {
+export type SaveBtnProps = {updateCurrentMember: (x:any)=>any}
+export function SaveBtn({ updateCurrentMember }: SaveBtnProps):any  {
     
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();

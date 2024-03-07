@@ -1,7 +1,7 @@
 
 import React, { Profiler } from "react"
 import { RenderCallBackI } from "../App";
-import { Member } from "../services/Member";
+import { Member } from "../services";
 import { oldMemberStateToNew } from "./MemberFormBase";
 import { VolunteerRoleMultiselect } from "./VolunteerRoleMultiselect";
 import { IVolunteer } from "../../../packages/member-document";

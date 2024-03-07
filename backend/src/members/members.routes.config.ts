@@ -1,11 +1,11 @@
-import bodyValidationMiddleware from "../common/middleware/body.validation.middleware";
-import { body } from "express-validator";
-import { CommonRoutesConfig } from "../common/common.routes.config";
 import express from "express";
-import membersController from "../controllers/members.controller";
-import membersMiddleware from "./middleware/members.middleware";
 import { ExpressValidator } from "express-validator";
 import debug from "debug";
+import { body } from "express-validator";
+import { bodyValidationMiddleware } from "../common";
+import { CommonRoutesConfig } from "../common";
+import { membersController } from "../controllers";
+import { membersMiddleware } from ".";
 
 const debugLog: debug.IDebugger = debug("members");
 

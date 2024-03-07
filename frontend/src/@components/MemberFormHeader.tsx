@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react"
-import { FrontendProps } from "../@interfaces/MemberProps";
-// import RefreshForm from "./RefreshForm";
+import { type FrontendProps } from "../@interfaces";
 import MemberFormNav2Money from "./MemberFormNav2Money";
 import MemberFormNav2Notes from "./MemberFormNav2Notes";
-// import { MemberService } from "../services/MemberService";
-// import { MemberViewStates } from "../@interfaces/enums";
 
 const toCapitalCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
+export const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
   const memberId = getAppState().memberId; // MemberService.retrieveMemberId();
   const pageTitle = toCapitalCase(getAppState().viewState.toString())
 
@@ -31,4 +28,3 @@ const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
     </>);
 }
 
-export default MemberFormHeader;

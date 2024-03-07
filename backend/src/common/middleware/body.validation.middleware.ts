@@ -1,7 +1,7 @@
 import debug from "debug";
 import express from "express";
 import { FieldValidationError, validationResult,ValidationError } from "express-validator";
-import { RestErrorBody } from "../../common/interface/RestErrorBody";
+import { type RestErrorBody } from "../../common";
 
 const log: debug.IDebugger = debug('app:body-validation-middleware');
 
@@ -14,7 +14,7 @@ export const generateErrorBody = (validationErrors: ValidationError[]): RestErro
     return { error: []}
   }
 }
-class BodyValidationMiddleware {
+export class BodyValidationMiddleware {
   verifyBodyFieldsErrors(
     req: express.Request,
     res: express.Response,
@@ -28,4 +28,3 @@ class BodyValidationMiddleware {
     next();
   }
 }
-export default new BodyValidationMiddleware();

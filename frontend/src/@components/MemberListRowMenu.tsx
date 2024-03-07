@@ -1,7 +1,7 @@
 import React from "react";
 import { AppState } from "../App";
-import { MemberViewStates } from "../@interfaces/enums";
-import { MemberService } from "../services/MemberService";
+import { MemberViewStates } from "../@interfaces";
+import { MemberService } from "../services";
 export type MemberListRowMenuProps = {
   recordId: string;
   mmb: string;
@@ -17,7 +17,7 @@ const getNewFromState = (getAppState: () => any) => {
 }
 
 
-const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
+export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
 
   const debugName = `${name}:${recordId}`;
 

@@ -1,8 +1,8 @@
 
 import React, { Profiler } from "react"
 import { RenderCallBackI } from "../App";
-import { Member } from "../services/Member";
-import { MemberService } from "../services/MemberService";
+import { Member } from "../services";
+import { MemberService } from "../services";
 import { PostMailStatusDropdown } from "./PostMailStatusDropdown";
 import { oldMemberStateToNew } from "./MemberFormBase";
 import { EmailStatusDropdown } from "./EmailStatusDropdown";

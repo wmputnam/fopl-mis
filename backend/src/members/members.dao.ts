@@ -1,19 +1,22 @@
 import { CreateMemberDto } from "./create.member.dto";
 import { PatchMemberDto } from "./patch.member.dto";
 import { PutMemberDto } from "./put.member.dto";
-import { IAddress,IMemberDocument,INames,INotes,IRemittance,IStatus,IVolunteer } from "../../../packages/member-document/";
-// import { IRemittance } from "../../../packages/member-document/dist/Remittance";
-// import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
-// import { Notes } from "../../../packages/member-document/dist/Notes";
-// import { Names } from "../../../packages/member-document/dist/Names";
-// import { IStatus } from "../../../packages/member-document/dist/IStatus";
-import mongooseService from "../common/services/mongoose.service";
+import { 
+  IAddress,
+  IMemberDocument,
+  INames,
+  INotes,
+  IRemittance,
+  IStatus,
+  IVolunteer 
+} from "../../../packages/member-document/";
+import {mongooseService} from "../common";
 import debug from "debug";
 import mongoose, { Mongoose, Schema, SortOrder, } from "mongoose";
 
 const log: debug.IDebugger = debug(`app:members-dao`);
 
-class MembersDao {
+export class MembersDao {
   Schema = mongooseService.getMongoose().Schema;
 
   remittanceSchema = new this.Schema<IRemittance>({
@@ -167,4 +170,3 @@ class MembersDao {
     return this.Member.findOne({ email: email }).exec();
   }
 }
-export default new MembersDao();

@@ -1,4 +1,4 @@
-import { IMemberDocument } from "../../../packages/member-document";
+import { IMemberDocument } from "../../../packages/member-document/dist";
 
 interface ParsedPhone {
   ituCode: string;
@@ -7,8 +7,8 @@ interface ParsedPhone {
   naLine: string;
   phOther: string;
 };
-class MembersReducers {
-  static reduceMemberFullName(m: Partial<IMemberDocument>): string {
+export class MembersListRowFormatter {
+  static getMemberFullNameForListRow(m: Partial<IMemberDocument>): string {
     let fullname = "";
     /** precedence rule for this (poorly designed) interface
      * if there is a names:Array<{lastName:string,firstName:string}>
@@ -24,18 +24,25 @@ class MembersReducers {
       const fullnames: Array<string> = m?.names?.map(item => item?.firstName + " " + item?.lastName) as Array<string>;
       fullname = fullnames.join(" & ");
     } else if (m.hasOwnProperty("firstName") || m.hasOwnProperty("lastName")) {
-      fullname = m?.firstName + " " + m?.lastName;
+      if (m.firstName && m.lastName) {
+
+        fullname = m?.firstName + " " + m?.lastName;
+      } else if (m.lastName) {
+        fullname = m?.lastName;
+      } else {
+        fullname = "UNKNOWN"
+      }
     }
     return fullname;
   }
 
-  static reduceAddressForMemberList(m: Partial<IMemberDocument>): string {
+  static getAddressForMemberList(m: Partial<IMemberDocument>): string {
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
     let reducer_zip: string;
-    if (m?.address === undefined) {
-      reducer_address = "";
+    if (m?.address === undefined || m.address === "") {
+      return "";
     } else {
       reducer_address = m.address;
     }
@@ -121,7 +128,7 @@ class MembersReducers {
        *   NA prefix
        *   NA line
        */
-      const parsedPhone = MembersReducers.parsePhone(m.phone);
+      const parsedPhone = MembersListRowFormatter.parsePhone(m.phone);
       console.log(`itu code: ${parsedPhone.ituCode}, ac:${parsedPhone.naAreaCode}, pre:${parsedPhone.naPrefix}, line:${parsedPhone.naLine}, oth:${parsedPhone.phOther}`)
       if (parsedPhone.ituCode) {
         switch (parsedPhone.ituCode) {
@@ -176,4 +183,3 @@ class MembersReducers {
     return result;
   }
 }
-export default MembersReducers;

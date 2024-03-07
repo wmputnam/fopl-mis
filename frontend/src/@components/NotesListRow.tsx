@@ -16,7 +16,7 @@ function formatDate(d: Date): string {
     return yr + "-" + mo + "-" + da + " " + hr + ":" + mi + ":" + se;
 }
 
-const NotesListRow = ({ date, note, }: INotes): any => {
+export const NotesListRow = ({ date, note, }: INotes): any => {
     return (
         <div className="notes-row row" data-testid="notes-row" >
             <div className="notes-row--date col" data-testid="notes-row--date">{formatDate(date)} </div>

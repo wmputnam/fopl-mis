@@ -2,8 +2,8 @@
 import React, { Profiler } from "react"
 import CurrencyFormat from "react-currency-format";
 import { RenderCallBackI } from "../App";
-import { Member } from "../services/Member";
-import { MemberService } from "../services/MemberService";
+import { Member } from "../services";
+import { MemberService } from "../services";
 import { oldMemberStateToNew } from "./MemberFormBase";
 import { stringForDate } from "./helpers/DateHelper"
 export interface FormRemitComponentGroupI {

@@ -1,5 +1,5 @@
 import React from "react";
-import ListSearch from "./ListSearch";
+import {ListSearch} from "./ListSearch";
 import {NewMemberReport} from "./NewMemberReport";
 
 export interface AppHeaderProps {

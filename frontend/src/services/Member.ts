@@ -6,7 +6,7 @@ import {
   IStatus,
   IVolunteer
 } from "../../../packages/member-document";
-import { FormError } from "../@components/MemberFormBase";
+import { FormError } from "../@components";
 import Status from "./Status";
 
 interface MemberParams {

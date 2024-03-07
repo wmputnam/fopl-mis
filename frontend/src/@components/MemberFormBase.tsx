@@ -7,15 +7,15 @@ import SaveBtn from "./SaveBtn";
 
 import { AppState, isEmptyObject, onRenderCallback } from "../App";
 import { EditProps } from "./EditMember";
-import { getServerUrl } from "../services/AppConfig";
-import { IMemberDocument,IVolunteer } from "../../../packages/member-document/";
-import { Member } from "../services/Member";
-import { MemberViewStates } from "../@interfaces/enums";
+import { getServerUrl } from "../services";
+import { IMemberDocument, IVolunteer } from "../../../packages/member-document/";
+import { Member } from "../services";
+import { MemberViewStates } from "../@interfaces";
 import { MemberFormBaseGroup } from "./MemberFormBaseGroup";
 import { MemberFormMmbGroup } from "./MemberFormMmbGroup";
 import { MemberFormRemitGroup } from "./MemberFormRemitGroup";
 import { MemberFormVolGroup } from "./MemberFormVolGroup";
-import { MemberService } from "../services/MemberService";
+import { MemberService } from "../services";
 // import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
 
 export interface FormError {
@@ -94,7 +94,7 @@ const replacerFunc = () => {
 };
 
 
-const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element => {
+export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element => {
 
   const memberId = getAppState().memberId;
   const mode = getAppState().viewState;
@@ -235,4 +235,3 @@ const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element =>
   }
 }
 
-export default MemberFormBase;

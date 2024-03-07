@@ -2,7 +2,7 @@ import app from "../app";
 import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
-import membersService from "./members.service";
+import { membersService } from ".";
 import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
 
 

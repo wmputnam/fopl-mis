@@ -1,4 +1,4 @@
-import { getServerUrl } from "./AppConfig"
+import { getServerUrl } from "."
 
 /* eslint-disable jest/valid-expect */
 import { expect } from "chai";

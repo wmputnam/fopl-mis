@@ -1,6 +1,5 @@
 import React from "react";
-import { FrontendProps } from "../@interfaces/MemberProps";
-import { MemberViewStates } from "../@interfaces/enums";
+import { type FrontendProps ,MemberViewStates } from "../@interfaces";
 
 export function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps): any {
 

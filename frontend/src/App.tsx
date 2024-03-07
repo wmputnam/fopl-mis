@@ -4,22 +4,24 @@ import Modal from 'react-modal';
 
 import './App.css';
 
-import DropMember from './@components/DropMember';
-import EditMember from './@components/EditMember';
-import CancelBtn from "./@components/CancelBtn"
-import MemberList from './@components/MemberList';
-import NewMember from './@components/NewMember';
-import RenewMember from './@components/RenewMember';
-import { MemberViewStates } from './@interfaces/enums';
-import { AppHeader } from './@components/AppHeader';
-import MemberFormNotes from './@components/MemberFormNotes';
-import MemberFormMoney from './@components/MemberFormMoney';
-import { MemberService } from './services/MemberService';
-import { ModalFM } from './@components/ModalFM';
-import { PostMailStatusDropdown } from './@components/PostMailStatusDropdown';
-import { EmailStatusDropdown } from './@components/EmailStatusDropdown';
-import { VolunteerRoleMultiselect } from './@components/VolunteerRoleMultiselect';
-import { StateDropdown } from './@components/StateDropdown';
+import {
+  DropMember,
+  EditMember,
+  CancelBtn,
+  MemberList,
+  NewMember,
+  RenewMember,
+  AppHeader,
+  MemberFormNotes,
+  MemberFormMoney,
+  ModalFM,
+  PostMailStatusDropdown,
+  EmailStatusDropdown,
+  VolunteerRoleMultiselect,
+  StateDropdown
+} from './@components';
+import { MemberService } from './services';
+import { MemberViewStates } from './@interfaces';
 
 export interface AppState {
   memberId: string;

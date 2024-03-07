@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import app from "../../../backend/src/app.js";
-import { getServerUrl } from "../services/AppConfig.js";
+import { getServerUrl } from "../services/";
 import supertest from "supertest";
 import { fileURLToPath } from "url";
 import { Save } from "./DataUpdater.js";

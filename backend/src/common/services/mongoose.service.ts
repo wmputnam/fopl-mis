@@ -8,7 +8,7 @@ const DEFAULT_PORT = "27017";
 const DEFAULT_DATABASE = "api-db";
 const DEFAULT_DATABASE_TABLE = "members";
 
-class MongooseService {
+export class MongooseService {
   private count = 0;
   private mongooseOptions = {
     useNewUrlParser: true,
@@ -93,4 +93,4 @@ class MongooseService {
       });
   };
 }
-export default new MongooseService();
+// export default new MongooseService();

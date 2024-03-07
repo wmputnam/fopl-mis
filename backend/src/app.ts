@@ -4,10 +4,10 @@ import * as http from "http";
 import * as winston from "winston";
 import * as expressWinston from "express-winston";
 import cors from "cors";
-import { CommonRoutesConfig } from "./common/common.routes.config";
-import { MembersRoutes } from "./members/members.routes.config";
+import { CommonRoutesConfig } from "./common";
+import { MembersRoutes } from "./members";
 import debug from "debug";
-import mongooseService from "./common/services/mongoose.service";
+import { mongooseService } from "./common";
 
 
 const app: express.Application = express();
@@ -17,7 +17,7 @@ const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug("app");
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 

@@ -1,15 +1,14 @@
 import React from "react";
-// import { MemberViewStates } from "../@interfaces/enums";
 import { CancelBtn } from "./CancelBtn";
 import { AppState } from "../App";
-import { MemberViewStates } from "../@interfaces/enums";
+import { MemberViewStates } from "../@interfaces";
 
 export interface DropMemberProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;
     getAppState: () => any;
     memberId?: string;
 }
-const DropMember = ({ getAppState, setAppState }: DropMemberProps): any => {
+export const DropMember = ({ getAppState, setAppState }: DropMemberProps): any => {
     const memberId = getAppState && getAppState().memberId;
 
     function updViewState() {

@@ -1,21 +1,17 @@
-import { IAddress, 
+import {
+  IAddress,
   IMemberDocument,
   INames,
   INotes,
   IRemittance,
-  IVolunteer 
+  IVolunteer
 } from "../../../packages/member-document";
 import { Member } from "./Member"
-import IDuesRates from "../@interfaces/DuesRates";
-// import { Remittance } from "../../../packages/member-document/dist/Remittance";
-// import { Volunteer } from "../../../packages/member-document/dist/Volunteer";
-// import { IAddress } from "../../../packages/member-document/dist/IAddress";
-// import { Names } from "../../../packages/member-document/dist/Names";
-// import { Notes } from "../../../packages/member-document/dist/Notes";
-import { MemberViewStates } from "../@interfaces/enums";
-import { Status } from "../services/Status";
-import { SaveUpdate } from "../@components/DataUpdater";
-import { getServerUrl } from "./AppConfig";
+import {type IDuesRates} from "../@interfaces";
+import { MemberViewStates } from "../@interfaces";
+import { Status } from "../services";
+import { SaveUpdate } from "../@components";
+import { getServerUrl } from ".";
 
 
 const isPropDefined = (imember: IMemberDocument, prop: string & keyof IMemberDocument) => imember?.[prop] !== undefined;
