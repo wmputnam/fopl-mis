@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "npm run start:debug:fopl",
-    "start:base": "tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "start:base": "npm run build && node --unhandled-rejections=strict ./dist/app.js",
     "start:dev": "export FOPLMIS_DB='mongodb://localhost:27017/fopl' DEBUG=* && npm run start:base",
     "start:debug:dev": "export DEBUG=* && npm run start:base",
     "start:debug:fopl": "export FOPLMIS_DB='mongodb://localhost:27017/fopl' DEBUG=* && npm run start:base",
@@ -16,7 +17,8 @@
     "lint": "tsc -noEmit",
     "former:build": "typescript",
     "former:start:servr": "node src/server.js",
-    "backupdb": "../scripts/backupdb"
+    "backupdb": "../scripts/backupdb",
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",

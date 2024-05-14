@@ -2,7 +2,7 @@ import React from 'react';
 /**
  * @jest-environment jsdom
  */
-import App, { getInitialViewState } from './App';
+import App, { getInitialViewState } from './App.js';
 import renderer from 'react-test-renderer/shallow'
 import sinon from 'sinon';
 import { expect } from 'chai';

@@ -1,9 +1,9 @@
-import app from "../app";
+import app from "../app.js";
 import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
-import { membersService } from ".";
-import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
+import { membersService } from "./index.js";
+import { TEST_OBJECT_ID_0 } from "test-helpers" //"../../../frontend/src/services/TestHelpers";
 
 
 const fn = () => `${__filename.split('/').pop()}`;

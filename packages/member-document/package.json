@@ -5,8 +5,10 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc -d ",
-    "lint": "tsc -noEmit"
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "lint": "tsc -noEmit",
+    "nop": "echo `Nope. Not today."
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-import { MemberService } from "./members.service";
+import { MemberService } from "./members.service.js";
 
 
 const membersService = new MemberService();

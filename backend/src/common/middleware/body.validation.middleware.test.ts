@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import debug from "debug";
-import { generateErrorBody } from "./body.validation.middleware";
+import { generateErrorBody } from "./body.validation.middleware.js";
 import { FieldValidationError } from "express-validator";
 
 const log: debug.IDebugger = debug('app:body.validation.middleware');

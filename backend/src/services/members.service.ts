@@ -1,18 +1,18 @@
-import { type CRUD } from "../common";
+import { type CRUD } from "../common/index.js";
 import {
   membersDao,
   CreateMemberDto,
   PutMemberDto,
   PatchMemberDto,
-  PatchMemberStatusDto 
-} from "../members";
+  PatchMemberStatusDto
+} from "../members/index.js";
 
 export class MemberService implements CRUD {
   async list(limit: number, page: number) {
     return membersDao.getMembers(limit, page);
   }
 
-  async listV1(limit: number, page: number, sort: string, filter:Object) {
+  async listV1(limit: number, page: number, sort: string, filter: Object) {
     return await membersDao.getMembersV1(limit, page, sort, filter);
   };
 

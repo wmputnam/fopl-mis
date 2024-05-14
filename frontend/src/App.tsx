@@ -2,7 +2,7 @@
 import React, { Profiler } from 'react';
 import Modal from 'react-modal';
 
-import './App.css';
+import './assets/App.css';
 
 import {
   DropMember,
@@ -19,9 +19,9 @@ import {
   EmailStatusDropdown,
   VolunteerRoleMultiselect,
   StateDropdown
-} from './@components';
-import { MemberService } from './services';
-import { MemberViewStates } from './@interfaces';
+} from "./components";
+import { MemberService } from "./services";
+import { MemberViewStates } from "./interfaces";
 
 export interface AppState {
   memberId: string;

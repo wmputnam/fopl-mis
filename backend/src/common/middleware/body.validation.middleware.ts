@@ -1,7 +1,7 @@
 import debug from "debug";
 import express from "express";
 import { FieldValidationError, validationResult,ValidationError } from "express-validator";
-import { type RestErrorBody } from "../../common";
+import { type RestErrorBody } from "../../common/index.js";
 
 const log: debug.IDebugger = debug('app:body-validation-middleware');
 

@@ -2,10 +2,10 @@ import express from "express";
 import { ExpressValidator } from "express-validator";
 import debug from "debug";
 import { body } from "express-validator";
-import { bodyValidationMiddleware } from "../common";
-import { CommonRoutesConfig } from "../common";
-import { membersController } from "../controllers";
-import { membersMiddleware } from ".";
+import { bodyValidationMiddleware } from "../common/index.js";
+import { CommonRoutesConfig } from "../common/index.js";
+import { membersController } from "../controllers/index.js";
+import { membersMiddleware } from "./index.js";
 
 const debugLog: debug.IDebugger = debug("members");
 

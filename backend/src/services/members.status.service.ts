@@ -5,8 +5,8 @@ import {
   PatchMemberDto,
   PatchMemberStatusDto
 } from "../members";
-import { membersService } from "../services";
-import { IMemberDocument } from "../../../packages/member-document";
+import { membersService } from "../services/index.js";
+import { IMemberDocument } from "member-document";
 
 class MemberServiceStatus {
 

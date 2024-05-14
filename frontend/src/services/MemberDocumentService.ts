@@ -1,4 +1,4 @@
-import { IStatus } from "../../../packages/member-document"
+import { IStatus } from "member-document"
 
 export class MemberDocumentService {
   foo = async () => { }

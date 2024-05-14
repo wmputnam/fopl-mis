@@ -1,11 +1,11 @@
 
-import { MembersDao } from "./members.dao";
-import { MembersRoutes } from "./members.routes.config";
-import { type CreateMemberDto } from "./create.member.dto";
-import { type PutMemberDto } from "./put.member.dto";
-import { type PatchMemberDto } from ".//patch.member.dto";
-import { type PatchMemberStatusDto } from "./patch.member.status.dto";
-import { MembersMiddleware } from "./middleware/members.middleware";
+import { MembersDao } from "./members.dao.js";
+import { MembersRoutes } from "./members.routes.config.js";
+import { type CreateMemberDto } from "./create.member.dto.js";
+import { type PutMemberDto } from "./put.member.dto.js";
+import { type PatchMemberDto } from ".//patch.member.dto.js";
+import { type PatchMemberStatusDto } from "./patch.member.status.dto.js";
+import { MembersMiddleware } from "./middleware/members.middleware.js";
 const membersMiddleware = new MembersMiddleware();
 
 

@@ -1,5 +1,5 @@
-import { AppConfig } from "../../services"
-import memberData from "../../assets/data/member-data.json"
+import { AppConfig } from "../../services/index.js";
+import memberData from "../../assets/data/member-data.json";
 
 export class MemberDataJSON {
   private static instance: MemberDataJSON;

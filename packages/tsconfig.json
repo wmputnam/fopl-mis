@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig-base.json",
+    "files": [],
+  "references": [
+    {
+      "path": "./member-document"
+    },
+    {
+      "path": "./test-helpers"
+    },
+    {
+      "path": "./fe-member"
+    }
+  ]
+}

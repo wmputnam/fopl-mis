@@ -1,8 +1,8 @@
-import app from "../../app";
+import app from "../../app.js";
 import supertest from "supertest";
 import { expect } from "chai";
 import debug from "debug";
-import { TEST_OBJECT_ID_0 } from "../../../../frontend/src/services/TestHelpers";
+import { TEST_OBJECT_ID_0 } from "test-helpers" 
 
 
 const log: debug.IDebugger = debug('app:test-members');

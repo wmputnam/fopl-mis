@@ -1,21 +1,17 @@
-import { getServerUrl,AppConfig } from "./AppConfig";
-import { Member } from "./Member";
+import { getServerUrl, AppConfig } from "./AppConfig";
+// import { Member } from "fe-member";
 import { MemberDocumentService } from "./MemberDocumentService";
 import { MemberRowData } from "./MemberRowData";
 import { MemberService } from "./MemberService";
-import { Status } from "./Status"
-import { compareMembers, TEST_OBJECT_ID_0, TEST_OBJECT_ID_1 } from "./TestHelpers"
+import { Status } from "./Status";
+//"./TestHelpers"
 
 export {
   AppConfig,
   getServerUrl,
-  Member,
+  // Member,
   MemberDocumentService,
   MemberRowData,
   MemberService,
-  Status,
-  compareMembers,
-  TEST_OBJECT_ID_0,
-  TEST_OBJECT_ID_1
-
+  Status
 }

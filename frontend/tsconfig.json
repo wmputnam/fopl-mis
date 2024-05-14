@@ -1,55 +1,141 @@
 {
+  "extends": "../tsconfig-base.json",
+  "files": [
+    "src/assets/data/member-data.json",
+    "src/components/helpers/DateHelper.ts",
+    "src/components/helpers/SelectOptionHelper.ts",
+    // "src/@components/AppHeader._test_.tsx",
+    "src/components/AppHeader.tsx",
+    "src/components/CancelBtn.tsx",
+    "src/components/DataUpdater.test.ts",
+    "src/components/DataUpdater.ts",
+    "src/components/DropDown.tsx",
+    "src/components/DropDownItem.tsx",
+    "src/components/DropMember.tsx",
+    "src/components/EditMember.tsx",
+    "src/components/EmailStatusDropdown.tsx",
+    "src/components/index.ts",
+    "src/components/ListNav.tsx",
+    "src/components/ListSearch.tsx",
+    "src/components/MemberFormBase.tsx",
+    "src/components/MemberFormBaseGroup.tsx",
+    "src/components/MemberFormHeader.tsx",
+    "src/components/MemberFormMmbGroup.tsx",
+    "src/components/MemberFormMoney.tsx",
+    "src/components/MemberFormNav2Money.tsx",
+    "src/components/MemberFormNav2Notes.tsx",
+    "src/components/MemberFormNotes.tsx",
+    "src/components/MemberFormRemitGroup.tsx",
+    "src/components/MemberFormVolGroup.tsx",
+    "src/components/MemberList.tsx",
+    "src/components/MemberListHeader.tsx",
+    "src/components/MemberListRow.tsx",
+    "src/components/MemberListRowMenu.tsx",
+    "src/components/ModalFM.tsx",
+    "src/components/MoneyListHeader.tsx",
+    "src/components/MoneyListRow.test.ts",
+    "src/components/MoneyListRow.tsx",
+    "src/components/NewMember.tsx",
+    "src/components/NewMemberReport.tsx",
+    "src/components/NewsletterTypeDropdown.tsx",
+    "src/components/NotesListHeader.tsx",
+    "src/components/NotesListRow.tsx",
+    "src/components/PostMailStatusDropdown.tsx",
+    "src/components/RenewMember.tsx",
+    "src/components/ReportLoader.ts",
+    "src/components/SaveBtn.tsx",
+    "src/components/StateDropdown.tsx",
+    "src/components/VolunteerRoleMultiselect.test.ts",
+    "src/components/VolunteerRoleMultiselect.tsx",
+    "src/interfaces/DuesRates.ts",
+    "src/interfaces/enums.ts",
+    "src/interfaces/HttpResponse.ts",
+    "src/interfaces/index.ts",
+    "src/interfaces/MemberProps.tsx",
+    "src/interfaces/SaveResponse.ts",
+    "src/dao/JSON/MemberDataJSON.ts",
+    "src/dao/MemberData.ts",
+    "src/formatters/index.ts",
+    "src/formatters/MembersListRowFormatter.test.ts",
+    "src/formatters/MembersListRowFormatter.ts",
+    "src/models/Address.tsx",
+    "src/models/Contacts.tsx",
+    "src/models/Membership.tsx",
+    "src/models/Person.tsx",
+    "src/services/AppConfig.test.ts",
+    "src/services/AppConfig.ts",
+    "src/services/index.ts",
+    "src/services/MemberDocumentService.ts",
+    "src/services/MemberRowData.ts",
+    "src/services/MemberService.test.ts",
+    "src/services/MemberService.ts",
+    "src/services/Status.ts",
+    "src/services/UspsWebTools.ts",
+    "src/App.tsx",
+    "src/index.tsx",
+    "src/reportWebVitals.ts",
+    "src/setupTests.ts"
+  ],
+  "references": [],
   "compilerOptions": {
-    "target": "es2022",
+    "tsBuildInfoFile": ".tsbuildinfo", /* Specify the path to .tsbuildinfo incremental compilation file. */
+    // "composite": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    // "incremental": true,
+    "outDir": "compiler-output",
+    // "target": "es2022",
+    "rootDir": "src",
     "lib": [
       "dom",
       "dom.iterable",
       "es2022"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ES2020",
-    "moduleResolution": "node",
+    // "allowJs": true,
+    // "skipLibCheck": true,
+    // "esModuleInterop": true,
+    // "allowSyntheticDefaultImports": true,
+    // "strict": true,
+    // "strictNullChecks": true,
+    // "forceConsistentCasingInFileNames": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "module": "ES2022",
+    // "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": false,
+    // "isolatedModules": true,
+    // "noEmit": false,
     "jsx": "react",
-    "outDir": "dist",
-    "sourceMap": true,
-    "listEmittedFiles": true,
+    // "sourceMap": true,
+    // "listEmittedFiles": true,
     "types": [
       "mocha",
       "chai",
       "node"
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "interfaces/*": [
+        "interfaces/*"
+      ],
+      "classes/*": [
+        "classes/*"
+      ],
+      "components/*": [
+        "components/*"
+      ],
+      "member-document": [
+        "../packages/member-document"
+      ],
+      "fe-member": [
+        "../packages/fe-member"
+      ],
+      "test-helpers": [
+        "../packages/test-helpers"
+      ]
+    }, /* Specify a set of entries that re-map imports to additional lookup locations. */
   },
   "ts-node": {
     "esm": true,
     "project": "tsconfig.json"
-  },
-  "include": [
-    "src",
-    "src/react-number-input.d.ts"
-  ],
-  "exclude": [
-    "src/@components/noLongerUsed/*"
-  ],
-  "baseUrl": "./src",
-  "paths": {
-    "@interfaces/*": [
-      "@interfaces/*"
-    ],
-    "classes/*": [
-      "classes/*"
-    ],
-    "components/*": [
-      "components/*"
-    ]
-  },
+  }
 }

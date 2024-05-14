@@ -1,7 +1,7 @@
 import express from "express";
-import {membersService} from "../../services";
+import {membersService} from "../../services/index.js";
 import debug from "debug";
-import { RestErrorBody } from "../../common";
+import { RestErrorBody } from "../../common/index.js";
 
 const log: debug.IDebugger = debug('app:members-middleware');
 

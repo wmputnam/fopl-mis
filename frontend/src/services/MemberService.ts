@@ -5,13 +5,13 @@ import {
   INotes,
   IRemittance,
   IVolunteer
-} from "../../../packages/member-document";
-import { Member } from "./Member"
-import {type IDuesRates} from "../@interfaces";
-import { MemberViewStates } from "../@interfaces";
+} from "member-document";
+import { Member } from "fe-member";
+import { type IDuesRates } from "../interfaces";
+import { MemberViewStates } from "../interfaces";
 import { Status } from "../services";
-import { SaveUpdate } from "../@components";
-import { getServerUrl } from ".";
+import { SaveUpdate } from "../components";
+import { getServerUrl } from "./AppConfig";
 
 
 const isPropDefined = (imember: IMemberDocument, prop: string & keyof IMemberDocument) => imember?.[prop] !== undefined;

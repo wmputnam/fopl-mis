@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import {membersDao} from "../members";
+import { membersDao } from "../members/index.js";
 import mongoose from "mongoose";
-import { TEST_OBJECT_ID_0 } from "../../../frontend/src/services/TestHelpers";
+import { TEST_OBJECT_ID_0 } from "test-helpers" // "../../../frontend/src/services/TestHelpers";
 import { resolve } from "path";
 
 const fn = () => `${__filename.split('/').pop()}`;

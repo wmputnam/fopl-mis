@@ -1,6 +1,6 @@
-import { CreateMemberDto } from "./create.member.dto";
-import { PatchMemberDto } from "./patch.member.dto";
-import { PutMemberDto } from "./put.member.dto";
+import { CreateMemberDto } from "./create.member.dto.js";
+import { PatchMemberDto } from "./patch.member.dto.js";
+import { PutMemberDto } from "./put.member.dto.js";
 import { 
   IAddress,
   IMemberDocument,
@@ -9,8 +9,8 @@ import {
   IRemittance,
   IStatus,
   IVolunteer 
-} from "../../../packages/member-document/";
-import {mongooseService} from "../common";
+} from "member-document";
+import { mongooseService } from "../common/index.js";
 import debug from "debug";
 import mongoose, { Mongoose, Schema, SortOrder, } from "mongoose";
 

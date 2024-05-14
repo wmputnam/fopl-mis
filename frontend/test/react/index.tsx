@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {AppHeader} from '../../src/@components';
-// import reportWebVitals from './reportWebVitals';
+import { AppHeader } from '../../src/components/index.js';
 
 localStorage.clear();
 const root = ReactDOM.createRoot(
@@ -11,12 +10,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <AppHeader 
-    messages={["message 1","message 2"]}
+    <AppHeader
+      messages={["message 1", "message 2"]}
       showListSearch={false}
-      updateListFilter={() =>{}}
-      getListFilter={()=>{return ""}}
-       />
+      updateListFilter={() => { }}
+      getListFilter={() => { return "" }}
+    />
   </React.StrictMode>
 );
 

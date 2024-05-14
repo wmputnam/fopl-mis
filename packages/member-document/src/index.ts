@@ -1,9 +1,9 @@
-import { IAddress } from "./IAddress";
-import { IMemberDocument } from "./IMemberDocument";
-import { INames } from "./INames";
-import { INotes } from "./INotes";
-import { IRemittance } from "./IRemittance";
-import { IStatus } from "./IStatus";
-import { IVolunteer } from "./IVolunteer";
+import { IAddress }  from "./IAddress.js";
+import { IMemberDocument }  from "./IMemberDocument.js";
+import { INames }  from "./INames.js";
+import { INotes }  from "./INotes.js";
+import { IRemittance }  from "./IRemittance.js";
+import { IStatus }  from "./IStatus.js";
+import { IVolunteer }  from "./IVolunteer.js";
 
-export {IAddress,IMemberDocument,INames,INotes,IRemittance,IStatus,IVolunteer}
+export type {IAddress,IMemberDocument,INames,INotes,IRemittance,IStatus,IVolunteer}

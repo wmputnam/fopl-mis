@@ -2,13 +2,15 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { fileURLToPath } from "url";
-import { Member } from "./Member";
+import { Member } from "fe-member";
 import { MemberService } from "./MemberService";
-import { TEST_OBJECT_ID_1, compareMembers } from "../services/TestHelpers";
-import { MemberViewStates } from "../@interfaces";
-import { IAddress,IMemberDocument,IRemittance } from "../../../packages/member-document";
+import { TEST_OBJECT_ID_1 } from "test-helpers";
+// import { MemberViewStates } from "interfaces";
+import { IAddress, IMemberDocument, IRemittance } from "member-document";
+import { MemberViewStates } from "../interfaces";
 // import { Remittance } from "packages/Remittance";
 // import { IAddress } from "packages/IAddress";
+import { compareMembers } from "fe-member"
 
 const getTestImember = () => ({
   lastName: "Wang",
@@ -141,9 +143,9 @@ describe(`${fn()}: getNewMmbBundle`, function () {
 
   it('should return "LM" when the member object includes a Life dues remit', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" });
-    
+
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("LM");
   });
 
@@ -151,33 +153,33 @@ describe(`${fn()}: getNewMmbBundle`, function () {
 
   it('should return paidThrough === 1 year after remit date when the member object has not prior remit and includes a paid dues remit using a date older than 1 year', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" });
-    
+
     const { paidThroughDate } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(paidThroughDate?.toISOString().substring(0, 10)).to.be.equal("2021-03-31")
   });
 
   it('should return paidThrough === 1 year after prior paid through when the member object has prior paid through after remit date', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2023-04-01"), memo: "dues" }, "2023-03-01", "2023-04-01");
-    
+
     const { paidThroughDate } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(paidThroughDate?.toISOString().substring(0, 10)).to.be.equal("2024-03-31")
   });
 
   it('should return joined === remit date when the member object includes a dues remit and does not have a prior join', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" });
-    
+
     const { joined } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(joined?.toISOString().substring(0, 10)).to.be.equal("2020-04-01")
   });
 
   it('should return joined === prior joined date when the member object includes a dues remit and does have a prior join', function () {
     const testMember = getTestMemberWithRemit({ amount: "100", date: new Date("2020-04-01"), memo: "dues" }, null, "2018-04-01");
-    
+
     const { joined } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(joined?.toISOString().substring(0, 10)).to.be.equal("2018-04-01")
   });
 
@@ -194,7 +196,7 @@ describe(`${fn()}: getNewMmbBundle`, function () {
     const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-05-01"), memo: "dues" });
 
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("F21");
   });
 
@@ -203,7 +205,7 @@ describe(`${fn()}: getNewMmbBundle`, function () {
     const testMember = getTestMemberWithRemit({ amount: "7", date: new Date("2022-05-01"), memo: "dues" });
 
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("23");
   });
 
@@ -211,7 +213,7 @@ describe(`${fn()}: getNewMmbBundle`, function () {
     const testMember = getTestMemberWithRemit({ amount: "2", date: new Date("2023-03-15"), memo: "dues" });
 
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("S24");
   });
 
@@ -219,7 +221,7 @@ describe(`${fn()}: getNewMmbBundle`, function () {
     const testMember = getTestMemberWithoutDuesEntry();
 
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("VOL");
   });
 
@@ -227,7 +229,7 @@ describe(`${fn()}: getNewMmbBundle`, function () {
     const testMember = getTestMemberWithDamagedDuesEntry();
 
     const { mmb } = MemberService.getNewMmbBundle(testMember);
-    
+
     expect(mmb).to.be.equal("VOL");
   });
 });
@@ -284,15 +286,15 @@ describe(`${fn()}: hasSameNotes`, function () {
   it('should return false when the notes array contains different notes -- diff dates', function () {
     const same = MemberService.hasSameNotes(
       [{ date: new Date("2022-04-01"), note: "Spade" }], [{ date: new Date("2023-04-01"), note: "Spade" }]);
-    
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
   it('should return false when the notes array contains different notes -- diff notes', function () {
     const same = MemberService.hasSameNotes(
       [{ date: new Date("2022-04-01"), note: "Sam" }], [{ date: new Date("2022-04-01"), note: "Jon" }]);
-    
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
 });
@@ -303,7 +305,7 @@ describe(`${fn()}: hasSameRemits`, function () {
     const same = MemberService.hasSameRemits(
       [], []
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.true;
   });
@@ -313,7 +315,7 @@ describe(`${fn()}: hasSameRemits`, function () {
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Sam" }],
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Sam" }]
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.true;
   });
@@ -323,7 +325,7 @@ describe(`${fn()}: hasSameRemits`, function () {
       [{ date: new Date("2023-04-01"), amount: "10", memo: "Sam" }],
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Sam" }]
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
@@ -332,7 +334,7 @@ describe(`${fn()}: hasSameRemits`, function () {
       [{ date: new Date("2022-04-01"), amount: "2", memo: "Sam" }],
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Sam" }]
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
@@ -341,7 +343,7 @@ describe(`${fn()}: hasSameRemits`, function () {
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Sam" }],
       [{ date: new Date("2022-04-01"), amount: "10", memo: "Jon" }]
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
@@ -353,7 +355,7 @@ describe(`${fn()}: hasSameVolPrefs`, function () {
     const same = MemberService.hasSameVolPrefs(
       [], []
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.true;
   });
@@ -363,7 +365,7 @@ describe(`${fn()}: hasSameVolPrefs`, function () {
       [{ role: "SALE" }, { role: "STORE" }],
       [{ role: "SALE" }, { role: "STORE" }],
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.true;
   });
@@ -373,7 +375,7 @@ describe(`${fn()}: hasSameVolPrefs`, function () {
       [{ role: "SALE" }, { role: "STORE" }],
       [{ role: "SALE" }, { role: "LUMACON" }],
     );
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.false;
   });
@@ -385,28 +387,28 @@ describe(`${fn()}: postUnjournalledRemits`, function () {
     const testMember = MemberService.postUnjournalledRemits(MemberService.createMemberFromLoad(
       {} as IMemberDocument,
       MemberViewStates.new));
-    
-      const newMember = MemberService.postUnjournalledRemits(testMember);
-    
-      const { same } = compareMembers(testMember, newMember);
-    
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+
+    const newMember = MemberService.postUnjournalledRemits(testMember);
+
+    const { same } = compareMembers(testMember, newMember);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(same).to.be.true;
   });
 
   it('should return a Member object that has dues remit added to remittances if there is a dues remit on the passed Member', function () {
     const testDate = new Date("2023-10-31");
-    
+
     const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
-    
+
     // suspense entry
     testMember.remitDate = testDate;
     testMember.remitDues = "7";
-    
+
     const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
-    
+
     const newMember = MemberService.postUnjournalledRemits(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(newMember.remittances).not.to.be.undefined;
     expect(newMember.remittances?.length).to.be.equal(expectArrLength);
@@ -417,17 +419,17 @@ describe(`${fn()}: postUnjournalledRemits`, function () {
 
   it('should return a Member object that has donation remit added to remittances if there is a donation remit on the passed Member', function () {
     const testDate = new Date("2023-10-31");
-    
+
     const testMember = getTestMemberWithRemit({ amount: "10", date: new Date("2020-03-19"), memo: "dues" });
-    
+
     // suspense entry
     testMember.remitDate = testDate;
     testMember.remitDonation = "4";
-    
+
     const expectArrLength = (testMember?.remittances?.length ? testMember?.remittances?.length : 0) + 1;
-    
+
     const newMember = MemberService.postUnjournalledRemits(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(newMember.remittances).not.to.be.undefined;
     expect(newMember.remittances?.length).to.be.equal(expectArrLength);
@@ -553,15 +555,15 @@ describe(`${fn()}: postUnjournalledRemits`, function () {
 describe(`${fn()} addNote`, function () {
   it(`should take a string and add a note to a Member`, function () {
     const noteText = "this is an added note"
-  
+
     const testMember = getTestMemberWithoutErrors();
-  
+
     const initialNotesLen = testMember.notes?.length ? testMember.notes?.length : 0;
-  
+
     MemberService.addNote(testMember, noteText);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(testMember?.notes).not.to.be.undefined;
-  
+
     const postAddLen = testMember.notes?.length;
 
     expect(postAddLen).to.be.equal(initialNotesLen + 1);
@@ -578,17 +580,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1234";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr;
     testMember.unit = unit;
     testMember.city = city;
     testMember.state = state;
     testMember.postalCode = postalCode;
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.true;
   });
@@ -599,17 +601,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1234";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr + '_';
     testMember.unit = unit;
     testMember.city = city;
     testMember.state = state;
     testMember.postalCode = postalCode;
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -620,17 +622,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1234";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr;
     testMember.unit = "";
     testMember.city = city;
     testMember.state = state;
     testMember.postalCode = postalCode;
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -641,17 +643,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1234";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr;
     testMember.unit = unit;
     testMember.city = "Onyx";
     testMember.state = state;
     testMember.postalCode = postalCode;
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -662,17 +664,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1234";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr;
     testMember.unit = unit;
     testMember.city = city;
     testMember.state = "NV";
     testMember.postalCode = postalCode;
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -683,17 +685,17 @@ describe(`${fn()} areAddressesTheSame`, function () {
     const state = "CA";
     const postalCode = "90099-1233";
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.address = addr;
     testMember.unit = unit;
     testMember.city = city;
     testMember.state = state;
     testMember.postalCode = "90099-1234";
-  
+
     const compareAddr: IAddress = { address: addr, unit: unit, city: city, state: state, postalCode: postalCode };
-  
+
     const check = MemberService.areAddressesSame(testMember, compareAddr);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -1043,73 +1045,73 @@ describe(`${fn()} isVolunteer`, function () {
     const testMember = getTestMemberWithoutErrors();
 
     testMember.mmb = "LM";
-    
+
     const check = MemberService.isVolunteer(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
 
   it('returns false if the mmb is "HLM"', function () {
     const testMember = getTestMemberWithoutErrors();
-    
+
     testMember.mmb = "HLM";
-    
+
     const check = MemberService.isVolunteer(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
 
   it('returns false if the mmb is "BEN"', function () {
     const testMember = getTestMemberWithoutErrors();
-    
+
     testMember.mmb = "BEN";
-    
+
     const check = MemberService.isVolunteer(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
 
   it('returns false if the mmb is "Pyy"', function () {
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.mmb = "P24";
-  
+
     const check = MemberService.isVolunteer(testMember);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
-  
+
   it('returns false if the mmb is "Fyy"', function () {
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.mmb = "F24";
-  
+
     const check = MemberService.isVolunteer(testMember);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
   it('returns false if the mmb is "yy"', function () {
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.mmb = "23";
-  
+
     const check = MemberService.isVolunteer(testMember);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
   it('returns false if the mmb is "Syy"', function () {
     const testMember = getTestMemberWithoutErrors();
-  
+
     testMember.mmb = "S23";
-  
+
     const check = MemberService.isVolunteer(testMember);
-  
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.false;
   });
@@ -1118,9 +1120,9 @@ describe(`${fn()} isVolunteer`, function () {
     const testMember = getTestMemberWithoutErrors();
 
     testMember.mmb = "VOL";
-    
+
     const check = MemberService.isVolunteer(testMember);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(check).to.be.true;
   });

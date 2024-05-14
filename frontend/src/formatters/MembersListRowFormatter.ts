@@ -1,4 +1,4 @@
-import { IMemberDocument } from "../../../packages/member-document/dist";
+import { IMemberDocument } from "member-document";
 
 interface ParsedPhone {
   ituCode: string;

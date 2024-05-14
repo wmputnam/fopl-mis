@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
 import { fileURLToPath } from "url";
-import { MembersListRowFormatter } from "."
+import { MembersListRowFormatter } from "./index.js"
 
 const __filename = fileURLToPath(import.meta.url)
 

@@ -1,3 +1,3 @@
-import { IMemberDocument } from "../../../packages/member-document";
+import { IMemberDocument } from "member-document";
 export interface PutMemberDto extends IMemberDocument {
 }

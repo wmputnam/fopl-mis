@@ -4,10 +4,10 @@ import * as http from "http";
 import * as winston from "winston";
 import * as expressWinston from "express-winston";
 import cors from "cors";
-import { CommonRoutesConfig } from "./common";
-import { MembersRoutes } from "./members";
+import { CommonRoutesConfig } from "./common/index.js";
+import { MembersRoutes } from "./members/index.js";
 import debug from "debug";
-import { mongooseService } from "./common";
+import { mongooseService } from "./common/index.js";
 
 
 const app: express.Application = express();

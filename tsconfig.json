@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages"
+    },
+    {
+      "path": "backend"
+    },
+    {
+      "path": "frontend"
+    },
+    {
+      "path": "testcafe"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
-import { IAddress } from "./IAddress";
-import { INames } from "./INames";
-import { INotes } from "./INotes";
-import { IRemittance } from "./IRemittance";
-import { IStatus } from "./IStatus";
-import { IVolunteer } from "./IVolunteer";
+import { IAddress } from "./IAddress.js";
+import { INames } from "./INames.js";
+import { INotes } from "./INotes.js";
+import { IRemittance } from "./IRemittance.js";
+import { IStatus } from "./IStatus.js";
+import { IVolunteer } from "./IVolunteer.js";
 
 
 export interface IMemberDocument extends IAddress, IStatus {
