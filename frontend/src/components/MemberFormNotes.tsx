@@ -4,7 +4,7 @@ import NotesListRow from "./NotesListRow";
 import NotesListHeader from "./NotesListHeader";
 import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services";
-import { AppState, onRenderCallback } from "../App";
+import { AppState, onRenderCallback } from "../interfaces";
 import { IMemberDocument, INotes } from "member-document";
 import useAxios from "axios-hooks";
 

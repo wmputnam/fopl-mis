@@ -5,7 +5,9 @@ import { CancelBtn } from "./CancelBtn";
 import { Save } from "./DataUpdater";
 import SaveBtn from "./SaveBtn";
 
-import { AppState, isEmptyObject, onRenderCallback } from "../App";
+import { AppState } from "../interfaces";
+import { onRenderCallback } from "../interfaces";
+import { isEmptyObject } from "../services";
 import { EditProps } from "./EditMember";
 import { getServerUrl } from "../services";
 import { IMemberDocument, IVolunteer } from "member-document";

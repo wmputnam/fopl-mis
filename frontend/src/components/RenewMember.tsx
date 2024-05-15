@@ -1,7 +1,8 @@
 import React, { Profiler } from 'react';
 import { MemberFormBase } from "./MemberFormBase";
 import { MemberViewStates } from "../interfaces";
-import { AppState, onRenderCallback } from "../App";
+import { onRenderCallback } from "../interfaces";
+import { AppState } from '../interfaces';
 
 export interface RenewMemberProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;

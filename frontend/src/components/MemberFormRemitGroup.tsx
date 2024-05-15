@@ -1,7 +1,7 @@
 
 import React, { Profiler } from "react"
 import CurrencyFormat from "react-currency-format";
-import { RenderCallBackI } from "../App";
+import { RenderCallBackI } from "../interfaces";
 import { Member } from "fe-member";
 import { MemberService } from "../services";
 import { oldMemberStateToNew } from "./MemberFormBase";

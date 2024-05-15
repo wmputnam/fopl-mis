@@ -46,7 +46,6 @@
     "nanoid": "^4.0.2",
     "packages": "../packages/member-shared",
     "pnpm": "^8.6.12",
-    "react": "^18.2.0",
     "react-currency-format": "^1.1.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
@@ -102,6 +101,7 @@
     "mocha": "^10.2.0",
     "mocha-jsdom": "^2.0.0",
     "node-localstorage": "^3.0.5",
+    "react": "^18.2.0",
     "react-devtools": "^4.28.0",
     "react-select": "^5.7.7",
     "react-test-renderer": "^18.2.0",
@@ -143,5 +143,15 @@
     "transformIgnorePatterns": [
       "/node_modules/(?!(axios|@testing-library)/)"
     ]
+  },
+  "peerDependencies": {
+    "react": "^0.14.10"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18"
+      }
+    }
   }
 }

@@ -1,3 +1,0 @@
-dorf
-
-"err-ignore":"[eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app » /Users/williamputnam/localSrc/fopl-mis/frontend/node_modules/eslint-config-react-app/base.js" and "BaseConfig » /Users/williamputnam/localSrc/fopl-mis/node_modules/.pnpm/eslint-config-react-app@7.0.1_@babel+plugin-syntax-flow@7.22.5_@babel+plugin-transform-react-_6dwt7kofbu4ajdje7lacjquu7i/node_modules/eslint-config-react-app/base.js"."'

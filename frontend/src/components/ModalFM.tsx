@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { AppState } from "../App";
+import { AppState } from "../interfaces";
 
 export interface ModalFmProps {
   actionMessage: string;

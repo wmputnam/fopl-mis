@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState } from "../App";
+import { AppState } from "../interfaces";
 import { MemberViewStates } from "../interfaces";
 import { MemberService } from "../services";
 export type MemberListRowMenuProps = {

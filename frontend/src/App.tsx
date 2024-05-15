@@ -20,63 +20,63 @@ import {
   VolunteerRoleMultiselect,
   StateDropdown
 } from "./components";
-import { MemberService } from "./services";
-import { MemberViewStates } from "./interfaces";
+import { getInitialViewState, getTestViewState, MemberService,isEmptyObject } from "./services";
+import { AppState, MemberViewStates, onRenderCallback } from "./interfaces";
 
-export interface AppState {
-  memberId: string;
-  viewState: MemberViewStates;
-  fromViewState: MemberViewStates[];
-  modalIsOpen: boolean;
-  modalMessage: string;
-  modalAction: () => any;
-  modalRoot: () => any;
-  listViewFilter?: string;
-}
+// export interface AppState {
+//   memberId: string;
+//   viewState: MemberViewStates;
+//   fromViewState: MemberViewStates[];
+//   modalIsOpen: boolean;
+//   modalMessage: string;
+//   modalAction: () => any;
+//   modalRoot: () => any;
+//   listViewFilter?: string;
+// }
 
-export interface RenderCallBackI {
-  id?: string;
-  phase?: "mount" | "update" | "nested-update";
-  actualDuration?: number;
-  baseDuration?: number;
-  startTime?: number;
-  endTime?: number;
-}
+// export interface RenderCallBackI {
+//   id?: string;
+//   phase?: "mount" | "update" | "nested-update";
+//   actualDuration?: number;
+//   baseDuration?: number;
+//   startTime?: number;
+//   endTime?: number;
+// }
 
-export const onRenderCallback = (
-  { id, phase }: Partial<RenderCallBackI>
-): void => {
-  id && phase && console.log(`${id} ${phase}`)
-}
+// export const onRenderCallback = (
+//   { id, phase }: Partial<RenderCallBackI>
+// ): void => {
+//   id && phase && console.log(`${id} ${phase}`)
+// }
 
-export const isEmptyObject = (obj: Object) => {
-  for (let i in obj) return false;
-  return true;
-}
+// export const isEmptyObject = (obj: Object) => {
+//   for (let i in obj) return false;
+//   return true;
+// }
 
 function noOp() { };
 
-export const getInitialViewState = (): AppState => (
-  {
-    memberId: "",
-    viewState: MemberViewStates.list,
-    fromViewState: [],
-    modalIsOpen: false,
-    modalMessage: "",
-    modalAction: () => { },
-    modalRoot: () => document.body,
-  });
+// export const getInitialViewState = (): AppState => (
+//   {
+//     memberId: "",
+//     viewState: MemberViewStates.list,
+//     fromViewState: [],
+//     modalIsOpen: false,
+//     modalMessage: "",
+//     modalAction: () => { },
+//     modalRoot: () => document.body,
+//   });
 
-export const getTestViewState = (): AppState => (
-  {
-    memberId: "",
-    viewState: MemberViewStates.test,
-    fromViewState: [],
-    modalIsOpen: false,
-    modalMessage: "",
-    modalAction: () => { },
-    modalRoot: () => document.body,
-  });
+// export const getTestViewState = (): AppState => (
+//   {
+//     memberId: "",
+//     viewState: MemberViewStates.test,
+//     fromViewState: [],
+//     modalIsOpen: false,
+//     modalMessage: "",
+//     modalAction: () => { },
+//     modalRoot: () => document.body,
+//   });
 
 // ***
 interface AppProps {
@@ -122,16 +122,18 @@ export default function App({ testMode }: AppProps): JSX.Element {
   Modal.setAppElement(document.getElementById('root') as HTMLElement);
 
   let component: any;
-  console.log(appState.viewState);
+  console.log(`App.tsx: current view state is ${appState.viewState}`);
   switch (appState.viewState) {
     case MemberViewStates.list:
       console.log("in the list entry -- expected in normal mode")
       MemberService.clearMemberId();
-      component = <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
-        <MemberList
-          setAppState={setAppState}
-          getAppState={getAppState}
-        /></Profiler>
+      component =
+        <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
+          <MemberList
+            setAppState={setAppState}
+            getAppState={getAppState}
+          />
+        </Profiler>
       break;
     case MemberViewStates.edit:
       component = <EditMember

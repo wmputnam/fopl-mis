@@ -1,6 +1,6 @@
 import React from "react";
 import { MemberFormBase } from "./MemberFormBase";
-import { AppState } from "../App";
+import { AppState } from "../interfaces";
 
 export interface NewMemberProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;

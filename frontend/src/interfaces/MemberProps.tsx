@@ -1,6 +1,6 @@
 import { IMemberDocument } from "member-document";
-import { MemberViewStates } from "./enums";
-import { AppState } from "../App";
+import { MemberViewStates } from ".";
+import { AppState } from "../interfaces";
 
 export interface RecordIdProps {
   recordId?: string;

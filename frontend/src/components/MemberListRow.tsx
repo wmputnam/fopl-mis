@@ -1,6 +1,6 @@
 import React from "react";
 import { MemberListRowMenu } from "./MemberListRowMenu";
-import { AppState } from "../App";
+import { AppState } from "../interfaces";
 
 export type MemberListRowProps = {
     recordId: string;

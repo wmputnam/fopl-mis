@@ -1,6 +1,6 @@
 import React from "react";
 import { CancelBtn } from "./CancelBtn";
-import { AppState } from "../App";
+import { AppState } from "../interfaces";
 import { MemberViewStates } from "../interfaces";
 
 export interface DropMemberProps {

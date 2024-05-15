@@ -245,10 +245,10 @@ export class MemberService {
 
   public static hasProp = ((obj: Object, prop: string) => obj.hasOwnProperty.call(obj, prop));
 
-  public static isEmptyObject = (obj: Object) => {
-    for (let i in obj) return false;
-    return true;
-  }
+  // public static isEmptyObject = (obj: Object) => {
+  //   for (let i in obj) return false;
+  //   return true;
+  // }
 
   public static isLifeMember = (_memberInfo: Member | string | undefined) => {
     const LIFE_MEMBER_MMB = ["LM", "HLM"];

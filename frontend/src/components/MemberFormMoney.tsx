@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Profiler } from "react"
 import useAxios from "axios-hooks";
-import { AppState, onRenderCallback } from "../App";
+import { AppState, onRenderCallback } from "../interfaces";
 import { CancelBtn } from "./CancelBtn";
 import { getServerUrl } from "../services";
 import { IMemberDocument, IRemittance } from "member-document";

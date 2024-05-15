@@ -928,28 +928,28 @@ describe(`${fn()} isDroppedMember`, function () {
 });
 
 // isEmptyObject
-describe(`${fn()}isEmptyObject`, function () {
-  it('returns true if the object does not contain any properties', function () {
-    const check = MemberService.isEmptyObject({});
+// describe(`${fn()}isEmptyObject`, function () {
+//   it('returns true if the object does not contain any properties', function () {
+//     const check = MemberService.isEmptyObject({});
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(check).to.be.true;
-  });
+//     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+//     expect(check).to.be.true;
+//   });
 
-  it('returns false if the object contains a property', function () {
-    const check = MemberService.isEmptyObject({ foo: "bar" });
+//   it('returns false if the object contains a property', function () {
+//     const check = MemberService.isEmptyObject({ foo: "bar" });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(check).to.be.false;
-  });
+//     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+//     expect(check).to.be.false;
+//   });
 
-  it('returns false if the object contains a method', function () {
-    const check = MemberService.isEmptyObject({ foo() { return "bar"; } });
+//   it('returns false if the object contains a method', function () {
+//     const check = MemberService.isEmptyObject({ foo() { return "bar"; } });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(check).to.be.false;
-  });
-});
+//     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+//     expect(check).to.be.false;
+//   });
+// });
 // isLifeMember
 describe(`${fn()} isLifeMember`, function () {
   it('returns true if the mmb is "LM"', function () {
