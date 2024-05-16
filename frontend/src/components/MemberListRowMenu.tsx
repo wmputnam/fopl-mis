@@ -1,7 +1,15 @@
 import React from "react";
 import { AppState } from "../interfaces";
 import { MemberViewStates } from "../interfaces";
-import { MemberService, pushdViewWithMemberId } from "../services";
+import {
+  MemberService, pushViewWithMemberId,
+  openDeactivateMemberModal,
+  openReturnedMailModal,
+  openReturnedEMailModal,
+  openVerifiedEMailModal,
+  openNewMemberOrientationCompletedModal
+
+} from "../services";
 export type MemberListRowMenuProps = {
   recordId: string;
   mmb: string;
@@ -24,7 +32,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleEditClick = (): any => {
     console.log(`edit member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushdViewWithMemberId(getAppState(), MemberViewStates.edit, recordId,setAppState);
+    pushViewWithMemberId(getAppState(), MemberViewStates.edit, recordId, setAppState);
     // setAppState((oldState: AppState) => ({
     //   ...oldState,
     //   memberId: recordId,
@@ -36,7 +44,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleRenewClick = (): any => {
     console.log(`renew ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushdViewWithMemberId(getAppState(), MemberViewStates.renew, recordId, setAppState);
+    pushViewWithMemberId(getAppState(), MemberViewStates.renew, recordId, setAppState);
     // setAppState((oldState: AppState) => ({
     //   ...oldState,
     //   memberId: recordId,
@@ -48,7 +56,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleMoneyClick = (): any => {
     console.log(`view remittances for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushdViewWithMemberId(getAppState(), MemberViewStates.money, recordId, setAppState);
+    pushViewWithMemberId(getAppState(), MemberViewStates.money, recordId, setAppState);
     // setAppState((oldState: AppState) => ({
     //   ...oldState,
     //   memberId: recordId,
@@ -57,9 +65,9 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
     // }));
   }
   const handleNotesClick = (): any => {
-    console.log(`view remittances for ${debugName}`);
+    console.log(`view notes for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushdViewWithMemberId(getAppState(), MemberViewStates.notes, recordId, setAppState);
+    pushViewWithMemberId(getAppState(), MemberViewStates.notes, recordId, setAppState);
     // setAppState((oldState: AppState) => ({
     //   ...oldState,
     //   memberId: recordId,
@@ -71,90 +79,95 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleDropClick = (): any => {
     console.log(`drop ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      modalAction: deactivateMember,
-      modalMessage: `Drop '${name}'?`,
-      modalIsOpen: true,
-    }));
+    openDeactivateMemberModal(getAppState(), recordId, `Drop '${name}'?`, setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   modalAction: deactivateMember,
+    //   modalMessage: `Drop '${name}'?`,
+    //   modalIsOpen: true,
+    // }));
   }
 
-  const deactivateMember = async () => {
-    const memberId = recordId;
-    await MemberService.deactivateMemberAction(memberId)
-  }
+  // const deactivateMember = async () => {
+  //   const memberId = recordId;
+  //   await MemberService.deactivateMemberAction(memberId)
+  // }
 
   const handleReturnedMailClick = (): any => {
     console.log(`returned mail without forwarding address for  ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      modalAction: setReturnedMailStatus,
-      modalMessage: `Returned mail without forwarding address for ${name}?`,
-      modalIsOpen: true,
-      // modalRoot: findRootForModal,
-    }));
+    openReturnedMailModal(getAppState(), recordId, `Returned mail without forwarding address for ${name}?`, setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   modalAction: setReturnedMailStatus,
+    //   modalMessage: `Returned mail without forwarding address for ${name}?`,
+    //   modalIsOpen: true,
+    //   // modalRoot: findRootForModal,
+    // }));
   }
 
-  const setReturnedMailStatus = async () => {
-    const memberId = recordId;
-    await MemberService.setReturnedMailMemberAction(memberId)
-  }
+  // const setReturnedMailStatus = async () => {
+  //   const memberId = recordId;
+  //   await MemberService.setReturnedMailMemberAction(memberId)
+  // }
 
   const handleReturnedEmailClick = (): any => {
     console.log(`bounced email member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      modalAction: setBouncedEmailStatus,
-      modalMessage: `Bounced email for ${name}?`,
-      modalIsOpen: true,
-      // modalRoot: findRootForModal,
-    }));
+    openReturnedEMailModal(getAppState(), recordId, `Bounced email for ${name}?`,setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   modalAction: setBouncedEmailStatus,
+    //   modalMessage: `Bounced email for ${name}?`,
+    //   modalIsOpen: true,
+    //   // modalRoot: findRootForModal,
+    // }));
   }
-  const setBouncedEmailStatus = async () => {
-    const memberId = recordId;
-    await MemberService.setBouncedEmailMemberAction(memberId)
-  }
+  // const setBouncedEmailStatus = async () => {
+  //   const memberId = recordId;
+  //   await MemberService.setBouncedEmailMemberAction(memberId)
+  // }
 
   const handleVerifiedEmailClick = (): any => {
     console.log(`bounced email member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      modalAction: setVerifiedEmailStatus,
-      modalMessage: `Verify email for ${name}?`,
-      modalIsOpen: true,
-      // modalRoot: findRootForModal,
-    }));
+    openVerifiedEMailModal(getAppState(), recordId, `Verify email for ${name}?`,setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   modalAction: setVerifiedEmailStatus,
+    //   modalMessage: `Verify email for ${name}?`,
+    //   modalIsOpen: true,
+    //   // modalRoot: findRootForModal,
+    // }));
   }
 
-  const setVerifiedEmailStatus = async () => {
-    const memberId = recordId;
-    await MemberService.setVerifiedEmailMemberAction(memberId)
-  }
+  // const setVerifiedEmailStatus = async () => {
+  //   const memberId = recordId;
+  //   await MemberService.setVerifiedEmailMemberAction(memberId)
+  // }
 
   const handleNewMemberOrientedClick = (): any => {
     console.log(`member orientation ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      modalAction: setNewMemberOrientedStatus,
-      modalMessage: `Has ${name} completed orientation?`,
-      modalIsOpen: true,
-      // modalRoot: findRootForModal,
-    }));
+    openNewMemberOrientationCompletedModal(getAppState(), recordId, `Has ${name} completed orientation?`,setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   modalAction: setNewMemberOrientedStatus,
+    //   modalMessage: `Has ${name} completed orientation?`,
+    //   modalIsOpen: true,
+    //   // modalRoot: findRootForModal,
+    // }));
   }
 
-  const setNewMemberOrientedStatus = async () => {
-    const memberId = recordId;
-    await MemberService.updateIsNewMemberInDatabase(memberId)
-  }
+  // const setNewMemberOrientedStatus = async () => {
+  //   const memberId = recordId;
+  //   await MemberService.updateIsNewMemberInDatabase(memberId)
+  // }
 
   return (
     <div className="member-row--menu" data-testid="member-row--menu">

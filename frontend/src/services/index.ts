@@ -13,9 +13,14 @@ import {
   clearMemberId,
   setView,
   pushView,
-  pushdViewWithMemberId,
+  pushViewWithMemberId,
   popView,
   clearMemberAndPopView,
+  openDeactivateMemberModal,
+  openReturnedMailModal,
+  openReturnedEMailModal,
+  openVerifiedEMailModal,
+  openNewMemberOrientationCompletedModal
 } from './AppStateService'
 
 export {
@@ -35,7 +40,12 @@ export {
   clearMemberId,
   setView,
   pushView,
-  pushdViewWithMemberId,
+  pushViewWithMemberId,
   popView,
   clearMemberAndPopView,
+  openDeactivateMemberModal,
+  openReturnedMailModal,
+  openReturnedEMailModal,
+  openVerifiedEMailModal,
+  openNewMemberOrientationCompletedModal
 }

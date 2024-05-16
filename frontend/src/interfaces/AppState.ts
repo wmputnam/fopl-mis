@@ -6,6 +6,6 @@ export interface AppState {
   listViewFilter?: string;
   modalIsOpen: boolean;
   modalMessage: string;
-  modalAction: () => any;
+  modalAction: (s:string) => any;
   modalRoot: () => any;
 }

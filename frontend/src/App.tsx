@@ -109,16 +109,8 @@ export default function App({ testMode }: AppProps): JSX.Element {
   const updateListFilter = (filter?: string) => {
     if (filter) {
       setListFilter(appState,filter,setAppState);
-      // setAppState((oldState: any) => ({
-      //   ...oldState,
-      //   listViewFilter: filter
-      // }));
     } else {
       clearListFilter(appState,setAppState);
-      // setAppState((oldState: any) => ({
-      //   ...oldState,
-      //   listViewFilter: ""
-      // }));
     }
   }
   const componentDidMount = () => {
@@ -216,12 +208,12 @@ export default function App({ testMode }: AppProps): JSX.Element {
       break;
   }
 
-  const openModal = () => {
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      modalIsOpen: true
-    }));
-  };
+  // const openModal = () => {
+  //   setAppState((oldState: AppState) => ({
+  //     ...oldState,
+  //     modalIsOpen: true
+  //   }));
+  // };
 
   const openPlayground = () => {
     setAppState((oldState: AppState) => ({

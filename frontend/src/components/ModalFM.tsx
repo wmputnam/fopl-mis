@@ -4,10 +4,9 @@ import { AppState } from "../interfaces";
 
 export interface ModalFmProps {
   actionMessage: string;
-  actionHandler: () => any;
+  actionHandler: (s: string) => any;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;
-
 }
 
 export const ModalFM = ({
@@ -45,7 +44,7 @@ export const ModalFM = ({
     setAppState((oldState: AppState) => ({
       ...oldState,
       modalMessage: "",
-      modalAction: () => { },
+      modalAction: (s: string) => { return; },
       modalIsOpen: false,
     }));
     ;
@@ -53,11 +52,11 @@ export const ModalFM = ({
   async function doAction() {
     const memberId = getAppState().memberId;
     console.log(`drop ${memberId}? `)
-    await Promise.resolve(getAppState().modalAction())
+    await Promise.resolve(getAppState().modalAction(memberId))
     setAppState((oldState: AppState) => ({
       ...oldState,
       modalMessage: "",
-      modalAction: () => { },
+      modalAction: (s: string) => { return; },
       modalIsOpen: false,
     }));
   }
