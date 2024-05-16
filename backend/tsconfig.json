@@ -13,7 +13,7 @@
     "dist",
     "testcafe",
     "**/*.d.ts",
-    "**/*.test.ts"
+    // "**/*.test.ts"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
@@ -45,16 +45,16 @@
     // "module": "CommonJS", /* Specify what module code is generated. */
     "rootDir": "./src", /* Specify the root folder within your source files. */
     // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
-    "baseUrl": "../packages", /* Specify the base directory to resolve non-relative module names. */
+    "baseUrl": ".", /* Specify the base directory to resolve non-relative module names. */
     "paths": {
       "member-document": [
-        "member-document"
+        "../packages/member-document"
       ],
       "fe-member": [
-        "fe-member"
+        "../packages/fe-member"
       ],
       "test-helpers": [
-        "test-helpers"
+        "../packages/test-helpers"
       ]
     }, /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

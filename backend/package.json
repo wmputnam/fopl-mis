@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/app.js",
   "type": "module",
   "scripts": {
     "start": "npm run start:debug:fopl",
@@ -13,7 +13,7 @@
     "test:fopl": "export FOPLMIS_DB='mongodb://localhost:27017/fopl' && run test",
     "test:debug:dev": "export DEBUG=* && npm run test:dev",
     "test:dev": "npm run test",
-    "test": "mocha ./src/**/*.test.ts",
+    "test": "mocha ./src/**/*.test.ts ./src/**/**/*.test.ts",
     "lint": "tsc -noEmit",
     "former:build": "typescript",
     "former:start:servr": "node src/server.js",
