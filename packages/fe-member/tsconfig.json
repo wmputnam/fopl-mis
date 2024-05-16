@@ -2,11 +2,13 @@
   "extends": "../../tsconfig-base.json",
   "files": [
     "src/CompareMembers.ts",
+    "src/CompareMembers.test.ts",
     "src/FormError.ts",
     "src/index.ts",
     "src/Member.test.ts",
     "src/Member.ts",
-    "src/Status.ts"
+    "src/Status.ts",
+    "src/Status.test.ts"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

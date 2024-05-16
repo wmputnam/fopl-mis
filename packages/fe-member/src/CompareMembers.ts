@@ -140,13 +140,13 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // volunteerPreferences
   if (a.volunteerPreferences && b.volunteerPreferences) {
     if (a.volunteerPreferences.length !== b.volunteerPreferences.length) {
-      messages.push(`volunteerPreferences: > ${JSON.stringify(a.volunteerPreferences)} < + ${JSON.stringify(b.volunteerPreferences)}`);
+      messages.push(`volunteerPreferences: > ${JSON.stringify(a.volunteerPreferences)} < ${JSON.stringify(b.volunteerPreferences)}`);
       isSame = false;
     } else {
       for (let i = 0; i < a.volunteerPreferences.length; i++) {
         if ((a.volunteerPreferences[i].role !== b.volunteerPreferences[i].role) ||
           (a.volunteerPreferences[i]?.lastWorkDate !== b.volunteerPreferences[i]?.lastWorkDate)) {
-          messages.push(`volunteerPreferences: > ${JSON.stringify(a.volunteerPreferences)} < + ${JSON.stringify(b.volunteerPreferences)}`);
+          messages.push(`volunteerPreferences: > ${JSON.stringify(a.volunteerPreferences)} < ${JSON.stringify(b.volunteerPreferences)}`);
           isSame = false;
         }
       }
@@ -201,14 +201,14 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // remittances
   if (a.remittances && b.remittances) {
     if (a.remittances.length !== b.remittances.length) {
-      messages.push(`remittances: > ${JSON.stringify(a.remittances)} < + ${JSON.stringify(b.remittances)}`);
+      messages.push(`remittances: > ${JSON.stringify(a.remittances)} < ${JSON.stringify(b.remittances)}`);
       isSame = false;
     } else {
       for (let i = 0; i < a.remittances.length; i++) {
         if ((a.remittances[i].date !== b.remittances[i].date) ||
           (a.remittances[i].amount !== b.remittances[i].amount) ||
           (a.remittances[i].memo !== b.remittances[i].memo)) {
-          messages.push(`remittances: > ${JSON.stringify(a.remittances)} < + ${JSON.stringify(b.remittances)}`);
+          messages.push(`remittances: > ${JSON.stringify(a.remittances)} < ${JSON.stringify(b.remittances)}`);
           isSame = false;
         }
       }
@@ -224,13 +224,13 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // notes
   if (a.notes && b.notes) {
     if (a.notes.length !== b.notes.length) {
-      messages.push(`notes: > ${JSON.stringify(a.notes)} < + ${JSON.stringify(b.notes)}`);
+      messages.push(`notes: > ${JSON.stringify(a.notes)} < ${JSON.stringify(b.notes)}`);
       isSame = false;
     } else {
       for (let i = 0; i < a.notes.length; i++) {
         if ((a.notes[i].date !== b.notes[i].date) ||
           (a.notes[i].note !== b.notes[i].note)) {
-          messages.push(`notes: > ${JSON.stringify(a.notes)} < + ${JSON.stringify(b.notes)}`);
+          messages.push(`notes: > ${JSON.stringify(a.notes)} < ${JSON.stringify(b.notes)}`);
           isSame = false;
         }
       }
@@ -245,13 +245,15 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // dataEntryErrors
   if (a.dataEntryErrors && b.dataEntryErrors) {
     if (a.dataEntryErrors.length !== b.dataEntryErrors.length) {
-      messages.push(`dataEntryErrors: > ${JSON.stringify(a.dataEntryErrors)} < + ${JSON.stringify(b.dataEntryErrors)}`);
+      messages.push(`dataEntryErrors: > ${JSON.stringify(a.dataEntryErrors)} < ${JSON.stringify(b.dataEntryErrors)}`);
       isSame = false;
     } else {
       for (let i = 0; i < a.dataEntryErrors.length; i++) {
-        if ((a.dataEntryErrors[i].date !== b.dataEntryErrors[i].date) ||
-          (a.dataEntryErrors[i].note !== b.dataEntryErrors[i].note)) {
-          messages.push(`dataEntryErrors: > ${JSON.stringify(a.dataEntryErrors)} < + ${JSON.stringify(b.dataEntryErrors)}`);
+        if ((a.dataEntryErrors[i].target !== b.dataEntryErrors[i].target) ||
+          (a.dataEntryErrors[i].message !== b.dataEntryErrors[i].message) ||
+          (a.dataEntryErrors[i].level !== b.dataEntryErrors[i].level)
+        ) {
+          messages.push(`dataEntryErrors: > ${JSON.stringify(a.dataEntryErrors)} < ${JSON.stringify(b.dataEntryErrors)}`);
           isSame = false;
         }
       }
@@ -266,11 +268,11 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // lastUpdated
   if (a.lastUpdated && b.lastUpdated) {
     if (a.lastUpdated !== b.lastUpdated) {
-      messages.push("lastUpdated: >" + a.lastUpdated + "<" + b.lastUpdated);
+      messages.push("lastUpdated: > " + a.lastUpdated + " < " + b.lastUpdated);
       isSame = false;
     }
   } else if (a.lastUpdated) {
-    messages.push("lastUpdated: >" + a.lastUpdated + "<");
+    messages.push("lastUpdated: > " + a.lastUpdated + "<");
     isSame = false;
   } else if (b.lastUpdated) {
     messages.push("lastUpdated: ><" + b.lastUpdated);
@@ -280,11 +282,11 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // remitDate
   if (a.remitDate && b.remitDate) {
     if (a.remitDate !== b.remitDate) {
-      messages.push("remitDate: >" + a.remitDate + "<" + b.remitDate);
+      messages.push("remitDate: > " + a.remitDate + " < " + b.remitDate);
       isSame = false;
     }
   } else if (a.remitDate) {
-    messages.push("remitDate: >" + a.remitDate + "<");
+    messages.push("remitDate: > " + a.remitDate + " < ");
     isSame = false;
   } else if (b.remitDate) {
     messages.push("remitDate: ><" + b.remitDate);
@@ -293,7 +295,7 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // remitDues
   if (a.remitDues && b.remitDues) {
     if (a.remitDues !== b.remitDues) {
-      messages.push("remitDues: >" + a.remitDues + "<" + b.remitDues);
+      messages.push("remitDues: > " + a.remitDues + " < " + b.remitDues);
       isSame = false;
     }
   } else if (a.remitDues) {
@@ -306,21 +308,21 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // remitDonation
   if (a.remitDonation && b.remitDonation) {
     if (a.remitDonation !== b.remitDonation) {
-      messages.push("remitDonation: >" + a.remitDonation + "<" + b.remitDonation);
+      messages.push("remitDonation: > " + a.remitDonation + " < " + b.remitDonation);
       isSame = false;
     }
   } else if (a.remitDonation) {
-    messages.push("remitDonation: >" + a.remitDonation + "<");
+    messages.push("remitDonation: > " + a.remitDonation + " <");
     isSame = false;
   } else if (b.remitDonation) {
-    messages.push("remitDonation: ><" + b.remitDonation);
+    messages.push("remitDonation: > < " + b.remitDonation);
     isSame = false;
   }
 
   // status isActive
   if (a.status && a.status.isActive !== undefined && b.status && b.status.isActive !== undefined) {
     if (a.status.isActive !== b.status.isActive) {
-      messages.push("status.isActive: >" + a.status.isActive + "<" + b.status.isActive);
+      messages.push("status.isActive: > " + a.status.isActive + " < " + b.status.isActive);
       isSame = false;
     }
   } else if (a.status && a.status.isActive) {
@@ -334,7 +336,7 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // status isNewMember
   if (a.status && a.status.isNewMember !== undefined && b.status && b.status.isNewMember !== undefined) {
     if (a.status.isNewMember !== b.status.isNewMember) {
-      messages.push("status.isNewMember: >" + a.status.isNewMember + "<" + b.status.isNewMember);
+      messages.push("status.isNewMember: > " + a.status.isNewMember + " < " + b.status.isNewMember);
       isSame = false;
     }
   } else if (a.status && a.status.isNewMember) {
@@ -347,11 +349,11 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // status validEmail
   if (a.status && a.status.validEmail !== undefined && b.status && b.status.validEmail !== undefined) {
     if (a.status.validEmail !== b.status.validEmail) {
-      messages.push("status.validEmail: >" + a.status.validEmail + "<" + b.status.validEmail);
+      messages.push("status.validEmail: > " + a.status.validEmail + " < " + b.status.validEmail);
       isSame = false;
     }
   } else if (a.status && a.status.validEmail) {
-    messages.push("status.validEmail: >" + a.status.validEmail + "<");
+    messages.push("status.validEmail: > " + a.status.validEmail + " <");
     isSame = false;
   } else if (b.status && b.status.validEmail) {
     messages.push("status.validEmail: ><" + b.status.validEmail);
@@ -360,7 +362,7 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // status validPostMail
   if (a.status && a.status.validPostMail !== undefined && b.status && b.status.validPostMail !== undefined) {
     if (a.status.validPostMail !== b.status.validPostMail) {
-      messages.push("status.validPostMail: >" + a.status.validPostMail + "<" + b.status.validPostMail);
+      messages.push("status.validPostMail: > " + a.status.validPostMail + " < " + b.status.validPostMail);
       isSame = false;
     }
   } else if (a.status && a.status.validPostMail) {
@@ -373,14 +375,14 @@ export const compareMembers = (a: Partial<Member>, b: Partial<Member>): { same: 
   // status newsletterType
   if (a.status && a.status.newsletterType !== undefined && b.status && b.status.newsletterType !== undefined) {
     if (a.status.newsletterType !== b.status.newsletterType) {
-      messages.push("status.newsletterType: >" + a.status.newsletterType + "<" + b.status.newsletterType);
+      messages.push("status.newsletterType: > " + a.status.newsletterType + " < " + b.status.newsletterType);
       isSame = false;
     }
   } else if (a.status && a.status.newsletterType) {
-    messages.push("status.newsletterType: >" + a.status.newsletterType + "<");
+    messages.push("status.newsletterType: > " + a.status.newsletterType + " <");
     isSame = false;
   } else if (b.status && b.status.newsletterType) {
-    messages.push("status.newsletterType: ><" + b.status.newsletterType);
+    messages.push("status.newsletterType: > <" + b.status.newsletterType);
     isSame = false;
   }
 

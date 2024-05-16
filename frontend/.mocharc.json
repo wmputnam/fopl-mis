@@ -1,13 +1,13 @@
 {
-  "extensions": [
+  "$schema": "https://json.schemastore.org/mocharc.json",
+  "require": "tsx",
+  "extension": [
+    "js",
+    "cjs",
+    "mjs",
     "ts"
   ],
-  "spec": [
-    "dist/**/*.test.js"
-  ],
-  "node-options": [
-    "experimental-specifier-resolution=node",
-    "experimental-loader=ts-node/esm"
-  ],
-  "exit": true
+  "watch": false,
+  "exit": true,
+  "unhandled-rejections": "strict"
 }

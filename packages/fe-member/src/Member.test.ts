@@ -87,8 +87,7 @@ describe(`${fn()}: create`, function () {
   });
 
   it('should return a newly constructed Member object with id supplied by param', function () {
-    const objIdString = "303030303030303030303031"
-      ;
+    const objIdString = "303030303030303030303031";
 
     const result = Member.create(objIdString);
 

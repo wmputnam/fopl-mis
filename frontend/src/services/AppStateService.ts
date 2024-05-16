@@ -28,7 +28,7 @@ export const getTestViewState = (): AppState => (
 
 
 // setListFilter
-const setListFilterAction = (oldState: AppState, newFilter: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const setListFilterAction = (oldState: AppState, newFilter: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "UPDATE_LIST_FILTER",
     state: oldState,
@@ -42,7 +42,7 @@ export const setListFilter = (oldState: AppState, newFilter: string, setAppState
 
 
 // clearListFilter
-const clearListFilterAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const clearListFilterAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "CLEAR_LIST_FILTER",
     state: oldState,
@@ -54,7 +54,7 @@ export const clearListFilter = (oldState: AppState, setAppState: React.Dispatch<
   dispatch(clearListFilterAction(oldState, setAppState));
 
 // setMemberid
-const setMemberIdAction = (oldState: AppState, member_id: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const setMemberIdAction = (oldState: AppState, member_id: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "SET_MEMBER_ID",
     state: oldState,
@@ -67,7 +67,7 @@ export const setMemberId = (oldState: AppState, member_id: string, setAppState: 
   dispatch(setMemberIdAction(oldState, member_id, setAppState));
 
 // clearMemberId
-const clearMemberIdAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const clearMemberIdAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "CLEAR_MEMBER_ID",
     state: oldState,
@@ -79,7 +79,7 @@ export const clearMemberId = (oldState: AppState, setAppState: React.Dispatch<Re
   dispatch(clearMemberIdAction(oldState, setAppState));
 
 // setView
-const setViewAction = (oldState: AppState, view: MemberViewStates, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const setViewAction = (oldState: AppState, view: MemberViewStates, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "SET_VIEW",
     state: oldState,
@@ -92,7 +92,7 @@ export const setView = (oldState: AppState, view: MemberViewStates, setAppState:
   dispatch(setViewAction(oldState, view, setAppState));
 
 // pushdView
-const pushViewAction = (oldState: AppState, view: MemberViewStates, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const pushViewAction = (oldState: AppState, view: MemberViewStates, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "PUSH_VIEW",
     state: oldState,
@@ -105,7 +105,7 @@ export const pushView = (oldState: AppState, view: MemberViewStates, setAppState
   dispatch(pushViewAction(oldState, view, setAppState));
 
 // pushdViewWithMemberId
-const pushdViewWithMemberIdAction = (oldState: AppState, view: MemberViewStates, member_id: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const pushdViewWithMemberIdAction = (oldState: AppState, view: MemberViewStates, member_id: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "PUSH_VIEW_WITH_MEMBERID",
     state: oldState,
@@ -119,7 +119,7 @@ export const pushViewWithMemberId = (oldState: AppState, view: MemberViewStates,
   dispatch(pushdViewWithMemberIdAction(oldState, view, member_id, setAppState));
 
 // popView
-const popViewAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const popViewAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "POP_VIEW",
     state: oldState,
@@ -131,7 +131,7 @@ export const popView = (oldState: AppState, setAppState: React.Dispatch<React.Se
   dispatch(popViewAction(oldState, setAppState));
 
 // clearMemberAndPopView
-const clearMemberAndPopViewAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+export const clearMemberAndPopViewAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
   {
     type: "CLEAR_MEMBER_POP_VIEW",
     state: oldState,
@@ -143,7 +143,7 @@ export const clearMemberAndPopView = (oldState: AppState, setAppState: React.Dis
   dispatch(clearMemberAndPopViewAction(oldState, setAppState));
 
 // openModal
-const openModalForMemberTaskAction = (
+export const openModalForMemberTaskAction = (
   oldState: AppState,
   member_id: string,
   modal_action: (s: string) => any,
@@ -324,3 +324,14 @@ const setNewMemberOrientedStatus = async (memberId: string) => {
   // const memberId = recordId;
   await MemberService.updateIsNewMemberInDatabase(memberId)
 }
+
+// closeModal
+export const closeModalAction = (
+  oldState: AppState,
+  setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+  {
+    type: "CLOSE_MODAL",
+    state: oldState,
+    setter: setAppState,
+  } as const
+);

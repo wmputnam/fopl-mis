@@ -14,7 +14,7 @@ export class Status implements IStatus {
   isNewMember: boolean;
   constructor() {
     this.isActive = false;
-    console.log(`Status class constructor setting postMail to false`)
+    // console.log(`Status class constructor setting validPostMail to "none"`)
     this.validPostMail = "none";
     this.validEmail = 'unchecked';
     this.newsletterType = 'none';
@@ -27,6 +27,6 @@ export default Status;
 // new member
 // Status.isActive = true
 // Status.isNew = true
-// Status.validPostMail = true
+// Status.validPostMail = 'none'
 // Status.validEmail = 'unchecked'
 // Status.newletterType = 'post'

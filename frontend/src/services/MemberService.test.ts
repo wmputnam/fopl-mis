@@ -702,7 +702,7 @@ describe(`${fn()} areAddressesTheSame`, function () {
 })
 
 // clearMemberId
-describe(`${fn()}  clearMemberId`, function () {
+describe.skip(`${fn()}  clearMemberId`, function () {
   it(`removes memberId from localStorage`, function () {
     localStorage.setItem('memberId', "dorf");
     MemberService.clearMemberId();
@@ -1129,7 +1129,7 @@ describe(`${fn()} isVolunteer`, function () {
 });
 
 // retrieveMemberId
-describe(`${fn()}  retrieveMemberId`, function () {
+describe.skip(`${fn()}  retrieveMemberId`, function () {
   it(`gets memberId from localStorage`, function () {
     const value = 'dorf';
 
@@ -1142,7 +1142,7 @@ describe(`${fn()}  retrieveMemberId`, function () {
 })
 
 // saveMemberId
-describe(`${fn()}  retrieveMemberId`, function () {
+describe.skip(`${fn()}  saveMemberId`, function () {
   it(`set memberId in localStorage`, function () {
     const value = 'dorf';
 

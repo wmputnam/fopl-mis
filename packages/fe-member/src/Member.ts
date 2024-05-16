@@ -287,7 +287,7 @@ export class Member {
    */
   _dataEntryErrors: Array<FormError> = [];
   set dataEntryErrors(value: any) {
-    console.log(value);
+    // console.log(value);
     this._dataEntryErrors = value;
   }
   public findError(targetField: string) {
@@ -381,6 +381,9 @@ export class Member {
       }
       if (value.newsletterType !== undefined) {
         this._status.newsletterType = value.newsletterType;
+      }
+      if (value.isNewMember !== undefined) {
+        this._status.isNewMember = value.isNewMember;
       }
     }
   }

@@ -214,58 +214,59 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
     expect(result.length).to.be.equal(10);
     // jscpd:ignore-end
   });
-  //reducePhoneForMemberList
-  describe(`${fn()}: reducePhoneForMemberList`, function () {
+});
+//reducePhoneForMemberList
+describe(`${fn()}: reducePhoneForMemberList`, function () {
 
-    it('should return provided number when it has format AC-PRE-LINE', function () {
-      const result = MembersListRowFormatter.reducePhoneForMemberList({
-        mmb: 'LM',
-        firstName: 'Billy',
-        lastName: 'Budd',
-        phone: '707-555-1212'
-      });
-      expect(result).to.be.equal('707-555-1212');
+  it('should return provided number when it has format AC-PRE-LINE', function () {
+    const result = MembersListRowFormatter.reducePhoneForMemberList({
+      mmb: 'LM',
+      firstName: 'Billy',
+      lastName: 'Budd',
+      phone: '707-555-1212'
     });
-
-    it('should return provided phone when given AC-PRE-LINE and then cruft', function () {
-      const result = MembersListRowFormatter.reducePhoneForMemberList({
-        lastUpdated: new Date(),
-        firstName: 'Billy',
-        lastName: 'Budd',
-        phone: '415-555-1212m'
-      });
-      expect(result).to.be.equal('415-555-1212');
-    });
-
-    it('should return provided phone when given +1 AC-PRE-LINE', function () {
-      const result = MembersListRowFormatter.reducePhoneForMemberList({
-        lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
-        firstName: 'Billy',
-        lastName: 'Budd',
-        phone: '+1 201-555-1212'
-      });
-      expect(result).to.be.equal('201-555-1212');
-    });
-
-    it.only('should return provided phone when given PRE-LINE', function () {
-      const result = MembersListRowFormatter.reducePhoneForMemberList({
-        lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
-        firstName: 'Billy',
-        lastName: 'Budd',
-        phone: '555-1212'
-      });
-      expect(result).to.be.equal('555-1212');
-    });
-
-    it('should return first 12 chars of provided date string when lastUpdated is a string', function () {
-      const result = MembersListRowFormatter.reducePhoneForMemberList({
-        lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
-        firstName: 'Billy',
-        lastName: 'Budd',
-        phone: '011 23 555 1212'
-      });
-      expect(result.length).to.be.equal('011 23 555 1212');
-    });
-
+    expect(result).to.be.equal('707-555-1212');
   });
+
+  it('should return provided phone when given AC-PRE-LINE and then cruft', function () {
+    const result = MembersListRowFormatter.reducePhoneForMemberList({
+      lastUpdated: new Date(),
+      firstName: 'Billy',
+      lastName: 'Budd',
+      phone: '415-555-1212m'
+    });
+    expect(result).to.be.equal('415-555-1212');
+  });
+
+  it('should return provided phone when given +1 AC-PRE-LINE', function () {
+    const result = MembersListRowFormatter.reducePhoneForMemberList({
+      lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
+      firstName: 'Billy',
+      lastName: 'Budd',
+      phone: '+1 201-555-1212'
+    });
+    expect(result).to.be.equal('201-555-1212');
+  });
+
+  it('should return provided phone when given PRE-LINE', function () {
+    const result = MembersListRowFormatter.reducePhoneForMemberList({
+      lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
+      firstName: 'Billy',
+      lastName: 'Budd',
+      phone: '555-1212'
+    });
+    expect(result).to.be.equal('555-1212');
+  });
+
+  it('should return provided phone when phone is outide US', function () {
+    const result = MembersListRowFormatter.reducePhoneForMemberList({
+      lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
+      firstName: 'Billy',
+      lastName: 'Budd',
+      phone: '011 23 555 1212'
+    });
+    expect(result.length).to.be.equal('011 23 555 1212'.length);
+    expect(result).to.be.equal('011 23 555 1212');
+  });
+
 });
