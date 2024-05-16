@@ -4,7 +4,7 @@
     "src/CompareMembers.ts",
     "src/FormError.ts",
     "src/index.ts",
-    // "src/Member.test.ts",
+    "src/Member.test.ts",
     "src/Member.ts",
     "src/Status.ts"
   ],

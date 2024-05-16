@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "build": "tsc --build",
-    "clean":"tsc --build --clean",
+    "clean": "tsc --build --clean",
     "lint": "tsc -noEmit",
-    "nop":"echo `Nope. Not today."
+    "test": "mocha ./src/**/*.ts",
+    "nop": "echo `Nope. Not today."
   },
   "keywords": [],
   "author": "",

@@ -385,6 +385,7 @@ describe(`${fn()}: toIMember`, function () {
 
   it('should return an IMember (DTO) with same MMB for the Member object when value is "VOL"', function () {
     const testMember: Member = getTestMember();
+    testMember.mmb = "VOL";
 
     const testImember = testMember.toIMember()
 
