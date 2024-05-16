@@ -1,5 +1,6 @@
 import React from "react";
 import { type FrontendProps, MemberViewStates } from "../interfaces";
+import { pushView } from "src/services";
 
 
 
@@ -7,14 +8,16 @@ export const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) =>
 
     const handleNewClick = (): any => {
         console.log(`new member`);
-        const newFromViewState = getAppState().fromViewState;
-        newFromViewState.push(getAppState().viewState);
+        pushView(getAppState(), MemberViewStates.new,setAppState);
 
-        setAppState((oldState: any) => ({
-            ...oldState,
-            viewState: MemberViewStates.new,
-            fromViewState: newFromViewState
-        }));
+        // const newFromViewState = getAppState().fromViewState;
+        // newFromViewState.push(getAppState().viewState);
+
+        // setAppState((oldState: any) => ({
+        //     ...oldState,
+        //     viewState: MemberViewStates.new,
+        //     fromViewState: newFromViewState
+        // }));
     }
 
     return (

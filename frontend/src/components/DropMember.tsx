@@ -1,7 +1,8 @@
 import React from "react";
 import { CancelBtn } from "./CancelBtn";
 import { AppState } from "../interfaces";
-import { MemberViewStates } from "../interfaces";
+// import { MemberViewStates } from "../interfaces";
+// import { clearMemberAndPopView } from "src/services";
 
 export interface DropMemberProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;
@@ -11,19 +12,20 @@ export interface DropMemberProps {
 export const DropMember = ({ getAppState, setAppState }: DropMemberProps): any => {
     const memberId = getAppState && getAppState().memberId;
 
-    function updViewState() {
-        const newFromViewState = getAppState().fromViewState;
-        newFromViewState.pop();
+    // function updViewState() {
+        // clearMemberAndPopView(getAppState(), setAppState)
+        // const newFromViewState = getAppState().fromViewState;
+        // newFromViewState.pop();
 
-        setAppState((oldState: any) => ({
-            ...oldState,
-            viewState: MemberViewStates.list,
-            memberId: "",
-            fromViewState: newFromViewState
-        }));
-    }
+        // setAppState((oldState: any) => ({
+        //     ...oldState,
+        //     viewState: MemberViewStates.list,
+        //     memberId: "",
+        //     fromViewState: newFromViewState
+        // }));
+    // }
     const handleClick = () => {
-        updViewState()
+        // updViewState()
         // if (updateCurrentMember) updateCurrentMember("")
     }
     return (

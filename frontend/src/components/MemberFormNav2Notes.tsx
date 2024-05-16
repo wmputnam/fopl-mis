@@ -1,17 +1,19 @@
 import React from "react";
 import { type FrontendProps, MemberViewStates } from "../interfaces";
+import { pushView } from "src/services";
 
 export function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps): any {
 
     // jscpd:ignore-start
     function updViewState() {
-        const newFromViewState = getAppState().fromViewState;
-        newFromViewState.push(getAppState().viewState);
-        setAppState((oldState: any) => ({
-            ...oldState,
-            viewState: MemberViewStates.notes,
-            fromViewState: newFromViewState
-        }));
+        pushView(getAppState(),MemberViewStates.notes,setAppState);
+        // const newFromViewState = getAppState().fromViewState;
+        // newFromViewState.push(getAppState().viewState);
+        // setAppState((oldState: any) => ({
+        //     ...oldState,
+        //     viewState: MemberViewStates.notes,
+        //     fromViewState: newFromViewState
+        // }));
     }
     // jscpd:ignore-end
 

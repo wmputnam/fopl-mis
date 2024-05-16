@@ -6,7 +6,17 @@ import { MemberRowData } from "./MemberRowData";
 import { MemberService } from "./MemberService";
 import { Status } from "./Status";
 import { isEmptyObject } from "./ObjectUtils";
-//"./TestHelpers"
+import {
+  setListFilter,
+  clearListFilter,
+  setMemberId,
+  clearMemberId,
+  setView,
+  pushView,
+  pushdViewWithMemberId,
+  popView,
+  clearMemberAndPopView,
+} from './AppStateService'
 
 export {
   AppConfig,
@@ -18,5 +28,14 @@ export {
   MemberDocumentService,
   MemberRowData,
   MemberService,
-  Status
+  Status,
+  setListFilter,
+  clearListFilter,
+  setMemberId,
+  clearMemberId,
+  setView,
+  pushView,
+  pushdViewWithMemberId,
+  popView,
+  clearMemberAndPopView,
 }

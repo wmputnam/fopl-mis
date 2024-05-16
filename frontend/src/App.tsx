@@ -20,8 +20,20 @@ import {
   VolunteerRoleMultiselect,
   StateDropdown
 } from "./components";
-import { getInitialViewState, getTestViewState, MemberService,isEmptyObject } from "./services";
+import {
+  MemberService,
+  getInitialViewState,
+  getTestViewState,
+  setListFilter,
+  clearListFilter,
+  setMemberId,
+  clearMemberId,
+  setView,
+  pushView,
+  popView,
+} from "./services";
 import { AppState, MemberViewStates, onRenderCallback } from "./interfaces";
+// import { setListFilter } from './services/AppStateService';
 
 // export interface AppState {
 //   memberId: string;
@@ -96,15 +108,17 @@ export default function App({ testMode }: AppProps): JSX.Element {
   const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
   const updateListFilter = (filter?: string) => {
     if (filter) {
-      setAppState((oldState: any) => ({
-        ...oldState,
-        listViewFilter: filter
-      }));
+      setListFilter(appState,filter,setAppState);
+      // setAppState((oldState: any) => ({
+      //   ...oldState,
+      //   listViewFilter: filter
+      // }));
     } else {
-      setAppState((oldState: any) => ({
-        ...oldState,
-        listViewFilter: ""
-      }));
+      clearListFilter(appState,setAppState);
+      // setAppState((oldState: any) => ({
+      //   ...oldState,
+      //   listViewFilter: ""
+      // }));
     }
   }
   const componentDidMount = () => {
@@ -127,6 +141,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
     case MemberViewStates.list:
       console.log("in the list entry -- expected in normal mode")
       MemberService.clearMemberId();
+      // clearMemberId(appState);
       component =
         <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <MemberList

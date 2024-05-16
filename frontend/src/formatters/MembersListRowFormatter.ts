@@ -88,7 +88,7 @@ export class MembersListRowFormatter {
   static reduceJoinedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.joined !== undefined) {
       let computedType: string = ({}).toString.call(m.joined).toLowerCase();
-      console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
+      // console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
       if (computedType === '[object date]') {
         return m.joined.toISOString().substring(0, 10);
       } else if (computedType === '[object string]') {
@@ -104,7 +104,7 @@ export class MembersListRowFormatter {
   static reduceLastUpdatedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.lastUpdated !== undefined) {
       let computedType: string = ({}).toString.call(m.lastUpdated).toLowerCase();
-      console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);
+      // console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);
       if (computedType === '[object date]') {
         return m.lastUpdated.toISOString().substring(0, 10);
       } else if (computedType === '[object string]') {
@@ -129,7 +129,7 @@ export class MembersListRowFormatter {
        *   NA line
        */
       const parsedPhone = MembersListRowFormatter.parsePhone(m.phone);
-      console.log(`itu code: ${parsedPhone.ituCode}, ac:${parsedPhone.naAreaCode}, pre:${parsedPhone.naPrefix}, line:${parsedPhone.naLine}, oth:${parsedPhone.phOther}`)
+      // console.log(`itu code: ${parsedPhone.ituCode}, ac:${parsedPhone.naAreaCode}, pre:${parsedPhone.naPrefix}, line:${parsedPhone.naLine}, oth:${parsedPhone.phOther}`)
       if (parsedPhone.ituCode) {
         switch (parsedPhone.ituCode) {
           case "NA":
@@ -144,7 +144,7 @@ export class MembersListRowFormatter {
         }
       }
     }
-    console.log(`returning phone ${displayPhone}`)
+    // console.log(`returning phone ${displayPhone}`)
     return displayPhone;
   }
 

@@ -5,9 +5,9 @@ import { CancelBtn } from "./CancelBtn";
 import { Save } from "./DataUpdater";
 import SaveBtn from "./SaveBtn";
 
-import { AppState } from "../interfaces";
+// import { AppState } from "../interfaces";
 import { onRenderCallback } from "../interfaces";
-import { isEmptyObject } from "../services";
+import { clearMemberAndPopView, isEmptyObject } from "../services";
 import { EditProps } from "./EditMember";
 import { getServerUrl } from "../services";
 import { IMemberDocument, IVolunteer } from "member-document";
@@ -164,17 +164,18 @@ export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Ele
             savRes && console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
             if ([200, 201, 204].includes(savRes.status)) {
               // clearFieldChangesWithSaves();
-              console.log("successful save")
-              const newFromViewState = getAppState().fromViewState;
-              const returnToViewState = newFromViewState.pop();
-              setAppState((oldState: AppState) => ({
-                ...oldState,
-                viewState: returnToViewState
-                  ? returnToViewState
-                  : MemberViewStates.list,
-                fromViewState: [...newFromViewState],
-                memberId: ""
-              }));
+              console.log("successful save");
+              clearMemberAndPopView(getAppState(),setAppState);
+              // const newFromViewState = getAppState().fromViewState;
+              // const returnToViewState = newFromViewState.pop();
+              // setAppState((oldState: AppState) => ({
+              //   ...oldState,
+              //   viewState: returnToViewState
+              //     ? returnToViewState
+              //     : MemberViewStates.list,
+              //   fromViewState: [...newFromViewState],
+              //   memberId: ""
+              // }));
             } else {
               let errArr = new Array<FormError>();
               errArr.push({ target: "any", message: savRes?.body?.error, level: "error" }); // TODO -- process this array

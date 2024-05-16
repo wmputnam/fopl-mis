@@ -1,7 +1,7 @@
 import React from "react";
 import { AppState } from "../interfaces";
 import { MemberViewStates } from "../interfaces";
-import { MemberService } from "../services";
+import { MemberService, pushdViewWithMemberId } from "../services";
 export type MemberListRowMenuProps = {
   recordId: string;
   mmb: string;
@@ -10,11 +10,11 @@ export type MemberListRowMenuProps = {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
 
-const getNewFromState = (getAppState: () => any) => {
-  const newFromViewState = getAppState().fromViewState;
-  newFromViewState.push(getAppState().viewState);
-  return newFromViewState;
-}
+// const getNewFromState = (getAppState: () => any) => {
+//   const newFromViewState = getAppState().fromViewState;
+//   newFromViewState.push(getAppState().viewState);
+//   return newFromViewState;
+// }
 
 
 export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
@@ -24,44 +24,48 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleEditClick = (): any => {
     console.log(`edit member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      viewState: MemberViewStates.edit,
-      fromViewState: getNewFromState(getAppState)
-    }));
+    pushdViewWithMemberId(getAppState(), MemberViewStates.edit, recordId,setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   viewState: MemberViewStates.edit,
+    //   fromViewState: getNewFromState(getAppState)
+    // }));
   }
 
   const handleRenewClick = (): any => {
     console.log(`renew ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      viewState: MemberViewStates.renew,
-      fromViewState: getNewFromState(getAppState)
-    }));
+    pushdViewWithMemberId(getAppState(), MemberViewStates.renew, recordId, setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   viewState: MemberViewStates.renew,
+    //   fromViewState: getNewFromState(getAppState)
+    // }));
   }
 
   const handleMoneyClick = (): any => {
     console.log(`view remittances for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      viewState: MemberViewStates.money,
-      fromViewState: getNewFromState(getAppState)
-    }));
+    pushdViewWithMemberId(getAppState(), MemberViewStates.money, recordId, setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   viewState: MemberViewStates.money,
+    //   fromViewState: getNewFromState(getAppState)
+    // }));
   }
   const handleNotesClick = (): any => {
     console.log(`view remittances for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      memberId: recordId,
-      viewState: MemberViewStates.notes,
-      fromViewState: getNewFromState(getAppState)
-    }));
+    pushdViewWithMemberId(getAppState(), MemberViewStates.notes, recordId, setAppState);
+    // setAppState((oldState: AppState) => ({
+    //   ...oldState,
+    //   memberId: recordId,
+    //   viewState: MemberViewStates.notes,
+    //   fromViewState: getNewFromState(getAppState)
+    // }));
   }
 
   const handleDropClick = (): any => {
