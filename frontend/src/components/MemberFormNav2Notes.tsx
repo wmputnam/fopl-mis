@@ -7,13 +7,6 @@ export function MemberFormNav2Notes({ setAppState, getAppState }: FrontendProps)
     // jscpd:ignore-start
     function updViewState() {
         pushView(getAppState(),MemberViewStates.notes,setAppState);
-        // const newFromViewState = getAppState().fromViewState;
-        // newFromViewState.push(getAppState().viewState);
-        // setAppState((oldState: any) => ({
-        //     ...oldState,
-        //     viewState: MemberViewStates.notes,
-        //     fromViewState: newFromViewState
-        // }));
     }
     // jscpd:ignore-end
 

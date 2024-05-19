@@ -7,7 +7,7 @@ import MemberFormNav2Notes from "./MemberFormNav2Notes";
 const toCapitalCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const MemberFormHeader = ({ getAppState, setAppState }: FrontendProps) => {
-  const memberId = getAppState().memberId; // MemberService.retrieveMemberId();
+  const memberId = getAppState().memberId; 
   const pageTitle = toCapitalCase(getAppState().viewState.toString())
 
   return (

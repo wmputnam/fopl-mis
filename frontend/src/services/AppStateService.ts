@@ -5,8 +5,8 @@ import { MemberService } from './MemberService';
 export const getInitialViewState = (): AppState => (
   {
     memberId: "",
-    viewState: MemberViewStates.list,
-    fromViewState: [],
+    // viewState: MemberViewStates.list,
+    viewStateStack: [MemberViewStates.list],
     listViewFilter: "",
     modalIsOpen: false,
     modalMessage: "",
@@ -17,8 +17,8 @@ export const getInitialViewState = (): AppState => (
 export const getTestViewState = (): AppState => (
   {
     memberId: "",
-    viewState: MemberViewStates.test,
-    fromViewState: [],
+    // viewState: MemberViewStates.test,
+    viewStateStack: [MemberViewStates.test],
     listViewFilter: "",
     modalIsOpen: false,
     modalMessage: "",
@@ -250,7 +250,7 @@ const dispatch = (action: AppStateAction) => {
       action.setter((oldState: any) => ({
         ...oldState,
         viewState: action.view,
-        fromViewState: []
+        viewStateStack: [action.view]
       }));
       break;
     case "PUSH_VIEW":
@@ -258,13 +258,13 @@ const dispatch = (action: AppStateAction) => {
       const memberIdToUse = action.type === "PUSH_VIEW"
         ? action.state.memberId
         : action.member_id;
-      const newViewStack = action.state.fromViewState;
-      newViewStack.push(action.state.viewState);
+      const newViewStack = action.state.viewStateStack;
+      newViewStack.unshift(action.view);
       action.setter((oldState: any) => ({
         ...oldState,
         memberId: memberIdToUse,
         viewState: action.view,
-        fromViewState: newViewStack
+        viewStateStack: newViewStack
       }));
       break;
     }
@@ -273,12 +273,12 @@ const dispatch = (action: AppStateAction) => {
       const memberIdToUse = action.type === "POP_VIEW"
         ? action.state.memberId
         : "";
-      const newViewStack = action.state.fromViewState;
-      const newView = newViewStack.pop();
+      const newViewStack = action.state.viewStateStack;
+      const newView = newViewStack.shift();
       action.setter((oldState: any) => ({
         ...oldState,
         viewState: newView,
-        fromViewState: newViewStack,
+        viewStateStack: newViewStack,
         memberId: memberIdToUse
       }));
       break;

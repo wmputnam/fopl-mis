@@ -4,7 +4,6 @@ import { fetchReport } from "./ReportLoader";
 import { getServerUrl } from "../services";
 import { IVolunteer } from "member-document";
 
-// type SaveBtnProps = { updateCurrentMember: (x: any) => any }
 export function NewMemberReport(): any {
 
   const headerLine = '"Name","Email","MMB","Volunteer","Phone","Joined","Updated"';

@@ -16,10 +16,11 @@ import {
   openModalForMemberTaskAction,
   closeModalAction
 } from "./AppStateService"
-import { MemberViewStates, type AppState } from "src/interfaces";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { MemberViewStates } from "src/interfaces";
 
 
-const __filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url);
 
 const fn = () => `${__filename.split('/').pop()}`;
 
@@ -31,9 +32,9 @@ describe(`${fn()}: getInitialViewState`, function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result.memberId).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(result.viewState).to.not.be.undefined;
+    expect(result.viewStateStack[0]).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(result.fromViewState).to.not.be.undefined;
+    expect(result.viewStateStack).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result.listViewFilter).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions

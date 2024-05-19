@@ -48,7 +48,6 @@ const formatPadded = (amount: string): { wholePart: string, leadingSpaces: strin
     if (amount.indexOf('.') > -1) {
         const parts = amount.split('.');
         const { wholePart, leadingSpaces } = formatWhole(parts[0]);
-        // const amtValue = Number(amount);
         return {
             wholePart: `${wholePart}.${parts[1].substring(0, 2)}`,
             leadingSpaces: leadingSpaces

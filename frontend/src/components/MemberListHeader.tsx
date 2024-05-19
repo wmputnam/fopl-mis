@@ -9,15 +9,6 @@ export const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) =>
     const handleNewClick = (): any => {
         console.log(`new member`);
         pushView(getAppState(), MemberViewStates.new,setAppState);
-
-        // const newFromViewState = getAppState().fromViewState;
-        // newFromViewState.push(getAppState().viewState);
-
-        // setAppState((oldState: any) => ({
-        //     ...oldState,
-        //     viewState: MemberViewStates.new,
-        //     fromViewState: newFromViewState
-        // }));
     }
 
     return (

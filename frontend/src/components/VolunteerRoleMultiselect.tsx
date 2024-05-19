@@ -96,7 +96,6 @@ export const resultingOptionsChange = (oldOpts: SelectOption[], newOpts: SelectO
           const newArrRes = new Array(...oldOpts);
           newArrRes.push(newOption);
           return newArrRes;
-          // break;
         } else return oldOpts;
       }
     }
@@ -116,7 +115,6 @@ export const resultingOptionsChange = (oldOpts: SelectOption[], newOpts: SelectO
     }
   }
   return oldOpts;
-  // as MultiValue<SelectOption>);
 }
 
 const valuesArrayForCaller = (selectedOption: SelectOption[]): String[] => {
@@ -143,14 +141,11 @@ export function VolunteerRoleMultiselect(props: any) {
       setSelectedOption((oldOptions: SelectOption[]) => {
         const newOpts = resultingOptionsChange(oldOptions, optionArr);
         return newOpts;
-      }); // as MultiValue<SelectOption>);
+      }); 
     }
   }
 
   React.useEffect(() => {
-    // if (props.onChange && typeof props.onChange == 'function') {
-    //   props.onChange({ target: { id: id, value: [...valuesArr] } });
-    // }
     if (props.handleChange && typeof props.handleChange === 'function') {
       const valuesArr = valuesArrayForCaller(selectedOption);
       console.log(`{ target: { id: ${id}, value: [${[...valuesArr]}] } }`)

@@ -7,13 +7,6 @@ export function CancelBtn({ getAppState, setAppState }: FrontendProps): any {
 
     function updViewState() {
         popView(getAppState(),setAppState)
-        // const newFromViewState = getAppState().fromViewState;
-        // const returnToViewState = newFromViewState.pop();
-        // setAppState((oldState: any) => ({
-        //     ...oldState,
-        //     viewState: returnToViewState,
-        //     fromViewState: newFromViewState
-        // }));
     }
     return (
         <button

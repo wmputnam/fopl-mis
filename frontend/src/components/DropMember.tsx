@@ -1,8 +1,6 @@
 import React from "react";
 import { CancelBtn } from "./CancelBtn";
 import { AppState } from "../interfaces";
-// import { MemberViewStates } from "../interfaces";
-// import { clearMemberAndPopView } from "src/services";
 
 export interface DropMemberProps {
     setAppState: React.Dispatch<React.SetStateAction<AppState>>;

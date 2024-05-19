@@ -5,7 +5,7 @@ import { AppState } from "../interfaces";
 export interface RecordIdProps {
   recordId?: string;
   _id?: string;
-  lastUpdated?: string;   // the database record identifier
+  lastUpdated?: string;  
 }
 export interface PersonBaseProps {
   lastName?: string;
@@ -59,13 +59,7 @@ export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, Curr
   paidThroughString: string;
   mode: string;
 };
-// address:string;
-// phone:string;
-// email:string;
-// paidThrough:string;
-// mmb:string;
-// updateCurrent:(values:any) => undefined;
-// }
+
 export interface FrontendProps {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
   getAppState: () => any;

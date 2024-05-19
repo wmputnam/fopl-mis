@@ -5,7 +5,6 @@ import { CancelBtn } from "./CancelBtn";
 import { Save } from "./DataUpdater";
 import SaveBtn from "./SaveBtn";
 
-// import { AppState } from "../interfaces";
 import { onRenderCallback } from "../interfaces";
 import { clearMemberAndPopView, isEmptyObject } from "../services";
 import { EditProps } from "./EditMember";
@@ -94,7 +93,7 @@ const replacerFunc = () => {
 export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Element => {
 
   const memberId = getAppState().memberId;
-  const mode = getAppState().viewState;
+  const mode = getAppState().viewStateStack[0];
   console.log(`url: /members/${memberId}`);
   const [{ data, error, loading }] = useAxios<IMemberDocument[]>(
     { baseURL: getServerUrl(), url: `/members/${memberId}` }, { manual: false, useCache: false }
@@ -147,7 +146,6 @@ export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Ele
         if (!memberObj.volunteerPreferences) {
           memberObj.volunteerPreferences = Array<IVolunteer>();
         }
-        // memberObj.volunteerPreferences.push({ role: 'NEW' })
       }
       //  memberObj object is not quite ready for commit -- postUnjournalledRemits makes final changes
       //  - putting entered remits into the remittances array
@@ -163,19 +161,8 @@ export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Ele
           .then((savRes) => {
             savRes && console.log(`member-form--handlesave status -- ${savRes.status}, errors: ${savRes?.body?.error}`)
             if ([200, 201, 204].includes(savRes.status)) {
-              // clearFieldChangesWithSaves();
               console.log("successful save");
-              clearMemberAndPopView(getAppState(),setAppState);
-              // const newFromViewState = getAppState().fromViewState;
-              // const returnToViewState = newFromViewState.pop();
-              // setAppState((oldState: AppState) => ({
-              //   ...oldState,
-              //   viewState: returnToViewState
-              //     ? returnToViewState
-              //     : MemberViewStates.list,
-              //   fromViewState: [...newFromViewState],
-              //   memberId: ""
-              // }));
+              clearMemberAndPopView(getAppState(), setAppState);
             } else {
               let errArr = new Array<FormError>();
               errArr.push({ target: "any", message: savRes?.body?.error, level: "error" }); // TODO -- process this array
@@ -226,7 +213,6 @@ export const MemberFormBase = ({ getAppState, setAppState }: EditProps): JSX.Ele
         </form>
 
       </>);
-    // console.log(JSON.stringify(pageComponents, replacerFunc()));
     return pageComponents;
   } else {
     return <p>Error! Should never reach here</p>

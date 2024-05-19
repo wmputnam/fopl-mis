@@ -1,11 +1,11 @@
 import { MemberViewStates } from '.';
 export interface AppState {
   memberId: string;
-  viewState: MemberViewStates;
-  fromViewState: MemberViewStates[];
+  // viewState: MemberViewStates;
+  viewStateStack: MemberViewStates[];
   listViewFilter?: string;
   modalIsOpen: boolean;
   modalMessage: string;
-  modalAction: (s:string) => any;
+  modalAction: (s: string) => any;
   modalRoot: () => any;
 }

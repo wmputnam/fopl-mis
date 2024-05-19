@@ -4,7 +4,7 @@ import { MemberFormBase } from "./MemberFormBase";
 import { AppState } from "../interfaces";
 
 export interface EditProps {
-    setAppState: React.Dispatch<React.SetStateAction<AppState>>; //React.Dispatch<React.SetStateAction<AppState>>
+    setAppState: React.Dispatch<React.SetStateAction<AppState>>; 
     getAppState: () => AppState;
 }
 

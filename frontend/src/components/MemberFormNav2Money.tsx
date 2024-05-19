@@ -7,13 +7,6 @@ export function MemberFormNav2Money({ setAppState, getAppState }: FrontendProps)
     // jscpd:ignore-start
     function updViewState() {
         pushView(getAppState(), MemberViewStates.money, setAppState);
-        // const newFromViewState = getAppState().fromViewState;
-        // newFromViewState.push(getAppState().viewState);
-        // setAppState((oldState: any) => ({
-        //     ...oldState,
-        //     viewState: MemberViewStates.money,
-        //     fromViewState: newFromViewState
-        // }));
     }
     // jscpd:ignore-end
 

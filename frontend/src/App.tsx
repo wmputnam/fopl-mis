@@ -33,62 +33,9 @@ import {
   popView,
 } from "./services";
 import { AppState, MemberViewStates, onRenderCallback } from "./interfaces";
-// import { setListFilter } from './services/AppStateService';
-
-// export interface AppState {
-//   memberId: string;
-//   viewState: MemberViewStates;
-//   fromViewState: MemberViewStates[];
-//   modalIsOpen: boolean;
-//   modalMessage: string;
-//   modalAction: () => any;
-//   modalRoot: () => any;
-//   listViewFilter?: string;
-// }
-
-// export interface RenderCallBackI {
-//   id?: string;
-//   phase?: "mount" | "update" | "nested-update";
-//   actualDuration?: number;
-//   baseDuration?: number;
-//   startTime?: number;
-//   endTime?: number;
-// }
-
-// export const onRenderCallback = (
-//   { id, phase }: Partial<RenderCallBackI>
-// ): void => {
-//   id && phase && console.log(`${id} ${phase}`)
-// }
-
-// export const isEmptyObject = (obj: Object) => {
-//   for (let i in obj) return false;
-//   return true;
-// }
 
 function noOp() { };
 
-// export const getInitialViewState = (): AppState => (
-//   {
-//     memberId: "",
-//     viewState: MemberViewStates.list,
-//     fromViewState: [],
-//     modalIsOpen: false,
-//     modalMessage: "",
-//     modalAction: () => { },
-//     modalRoot: () => document.body,
-//   });
-
-// export const getTestViewState = (): AppState => (
-//   {
-//     memberId: "",
-//     viewState: MemberViewStates.test,
-//     fromViewState: [],
-//     modalIsOpen: false,
-//     modalMessage: "",
-//     modalAction: () => { },
-//     modalRoot: () => document.body,
-//   });
 
 // ***
 interface AppProps {
@@ -128,12 +75,11 @@ export default function App({ testMode }: AppProps): JSX.Element {
   Modal.setAppElement(document.getElementById('root') as HTMLElement);
 
   let component: any;
-  console.log(`App.tsx: current view state is ${appState.viewState}`);
-  switch (appState.viewState) {
+  console.log(`App.tsx: current view state is ${appState.viewStateStack[0]}`);
+  switch (appState.viewStateStack[0]) {
     case MemberViewStates.list:
       console.log("in the list entry -- expected in normal mode")
       MemberService.clearMemberId();
-      // clearMemberId(appState);
       component =
         <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
           <MemberList
@@ -208,19 +154,9 @@ export default function App({ testMode }: AppProps): JSX.Element {
       break;
   }
 
-  // const openModal = () => {
-  //   setAppState((oldState: AppState) => ({
-  //     ...oldState,
-  //     modalIsOpen: true
-  //   }));
-  // };
 
   const openPlayground = () => {
-    setAppState((oldState: AppState) => ({
-      ...oldState,
-      viewState: MemberViewStates.refresh
-    }));
-
+    pushView(appState,MemberViewStates.refresh,setAppState);
   }
 
 
@@ -229,7 +165,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
       <header>
         <AppHeader
           messages={appMessages}
-          showListSearch={appState.viewState === MemberViewStates.list}
+          showListSearch={appState.viewStateStack[0] === MemberViewStates.list}
           updateListFilter={updateListFilter}
           getListFilter={getListFilter} />
       </header>

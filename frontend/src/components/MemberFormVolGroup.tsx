@@ -20,62 +20,6 @@ export const MemberFormVolGroup = (
   setMemberObj: React.Dispatch<React.SetStateAction<Member>>,
   onRenderCallback: ({ id, phase }: Partial<RenderCallBackI>) => void) => {
 
-  // const handleCheckboxClick = (e: any) => {
-  //   console.log(` vol CheckboxClick: target: ${e.target.id}, value: ${e.target.checked}`);
-  //   switch (e.target.id) {
-  //     case "volunteer-preference--book-sale":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceBookSale: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--book-store":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceBookStore: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--hospitality":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceHospitality: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--newsletter":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceNewsletter: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--publicity":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferencePublicity: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--schedule-volunteers":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceScheduleVolunteers: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--sort-books":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceSortBooks: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--fund-raising":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceFundRaising: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--lumacon":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceLumacon: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--mend-books":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceMendBooks: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--pick-up-donations":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferencePickUpDonations: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--price-books":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferencePriceBooks: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--set-up-for-sales":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceSetUpForSales: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--sales-signage":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceSalesSignage: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--stock-book-store":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceStockBookStore: e.target.value } as Partial<Member>)));
-  //       break;
-  //     case "volunteer-preference--other":
-  //       setMemberObj((oldObj) => (oldMemberStateToNew(oldObj, { _volunteerPreferenceOther: e.target.value } as Partial<Member>)));
-  //       break;
-  //   }
-  // }
-
-  // const handleOtherVolFieldChange = (e: any) => {
-  // }
 
   const handleVolunteerRoleChange = (e: any) => {
     if (e.target.id === "volunteer-roles") {

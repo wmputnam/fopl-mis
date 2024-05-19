@@ -186,7 +186,6 @@ export const MemberFormBaseGroup = (
                   htmlFor="state">State</label>
                 <br />
                 {memberObj.state && < StateDropdown
-                  // className='us-states--dropdown'
                   className={"member--state" + (memberActive !== "Active" ? " readonly-input" : "")}
                   stateCode={memberObj.state}
                   id="state"
