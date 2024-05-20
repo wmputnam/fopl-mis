@@ -34,7 +34,7 @@ const getMemberDataParams = (maxRows: number, pageNumber: number, pageFilter: Me
     } else {
       lastNameFilter = "lastName:/^" + pageFilter.lastName.toUpperCase() + "/";
     }
-    result = { ...result, page: 1, filter: lastNameFilter }
+    result = { ...result, filter: lastNameFilter }
   }
   return result;
 }
