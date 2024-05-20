@@ -1,15 +1,15 @@
 import React from "react";
-import { ListSearch } from "./ListSearch";
+// import { ListSearch } from "./ListSearch";
 import { NewMemberReport } from "./NewMemberReport";
 
 export interface AppHeaderProps {
   messages: string[];
-  showListSearch: boolean;
-  updateListFilter: (v?: string) => void;
-  getListFilter: () => string;
+  // showListSearch: boolean;
+  // updateListFilter: (v?: string) => void;
+  // getListFilter: () => string;
 }
 
-export const AppHeader = ({ messages, showListSearch, getListFilter, updateListFilter }: AppHeaderProps) => {
+export const AppHeader = ({ messages /*, showListSearch, getListFilter, updateListFilter */}: AppHeaderProps) => {
 
   let messageElements;
   if (messages) {
@@ -43,9 +43,9 @@ export const AppHeader = ({ messages, showListSearch, getListFilter, updateListF
         </div>
         <div className="app-header--right" data-testid="app-header--right">
           <div className="app-header--right-container" data-testid="app-header--right-container" />
-          {showListSearch && <ListSearch
-            getSearchFilter={getListFilter}
-            updateSearchFilter={updateListFilter} />}
+          {/* { false && showListSearch && <ListSearch */}
+            {/* getSearchFilter={getListFilter()} */}
+            {/* updateSearchFilter={updateListFilter} />} */}
           {<NewMemberReport /> /* TODO make this a reports downdown menu*/}
         </div>
       </div>

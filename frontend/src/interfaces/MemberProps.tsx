@@ -1,11 +1,12 @@
 import { IMemberDocument } from "member-document";
 import { MemberViewStates } from ".";
 import { AppState } from "../interfaces";
+import { MemberListContainerState } from "src/components/MemberListContainer";
 
 export interface RecordIdProps {
   recordId?: string;
   _id?: string;
-  lastUpdated?: string;  
+  lastUpdated?: string;
 }
 export interface PersonBaseProps {
   lastName?: string;
@@ -65,6 +66,31 @@ export interface FrontendProps {
   getAppState: () => any;
 }
 
+
+export interface MemberListContainerProps extends FrontendProps {
+  // getListFilter: () => string
+}
+export interface MemberListHeaderProps extends FrontendProps {
+  pageState: MemberListContainerState;
+  updatePageState: React.Dispatch<React.SetStateAction<MemberListContainerState>>;
+
+}
+/*
+ getAppState={getAppState}
+        setAppState={setAppState}
+        getSearchFilter={getPageFilter}
+        updatePageState={setPageState}*/
+
+
+export interface MemberListFooterProps extends FrontendProps {
+  updatePageState: React.Dispatch<React.SetStateAction<MemberListContainerState>>;
+  pageState: MemberListContainerState;
+
+}
+export interface MemberListProps extends MemberListContainerProps {
+  updatePageState: React.Dispatch<React.SetStateAction<MemberListContainerState>>;
+  pageState: MemberListContainerState;
+}
 export interface ModalFmProps {
   actionMessage: string;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;

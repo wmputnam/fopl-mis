@@ -36,7 +36,7 @@ describe(`${fn()}: getInitialViewState`, function () {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result.viewStateStack).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    expect(result.listViewFilter).to.not.be.undefined;
+    // expect(result.listViewFilter).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(result.modalIsOpen).to.not.be.undefined;
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions

@@ -1,17 +1,23 @@
 import React from "react";
-import { type FrontendProps, MemberViewStates } from "../interfaces";
+import { MemberViewStates } from "../interfaces";
 import { pushView } from "src/services";
+import { ListSearch } from "./ListSearch";
+import { MemberListHeaderProps } from "src/interfaces/MemberProps";
 
 
 
-export const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) => {
-
+export const MemberListHeader = ({ getAppState, setAppState, pageState, updatePageState }: MemberListHeaderProps) => {
+    
     const handleNewClick = (): any => {
         console.log(`new member`);
         pushView(getAppState(), MemberViewStates.new,setAppState);
     }
 
     return (
+        <>
+            <ListSearch
+                pageState={pageState}
+                updatePageState={updatePageState} />
         <div
             className="member-row--header header"
             data-testid="member-row--header">
@@ -38,6 +44,7 @@ export const MemberListHeader = ({ getAppState, setAppState }: FrontendProps) =>
                     title="Add new member"
                     onClick={handleNewClick}>+</button></div>
         </div>
+        </>
     );
 }
 

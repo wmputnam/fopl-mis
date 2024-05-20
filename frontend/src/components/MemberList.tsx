@@ -1,54 +1,69 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import MemberListRow from "./MemberListRow";
-import MemberListHeader from "./MemberListHeader";
-import { type FrontendProps } from "../interfaces";
+import { type MemberListProps } from "../interfaces";
 import { MembersListRowFormatter } from "../formatters";
 import useAxios from "axios-hooks";
-import { getServerUrl } from "../services";
+import { getServerUrl, isEmptyObject } from "../services";
 import { IMemberDocument } from "member-document";
+import { MemberListContainerState } from "./MemberListContainer";
 
 interface MemberListData {
-  data: IMemberDocument[]
+  data: IMemberDocument[];
+  count: number;
 }
 
-const getMemberDataParams = (pageNumber: number, pageFilter: string) => {
-  let result = {};
-  if (pageNumber > 0) {
-    result = { ...result, skip: pageNumber }
-  }
-  if (pageFilter && pageFilter !== "") {
-    result = { ...result, filter: `lastName:${pageFilter.toUpperCase()}` }
-  }
+interface IMemberDataParams {
+  limit: number;
+  page?: number;
+  filter: string;
+}
 
+const getMemberDataParams = (maxRows: number, pageNumber: number, pageFilter: string) => {
+  let result: IMemberDataParams = { limit: maxRows } as IMemberDataParams;
+  if (pageNumber > 1) {
+    result = { ...result, page: pageNumber }
+  }
+  if (pageFilter !== "") {
+    // pageFilter`lastName:${"/" + pageFilter.toUpperCase() + "/"}"` 
+    const lastNameFilter = "lastName:/^" + pageFilter.toUpperCase() + "/";
+    result = { ...result, filter: lastNameFilter }
+  }
   return result;
 }
 
 
 
-export const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
+export const MemberList = ({ getAppState, setAppState, pageState, updatePageState }: MemberListProps) => {
 
-  const [pageNumber, setPageNumber] = React.useState<number>(0);
-  // const [pageFilter,setPageFilter] = React.useState<string>("");
   const memberDataUrl = `/v1/members`;
-  const memberDataParams = getMemberDataParams(pageNumber, getAppState().listViewFilter);
+  const memberDataParams = getMemberDataParams(pageState.maxRows, pageState.pageNumber, pageState.listFilter);
 
   const [{ data, error, loading }] = useAxios<MemberListData>(
     { baseURL: getServerUrl(), url: memberDataUrl, params: memberDataParams }, { manual: false, useCache: false }
 
   );
-  if (loading) return <p>Loading...</p>
+
+  const haveFilter = pageState.listFilter !== undefined;
+
+
+  React.useEffect(() => {
+    console.log(`MemberList: filter is "${pageState.listFilter}"`);
+  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [haveFilter]);
+
+  if (loading || pageState.listFilter === undefined) return <p>Loading...</p>
   if (error) return <p>Error! {error.message}</p>
 
-  const gotoPage = (pageNumber: number) => {
-    setPageNumber(pageNumber);
+  const members = data?.data;
+  const filteredMemberCount = data?.count;
+  const filteredPages = filteredMemberCount ? Math.ceil(filteredMemberCount / pageState.maxRows) : 1;
+
+  if (filteredPages !== pageState.numberOfFilteredPages) {
+    updatePageState((oldState: MemberListContainerState) => ({ ...oldState, numberOfFilteredPages: filteredPages }))
   }
 
-  // const updateFilter = (lastName:string) =>{
-  //   setPageFilter(lastName);
-  // }
-
-  const members = data?.data;
   if (members) {
     let memberElements;
     memberElements = members.map((m) => {
@@ -70,17 +85,14 @@ export const MemberList = ({ getAppState, setAppState }: FrontendProps) => {
 
     return (
       <>
-
-        {!!data && <MemberListHeader
-          getAppState={getAppState}
-          setAppState={setAppState}
-        />}
         {!!data && memberElements}
       </>
     );
   } else {
     return (
-      <p>No members to display</p>
+      <>
+        <p>No member data to display</p>
+      </>
     );
   }
 

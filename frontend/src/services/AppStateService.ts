@@ -7,7 +7,7 @@ export const getInitialViewState = (): AppState => (
     memberId: "",
     // viewState: MemberViewStates.list,
     viewStateStack: [MemberViewStates.list],
-    listViewFilter: "",
+    // listViewFilter: "",
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
@@ -19,7 +19,7 @@ export const getTestViewState = (): AppState => (
     memberId: "",
     // viewState: MemberViewStates.test,
     viewStateStack: [MemberViewStates.test],
-    listViewFilter: "",
+    // listViewFilter: "",
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
@@ -223,6 +223,7 @@ const dispatch = (action: AppStateAction) => {
   console.log(`dispatch type:${action.type}`)
   switch (action.type) {
     case "UPDATE_LIST_FILTER":
+      console.log(`setting member list filter to ${action.newFilter}`)
       action.setter((oldState: any) => ({
         ...oldState,
         viewListFilter: action.newFilter

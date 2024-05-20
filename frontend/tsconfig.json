@@ -28,6 +28,8 @@
     "src/components/MemberFormRemitGroup.tsx",
     "src/components/MemberFormVolGroup.tsx",
     "src/components/MemberList.tsx",
+    "src/components/MemberListContainer.tsx",
+    "src/components/MemberListFooter.tsx",
     "src/components/MemberListHeader.tsx",
     "src/components/MemberListRow.tsx",
     "src/components/MemberListRowMenu.tsx",

@@ -8,12 +8,12 @@ import {
   DropMember,
   EditMember,
   CancelBtn,
-  MemberList,
   NewMember,
   RenewMember,
   AppHeader,
   MemberFormNotes,
   MemberFormMoney,
+  MemberListContainer,
   ModalFM,
   PostMailStatusDropdown,
   EmailStatusDropdown,
@@ -33,6 +33,7 @@ import {
   popView,
 } from "./services";
 import { AppState, MemberViewStates, onRenderCallback } from "./interfaces";
+// import MemberListContainer from './components/MemberListContainer';
 
 function noOp() { };
 
@@ -52,12 +53,12 @@ export default function App({ testMode }: AppProps): JSX.Element {
   }
   const [appState, setAppState] = React.useState<AppState>(initialAppState);
   const getAppState = () => appState;
-  const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
+  // const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
   const updateListFilter = (filter?: string) => {
     if (filter) {
-      setListFilter(appState,filter,setAppState);
+      setListFilter(appState, filter, setAppState);
     } else {
-      clearListFilter(appState,setAppState);
+      clearListFilter(appState, setAppState);
     }
   }
   const componentDidMount = () => {
@@ -68,23 +69,25 @@ export default function App({ testMode }: AppProps): JSX.Element {
     console.log(`feapp: is mounted\n    ${JSON.stringify(appState)}`);
     return (() => console.log(`feapp2: will unmount\n    ${JSON.stringify(appState)}`))
   },
-    [appState])
+    [appState]);
 
   const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
 
   Modal.setAppElement(document.getElementById('root') as HTMLElement);
 
   let component: any;
-  console.log(`App.tsx: current view state is ${appState.viewStateStack[0]}`);
+  console.log(`App.tsx: current view state is "${appState.viewStateStack[0]}"`);
+  // console.log(`App.tsx: list filter is "${appState.listViewFilter}"`);
   switch (appState.viewStateStack[0]) {
     case MemberViewStates.list:
       console.log("in the list entry -- expected in normal mode")
       MemberService.clearMemberId();
       component =
         <Profiler id="App-list" onRender={onRenderCallback as React.ProfilerOnRenderCallback}>
-          <MemberList
+          <MemberListContainer
             setAppState={setAppState}
             getAppState={getAppState}
+            // getListFilter={getListFilter}
           />
         </Profiler>
       break;
@@ -156,7 +159,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
 
 
   const openPlayground = () => {
-    pushView(appState,MemberViewStates.refresh,setAppState);
+    pushView(appState, MemberViewStates.refresh, setAppState);
   }
 
 
@@ -165,9 +168,10 @@ export default function App({ testMode }: AppProps): JSX.Element {
       <header>
         <AppHeader
           messages={appMessages}
-          showListSearch={appState.viewStateStack[0] === MemberViewStates.list}
-          updateListFilter={updateListFilter}
-          getListFilter={getListFilter} />
+          // showListSearch={appState.viewStateStack[0] === MemberViewStates.list}
+          // updateListFilter={updateListFilter}
+          // getListFilter={getListFilter} 
+          />
       </header>
       <main>
         <ModalFM

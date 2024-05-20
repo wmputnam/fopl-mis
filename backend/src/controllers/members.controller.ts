@@ -119,10 +119,8 @@ export class MembersController {
 
   static createFilterObject = (filterQueryParam: string) => {
     const termMap: Map<string, Object> = new Map<string, Object>();
-
     if (filterQueryParam && typeof filterQueryParam === 'string') {
       const items = filterQueryParam.split(",");
-
       let pattern;
       for (let i = 0; i < items.length; i++) {
         if (items[i].indexOf(':') >= 0) {

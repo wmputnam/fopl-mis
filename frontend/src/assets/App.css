@@ -469,10 +469,11 @@ div[class~='volunteer-roles'] {
 
 div[class~='volunteer-roles'] div[class*='control'] {
   background-color: #ebf4f0;
-    border-radius: 1.009em;
-      line-height: 1.2em;
-      font-size: 1.2em;
+  border-radius: 1.009em;
+  line-height: 1.2em;
+  font-size: 1.2em;
 }
+
 .volunteer-roles--container {
   display: flex;
   flex-direction: column;
@@ -584,7 +585,7 @@ div[class~='volunteer-roles'] div[class*='control'] {
 .list-search-container {
   /* border: 1px dashed red; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   ;
 }
@@ -822,7 +823,8 @@ input[type='email'] {
   margin: 0;
 }
 
-.list-search--search-btn, .new-member-report-btn {
+.list-search--search-btn,
+.new-member-report-btn {
   padding: .2em .3em;
   margin: .2em 0 0 0;
   max-width: 100px;
@@ -830,6 +832,23 @@ input[type='email'] {
 
 .list-search--input {
   /* border: 3px dotted dodgerblue; */
-  margin: 0 0 0 0;
+  margin: 0 1em;
   font-size: 1.1em;
+}
+
+.list-footer {
+  /* border: 1px dotted dodgerblue; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.list-footer-page-info {
+  border: 1px solid;
+  padding: .2em .3em;
+}
+
+.list-footer-left-spacer,
+.list-footer-row-spacer {
+  min-width: 10em;
 }
