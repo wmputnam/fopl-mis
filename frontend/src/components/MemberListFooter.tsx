@@ -1,19 +1,20 @@
 import React from "react";
 import { type MemberListFooterProps } from "../interfaces";
+import { setPageNumber } from "src/services";
 
-export const MemberListFooter = ({ getAppState, setAppState, updatePageState, pageState }: MemberListFooterProps) => {
+export const MemberListFooter = ({ pageState, updatePageState }: MemberListFooterProps) => {
 
     const handleStartClick = () => {
-        updatePageState((oldState) => ({ ...oldState, pageNumber: 1 }))
+        setPageNumber(1,pageState,updatePageState);
     };
     const handleBackClick = () => {
-        updatePageState((oldState) => ({ ...oldState, pageNumber: oldState.pageNumber - 1 }))
+        setPageNumber(pageState.pageNumber - 1,pageState,updatePageState);
     };
     const handleNextClick = () => {
-        updatePageState((oldState) => ({ ...oldState, pageNumber: oldState.pageNumber + 1 }))
+        setPageNumber(pageState.pageNumber + 1, pageState, updatePageState);
     };
     const handleEndClick = () => {
-        updatePageState((oldState) => ({ ...oldState, pageNumber: oldState.numberOfFilteredPages }))
+        setPageNumber(pageState.numberOfFilteredPages,pageState,updatePageState);
     };
 
     return (

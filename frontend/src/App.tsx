@@ -54,13 +54,13 @@ export default function App({ testMode }: AppProps): JSX.Element {
   const [appState, setAppState] = React.useState<AppState>(initialAppState);
   const getAppState = () => appState;
   // const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
-  const updateListFilter = (filter?: string) => {
-    if (filter) {
-      setListFilter(appState, filter, setAppState);
-    } else {
-      clearListFilter(appState, setAppState);
-    }
-  }
+  // const updateListFilter = (filter?: string) => {
+  //   if (filter) {
+  //     setListFilter(appState, filter, setAppState);
+  //   } else {
+  //     clearListFilter(appState, setAppState);
+  //   }
+  // }
   const componentDidMount = () => {
     console.log("mounted")
   }

@@ -21,7 +21,7 @@ import { MemberFormRemitGroup } from "./MemberFormRemitGroup";
 import { MemberFormVolGroup } from "./MemberFormVolGroup";
 import { MemberList } from "./MemberList";
 import { MemberListHeader } from "./MemberListHeader";
-import { MemberListContainer,type MemberListContainerState } from "./MemberListContainer";
+import { MemberListContainer} from "./MemberListContainer";
 import { MemberListRow, type MemberListRowProps } from "./MemberListRow";
 import { ModalFM, type ModalFmProps } from "./ModalFM";
 import { NewMember, type NewMemberProps } from "./NewMember";
@@ -68,7 +68,6 @@ export {
   MemberFormVolGroup,
   MemberList,
   MemberListContainer,
-  type MemberListContainerState,
     type MemberListRowProps,
   MemberListHeader,
   MemberListRow,

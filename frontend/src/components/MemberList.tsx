@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from "react";
 import MemberListRow from "./MemberListRow";
-import { type MemberListProps } from "../interfaces";
+import { MemberListFilter, type MemberListProps } from "../interfaces";
 import { MembersListRowFormatter } from "../formatters";
 import useAxios from "axios-hooks";
-import { getServerUrl, isEmptyObject } from "../services";
+import { getServerUrl, isEmptyObject, setNumberOfFilteredPages } from "../services";
 import { IMemberDocument } from "member-document";
-import { MemberListContainerState } from "./MemberListContainer";
+import { MemberListContainerState } from "../interfaces";
 
 interface MemberListData {
   data: IMemberDocument[];
@@ -19,15 +19,22 @@ interface IMemberDataParams {
   filter: string;
 }
 
-const getMemberDataParams = (maxRows: number, pageNumber: number, pageFilter: string) => {
+const getMemberDataParams = (maxRows: number, pageNumber: number, pageFilter: MemberListFilter) => {
   let result: IMemberDataParams = { limit: maxRows } as IMemberDataParams;
+
   if (pageNumber > 1) {
     result = { ...result, page: pageNumber }
   }
-  if (pageFilter !== "") {
+  if (pageFilter.lastName !== "") {
     // pageFilter`lastName:${"/" + pageFilter.toUpperCase() + "/"}"` 
-    const lastNameFilter = "lastName:/^" + pageFilter.toUpperCase() + "/";
-    result = { ...result, filter: lastNameFilter }
+    let lastNameFilter: string;
+    if (pageFilter.lastName instanceof RegExp) {
+
+      lastNameFilter = "lastName:/^" + pageFilter.lastName.toString().replace("/", "").toUpperCase() + "/";
+    } else {
+      lastNameFilter = "lastName:/^" + pageFilter.lastName.toUpperCase() + "/";
+    }
+    result = { ...result, page: 1, filter: lastNameFilter }
   }
   return result;
 }
@@ -53,16 +60,20 @@ export const MemberList = ({ getAppState, setAppState, pageState, updatePageStat
     // eslint-disable-next-line react-hooks/exhaustive-deps
     , [haveFilter]);
 
-  if (loading || pageState.listFilter === undefined) return <p>Loading...</p>
-  if (error) return <p>Error! {error.message}</p>
 
   const members = data?.data;
   const filteredMemberCount = data?.count;
   const filteredPages = filteredMemberCount ? Math.ceil(filteredMemberCount / pageState.maxRows) : 1;
 
-  if (filteredPages !== pageState.numberOfFilteredPages) {
-    updatePageState((oldState: MemberListContainerState) => ({ ...oldState, numberOfFilteredPages: filteredPages }))
-  }
+  React.useEffect(() => {
+    if (filteredPages !== pageState.numberOfFilteredPages) {
+      setNumberOfFilteredPages(filteredPages, pageState, updatePageState)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredPages])
+
+  if (loading || pageState.listFilter === undefined) return <p>Loading...</p>
+  if (error) return <p>Error! {error.message}</p>
 
   if (members) {
     let memberElements;

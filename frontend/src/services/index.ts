@@ -7,8 +7,8 @@ import { MemberService } from "./MemberService";
 import { Status } from "./Status";
 import { isEmptyObject } from "./ObjectUtils";
 import {
-  setListFilter,
-  clearListFilter,
+  // setListFilter,
+  // clearListFilter,
   setMemberId,
   clearMemberId,
   setView,
@@ -22,6 +22,13 @@ import {
   openVerifiedEMailModal,
   openNewMemberOrientationCompletedModal
 } from './AppStateService'
+import { 
+  getInitialState as getInitialMemberContainerState,
+  clearListFilter,
+  setListFilter,
+  setNumberOfFilteredPages,
+  setPageNumber
+} from "./MemberListContainerStateService";
 
 export {
   AppConfig,
@@ -47,5 +54,8 @@ export {
   openReturnedMailModal,
   openReturnedEMailModal,
   openVerifiedEMailModal,
-  openNewMemberOrientationCompletedModal
+  openNewMemberOrientationCompletedModal,
+  getInitialMemberContainerState,
+  setNumberOfFilteredPages,
+  setPageNumber,
 }

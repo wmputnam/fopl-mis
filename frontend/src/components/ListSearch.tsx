@@ -1,5 +1,6 @@
 import React from "react";
-import { MemberListContainerState } from "./MemberListContainer";
+import { MemberListContainerState } from "../interfaces";
+import { setListFilter } from "../services";
 
 export interface ListSearchProps {
   updatePageState: (v?: any) => void;
@@ -26,9 +27,10 @@ export const ListSearch = ({ pageState, updatePageState }: ListSearchProps) => {
 
   function handleSearchClick(e: any) {
     e.preventDefault();
-    if (searchVisible && searchFilterText !== pageState.listFilter) {
+    if (searchVisible && searchFilterText !== pageState.listFilter.lastName) {
       console.log(`ListSearch.tsx: updating page state with listFilter ${searchFilterText}`)
-      updatePageState((oldState: MemberListContainerState) => ({ ...oldState, listFilter: searchFilterText }));
+      setListFilter({ lastName: searchFilterText }, pageState, updatePageState)
+      // updatePageState((oldState: MemberListContainerState) => ({ ...oldState, listFilter: searchFilterText }));
       // toggleViewState();
     } else {
       toggleViewState();

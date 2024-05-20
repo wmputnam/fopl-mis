@@ -1,7 +1,7 @@
-import { IMemberDocument } from "member-document";
-import { MemberViewStates } from ".";
+// import { IMemberDocument } from "member-document";
+// import { MemberViewStates } from ".";
 import { AppState } from "../interfaces";
-import { MemberListContainerState } from "src/components/MemberListContainer";
+import { MemberListContainerState } from "./MemberListContainerState";
 
 export interface RecordIdProps {
   recordId?: string;
@@ -30,19 +30,20 @@ export interface OtherProps {
   mmb?: string;
   joined?: string;
 }
-export type ViewStateProps = {
-  updateViewState: (a: MemberViewStates) => any;
-  getAppState: () => any;
-  mode?: string;
-}
+// export type ViewStateProps = {
+//   updateViewState: (a: MemberViewStates) => any;
+//   getAppState: () => any;
+//   mode?: string;
+// }
+
 export type CurrentMemberProps = {
   updateCurrentMember: (a: string) => any;
 }
 
 
-export interface EditMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps {
-};
-export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps, CurrentMessageProps, AppStateProps { };
+// export interface EditMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps {
+// };
+// export interface ExistingMemberProps extends ViewStateProps, CurrentMemberProps, RecordIdProps, PersonBaseProps, BasicAddressProps, CurrentMessageProps, AppStateProps { };
 export interface AppMessages {
   messages: string[];
 }
@@ -54,12 +55,12 @@ export type AppStateProps = {
   getAppState: () => any;
 }
 
-export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps, Partial<IMemberDocument> {
-  recordId: string;
-  name: string;
-  paidThroughString: string;
-  mode: string;
-};
+// export interface AllMemberProps extends ViewStateProps, CurrentMemberProps, CurrentMessageProps, AppStateProps, Partial<IMemberDocument> {
+//   recordId: string;
+//   name: string;
+//   paidThroughString: string;
+//   mode: string;
+// };
 
 export interface FrontendProps {
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
@@ -75,12 +76,6 @@ export interface MemberListHeaderProps extends FrontendProps {
   updatePageState: React.Dispatch<React.SetStateAction<MemberListContainerState>>;
 
 }
-/*
- getAppState={getAppState}
-        setAppState={setAppState}
-        getSearchFilter={getPageFilter}
-        updatePageState={setPageState}*/
-
 
 export interface MemberListFooterProps extends FrontendProps {
   updatePageState: React.Dispatch<React.SetStateAction<MemberListContainerState>>;

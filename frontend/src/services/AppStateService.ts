@@ -218,7 +218,7 @@ type AppStateAction = ReturnType<
   | typeof openModalForMemberTaskAction
 >;
 
-// dispatch -- returns new state object
+// dispatch -- updates the state object
 const dispatch = (action: AppStateAction) => {
   console.log(`dispatch type:${action.type}`)
   switch (action.type) {
