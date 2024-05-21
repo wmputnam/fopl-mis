@@ -44,7 +44,13 @@ export class MembersRoutes extends CommonRoutesConfig {
       );
     /* jscpd:ignore-end */
 
-    this.app.route('/v1/reports/members/new')
+    this.app.route('/v1/reports/members/mailing')
+      .get(membersController.listMembersForMailingLabelsV1);
+
+    this.app.route('/v1/reports/members/emailing')
+      .get(membersController.listMembersForEmailingV1);
+
+      this.app.route('/v1/reports/members/new')
       .get(membersController.listNewMembersV1)
 
     this.app.param('memberId', membersMiddleware.extractMemberId);

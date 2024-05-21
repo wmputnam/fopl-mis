@@ -1,14 +1,14 @@
 import { CreateMemberDto } from "./create.member.dto.js";
 import { PatchMemberDto } from "./patch.member.dto.js";
 import { PutMemberDto } from "./put.member.dto.js";
-import { 
+import {
   IAddress,
   IMemberDocument,
   INames,
   INotes,
   IRemittance,
   IStatus,
-  IVolunteer 
+  IVolunteer
 } from "member-document";
 import { mongooseService } from "../common/index.js";
 import debug from "debug";
@@ -140,6 +140,22 @@ export class MembersDao {
     log(`count returns ${result}`);
     return result;
   }
+
+  async getMembersForPostalLabelsV1(
+    filter: mongoose.FilterQuery<IMemberDocument>,
+    sort: { lastName: 1, firstName: 1 }
+  ) {
+    // log(`getMembersForPostalLabelsV1 - limit: ${limit}, page: ${page}, sort: ${sort}`)
+
+    const result: IMemberDocument[] = await this.Member.find(filter)
+      .sort(sort)
+      .limit(1000)
+      // .skip(limit * page)
+      .exec();
+    log(`get returns ${result.length}`);
+    return result;
+  }
+
 
   async getMemberById(memberId: string) {
     // log(`getMemberById(${memberId})`)

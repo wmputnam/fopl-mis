@@ -19,7 +19,11 @@ const debugLog: debug.IDebugger = debug("app");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
+app.set('etag', false);
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store')
+  next()
+});
 
 const loggerOptions: expressWinston.LoggerOptions = {
   transports: [new winston.transports.Console()],

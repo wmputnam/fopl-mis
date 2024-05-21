@@ -2,6 +2,9 @@ import express from "express";
 import { membersService } from "../services/index.js";
 import debug from "debug";
 import { type RestErrorBody } from "../common/index.js";
+import { membersDao } from "../members/index.js";
+import mongoose from "mongoose";
+import { IMemberDocument } from "../../../packages/member-document/";
 
 const log: debug.IDebugger = debug('app:members-controller');
 
@@ -40,6 +43,53 @@ export class MembersController {
     res.status(200).send({ data: members, page: page, limit: limit, count: count });
     // jscpd:ignore-end
   }
+
+  async listMembersForMailingLabelsV1(req: express.Request, res: express.Response) {
+    const filter: mongoose.FilterQuery<IMemberDocument> = {
+      isActive: true, newsletterType: 'post'
+    };
+    // jscpd:ignore-start
+    const count = await membersService.countV1(filter);
+
+    const members = await membersDao.getMembersForPostalLabelsV1(
+      filter,
+      { lastName: 1, firstName: 1 });
+
+    const mailingMembers = members.map((m) => ({
+      name: ((m.firstName ? m.firstName + ' ' : '') + m.lastName).toUpperCase(),
+      address: m.address?.toUpperCase(),
+      unit: m.unit?.toUpperCase(),
+      city: m.city?.toUpperCase(),
+      state: m.state,
+      postalCode: m.postalCode,
+      mmb: m.mmb === "BEN" ? "LM" : m.mmb,
+      paidThrough: m.paidThrough?.toISOString().substring(0, 10),
+    }))
+    res.status(200).send({ data: mailingMembers, count: count });
+    // jscpd:ignore-end
+  }
+
+  async listMembersForEmailingV1(req: express.Request, res: express.Response) {
+    const filter: mongoose.FilterQuery<IMemberDocument> = {
+      isActive: true, newsletterType: 'email'
+    };
+    // jscpd:ignore-start
+    const count = await membersService.countV1(filter);
+
+    const members = await membersDao.getMembersForPostalLabelsV1(
+      filter,
+      { lastName: 1, firstName: 1 });
+
+    const mailingMembers = members.map((m) => ({
+      name: ((m.firstName ? m.firstName + ' ' : '') + m.lastName).toUpperCase(),
+      email: m.email?.toUpperCase(),
+      mmb: m.mmb === "BEN" ? "LM" : m.mmb,
+      paidThrough: m.paidThrough?.toISOString().substring(0, 10),
+    }))
+    res.status(200).send({ data: mailingMembers, count: count });
+    // jscpd:ignore-end
+  }
+
 
   async listNewMembersV1(req: express.Request, res: express.Response) {
     const { limit, page, sort, filter } = MembersController.listQueryParams(req, { isActive: true, isNewMember: true });
