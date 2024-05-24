@@ -4,7 +4,7 @@ import debug from "debug";
 import { type RestErrorBody } from "../common/index.js";
 import { membersDao } from "../members/index.js";
 import mongoose from "mongoose";
-import { IMemberDocument } from "../../../packages/member-document/";
+import { IMemberDocument } from "../../../packages/member-document/dist/index.js";
 
 const log: debug.IDebugger = debug('app:members-controller');
 

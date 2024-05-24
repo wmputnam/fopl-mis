@@ -8,6 +8,8 @@ import { CommonRoutesConfig } from "./common/index.js";
 import { MembersRoutes } from "./members/index.js";
 import debug from "debug";
 import { mongooseService } from "./common/index.js";
+import { User } from "./user/index.js"
+import { UserRoutes } from "./user/user.routes.config.js";
 
 
 const app: express.Application = express();
@@ -33,6 +35,9 @@ const loggerOptions: expressWinston.LoggerOptions = {
     winston.format.colorize({ all: true })
     ,)
 };
+
+const user = User.getUser();
+
 if (!process.env.DEBUG) {
   loggerOptions.meta = false;
   if (typeof global.it === 'function') {
@@ -43,6 +48,7 @@ app.use(expressWinston.logger(loggerOptions));
 const m = mongooseService.getMongoose();
 
 routes.push(new MembersRoutes(app));
+routes.push(new UserRoutes(app))
 
 const runningMessage = `Server running on http://localhost:${port}<br>\nMongoose is ${m.connection.readyState}`;
 app.get("/", (req: express.Request, res: express.Response) => {

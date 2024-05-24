@@ -5,6 +5,7 @@
     "src/controllers",
     "src/members",
     "src/services",
+    "src/user",
     "src"
   ],
   "exclude": [
