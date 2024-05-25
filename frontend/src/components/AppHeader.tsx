@@ -1,15 +1,20 @@
 import React from "react";
 // import { ListSearch } from "./ListSearch";
 import { NewMemberReport } from "./NewMemberReport";
+import { UserInfo } from "./UserInfo";
+import { IUserInfo } from "src/interfaces";
+// import { IUserInfo } from "src/interfaces";
 
 export interface AppHeaderProps {
   messages: string[];
+  userInfo: IUserInfo | undefined;
+  updateLogin: () => void;
   // showListSearch: boolean;
   // updateListFilter: (v?: string) => void;
   // getListFilter: () => string;
 }
 
-export const AppHeader = ({ messages /*, showListSearch, getListFilter, updateListFilter */}: AppHeaderProps) => {
+export const AppHeader = ({ messages, userInfo, updateLogin /*, showListSearch, getListFilter, updateListFilter */ }: AppHeaderProps) => {
 
   let messageElements;
   if (messages) {
@@ -20,6 +25,7 @@ export const AppHeader = ({ messages /*, showListSearch, getListFilter, updateLi
     });
   }
 
+  console.log(`AppHeader: returning JSX`)
   return (
     <>
       <div className="app-header" data-testid="app-header" role="menubar">
@@ -44,9 +50,13 @@ export const AppHeader = ({ messages /*, showListSearch, getListFilter, updateLi
         <div className="app-header--right" data-testid="app-header--right">
           <div className="app-header--right-container" data-testid="app-header--right-container" />
           {/* { false && showListSearch && <ListSearch */}
-            {/* getSearchFilter={getListFilter()} */}
-            {/* updateSearchFilter={updateListFilter} />} */}
-          {<NewMemberReport /> /* TODO make this a reports downdown menu*/}
+          {/* getSearchFilter={getListFilter()} */}
+          {/* updateSearchFilter={updateListFilter} />} */}
+          <UserInfo
+            userInfo={userInfo}
+            updateLogin={updateLogin}
+          />
+          {userInfo?.status && <NewMemberReport /> /* TODO make this a reports downdown menu*/}
         </div>
       </div>
 

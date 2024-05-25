@@ -1,9 +1,13 @@
-import { MemberViewStates } from '.';
+import { IUserInfo, MemberViewStates } from '.';
+
+export type AppActionType = 'nothing pending' | 'login pending' | 'logout pending';
+
+
 export interface AppState {
-  memberId: string;
-  // viewState: MemberViewStates;
   viewStateStack: MemberViewStates[];
-  // listViewFilter?: string;
+  userInfo:IUserInfo|undefined;
+  pendingAction: AppActionType;
+  memberId: string;
   modalIsOpen: boolean;
   modalMessage: string;
   modalAction: (s: string) => any;

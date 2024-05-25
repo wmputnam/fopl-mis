@@ -11,12 +11,12 @@ const fn = () => `${__filename.split('/').pop()}`;
 describe(`${fn()}: reduceMemberFullName`, function () {
 
   it('should return a fullname when given a firstName and lastName (no names array)', function () {
-    const result = MembersListRowFormatter.getMemberFullNameForListRow({ lastName: 'Smith', firstName: 'Chuck' });
+    const result = MembersListRowFormatter.formatMemberFullNameForListRow({ lastName: 'Smith', firstName: 'Chuck' });
     expect(result).to.be.equal('Chuck Smith');
   });
 
   it('should return a fullname using names array when given a firstName and lastName plus a names array)', function () {
-    const result = MembersListRowFormatter.getMemberFullNameForListRow({
+    const result = MembersListRowFormatter.formatMemberFullNameForListRow({
       lastName: 'Smith', firstName: 'Chuck', names: [
         { firstName: 'Betty', lastName: 'Boop' }, { firstName: 'Foghorn', lastName: 'Leghorn' }
       ]
@@ -25,7 +25,7 @@ describe(`${fn()}: reduceMemberFullName`, function () {
   })
 
   it('should return "" when given no firstName and no lastName and no names array)', function () {
-    const result = MembersListRowFormatter.getMemberFullNameForListRow({});
+    const result = MembersListRowFormatter.formatMemberFullNameForListRow({});
     expect(result).to.be.equal('');
   })
 
@@ -34,7 +34,7 @@ describe(`${fn()}: reduceMemberFullName`, function () {
 describe(`${fn()}: reduceAddressForMemberList`, function () {
 
   it('should return a one line address when given address, unit, city, state, and postalcode', function () {
-    const result = MembersListRowFormatter.getAddressForMemberList({
+    const result = MembersListRowFormatter.formatAddressForMemberList({
       address: '100 Fairgrounds Dr',
       unit: 'Friends of the Library',
       city: 'Petaluma',
@@ -53,7 +53,7 @@ describe(`${fn()}: reduceAddressForMemberList`, function () {
 describe(`${fn()}: reducePaidThroughForMemberList`, function () {
 
   it('should return "---" when member mmb is LM', function () {
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -63,7 +63,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
   });
 
   it('should return "---" when member mmb is HLM', function () {
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       mmb: 'HLM',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -73,7 +73,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
   });
 
   it('should return "---" when member mmb is BEN', function () {
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       mmb: 'BEN',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -83,7 +83,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
   });
 
   it('should return "---" when member mmb is VOL', function () {
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       mmb: 'VOL',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -93,7 +93,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
   });
 
   it('should return "undefined" when member mmb is not one of [LM,HLM,BEN,VOL] and paidThrough is undefined', function () {
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       firstName: 'Billy',
       lastName: 'Budd'
     });
@@ -103,7 +103,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
 
   it('should return first 10 chars of ISO date when member mmb is not one of [LM,HLM,BEN,VOL] and paidThrough is a Date', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       paidThrough: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
@@ -117,7 +117,7 @@ describe(`${fn()}: reducePaidThroughForMemberList`, function () {
 
   it('should return first 10 chars of provided date string when member mmb is not one of [LM,HLM,BEN,VOL] and paidThrough is a string', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reducePaidThroughForMemberList({
+    const result = MembersListRowFormatter.formatPaidThroughForMemberList({
       paidThrough: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
@@ -135,7 +135,7 @@ describe(`${fn()}: reduceJoinedForMemberList`, function () {
 
   it('should return "undefined" when member joined is not provided', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceJoinedForMemberList({
+    const result = MembersListRowFormatter.formatJoinedForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -147,7 +147,7 @@ describe(`${fn()}: reduceJoinedForMemberList`, function () {
 
   it('should return first 10 chars of ISO date when member joined is a Date', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceJoinedForMemberList({
+    const result = MembersListRowFormatter.formatJoinedForMemberList({
       joined: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
@@ -160,7 +160,7 @@ describe(`${fn()}: reduceJoinedForMemberList`, function () {
 
   it('should return first 10 chars of provided date string when joined is a string', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceJoinedForMemberList({
+    const result = MembersListRowFormatter.formatJoinedForMemberList({
       joined: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
@@ -178,7 +178,7 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
 
   it('should return "undefined" when member lastUpdated is not provided', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceLastUpdatedForMemberList({
+    const result = MembersListRowFormatter.formatLastUpdatedForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd'
@@ -190,7 +190,7 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
 
   it('should return first 10 chars of ISO date when member lastUpdated is a Date', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceLastUpdatedForMemberList({
+    const result = MembersListRowFormatter.formatLastUpdatedForMemberList({
       lastUpdated: new Date(),
       firstName: 'Billy',
       lastName: 'Budd'
@@ -204,7 +204,7 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
 
   it('should return first 10 chars of provided date string when lastUpdated is a string', function () {
     // jscpd:ignore-start
-    const result = MembersListRowFormatter.reduceLastUpdatedForMemberList({
+    const result = MembersListRowFormatter.formatLastUpdatedForMemberList({
       lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd'
@@ -219,7 +219,7 @@ describe(`${fn()}: reduceLastUpdatedForMemberList`, function () {
 describe(`${fn()}: reducePhoneForMemberList`, function () {
 
   it('should return provided number when it has format AC-PRE-LINE', function () {
-    const result = MembersListRowFormatter.reducePhoneForMemberList({
+    const result = MembersListRowFormatter.formatPhoneForMemberList({
       mmb: 'LM',
       firstName: 'Billy',
       lastName: 'Budd',
@@ -229,7 +229,7 @@ describe(`${fn()}: reducePhoneForMemberList`, function () {
   });
 
   it('should return provided phone when given AC-PRE-LINE and then cruft', function () {
-    const result = MembersListRowFormatter.reducePhoneForMemberList({
+    const result = MembersListRowFormatter.formatPhoneForMemberList({
       lastUpdated: new Date(),
       firstName: 'Billy',
       lastName: 'Budd',
@@ -239,7 +239,7 @@ describe(`${fn()}: reducePhoneForMemberList`, function () {
   });
 
   it('should return provided phone when given +1 AC-PRE-LINE', function () {
-    const result = MembersListRowFormatter.reducePhoneForMemberList({
+    const result = MembersListRowFormatter.formatPhoneForMemberList({
       lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd',
@@ -249,7 +249,7 @@ describe(`${fn()}: reducePhoneForMemberList`, function () {
   });
 
   it('should return provided phone when given PRE-LINE', function () {
-    const result = MembersListRowFormatter.reducePhoneForMemberList({
+    const result = MembersListRowFormatter.formatPhoneForMemberList({
       lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd',
@@ -259,7 +259,7 @@ describe(`${fn()}: reducePhoneForMemberList`, function () {
   });
 
   it('should return provided phone when phone is outide US', function () {
-    const result = MembersListRowFormatter.reducePhoneForMemberList({
+    const result = MembersListRowFormatter.formatPhoneForMemberList({
       lastUpdated: '2023-04-01T13:31:22.999Z' as unknown as Date,
       firstName: 'Billy',
       lastName: 'Budd',

@@ -14,42 +14,42 @@ export type MemberListRowMenuProps = {
   recordId: string;
   mmb: string;
   name: string;
-  getAppState: () => any;
+  appState: AppState;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
 }
 
 
-export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppState }: MemberListRowMenuProps) => {
+export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, appState }: MemberListRowMenuProps) => {
 
   const debugName = `${name}:${recordId}`;
 
   const handleEditClick = (): any => {
     console.log(`edit member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushViewWithMemberId(getAppState(), MemberViewStates.edit, recordId, setAppState);
+    pushViewWithMemberId(appState, MemberViewStates.edit, recordId, setAppState);
   }
 
   const handleRenewClick = (): any => {
     console.log(`renew ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushViewWithMemberId(getAppState(), MemberViewStates.renew, recordId, setAppState);
+    pushViewWithMemberId(appState, MemberViewStates.renew, recordId, setAppState);
   }
 
   const handleMoneyClick = (): any => {
     console.log(`view remittances for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushViewWithMemberId(getAppState(), MemberViewStates.money, recordId, setAppState);
+    pushViewWithMemberId(appState, MemberViewStates.money, recordId, setAppState);
   }
   const handleNotesClick = (): any => {
     console.log(`view notes for ${debugName}`);
     MemberService.saveMemberId(recordId);
-    pushViewWithMemberId(getAppState(), MemberViewStates.notes, recordId, setAppState);
+    pushViewWithMemberId(appState, MemberViewStates.notes, recordId, setAppState);
   }
 
   const handleDropClick = (): any => {
     console.log(`drop ${debugName}`);
     MemberService.saveMemberId(recordId);
-    openDeactivateMemberModal(getAppState(), recordId, `Drop '${name}'?`, setAppState);
+    openDeactivateMemberModal(appState, recordId, `Drop '${name}'?`, setAppState);
   }
 
   // const deactivateMember = async () => {
@@ -60,7 +60,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleReturnedMailClick = (): any => {
     console.log(`returned mail without forwarding address for  ${debugName}`);
     MemberService.saveMemberId(recordId);
-    openReturnedMailModal(getAppState(), recordId, `Returned mail without forwarding address for ${name}?`, setAppState);
+    openReturnedMailModal(appState, recordId, `Returned mail without forwarding address for ${name}?`, setAppState);
   }
 
   // const setReturnedMailStatus = async () => {
@@ -71,7 +71,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleReturnedEmailClick = (): any => {
     console.log(`bounced email member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    openReturnedEMailModal(getAppState(), recordId, `Bounced email for ${name}?`,setAppState);
+    openReturnedEMailModal(appState, recordId, `Bounced email for ${name}?`, setAppState);
   }
 
   // const setBouncedEmailStatus = async () => {
@@ -82,7 +82,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleVerifiedEmailClick = (): any => {
     console.log(`bounced email member ${debugName}`);
     MemberService.saveMemberId(recordId);
-    openVerifiedEMailModal(getAppState(), recordId, `Verify email for ${name}?`,setAppState);
+    openVerifiedEMailModal(appState, recordId, `Verify email for ${name}?`, setAppState);
   }
 
   // const setVerifiedEmailStatus = async () => {
@@ -93,7 +93,7 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
   const handleNewMemberOrientedClick = (): any => {
     console.log(`member orientation ${debugName}`);
     MemberService.saveMemberId(recordId);
-    openNewMemberOrientationCompletedModal(getAppState(), recordId, `Has ${name} completed orientation?`,setAppState);
+    openNewMemberOrientationCompletedModal(appState, recordId, `Has ${name} completed orientation?`, setAppState);
   }
 
   // const setNewMemberOrientedStatus = async () => {
@@ -105,22 +105,23 @@ export const MemberListRowMenu = ({ recordId, mmb, name, setAppState, getAppStat
     <div className="member-row--menu" data-testid="member-row--menu">
       <button className="dropbtn list-row-button" data-testid="dropbtn">⋮</button>
       <div className="dropdown-content" data-testid="dropdown-content">
-        <div className="member-row--menu-edit" data-testid="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit member</div>
-        <div className="member-row--menu-renewal" data-testid="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>
-          {MemberService.isLifeMember(mmb) ? "Process donation" : "Renew member"}</div>
-        {MemberService.isVolunteer(mmb) && <div className="member-row--menu-signup" data-testid="member-row--menu-signup" onClick={() => handleRenewClick()}>
+        {appState.userInfo?.status &&
+          <div className="member-row--menu-edit" data-testid="member-row--menu-edit" member-id={recordId} onClick={() => handleEditClick()}>Edit member</div>}
+        {appState.userInfo?.status && <div className="member-row--menu-renewal" data-testid="member-row--menu-renewal" member-id={recordId} onClick={() => handleRenewClick()}>
+          {MemberService.isLifeMember(mmb) ? "Process donation" : "Renew member"}</div>}
+        {appState.userInfo?.status && MemberService.isVolunteer(mmb) && <div className="member-row--menu-signup" data-testid="member-row--menu-signup" onClick={() => handleRenewClick()}>
           VOL to MEMBER</div>}
-        {<div className="member-row--menu-money" data-testid="member-row--menu-money" onClick={() => handleMoneyClick()}>View remittances</div>}
+        {appState.userInfo?.status && <div className="member-row--menu-money" data-testid="member-row--menu-money" onClick={() => handleMoneyClick()}>View remittances</div>}
         {<div className="member-row--menu-notes" data-testid="member-row--menu-notes" onClick={() => handleNotesClick()}>View notes</div>}
-        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-drop" data-testid="member-row--menu-drop" onClick={() => handleDropClick()}>
+        {appState.userInfo?.status && !MemberService.isDroppedMember(mmb) && <div className="member-row--menu-drop" data-testid="member-row--menu-drop" onClick={() => handleDropClick()}>
           Drop member</div>}
-        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-returned-mail" data-testid="member-row--menu-returned-mail" onClick={() => handleReturnedMailClick()}>
+        {appState.userInfo?.status && !MemberService.isDroppedMember(mmb) && <div className="member-row--menu-returned-mail" data-testid="member-row--menu-returned-mail" onClick={() => handleReturnedMailClick()}>
           Returned mail</div>}
-        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-bounce" data-testid="member-row--email-bounce" onClick={() => handleReturnedEmailClick()}>
+        {appState.userInfo?.status && !MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-bounce" data-testid="member-row--email-bounce" onClick={() => handleReturnedEmailClick()}>
           Bounced email</div>}
-        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-verify" data-testid="member-row--email-verify" onClick={() => handleVerifiedEmailClick()}>
+        {appState.userInfo?.status && !MemberService.isDroppedMember(mmb) && <div className="member-row--menu-email-verify" data-testid="member-row--email-verify" onClick={() => handleVerifiedEmailClick()}>
           Verify email</div>}
-        {!MemberService.isDroppedMember(mmb) && <div className="member-row--menu-new-mbr" data-testid="member-row--new-mbr" onClick={() => handleNewMemberOrientedClick()}>
+        {appState.userInfo?.status && !MemberService.isDroppedMember(mmb) && <div className="member-row--menu-new-mbr" data-testid="member-row--new-mbr" onClick={() => handleNewMemberOrientedClick()}>
           Orientation completed</div>}
       </div>
     </div>

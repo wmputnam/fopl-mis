@@ -8,7 +8,7 @@ interface ParsedPhone {
   phOther: string;
 };
 export class MembersListRowFormatter {
-  static getMemberFullNameForListRow(m: Partial<IMemberDocument>): string {
+  static formatMemberFullNameForListRow(m: Partial<IMemberDocument>): string {
     let fullname = "";
     /** precedence rule for this (poorly designed) interface
      * if there is a names:Array<{lastName:string,firstName:string}>
@@ -33,10 +33,10 @@ export class MembersListRowFormatter {
         fullname = "UNKNOWN"
       }
     }
-    return fullname;
+    return fullname.toUpperCase();
   }
 
-  static getAddressForMemberList(m: Partial<IMemberDocument>): string {
+  static formatAddressForMemberList(m: Partial<IMemberDocument>): string {
     let reducer_address: string;
     let reducer_unit: string;
     let reducer_city: string;
@@ -61,10 +61,29 @@ export class MembersListRowFormatter {
     } else {
       reducer_zip = " " + m.postalCode.substring(0, 5);
     }
-    return reducer_address + reducer_unit + reducer_city + reducer_zip;
+    return (reducer_address + reducer_unit + reducer_city + reducer_zip).toUpperCase();
   }
 
-  static reducePaidThroughForMemberList(m: Partial<IMemberDocument>): string {
+  static formatEmailForMemberList(m: Partial<IMemberDocument>): string {
+    let reducer_email: string;
+    if (m?.email === undefined || m.email === "") {
+      return "";
+    } else {
+      reducer_email = m.email.toUpperCase();
+    }
+    return reducer_email;
+  }
+
+  static formatMmbForMemberList(m: Partial<IMemberDocument>): string {
+    if (m?.mmb === undefined || m.mmb === "") {
+      return "";
+    } else if( m.mmb.substring(0,3) === "BEN") {
+      return "LM" } else {
+      return m.mmb.toUpperCase();
+    }
+  }
+
+  static formatPaidThroughForMemberList(m: Partial<IMemberDocument>): string {
     const lifeMembershipCodes = ["LM", "HLM", "BEN"];
     const volunteerCodes = ["VOL"];
     const allNopayCodes = lifeMembershipCodes.concat(volunteerCodes);
@@ -85,7 +104,7 @@ export class MembersListRowFormatter {
     }
   }
 
-  static reduceJoinedForMemberList(m: Partial<IMemberDocument>): string {
+  static formatJoinedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.joined !== undefined) {
       let computedType: string = ({}).toString.call(m.joined).toLowerCase();
       // console.log(`fe-members-reducers.reduceJoiedForMemberList: computed type is ${computedType}`);
@@ -101,7 +120,7 @@ export class MembersListRowFormatter {
     }
   }
 
-  static reduceLastUpdatedForMemberList(m: Partial<IMemberDocument>): string {
+  static formatLastUpdatedForMemberList(m: Partial<IMemberDocument>): string {
     if (m?.lastUpdated !== undefined) {
       let computedType: string = ({}).toString.call(m.lastUpdated).toLowerCase();
       // console.log(`fe-members-reducers.reduceUpdatedForMemberList: computed type is ${computedType}`);
@@ -117,7 +136,7 @@ export class MembersListRowFormatter {
     }
   }
 
-  static reducePhoneForMemberList(m: Partial<IMemberDocument>): string {
+  static formatPhoneForMemberList(m: Partial<IMemberDocument>): string {
     let displayPhone = "undefined";
     if (m?.phone !== undefined) {
       displayPhone = "";

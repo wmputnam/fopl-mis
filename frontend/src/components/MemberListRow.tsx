@@ -40,7 +40,7 @@ export const MemberListRow = ({ recordId, name, address, phone, email, paidThrou
                     recordId={recordId}
                     mmb={mmb}
                     name={name}
-                    getAppState={getAppState}
+                    appState={getAppState()}
                     setAppState={setAppState}
                 /></div>
 

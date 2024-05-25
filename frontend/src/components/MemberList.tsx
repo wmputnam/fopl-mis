@@ -55,7 +55,7 @@ export const MemberList = ({ getAppState, setAppState, pageState, updatePageStat
 
 
   React.useEffect(() => {
-    console.log(`MemberList: filter is "${pageState.listFilter}"`);
+    console.log(`MemberList: filter is "${JSON.stringify(pageState.listFilter)}"`);
   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     , [haveFilter]);
@@ -82,12 +82,12 @@ export const MemberList = ({ getAppState, setAppState, pageState, updatePageStat
         <MemberListRow
           key={m._id}
           recordId={m?._id ? m._id : ""}
-          name={MembersListRowFormatter.getMemberFullNameForListRow(m)}
-          address={MembersListRowFormatter.getAddressForMemberList(m)}
-          phone={m.phone !== undefined ? MembersListRowFormatter.reducePhoneForMemberList(m) : ""}
-          email={m.email !== undefined ? m.email : ""}
-          paidThrough={MembersListRowFormatter.reducePaidThroughForMemberList(m)}
-          mmb={m.mmb ? m.mmb : "VOL"}
+          name={MembersListRowFormatter.formatMemberFullNameForListRow(m)}
+          address={MembersListRowFormatter.formatAddressForMemberList(m)}
+          phone={m.phone !== undefined ? MembersListRowFormatter.formatPhoneForMemberList(m) : ""}
+          email={m.email !== undefined ? MembersListRowFormatter.formatEmailForMemberList(m) : ""}
+          paidThrough={MembersListRowFormatter.formatPaidThroughForMemberList(m)}
+          mmb={m.mmb ? MembersListRowFormatter.formatMmbForMemberList(m) : "VOL"}
           getAppState={getAppState}
           setAppState={setAppState}
         />

@@ -1,5 +1,5 @@
 import { getServerUrl, AppConfig } from "./AppConfig";
-import { getInitialViewState, getTestViewState } from "./AppStateService";
+import { } from "./AppStateService";
 // import { Member } from "fe-member";
 import { MemberDocumentService } from "./MemberDocumentService";
 import { MemberRowData } from "./MemberRowData";
@@ -20,15 +20,22 @@ import {
   openReturnedMailModal,
   openReturnedEMailModal,
   openVerifiedEMailModal,
-  openNewMemberOrientationCompletedModal
+  openNewMemberOrientationCompletedModal,
+  getInitialViewState,
+  getTestViewState,
+  clearPending,
+  setLoginPending,
+  setLogoutPending,
 } from './AppStateService'
-import { 
+
+import {
   getInitialState as getInitialMemberContainerState,
   clearListFilter,
   setListFilter,
   setNumberOfFilteredPages,
-  setPageNumber
+  setPageNumber,
 } from "./MemberListContainerStateService";
+import { login, logout, getUserInfo } from "./UserLoginService";
 
 export {
   AppConfig,
@@ -58,4 +65,11 @@ export {
   getInitialMemberContainerState,
   setNumberOfFilteredPages,
   setPageNumber,
+  login,
+  logout,
+  getUserInfo,
+  clearPending,
+  setLoginPending,
+  setLogoutPending,
+
 }

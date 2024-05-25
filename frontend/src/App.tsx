@@ -20,6 +20,7 @@ import {
   VolunteerRoleMultiselect,
   StateDropdown
 } from "./components";
+
 import {
   MemberService,
   getInitialViewState,
@@ -31,11 +32,24 @@ import {
   setView,
   pushView,
   popView,
+  getUserInfo,
+  getServerUrl,
+  clearPending,
+  setLoginPending,
+  setLogoutPending,
+  login,
+  logout
 } from "./services";
-import { AppState, MemberViewStates, onRenderCallback } from "./interfaces";
-// import MemberListContainer from './components/MemberListContainer';
+
+import { AppState, IUserInfo, MemberViewStates, AppActionType, onRenderCallback } from "./interfaces";
+import { UserInfoProps } from './components/UserInfo';
+import { updateUserInfo } from './services/AppStateService';
+// import {  } from './services/AppStateService';
 
 function noOp() { };
+
+
+
 
 
 // ***
@@ -53,25 +67,81 @@ export default function App({ testMode }: AppProps): JSX.Element {
   }
   const [appState, setAppState] = React.useState<AppState>(initialAppState);
   const getAppState = () => appState;
-  // const getListFilter = () => appState.listViewFilter ? appState.listViewFilter : "";
-  // const updateListFilter = (filter?: string) => {
-  //   if (filter) {
-  //     setListFilter(appState, filter, setAppState);
-  //   } else {
-  //     clearListFilter(appState, setAppState);
-  //   }
-  // }
+
   const componentDidMount = () => {
     console.log("mounted")
   }
 
+  // const [userInfo, setUserInfo] = React.useState<IUserInfo>({ status: undefined, message: "" });
+
+  function updateLogin() {
+    if (appState.userInfo !== undefined && appState.userInfo.status !== undefined) {
+      if (appState.userInfo.status) {
+        setLogoutPending(appState, setAppState);
+      } else {
+        setLoginPending(appState, setAppState);
+      }
+    }
+  }
+
   React.useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+
+        const response = await getUserInfo(getServerUrl()); //fetch(`https://swapi.dev/api/people/${props.id}/`);
+        // const newData = await response.json();
+        console.log(`userInfo: got ${JSON.stringify(response)} from getUserInfo()`)
+        updateUserInfo(response, appState, setAppState);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (appState.userInfo === undefined || appState.userInfo.status === undefined)
+      fetchUserInfo();
+  })
+
+  React.useEffect(() => {
+    const doLogin = async () => {
+      try {
+        const response = await login(getServerUrl(), {});
+        updateUserInfo({ status: true, message: "logged in" }, appState, setAppState);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    const doLogout = async () => {
+      try {
+        const response = await logout(getServerUrl(), {});
+        updateUserInfo({ status: false, message: "logged out" }, appState, setAppState);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     console.log(`feapp: is mounted\n    ${JSON.stringify(appState)}`);
+    if (appState.pendingAction === 'login pending') {
+      console.log(`logging in`);
+      doLogin();
+      console.log(`clearing pending action`);
+      clearPending(appState, setAppState);
+    }
+    else if (appState.pendingAction === 'logout pending') {
+      console.log(`logging out`);
+      doLogout();
+      console.log(`clearing pending action`);
+      clearPending(appState, setAppState);
+    }
     return (() => console.log(`feapp2: will unmount\n    ${JSON.stringify(appState)}`))
   },
     [appState]);
 
-  const [appMessages, setAppMessages] = React.useState<string[]>(["Hello!"]);
+  // React.useEffect(() => {
+  //   setAppMessages([userInfo.message])
+  // }, [userInfo]);
+
+  // const userMsg = `${userInfo.status !== undefined ? userInfo.message : "---"}`
+  const [appMessages, setAppMessages] = React.useState<string[]>([]);
 
   Modal.setAppElement(document.getElementById('root') as HTMLElement);
 
@@ -87,7 +157,7 @@ export default function App({ testMode }: AppProps): JSX.Element {
           <MemberListContainer
             setAppState={setAppState}
             getAppState={getAppState}
-            // getListFilter={getListFilter}
+          // getListFilter={getListFilter}
           />
         </Profiler>
       break;
@@ -168,10 +238,9 @@ export default function App({ testMode }: AppProps): JSX.Element {
       <header>
         <AppHeader
           messages={appMessages}
-          // showListSearch={appState.viewStateStack[0] === MemberViewStates.list}
-          // updateListFilter={updateListFilter}
-          // getListFilter={getListFilter} 
-          />
+          userInfo={appState.userInfo}
+          updateLogin={updateLogin}
+        />
       </header>
       <main>
         <ModalFM
@@ -183,10 +252,10 @@ export default function App({ testMode }: AppProps): JSX.Element {
         {component}
       </main>
       <footer>
-        <button
+        {appState?.userInfo?.status && <button
           className='playground basic-button'
           onClick={openPlayground}>
-          Playground</button>
+          Playground</button>}
       </footer>
     </div>
   );

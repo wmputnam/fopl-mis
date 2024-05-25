@@ -1,4 +1,4 @@
-import { type AppState } from "./AppState";
+import { type AppState, type AppActionType } from "./AppState";
 import { type IDuesRates } from "./DuesRates";
 import { VolunteerPreferences } from "./enums";
 import { type FrontendProps, type MemberListProps, type MemberListContainerProps, type MemberListFooterProps } from "./MemberProps";
@@ -7,6 +7,7 @@ import { MemberViewStates } from "./MemberViewStates";
 import { type MemberListContainerState } from "./MemberListContainerState";
 import { type MemberListFilter } from "./MemberListFilter";
 import { onRenderCallback, type RenderCallBackI } from "./OnRenderCallback";
+import { type IUserInfo } from "./IUserInfo";
 
 
 export type {
@@ -18,11 +19,13 @@ export type {
   MemberListContainerProps,
   MemberListFooterProps,
   MemberListContainerState,
-  MemberListFilter
+  MemberListFilter,
+  IUserInfo
 };
 export {
   AppState,
+  AppActionType,
   MemberViewStates,
   VolunteerPreferences,
-  onRenderCallback
+  onRenderCallback,
 };

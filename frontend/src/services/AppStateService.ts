@@ -1,13 +1,13 @@
 
-import { AppState, MemberViewStates } from '../interfaces'
+import { AppState, IUserInfo, MemberViewStates } from '../interfaces'
 import { MemberService } from './MemberService';
 
 export const getInitialViewState = (): AppState => (
   {
-    memberId: "",
-    // viewState: MemberViewStates.list,
     viewStateStack: [MemberViewStates.list],
-    // listViewFilter: "",
+    userInfo: undefined,
+    pendingAction: 'nothing pending',
+    memberId: "",
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
@@ -16,10 +16,10 @@ export const getInitialViewState = (): AppState => (
 
 export const getTestViewState = (): AppState => (
   {
-    memberId: "",
-    // viewState: MemberViewStates.test,
     viewStateStack: [MemberViewStates.test],
-    // listViewFilter: "",
+    userInfo: undefined,
+    pendingAction: 'nothing pending',
+    memberId: "",
     modalIsOpen: false,
     modalMessage: "",
     modalAction: () => { },
@@ -142,6 +142,43 @@ export const clearMemberAndPopViewAction = (oldState: AppState, setAppState: Rea
 export const clearMemberAndPopView = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
   dispatch(clearMemberAndPopViewAction(oldState, setAppState));
 
+// clearPending App Action
+export const clearPendingAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+  {
+    type: "CLEAR_PENDING",
+    state: oldState,
+    setter: setAppState,
+  } as const
+);
+
+export const clearPending = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
+  dispatch(clearPendingAction(oldState, setAppState));
+
+// setLoginPending App Action
+export const setLoginPendingAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+  {
+    type: "LOGIN_PENDING",
+    state: oldState,
+    setter: setAppState,
+  } as const
+);
+
+export const setLoginPending = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
+  dispatch(setLoginPendingAction(oldState, setAppState));
+
+
+// setLogoutPending App Action
+export const setLogoutPendingAction = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+  {
+    type: "LOGOUT_PENDING",
+    state: oldState,
+    setter: setAppState,
+  } as const
+);
+
+export const setLogoutPending = (oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
+  dispatch(setLogoutPendingAction(oldState, setAppState));
+
 // openModal
 export const openModalForMemberTaskAction = (
   oldState: AppState,
@@ -158,6 +195,19 @@ export const openModalForMemberTaskAction = (
     modalMessage: modal_message
   } as const
 );
+
+// "UPDATE_USER_INFO"
+export const updateUserInfoAction = (userInfo: IUserInfo, oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) => (
+  {
+    type: "UPDATE_USER_INFO",
+    state: oldState,
+    setter: setAppState,
+    userInfo
+  } as const
+);
+
+export const updateUserInfo = (userInfo: IUserInfo, oldState: AppState, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
+  dispatch(updateUserInfoAction(userInfo, oldState, setAppState));
 
 export const openDeactivateMemberModal = (oldState: AppState, member_id: string, modal_message: string, setAppState: React.Dispatch<React.SetStateAction<AppState>>) =>
   dispatch(
@@ -216,6 +266,10 @@ type AppStateAction = ReturnType<
   | typeof popViewAction
   | typeof clearMemberAndPopViewAction
   | typeof openModalForMemberTaskAction
+  | typeof clearPendingAction
+  | typeof setLoginPendingAction
+  | typeof setLogoutPendingAction
+  | typeof updateUserInfoAction
 >;
 
 // dispatch -- updates the state object
@@ -223,7 +277,6 @@ const dispatch = (action: AppStateAction) => {
   console.log(`dispatch type:${action.type}`)
   switch (action.type) {
     case "UPDATE_LIST_FILTER":
-      console.log(`setting member list filter to ${action.newFilter}`)
       action.setter((oldState: any) => ({
         ...oldState,
         viewListFilter: action.newFilter
@@ -285,7 +338,6 @@ const dispatch = (action: AppStateAction) => {
       break;
     }
     case "OPEN_MODAL_FOR_MEMBER_TASK": {
-      // MemberService.saveMemberId(action.memberId);
       action.setter((oldState: AppState) => ({
         ...oldState,
         memberId: action.memberId,
@@ -295,6 +347,30 @@ const dispatch = (action: AppStateAction) => {
       }));
       break;
     }
+    case 'CLEAR_PENDING':
+      action.setter((oldState: AppState) => ({
+        ...oldState,
+        pendingAction: 'nothing pending',
+      }));
+      break;
+    case "LOGIN_PENDING":
+      action.setter((oldState: AppState) => ({
+        ...oldState,
+        pendingAction: 'login pending',
+      }));
+      break;
+    case "LOGOUT_PENDING":
+      action.setter((oldState: AppState) => ({
+        ...oldState,
+        pendingAction: 'logout pending',
+      }));
+      break;
+    case "UPDATE_USER_INFO":
+      action.setter((oldState: AppState) => ({
+        ...oldState,
+        userInfo: action.userInfo,
+      }));
+      break;
     default:
       break;
 

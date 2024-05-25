@@ -852,3 +852,9 @@ input[type='email'] {
 .list-footer-row-spacer {
   min-width: 10em;
 }
+
+.user-info-btn {
+  background: #f7efe4;
+  border-style: none;
+  color: #f5d7ad;
+}
